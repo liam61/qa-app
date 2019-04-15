@@ -1,8 +1,8 @@
 const { main, name, author } = require('../package.json')
 
-const outputDir = 'dist'
+const entryDir = main.split('/')[0]
 
-const entryDir = 'src'
+const outputDir = 'dist'
 
 // 必要参数
 const baseOptions = {

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { Button } from 'antd-mobile'
 
 import './styles'
 
@@ -33,6 +34,7 @@ class Hello extends PureComponent {
           {count}
         </button>
         <div className="ruiwen">this is ruiwen</div>
+        <Button type='primary'>这是 antd 按钮</Button>
       </div>
     )
   }

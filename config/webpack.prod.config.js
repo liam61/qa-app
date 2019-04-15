@@ -13,7 +13,7 @@ function getProdConfig(opts) {
       new ParallelUglifyPlugin({
         sourceMap: true,
         workerCount: 4, // 开启几个子进程去并发的执行压缩
-        uglifyJS: {
+        uglifyES: {
           output: {
             beautify: false, // 不需要格式化
             comments: false // 保留注释
