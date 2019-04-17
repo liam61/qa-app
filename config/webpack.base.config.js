@@ -187,7 +187,8 @@ module.exports = ({
       extensions: ['.js', '.jsx', '.css', '.less', 'scss'],
       modules: [resolve(entryDir), resolve('node_modules')],
       alias: {
-        '@': resolve(entryDir)
+        '@': resolve(entryDir),
+        mobx: resolve('node_modules/mobx/lib/mobx.es6.js')
       }
     },
     optimization: {

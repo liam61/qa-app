@@ -6,6 +6,8 @@
 		"node": true
 	},
 	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
 		"airbnb",
 		"prettier"
 	],
@@ -32,10 +34,34 @@
 			"error",
 			"never"
 		],
+		"comma-dangle": [
+			"error",
+			"always-multiline",
+			{
+				"functions": "ignore"
+			}
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"no-unused-vars": [
+			2,
+			{
+				"args": "after-used"
+			}
+		],
 		"no-console": "off",
-		"react/jsx-filename-extension": [1, {
-			"extensions": [".js", ".jsx"]
-		}],
-		"import/no-unresolved": 0
+		"consistent-return": "off",
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [
+					".js",
+					".jsx"
+				]
+			}
+		],
+		"import/no-unresolved": "off"
 	}
 }

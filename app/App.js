@@ -1,16 +1,44 @@
-import React from 'react'
-import Hello from './components/Hello/loadable'
+import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import { inject } from 'mobx-react' // eslint-disable-line
 
-import addIcon from './assets/add.svg'
+import routesAll from './routes'
 
 import './index.less'
 
-const App = () => (
-  <div>
-    <div className="div">Hello! This is a div from App</div>
-    <img src={addIcon} alt="add-icon" />
-    <Hello name="lawler" />
-  </div>
-)
+class App extends Component { // eslint-disable-line
+  constructor() {
+    super()
+
+    this.state = {
+      routes: this.getRoutes(routesAll),
+    }
+  }
+
+  getRoutes = routes => {
+    if (!Array.isArray(routes)) return
+
+    return routes.map(route => {
+      // const { key, path, component, exact, children } = route
+
+      // if (children) return this.getRoutes(children)
+
+      if (route.component) {
+        return <Route {...route} />
+      }
+      return null
+    })
+  }
+
+  render() {
+    const { routes } = this.state
+    return (
+      <div>
+        <div className="div">Hello! This is a div from App</div>
+        <Switch>{routes}</Switch>
+      </div>
+    )
+  }
+}
 
 export default App

@@ -14,9 +14,9 @@ function getPostcssConfig({ file, options, env }) { // eslint-disable-line
       'postcss-viewport-units': {},
       'postcss-nested': {},
       'postcss-write-svg': {
-        utf8: false
+        utf8: false,
       },
-      'precss': {},
+      precss: {},
       'postcss-px-to-viewport': {
         viewportWidth: 750,
         viewportHeight: 1334,
@@ -24,10 +24,10 @@ function getPostcssConfig({ file, options, env }) { // eslint-disable-line
         viewportUnit: 'vw',
         selectorBlackList: ['.ignore'],
         minPixelValue: 1,
-        mediaQuery: false
+        mediaQuery: false,
       },
-      'cssnano':  env === 'production'  ? {} : false
-    }
+      cssnano: env === 'production' ? {} : false,
+    },
   }
 }
 

@@ -6,11 +6,11 @@ import './styles'
 
 class Hello extends PureComponent {
   static propTypes = {
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
   }
 
   state = {
-    count: 1
+    count: 1,
   }
 
   handleClick = () => {
@@ -34,7 +34,7 @@ class Hello extends PureComponent {
           {count}
         </button>
         <div className="ruiwen">this is ruiwen</div>
-        <Button type='primary'>这是 antd 按钮</Button>
+        <Button type="primary">这是 antd 按钮</Button>
       </div>
     )
   }
