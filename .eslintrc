@@ -51,6 +51,13 @@
 				"args": "after-used"
 			}
 		],
+		"no-use-before-define": [
+			"error",
+			{
+				"functions": true,
+				"classes": true
+			}
+		],
 		"no-console": "off",
 		"consistent-return": "off",
 		"react/jsx-filename-extension": [

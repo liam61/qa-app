@@ -20,14 +20,14 @@ function getDevConfig(opts) {
       open: true,
       hot: true, // 打开热替换
       overlay: {
-        errors: true
-      }
+        errors: true,
+      },
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(), // 实现也更新，需要在总 js 入口处判断 module.hot
       new webpack.NamedModulesPlugin(),
-      new FriendlyErrorsPlugin()
-    ]
+      new FriendlyErrorsPlugin(),
+    ],
   })
 }
 

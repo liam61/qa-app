@@ -7,5 +7,5 @@ function resolve(...filePath) {
 }
 
 module.exports = {
-  resolve
+  resolve,
 }

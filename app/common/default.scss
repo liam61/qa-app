@@ -1,0 +1,69 @@
+$prefix: qa;
+
+// background color
+
+$blue: #2e61c8;
+
+$background: #efeff4;
+
+$info: #2e61c8;
+
+$info2: #2dbe8a;
+
+$warning: #ffb142;
+
+$error: #f43530;
+
+$border: #d6d6db;
+
+$bg-tag: #ecf3fc;
+
+// fonts color
+
+$title: #353535;
+
+$nav: #7f8389;
+
+$main: #a9a9a9;
+
+$small: #bfbfbf;
+
+@mixin border-mixin($size: 0, $border: null, $borderColor: #d6d6db) {
+  position: relative;
+  &::before{
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    border: $size solid $borderColor;
+    @if $border {
+      border-#{$border}-width: 1px;
+    }
+    color: $borderColor;
+    transform-origin: left top;
+    transform: scale(.5);
+    pointer-events: none; /* 防止点击触发 */
+    @media screen and (min-device-pixel-ratio:3) {
+      width: 300%;
+      height: 300%;
+      transform: scale(.33);
+    }
+  }
+}
+
+// $borderList: top bottom left right;
+$borderList: bottom;
+
+.#{$prefix}-border-1px {
+  @include border-mixin(1px);
+}
+
+@each $b in $borderList {
+  .#{$prefix}-border-1px-#{$b} {
+    @include border-mixin(0, $b);
+  }
+}
+

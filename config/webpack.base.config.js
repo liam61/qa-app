@@ -25,7 +25,7 @@ module.exports = ({
   useCssExtract,
   assetsPath,
   copyConfig,
-  dllFiles
+  dllFiles,
 }) => {
   const env = process.env.NODE_ENV
   const isDevMode = env === 'development'
@@ -33,7 +33,7 @@ module.exports = ({
   const assetOptions = {
     limit: 10000,
     name: `${assetsPath}/[name].[ext]`,
-    publicPath: '../'
+    publicPath: '../',
   }
 
   const plugins = [
@@ -44,25 +44,25 @@ module.exports = ({
       minify: isDevMode
         ? null
         : {
-          removeAttributeQuotes: true,
-          collapseWhitespace: true
-        }
+            removeAttributeQuotes: true,
+            collapseWhitespace: true,
+          },
       // favicon: './favicon.ico',
     }),
     new webpack.BannerPlugin(`created by ${author}`),
     new webpack.DllReferencePlugin({
-      manifest: dllWebpack
+      manifest: dllWebpack,
     }),
     new AddAssetHtmlPlugin({
       filepath: resolve(`${outputDir}/*.dll.js`),
-      includeSourcemap: false
+      includeSourcemap: false,
     }),
     new MiniCssExtractPlugin({
-      filename: `${cssPath}/[name].[hash:8].css`
+      filename: `${cssPath}/[name].[hash:8].css`,
       // chunkFilename: "[id].css"
     }),
     new PurgecssPlugin({
-      paths: glob.sync(purifycssFile.map(url => resolve(url)), { nodir: true })
+      paths: glob.sync(purifycssFile.map(url => resolve(url)), { nodir: true }),
     }),
     // new PurifycssWebpack({
     //   paths: glob.sync(purifycssFile.map(url => resolve(url))),
@@ -72,18 +72,18 @@ module.exports = ({
       id: 'babel', // loader 中指定的 id
       loaders: ['babel-loader?cacheDirectory'], // 实际匹配处理的 loader
       threadPool: happyThreadPool,
-      verbose: true
+      verbose: true,
     }),
     new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
-    })
+      filename: '[file].map',
+    }),
   ]
 
   if (!isDevMode) {
     plugins.push(
       new CleanWebpackPlugin([resolve(outputDir)], {
         root: process.cwd(),
-        exclude: dllFiles
+        exclude: dllFiles,
       })
     )
   }
@@ -93,8 +93,8 @@ module.exports = ({
       new CopyWebpackPlugin([
         {
           from: resolve(copyConfig.fromPath),
-          to: resolve(copyConfig.toPath) // 找到 dist 目录下的 docs，并放进去
-        }
+          to: resolve(copyConfig.toPath), // 找到 dist 目录下的 docs，并放进去
+        },
       ])
     )
   }
@@ -103,7 +103,7 @@ module.exports = ({
     entry: ['@babel/polyfill', resolve(entryFile)],
     output: {
       filename: '[name].[hash:8].js',
-      path: resolve(outputDir)
+      path: resolve(outputDir),
     },
     mode: env,
     devtool: isDevMode
@@ -115,23 +115,23 @@ module.exports = ({
           test: /\.(js|jsx)$/,
           enforce: 'pre',
           use: {
-            loader: 'eslint-loader'
+            loader: 'eslint-loader',
           },
-          exclude: /node_modules/
+          exclude: /node_modules/,
         },
         {
           test: /(\.js|\.jsx)$/,
           use: ['happypack/loader?id=babel'],
           exclude: /node_modules/,
-          include: resolve(entryDir)
+          include: resolve(entryDir),
         },
         {
           test: /\.css$/,
           use: [
             useCssExtract ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
-            'postcss-loader'
-          ]
+            'postcss-loader',
+          ],
         },
         {
           test: /\.less$/,
@@ -143,10 +143,10 @@ module.exports = ({
               loader: 'less-loader',
               options: {
                 javascriptEnabled: true,
-                sourceMap: true
-              }
-            }
-          ]
+                sourceMap: true,
+              },
+            },
+          ],
         },
         {
           test: /\.scss$/,
@@ -155,41 +155,42 @@ module.exports = ({
             'css-loader',
             'postcss-loader',
             {
-              loader: 'scss-loader',
+              loader: 'sass-loader',
               options: {
                 javascriptEnabled: true,
-                sourceMap: true
-              }
-            }
-          ]
+                includePaths: [resolve('app/common')],
+                sourceMap: true,
+              },
+            },
+          ],
         },
         {
           test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
           loader: 'url-loader',
           options: Object.assign({}, assetOptions, {
-            minetype: 'image/svg+xml'
-          })
+            minetype: 'image/svg+xml',
+          }),
         },
         {
           test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
           loader: 'url-loader',
-          options: assetOptions
+          options: assetOptions,
         },
         {
           test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
           loader: 'url-loader',
-          options: assetOptions
-        }
-      ]
+          options: assetOptions,
+        },
+      ],
       // 'noParse': /jquery/
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.css', '.less', 'scss'],
+      extensions: ['.js', '.jsx', '.css', '.less', '.scss'],
       modules: [resolve(entryDir), resolve('node_modules')],
       alias: {
         '@': resolve(entryDir),
-        mobx: resolve('node_modules/mobx/lib/mobx.es6.js')
-      }
+        mobx: resolve('node_modules/mobx/lib/mobx.es6.js'),
+      },
     },
     optimization: {
       splitChunks: {
@@ -199,27 +200,27 @@ module.exports = ({
             chunks: 'initial',
             minChunks: 2,
             maxInitialRequests: 5,
-            minSize: 0
+            minSize: 0,
           },
           vendor: {
             test: /node_modules/,
             chunks: 'initial',
             name: 'vendor',
             priority: 10, // 优先
-            enforce: true
+            enforce: true,
           },
           styles: {
             name: 'styles',
             test: /\.css$/,
             chunks: 'all',
-            enforce: true
-          }
-        }
+            enforce: true,
+          },
+        },
       },
       runtimeChunk: {
-        name: 'runtime'
-      }
-    }
+        name: 'runtime',
+      },
+    },
   }
 
   return Object.assign(baseConfig, { plugins })

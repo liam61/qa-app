@@ -8,7 +8,7 @@ function getPostcssConfig({ file, options, env }) { // eslint-disable-line
     plugins: {
       // 'postcss-import': {}, // css-loader handles @import no need for this plugin in webpack
       'postcss-url': {},
-      'postcss-cssnext': {},
+      'postcss-cssnext': {}, // includes autoprefixer
       // 'autoprefixer': {},
       'postcss-aspect-ratio-mini': {},
       'postcss-viewport-units': {},

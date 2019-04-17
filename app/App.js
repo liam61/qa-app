@@ -4,7 +4,7 @@ import { inject } from 'mobx-react' // eslint-disable-line
 
 import routesAll from './routes'
 
-import './index.less'
+import './common/default'
 
 class App extends Component { // eslint-disable-line
   constructor() {
@@ -34,7 +34,7 @@ class App extends Component { // eslint-disable-line
     const { routes } = this.state
     return (
       <div>
-        <div className="div">Hello! This is a div from App</div>
+        <div className="qa-border-1px">Hello! This is a div from App</div>
         <Switch>{routes}</Switch>
       </div>
     )
