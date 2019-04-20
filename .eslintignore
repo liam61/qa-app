@@ -3,3 +3,5 @@ build
 dist
 config
 server
+app/mobx
+app/tools

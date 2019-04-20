@@ -9,6 +9,8 @@ const glob = require('glob-all') // require('glob')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const HappyPack = require('happypack')
 const os = require('os')
+const tsImportPluginFactory = require('ts-import-plugin')
+const createMobxTransformer  = require('./createMobxTransformer')
 const { resolve } = require('./utils')
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) // 根据系统的内核数量指定线程池个数
@@ -113,17 +115,33 @@ module.exports = ({
       rules: [
         {
           test: /\.(js|jsx)$/,
-          enforce: 'pre',
-          use: {
-            loader: 'eslint-loader',
-          },
+          // use: ['happypack/loader?id=babel'],
+          loader: 'babel-loader',
+          include: resolve(entryDir),
           exclude: /node_modules/,
         },
         {
-          test: /(\.js|\.jsx)$/,
-          use: ['happypack/loader?id=babel'],
-          exclude: /node_modules/,
+          test: /\.(ts|tsx)$/,
+          // loader: 'awesome-typescript-loader',
+          use: [
+            'happypack/loader?id=babel',
+            {
+              loader: 'awesome-typescript-loader',
+              options: {
+                transpileOnly: true,
+                // compilerOptions: {
+                //   module: 'es2015'
+                // },
+                experimentalWatchApi: true,
+                getCustomTransformers: () => ({
+                  before: [createMobxTransformer()]
+                }),
+              },
+            }
+          ],
           include: resolve(entryDir),
+          exclude: /node_modules/,
+          // 优化依赖库体积
         },
         {
           test: /\.css$/,
@@ -185,11 +203,13 @@ module.exports = ({
       // 'noParse': /jquery/
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.css', '.less', '.scss'],
+      extensions: ['.ts', '.tsx', '.js', '.css', '.less', '.scss'],
       modules: [resolve(entryDir), resolve('node_modules')],
       alias: {
         '@': resolve(entryDir),
         mobx: resolve('node_modules/mobx/lib/mobx.es6.js'),
+        // components: resolve(entryDir, 'components'),
+        // pages: resolve(entryDir, 'pages'),
       },
     },
     optimization: {

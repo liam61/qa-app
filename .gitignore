@@ -5,6 +5,9 @@
 .idea
 .project
 
+# vscode
+.vscode
+
 # npm
 node_modules
 npm-debug.log

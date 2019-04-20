@@ -1,0 +1,33 @@
+@import '../../common/default.scss';
+
+$prefixCls: 'page-example';
+
+.#{$prefixCls} {
+  h1 {
+    text-align: center;
+  }
+
+  ul {
+    padding: 0;
+
+    li {
+      list-style: none;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      font-size: 30px;
+    }
+  }
+
+  .am-button {
+    width: 60%;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 auto;
+  }
+}
+
+.loading {
+  text-align: center;
+  margin-top: 50px;
+}

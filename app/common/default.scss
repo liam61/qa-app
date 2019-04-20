@@ -1,4 +1,4 @@
-$prefix: qa;
+$prefixCls: 'qa';
 
 // background color
 
@@ -57,12 +57,12 @@ $small: #bfbfbf;
 // $borderList: top bottom left right;
 $borderList: bottom;
 
-.#{$prefix}-border-1px {
+.#{$prefixCls}-border-1px {
   @include border-mixin(1px);
 }
 
 @each $b in $borderList {
-  .#{$prefix}-border-1px-#{$b} {
+  .#{$prefixCls}-border-1px-#{$b} {
     @include border-mixin(0, $b);
   }
 }

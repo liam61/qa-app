@@ -1,5 +1,5 @@
-const http = require('http')
-const fs = require('fs')
+import * as http from 'http'
+import * as fs from 'fs'
 
 const server = http.createServer((req, res) => {
   const basePath = './dist'

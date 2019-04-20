@@ -1,7 +1,6 @@
-const { main, name, author } = require('../package.json')
+const { bathPath, main, name, author } = require('../package.json')
 
-const entryDir = main.split('/')[0]
-
+const entryDir = bathPath
 const outputDir = 'dist'
 
 // 必要参数
@@ -16,7 +15,7 @@ const baseOptions = {
   moduleToDll: {
     react: ['react', 'react-dom', 'react-router-dom'],
   },
-  dllFiles: ['react.dll.js', 'react.manifest.json'],
+  dllFiles: ['react.dll.js', 'react.manifest.json', 'createMobxTransformer.js'],
 }
 
 // 可选参数
