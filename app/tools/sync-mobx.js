@@ -32,16 +32,16 @@ function createTypingsFile() {
   const IRootActionContent = generatorIRootAction()
   const IInjectContent =
     'export interface IInject {\n' +
-    '    rootStore:IRootStore\n' +
-    '    rootAction:IRootAction\n' +
+    '  rootStore: IRootStore\n' +
+    '  rootAction: IRootAction\n' +
     '}'
 
   const mobxReactModuleDeclare =
-    'declare module "mobx-react" {' +
+    'declare module \'mobx-react\' {' +
     '\n' +
-    '   export type IValueMapSelf = IStoresToProps<IInject>;' +
+    '  export type IValueMapSelf = IStoresToProps<IInject>' +
     '\n\n' +
-    '   export function inject<S extends IInject, P, I, C>(' +
+    '  export function inject<S extends IInject, P, I, C>(' +
     '\n' +
     '    fn: IStoresToProps<S, P, I, C>' +
     '\n' +
@@ -49,7 +49,7 @@ function createTypingsFile() {
     '\n' +
     '}'
 
-  const content = `${importContent}\n\n${IRootStoreContent}\n\n${IRootActionContent}\n\n${IInjectContent}\n\n${mobxReactModuleDeclare}`
+  const content = `${importContent}\n${IRootStoreContent}\n\n${IRootActionContent}\n\n${IInjectContent}\n\n${mobxReactModuleDeclare}\n`
 
   createFile(Path.join(mobxTypingsPath, 'index.d.ts'), content)
 }
@@ -66,7 +66,7 @@ function generatorIRootStore() {
     ret += `  ${pageName}: {\n`
     const storeArr = pathMap[pageName]
     storeArr.forEach(storeName => {
-      ret += `    ${storeName}:${firstToUppercase(storeName)}\n`
+      ret += `    ${storeName}: ${firstToUppercase(storeName)}\n`
     })
     ret += '  }\n'
     return ret
@@ -88,7 +88,7 @@ function generatorIRootAction() {
     ret += `  ${pageName}: {\n`
     const actionArr = pathMap[pageName]
     actionArr.forEach(actionName => {
-      ret += `    ${actionName}:${firstToUppercase(actionName)}\n`
+      ret += `    ${actionName}: ${firstToUppercase(actionName)}\n`
     })
     ret += '  }\n'
     return ret
@@ -116,7 +116,9 @@ function createDependenceImportContent(base) {
 }
 
 function createTypingsImportContent(base) {
-  let content = storesPath.concat(actionsPath).reduce((content, path) => {
+  let content =
+    'import { IStoresToProps, IReactComponent, IWrappedComponent } from \'mobx-react\'\n'
+  content += storesPath.concat(actionsPath).reduce((content, path) => {
     const pathArr = getFileNameFrom(path)
     let relativePath = Path.relative(base, path)
     if (relativePath.indexOf('.') !== 0) {
@@ -131,8 +133,6 @@ function createTypingsImportContent(base) {
     content += '\n'
     return content
   }, '')
-  content += `import { IStoresToProps, IReactComponent, IWrappedComponent } from "mobx-react"
-  `
   return content
 }
 

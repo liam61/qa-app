@@ -21,7 +21,7 @@ if (!basePath) {
 }
 
 program
-  .version('0.0.1')
+  .version('0.0.2')
   .option('[<path>]  ', 'the path of page or component')
   .option('-m, --mobx', 'create store and action')
   .option(
@@ -33,7 +33,7 @@ program
 
 program.on('--help', () => {
   console.log(
-    '  This is a quick tool to create a page.  \n  It can create index.tsx,index.scss file and add <-m> or <--mobx> param can create stores and actions \n'
+    '  This is a quick tool to create a page.\n  It can create index.tsx, index.scss file and add <-m> or <--mobx> param can create stores and actions.\n'
   )
   console.log('')
 
@@ -42,26 +42,26 @@ program.on('--help', () => {
   console.log('')
 
   console.log(
-    `    $ node tools/add-page.js offerList        ${Chalk.grey(
-      '// create a page'
+    `    $ node tools/add-page.js offerList${Chalk.grey(
+      '              // create a page'
     )}`
   )
 
   console.log(
-    `    $ node tools/add-page.js offerList -c        ${Chalk.grey(
-      '// create a component for common'
+    `    $ node tools/add-page.js offerList -c${Chalk.grey(
+      '           // create a component for common'
     )}`
   )
 
   console.log(
-    `    $ node tools/add-page.js offerList/tableList        ${Chalk.grey(
-      '// create a component inner page offerList'
+    `    $ node tools/add-page.js offerList/tableList${Chalk.grey(
+      '    // create a component inner page offerList'
     )}`
   )
 
   console.log(
-    `    $ node tools/add-page.js offerList -m        ${Chalk.grey(
-      '// create a page with stores and actions'
+    `    $ node tools/add-page.js offerList -m${Chalk.grey(
+      '           // create a page with stores and actions'
     )}`
   )
 
@@ -173,17 +173,21 @@ function toSplitDash(str) {
     .split('/')
     .filter(Boolean)
     .join('/')
-  str = str.replace(/\//g, (m, index) => (index ? '__' : ''))
-  return str.replace(
+  // str = str.replace(/\//g, (m, index) => (index ? '_' : ''))
+  str = str.replace(/\//g, '')
+  str = str.replace(
     upperCaseRegex,
     (m, index) => (index ? '-' : '') + m.toLowerCase()
   )
+  
+  const lastIdx = str.lastIndexOf('-')
+  return str.slice(0, lastIdx)
 }
 
 function fisrtToLowercase(str) {
-  return str.charAt(0).toLowerCase() + str.substr(1)
+  return str.charAt(0).toLowerCase() + str.slice(1)
 }
 
 function fisrtToUppercase(str) {
-  return str.charAt(0).toUpperCase() + str.substr(1)
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }

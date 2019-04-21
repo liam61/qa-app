@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import routes, { IRoute } from './routes'
 
 function getRoutes(routes: IRoute[]) {
-  return routes.map((route: IRoute) => {
+  return routes.map(route => {
     // const { key, path, component, exact, children } = route
     // TODO: 递归渲染子路由
     // if (children) return this.getRoutes(children)
@@ -17,8 +17,6 @@ function getRoutes(routes: IRoute[]) {
 
 export default (
   <Router>
-    <Switch>
-      {getRoutes(routes)}
-    </Switch>
+    <Switch>{getRoutes(routes)}</Switch>
   </Router>
 )
