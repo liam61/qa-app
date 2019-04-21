@@ -1,6 +1,6 @@
-const { bathPath, main, name, author } = require('../package.json')
+const { basePath, main, name, author } = require('../package.json')
 
-const entryDir = bathPath
+const entryDir = basePath
 const outputDir = 'dist'
 
 // 必要参数
