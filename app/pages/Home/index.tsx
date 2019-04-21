@@ -6,24 +6,20 @@ import './index.scss'
 
 @inject(injector)
 @observer
-export default class Home extends React.Component<Props, {}> {
+export default class Home extends React.Component<IProps, {}> {
   static defaultProps = {
-    prefixCls: 'page-home'
+    prefixCls: 'page-home',
   }
 
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-
+        this is home page
       </div>
     )
   }
@@ -31,7 +27,7 @@ export default class Home extends React.Component<Props, {}> {
 
 type injectorReturnType = ReturnType<typeof injector>
 
-interface Props extends Partial<injectorReturnType> {
+interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   [k: string]: any
 }
@@ -40,8 +36,8 @@ function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore
-  rootAction: IRootAction
+  rootStore: IRootStore,
+  rootAction: IRootAction,
 }) {
   return {}
 }

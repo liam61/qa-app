@@ -6,18 +6,16 @@ import './index.scss'
 
 @inject(injector)
 @observer
-export default class ${uppercaseName}$ extends React.Component<Props, {}> {
+export default class ${uppercaseName}$ extends React.Component<IProps, {}> {
   static defaultProps = {
-    prefixCls: '${type}$-${splitDashName}$'
+    prefixCls: '${type}$-${splitDashName}$',
   }
 
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   render() {
     const { prefixCls } = this.props
@@ -31,7 +29,7 @@ export default class ${uppercaseName}$ extends React.Component<Props, {}> {
 
 type injectorReturnType = ReturnType<typeof injector>
 
-interface Props extends Partial<injectorReturnType> {
+interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   [k: string]: any
 }
@@ -40,8 +38,8 @@ function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore
-  rootAction: IRootAction
+  rootStore: IRootStore,
+  rootAction: IRootAction,
 }) {
   return {}
 }

@@ -12,18 +12,18 @@ describe('UserService', () => {
     expect(service.getUsers()).to.deep.equal(
       [{
         email: 'lorem@ipsum.com',
-        name: 'Lorem'
+        name: 'Lorem',
       }, {
           email: 'doloe@sit.com',
-          name: 'Dolor'
-        }]
+          name: 'Dolor',
+        }],
     );
   });
 
   it('should give back the right user', () => {
     expect(service.getUser('Lorem')).to.deep.equal({
       email: 'lorem@ipsum.com',
-      name: 'Lorem'
+      name: 'Lorem',
     });
   });
 
@@ -31,10 +31,10 @@ describe('UserService', () => {
     expect(service.getUsers()).to.have.length(2);
     expect(service.newUser({
       email: 'test@test.com',
-      name: 'test'
+      name: 'test',
     })).to.deep.equal({
       email: 'test@test.com',
-      name: 'test'
+      name: 'test',
     });
     expect(service.getUsers()).to.have.length(3);
   });
@@ -42,10 +42,10 @@ describe('UserService', () => {
   it('should update a existing user', () => {
     expect(service.updateUser('Lorem', {
       email: 'changed@changed.com',
-      name: 'Lorem'
+      name: 'Lorem',
     })).to.deep.equal({
       email: 'changed@changed.com',
-      name: 'Lorem'
+      name: 'Lorem',
     });
   });
 

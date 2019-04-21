@@ -8,15 +8,15 @@ import './controller/home';
 import './controller/user';
 
 // load everything needed to the Container
-let container = new Container();
+const container = new Container();
 container.bind<UserService>(TYPES.UserService).to(UserService);
 
 // start the server
-let server = new InversifyExpressServer(container);
+const server = new InversifyExpressServer(container);
 
-server.setConfig((app) => {
+server.setConfig(app => {
   app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
   }));
   app.use(bodyParser.json());
 });

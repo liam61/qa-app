@@ -13,22 +13,22 @@ describe('UserController', () => {
     expect(controller.getUsers()).to.deep.equal(
       [{
         email: 'lorem@ipsum.com',
-        name: 'Lorem'
+        name: 'Lorem',
       }, {
           email: 'doloe@sit.com',
-          name: 'Dolor'
-        }]
+          name: 'Dolor',
+        }],
     );
   });
 
   it('should give back the right user', () => {
     expect(controller.getUser({
       params: {
-        id: 'Lorem'
-      }
+        id: 'Lorem',
+      },
     })).to.deep.equal({
       email: 'lorem@ipsum.com',
-      name: 'Lorem'
+      name: 'Lorem',
     });
   });
 
@@ -37,11 +37,11 @@ describe('UserController', () => {
     expect(controller.newUser({
       body: {
         email: 'test@test.com',
-        name: 'test'
-      }
+        name: 'test',
+      },
     })).to.deep.equal({
       email: 'test@test.com',
-      name: 'test'
+      name: 'test',
     });
     expect(controller.getUsers()).to.have.length(3);
   });
@@ -50,13 +50,13 @@ describe('UserController', () => {
     expect(controller.updateUser({
       body: {
         email: 'changed@changed.com',
-        name: 'Lorem'
+        name: 'Lorem',
       }, params: {
-        id: 'Lorem'
-      }
+        id: 'Lorem',
+      },
     })).to.deep.equal({
       email: 'changed@changed.com',
-      name: 'Lorem'
+      name: 'Lorem',
     });
   });
 
@@ -64,8 +64,8 @@ describe('UserController', () => {
     expect(controller.getUsers()).to.have.length(2);
     expect(controller.deleteUser({
       params: {
-        id: 'Lorem'
-      }
+        id: 'Lorem',
+      },
     })).to.equal('Lorem');
     expect(controller.getUsers()).to.have.length(1);
   });

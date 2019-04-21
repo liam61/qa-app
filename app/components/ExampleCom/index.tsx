@@ -20,13 +20,13 @@ class Hello extends React.PureComponent<IProps> {
     return (
       <div>
         <h1>This is Example component.</h1>
-        <div className="name">
+        <div className='name'>
           my name is {name}
         </div>
         <button onClick={this.handleClick}>
           the count {count}
         </button>
-        <div className="ruiwen">this is ruiwen</div>
+        <div className='ruiwen'>this is ruiwen</div>
       </div>
     )
   }

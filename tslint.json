@@ -21,7 +21,6 @@
     "indent": false,
     "interface-name": true,
     "label-position": true,
-    "label-undefined": true,
     "max-line-length": [
       true,
       180
@@ -51,7 +50,6 @@
     "no-consecutive-blank-lines": true,
     "no-construct": true,
     "no-debugger": true,
-    "no-duplicate-key": true,
     "no-duplicate-variable": true,
     "no-empty": true,
     "no-eval": true,
@@ -60,9 +58,7 @@
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
-    "no-unreachable": true,
     "no-unused-expression": true,
-    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": true,
@@ -95,18 +91,12 @@
         "variable-declaration": "nospace"
       }
     ],
-    "use-strict": [
-      true,
-      "check-module",
-      "check-function"
-    ],
     "variable-name": [
       true,
-      "check-format",
-      "allow-leading-underscore",
       "ban-keywords"
     ],
     "arrow-parens": [
+      true,
       "ban-single-arg-parens"
     ],
     "object-literal-sort-keys": false,
@@ -176,5 +166,5 @@
       "check-type-operator",
       "check-preblock"
     ]
-  },
+  }
 }

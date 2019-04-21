@@ -10,12 +10,11 @@ export class UserService {
 
   private userStorage: IUser[] = [{
     email: 'lorem@ipsum.com',
-    name: 'Lorem'
+    name: 'Lorem',
   }, {
       email: 'doloe@sit.com',
-      name: 'Dolor'
+      name: 'Dolor',
     }];
-
 
   public getUsers(): IUser[] {
     return this.userStorage;
@@ -48,7 +47,7 @@ export class UserService {
   }
 
   public deleteUser(id: string): string {
-    let updatedUser: IUser[] = [];
+    const updatedUser: IUser[] = [];
     this.userStorage.map(user => {
       if (user.name !== id) {
         updatedUser.push(user);

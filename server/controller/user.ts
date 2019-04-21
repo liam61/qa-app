@@ -1,5 +1,5 @@
 import {
-  controller, httpGet, httpPost, httpPut, httpDelete
+  controller, httpGet, httpPost, httpPut, httpDelete,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { IUser, UserService } from '../service/user';

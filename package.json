@@ -1,6 +1,6 @@
 {
   "name": "qa-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "question-answer app",
   "basePath": "app",
   "main": "app/index.tsx",
@@ -8,13 +8,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config config/webpack.prod.config.js --progress",
     "start": "webpack-dev-server --config config/webpack.dev.config.js --progress",
-    "lint": "eslint --ext .js app",
+    "lint": "tslint --fix --project .",
     "dll": "webpack --config config/webpack.dll.config.js --progress",
     "serve": "nodemon app/serve.js",
     "server": "ts-node server/bootstrap.ts"
   },
   "author": "lawler61",
   "license": "ISC",
+  "pre-commit": [
+    "lint"
+  ],
   "keywords": [
     "react",
     "mobx",

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import routes, { IRoute } from './routes'
+import routesAll, { IRoute } from './routes'
 
 function getRoutes(routes: IRoute[]) {
   return routes.map(route => {
@@ -17,6 +17,6 @@ function getRoutes(routes: IRoute[]) {
 
 export default (
   <Router>
-    <Switch>{getRoutes(routes)}</Switch>
+    <Switch>{getRoutes(routesAll)}</Switch>
   </Router>
 )

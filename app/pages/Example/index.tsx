@@ -10,7 +10,7 @@ import addIcon from '../../assets/images/add.svg'
 
 @inject(injector)
 @observer
-export default class Example extends React.Component<Props, {}> {
+export default class Example extends React.Component<IProps, {}> {
   static defaultProps = {
     prefixCls: 'page-example',
   }
@@ -31,18 +31,18 @@ export default class Example extends React.Component<Props, {}> {
     return (
       <div className={prefixCls}>
         this is example page
-        <ExampleCom name="lawler" />
-        <img src={addIcon} alt="addIcon" />
+        <ExampleCom name='lawler' />
+        <img src={addIcon} alt='addIcon' />
         <h1>当前产品</h1>
         {isloading ? (
-          <h1 className="loading">loading...</h1>
+          <h1 className='loading'>loading...</h1>
         ) : (
           <React.Fragment>
             <ul className='qa-border-1px'>
               <li>{curGoods!.name}</li>
               <li>{curGoods!.desc}</li>
             </ul>
-            <Button type="primary" onClick={this.handleLoadGoods}>
+            <Button type='primary' onClick={this.handleLoadGoods}>
               换一个
             </Button>
           </React.Fragment>
@@ -54,7 +54,7 @@ export default class Example extends React.Component<Props, {}> {
 
 type injectorReturnType = ReturnType<typeof injector>
 
-interface Props extends Partial<injectorReturnType> {
+interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   [k: string]: any
 }
@@ -63,8 +63,8 @@ function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore
-  rootAction: IRootAction
+  rootStore: IRootStore,
+  rootAction: IRootAction,
 }) {
   return {
     store: rootStore.Example,

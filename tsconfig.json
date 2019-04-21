@@ -37,6 +37,7 @@
     /* Module Resolution Options */
     "pretty": true,
     "allowSyntheticDefaultImports": true,
+    "allowUnusedLabels": false,
     "esModuleInterop": true,
     "moduleResolution": "node",
 

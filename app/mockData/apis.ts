@@ -4,7 +4,7 @@ export async function getGoods() {
   return {
     id: random,
     name: `goods-${random}`,
-    desc: `desc-${random}`
+    desc: `desc-${random}`,
   }
 }
 
