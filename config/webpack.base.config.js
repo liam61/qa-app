@@ -33,7 +33,7 @@ module.exports = ({
   const isDevMode = env === 'development'
   const dllWebpack = require(resolve(`${outputDir}/react.manifest.json`))
   const assetOptions = {
-    limit: 10000,
+    limit: 100,
     name: `${assetsPath}/[name].[ext]`,
     publicPath: '../',
   }

@@ -1,24 +1,64 @@
 import { IStoresToProps, IReactComponent, IWrappedComponent } from 'mobx-react'
+import AppStore from '../pages/App/stores/appStore'
+import CollectionStore from '../pages/Collection/stores/collectionStore'
+import CreateStore from '../pages/Create/stores/createStore'
 import ExampleStore from '../pages/Example/stores/exampleStore'
-import HomeStore from '../pages/Home/stores/homeStore'
+import MessageStore from '../pages/Message/stores/messageStore'
+import TodoStore from '../pages/Todo/stores/todoStore'
+import UserStore from '../pages/User/stores/userStore'
+import AppAction from '../pages/App/actions/appAction'
+import CollectionAction from '../pages/Collection/actions/collectionAction'
+import CreateAction from '../pages/Create/actions/createAction'
 import ExampleAction from '../pages/Example/actions/exampleAction'
-import HomeAction from '../pages/Home/actions/homeAction'
+import MessageAction from '../pages/Message/actions/messageAction'
+import TodoAction from '../pages/Todo/actions/todoAction'
+import UserAction from '../pages/User/actions/userAction'
 
 export interface IRootStore {
+  App: {
+    appStore: AppStore
+  }
+  Collection: {
+    collectionStore: CollectionStore
+  }
+  Create: {
+    createStore: CreateStore
+  }
   Example: {
     exampleStore: ExampleStore
   }
-  Home: {
-    homeStore: HomeStore
+  Message: {
+    messageStore: MessageStore
+  }
+  Todo: {
+    todoStore: TodoStore
+  }
+  User: {
+    userStore: UserStore
   }
 }
 
 export interface IRootAction {
+  App: {
+    appAction: AppAction
+  }
+  Collection: {
+    collectionAction: CollectionAction
+  }
+  Create: {
+    createAction: CreateAction
+  }
   Example: {
     exampleAction: ExampleAction
   }
-  Home: {
-    homeAction: HomeAction
+  Message: {
+    messageAction: MessageAction
+  }
+  Todo: {
+    todoAction: TodoAction
+  }
+  User: {
+    userAction: UserAction
   }
 }
 

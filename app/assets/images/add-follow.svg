@@ -1,0 +1,18 @@
+<svg id="组_108" data-name="组 108" xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #c7c7cc;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #c7c7cc;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle id="椭圆_6533" data-name="椭圆 6533" class="cls-1" cx="33" cy="33" r="32"/>
+  <path id="形状_6536" data-name="形状 6536" class="cls-2" d="M1063.77,4037.77h-13.54v-13.54a1.23,1.23,0,1,0-2.46,0v13.54h-13.54a1.23,1.23,0,1,0,0,2.46h13.54v13.54a1.23,1.23,0,1,0,2.46,0v-13.54h13.54A1.23,1.23,0,1,0,1063.77,4037.77Z" transform="translate(-1016 -4006)"/>
+</svg>

@@ -2,10 +2,10 @@ import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
 
 @mAction
-export default class HomeAction {
+export default class MessageAction {
   constructor(
-    public stores: IRootStore['Home'],
-    public actions: IRootAction['Home'],
+    public stores: IRootStore['Message'],
+    public actions: IRootAction['Message'],
   ) {}
 
 }

@@ -19,6 +19,7 @@ package-lock.json
 # folder
 build
 dist
+UI
 
 # bak
 *.bak

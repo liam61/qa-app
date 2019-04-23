@@ -3,7 +3,9 @@ import { hot } from 'react-hot-loader'
 import { configure } from 'mobx'
 import { provider } from './mobx/provider'
 import routes from './routes'
-import './mobxDependence';
+import './mobxDependence'
+
+import './assets/css/font-awesome.min.css'
 
 configure({ enforceActions: 'observed' }) // 不允许在动作外部修改状态
 

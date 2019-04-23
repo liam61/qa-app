@@ -1,0 +1,20 @@
+<svg id="右" xmlns="http://www.w3.org/2000/svg" width="85" height="95" viewBox="0 0 85 95">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2e61c8;
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        font-size: 26px;
+        fill: #fff;
+        text-anchor: middle;
+        font-family: PingFangSC;
+        font-weight: 500;
+      }
+    </style>
+  </defs>
+  <path id="矩形_978" data-name="矩形 978" class="cls-1" d="M1861,320h45l40,46v49Z" transform="translate(-1861 -320)"/>
+  <text id="未读" class="cls-2" transform="matrix(0.668, 0.744, -0.744, 0.668, 47.573, 42.716)">未读</text>
+</svg>

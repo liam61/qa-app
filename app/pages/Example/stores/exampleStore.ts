@@ -23,7 +23,7 @@ export default class ExampleStore {
 
   @action
   setCurGoods(goods: IGoods) {
-    this.curGoods = goods;
+    this.curGoods = goods
   }
 
   @action

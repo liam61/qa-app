@@ -1,14 +1,16 @@
 import * as React from 'react'
-import HomePage from '../pages/Home'
+import AppPage from '../pages/App'
+import CreatePage from '../pages/Create'
 import ExamplePage from '../pages/Example'
 import NoMatchPage from '../pages/404'
 
 export interface IRoute {
   key: string,
   path?: string,
-  component: React.ComponentClass | React.FunctionComponent,
+  component?: React.ComponentClass | React.FunctionComponent,
   props?: object,
   exact?: boolean,
+  redirect?: string,
   children?: IRoute[]
 }
 
@@ -16,11 +18,17 @@ const routes = [
   {
     key: 'app',
     path: '/',
-    component: HomePage,
+    component: AppPage,
     // component: () => <Hello name="lawler" />,
     // props: { name: 'lawler' },
     exact: true,
+    // redirect: '/todos',
     // children: [],
+  },
+  {
+    key: 'create',
+    path: '/create',
+    component: CreatePage,
   },
   {
     key: 'example',

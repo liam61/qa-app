@@ -21,7 +21,7 @@ export default class ${uppercaseName}$ extends React.Component<IProps, {}> {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-
+        this is ${splitDashName}$
       </div>
     )
   }
@@ -41,5 +41,8 @@ function injector({
   rootStore: IRootStore,
   rootAction: IRootAction,
 }) {
-  return {}
+  return {
+    store: rootStore.${uppercaseName}$,
+    action: rootAction.${uppercaseName}$,
+  }
 }

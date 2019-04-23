@@ -179,9 +179,9 @@ function toSplitDash(str) {
     upperCaseRegex,
     (m, index) => (index ? '-' : '') + m.toLowerCase()
   )
-  
+
   const lastIdx = str.lastIndexOf('-')
-  return str.slice(0, lastIdx)
+  return lastIdx === -1 ? str : str.slice(0, lastIdx)
 }
 
 function fisrtToLowercase(str) {

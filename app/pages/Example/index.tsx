@@ -63,7 +63,7 @@ function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore,
+  rootStore: IRootStore
   rootAction: IRootAction,
 }) {
   return {

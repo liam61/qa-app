@@ -1,11 +1,11 @@
 import { action, observable, computed } from 'mobx'
 import { mStore } from '../../../mobx/store'
 
-interface ISomething {
-  prop: string
-}
+// interface ISomething {
+
+// }
 
 @mStore
-export default class HomeStore {
+export default class MessageStore {
 
 }

@@ -1,4 +1,4 @@
-@import '../../common/default.scss';
+@import '../../assets/css/default.scss';
 
 $prefixCls: 'page-example';
 
@@ -9,6 +9,7 @@ $prefixCls: 'page-example';
 
   ul {
     padding: 0;
+    background: $info2;
 
     li {
       list-style: none;

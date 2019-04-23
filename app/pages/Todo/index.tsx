@@ -6,20 +6,22 @@ import './index.scss'
 
 @inject(injector)
 @observer
-export default class Home extends React.Component<IProps, {}> {
+export default class Todo extends React.Component<IProps, {}> {
   static defaultProps = {
-    prefixCls: 'page-home',
+    prefixCls: 'page-todo',
   }
 
   constructor(props) {
     super(props)
   }
 
+  // componentDidMount() {}
+
   render() {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-        this is home page
+        todos
       </div>
     )
   }

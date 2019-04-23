@@ -1,4 +1,4 @@
-@import '../../common/default.scss';
+@import '../../assets/css/default.scss';
 
 $prefixCls: '${type}$-${splitDashName}$';
 
