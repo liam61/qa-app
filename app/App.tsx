@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { hot } from 'react-hot-loader'
+import { HashRouter as Router, Switch } from 'react-router-dom'
 import { configure } from 'mobx'
 import { provider } from './mobx/provider'
 import routes from './routes'
@@ -12,7 +13,11 @@ configure({ enforceActions: 'observed' }) // 不允许在动作外部修改状�
 @provider
 class App extends React.Component {
   render() {
-    return <div>{routes}</div>
+    return (
+      <Router>
+        <Switch>{routes}</Switch>
+      </Router>
+    )
   }
 }
 

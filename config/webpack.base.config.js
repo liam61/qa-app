@@ -10,7 +10,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const HappyPack = require('happypack')
 const os = require('os')
 const tsImportPluginFactory = require('ts-import-plugin')
-const createMobxTransformer  = require('./createMobxTransformer')
+const createMobxTransformer = require('./createMobxTransformer')
 const { resolve } = require('./utils')
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }) // 根据系统的内核数量指定线程池个数
@@ -134,10 +134,10 @@ module.exports = ({
                 // },
                 experimentalWatchApi: true,
                 getCustomTransformers: () => ({
-                  before: [createMobxTransformer()]
+                  before: [createMobxTransformer()],
                 }),
               },
-            }
+            },
           ],
           include: resolve(entryDir),
           exclude: /node_modules/,
@@ -178,6 +178,13 @@ module.exports = ({
                 javascriptEnabled: true,
                 includePaths: [resolve('app/common')],
                 sourceMap: true,
+              },
+            },
+            {
+              loader: 'sass-resources-loader', // 全局共用 scss 样式
+              options: {
+                sourceMap: true,
+                resources: resolve('app/assets/css/default.scss'),
               },
             },
           ],

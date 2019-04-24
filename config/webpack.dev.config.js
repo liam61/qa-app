@@ -14,6 +14,7 @@ function getDevConfig(opts) {
       disableHostCheck: true,
       compress: true,
       historyApiFallback: true, // 不跳转
+      host: '0.0.0.0',
       port: 3000,
       inline: true, // 全部刷新，当源文件改变时会自动刷新页面
       quiet: true, // 不显示 devServer 的 Console 信息，让 FriendlyErrorsWebpackPlugin 取而代之

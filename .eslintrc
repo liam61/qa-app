@@ -36,10 +36,7 @@
 		],
 		"comma-dangle": [
 			"error",
-			"always-multiline",
-			{
-				"functions": "ignore"
-			}
+			"always-multiline"
 		],
 		"quotes": [
 			"error",

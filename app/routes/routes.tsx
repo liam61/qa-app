@@ -1,16 +1,16 @@
 import * as React from 'react'
 import AppPage from '../pages/App'
-import CreatePage from '../pages/Create'
+import CreatePage from '../pages/Create/Loadable'
 import ExamplePage from '../pages/Example'
 import NoMatchPage from '../pages/404'
 
 export interface IRoute {
-  key: string,
-  path?: string,
-  component?: React.ComponentClass | React.FunctionComponent,
-  props?: object,
-  exact?: boolean,
-  redirect?: string,
+  key: string
+  path?: string
+  component?: React.ComponentClass | React.FunctionComponent
+  props?: object
+  exact?: boolean
+  redirect?: string
   children?: IRoute[]
 }
 

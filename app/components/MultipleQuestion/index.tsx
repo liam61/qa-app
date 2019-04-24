@@ -1,27 +1,25 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { IRootStore, IRootAction } from '${relDir}$typings'
+import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-export default class ${uppercaseName}$ extends React.Component<IProps, {}> {
+export default class MultipleQuestion extends React.Component<IProps, {}> {
   static defaultProps = {
-    prefixCls: '${type}$-${splitDashName}$',
+    prefixCls: 'component-multiple',
   }
 
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {}
-
   render() {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-        this is ${splitDashName}$
+        this is multiple
       </div>
     )
   }

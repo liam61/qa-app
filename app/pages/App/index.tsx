@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Tabs, Badge } from 'antd-mobile'
 import TodoPage from '../Todo'
 import CollectionPage from '../Collection'
@@ -79,6 +79,7 @@ export default class App extends React.Component<IProps, {}> {
           tabs={homeTabs}
           initialPage={curTab}
           tabBarPosition='bottom'
+          swipeable={false}
           renderTab={tab =>
             tab.path ? (
               // <Link to={{ pathname: tab.path, state: { curTab } }}>{tab.title}</Link>
