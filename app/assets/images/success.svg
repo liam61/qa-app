@@ -1,0 +1,18 @@
+<svg id="成功icon" xmlns="http://www.w3.org/2000/svg" width="148" height="148" viewBox="0 0 148 148">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #2e61c8;
+        stroke-width: 4px;
+      }
+
+      .cls-2 {
+        fill: #2e61c8;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle id="椭圆_1980" data-name="椭圆 1980" class="cls-1" cx="74" cy="74" r="72"/>
+  <path id="形状_1983" data-name="形状 1983" class="cls-2" d="M3253.12,1984.87l27.29,27.03a3.712,3.712,0,0,0,5.25,0l47.22-46.65a3.588,3.588,0,0,0,0-5.19,3.837,3.837,0,0,0-5.29,0l-44.51,44.01-24.72-24.39a3.8,3.8,0,0,0-5.28,0,3.623,3.623,0,0,0,.04,5.19h0Z" transform="translate(-3219 -1912)"/>
+</svg>

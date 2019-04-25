@@ -1,0 +1,25 @@
+<svg id="失败icon" xmlns="http://www.w3.org/2000/svg" width="148" height="148" viewBox="0 0 148 148">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #f43530;
+        stroke-width: 4px;
+      }
+
+      .cls-2 {
+        fill: #f43530;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle id="椭圆_1980" data-name="椭圆 1980" class="cls-1" cx="74" cy="74" r="72"/>
+  <path id="x_拷贝" data-name="x 拷贝" class="cls-2" d="M4169.89,2008.49a3.811,3.811,0,0,1-5.39,5.39l-21.56-21.56-21.55,21.56a3.815,3.815,0,0,1-5.4-5.39l21.56-21.56-21.56-21.56a3.815,3.815,0,0,1,5.4-5.39l21.55,21.56,21.56-21.56a3.811,3.811,0,0,1,5.39,5.39l-21.55,21.56Z" transform="translate(-4069 -1912)"/>
+</svg>

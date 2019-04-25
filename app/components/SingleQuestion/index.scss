@@ -1,6 +1,8 @@
 $prefixCls: 'component-single';
 
-.#{$prefixCls} {
+.#{$prefixCls} {}
+
+.#{$globalPrefixCls}-question {
   position: relative;
   color: #bfbfbf;
 
@@ -88,6 +90,8 @@ $prefixCls: 'component-single';
     }
 
     .content-title {
+      padding-bottom: 50px;
+
       .am-input-item {
         height: 60px;
         line-height: 60px;
@@ -107,15 +111,14 @@ $prefixCls: 'component-single';
     }
 
     .content-options {
-      padding-top: 50px;
-
       .option-wrapper {
         display: flex;
         align-items: center;
         border-top: 1px solid $border;
 
         .option-add,
-        .option-remove {
+        .option-remove,
+        .option-warn {
           margin-right: 20px;
         }
 
@@ -129,6 +132,13 @@ $prefixCls: 'component-single';
         .option-remove {
           &::before {
             color: $error;
+
+          }
+        }
+
+        .option-warn {
+          &::before {
+            color: $info2;
 
           }
         }

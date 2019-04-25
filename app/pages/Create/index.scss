@@ -40,6 +40,13 @@ $prefixCls: 'page-create';
     background: $blue;
     font-size: 34px;
     z-index: 1;
+
+    &-icon {
+      position: relative;
+      top: 4.5px;
+      left: 12px;
+      font-size: 1.5em;
+    }
   }
 
   .add-question {
@@ -57,51 +64,4 @@ $prefixCls: 'page-create';
     }
   }
 
-}
-
-.am-action-sheet {
-  &-message {
-    margin: 30px 0;
-    font-size: 30px;
-    color: $main;
-  }
-
-  &-button-list {
-    &-item {
-      height: 88px;
-      line-height: 88px;
-      font-size: 30px;
-    }
-  }
-}
-
-.am-switch {
-  input {
-    &:checked+.checkbox {
-      background: $blue !important;
-    }
-
-    &:checked+.checkbox:after {
-      transform: translateX(41px) !important;
-    }
-  }
-
-  .checkbox {
-    width: 82px;
-    height: 40px;
-
-    &:before {
-      width: 78px;
-      height: 36px;
-    }
-
-    &:after {
-      width: 36px;
-      height: 36px;
-    }
-  }
-}
-
-.#{$globalPrefixCls}-border-1px {
-  @include border-mixin(1px);
 }

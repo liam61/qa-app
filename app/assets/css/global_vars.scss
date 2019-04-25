@@ -58,17 +58,3 @@ $small: #bfbfbf;
     }
   }
 }
-
-// usage
-// $borderList: top bottom left right; // list
-// $borderList: bottom;
-
-// .#{$prefixCls}-border-1px {
-//   @include border-mixin(1px);
-// }
-
-// @each $b in $borderList {
-//   .#{$prefixCls}-border-1px-#{$b} {
-//     @include border-mixin(0, $b);
-//   }
-// }

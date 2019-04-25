@@ -1,20 +1,18 @@
-// 单选 | 多选 | 投票
-
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { TextareaItem, InputItem, Toast } from 'antd-mobile'
+import { TextareaItem, InputItem } from 'antd-mobile'
 import QuestionHeader from '../../components/QuestionHeader'
-import { IRootStore, IRootAction } from '../../typings'
-import { DELAY_TIME, QUESTION_TYPES } from '../../common/global'
+import { QUESTION_TYPES } from '../../common/global'
 import { getUid } from '../../utils'
+import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-export default class SingleQuestion extends React.Component<IProps, IState> {
+export default class JudgeQuestion extends React.Component<IProps, IState> {
   static defaultProps = {
-    prefixCls: 'component-single',
+    prefixCls: 'component-judge',
   }
 
   constructor(props) {
@@ -33,7 +31,12 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
 
     const { required = false, title = '', options = defaultOpts } = props
 
-    this.state = { required, title, options, hidden: false }
+    this.state = { required, title, hidden: false, options }
+  }
+
+  handleToggle = () => {
+    const { hidden } = this.state
+    this.setState({ hidden: !hidden })
   }
 
   handleRequiredChange = val => {
@@ -50,37 +53,13 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
     this.setState({ options })
   }
 
-  handleRemoveOption = index => {
-    const { options } = this.state
-    options.splice(index, 1)
-    this.setState({ options })
-  }
-
-  handleAddOption = () => {
-    const { options } = this.state
-    if (options.length === 6) {
-      Toast.fail('选项过多不能添加！', DELAY_TIME)
-      return
-    }
-    options.push({
-      id: getUid(),
-      value: '',
-    })
-    this.setState({ options })
-  }
-
-  handleToggle = () => {
-    const { hidden } = this.state
-    this.setState({ hidden: !hidden })
-  }
-
   getQuestion = () => {
     const { title, required, options } = this.state
 
     return {
       title,
       required,
-      options: options.filter(option => !!option.value),
+      options,
     }
   }
 
@@ -90,9 +69,8 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
       return (
         <div className='option-wrapper' key={id}>
           <i
-            className='fa fa-minus-circle fa-3x option-remove'
+            className='fa fa-question-circle-o fa-3x option-warn'
             aria-hidden='true'
-            onClick={() => this.handleRemoveOption(index)}
           />
           <TextareaItem
             placeholder='输入选项内容'
@@ -107,7 +85,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
 
   render() {
     const { num, onRemove, type } = this.props
-    const { required, title, options, hidden } = this.state
+    const { required, title, hidden, options } = this.state
 
     return (
       <div className='qa-question'>
@@ -122,7 +100,6 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
         />
         <div
           className='qa-question-content'
-          // TODO: toggle 动画
           style={{ display: hidden ? 'none' : 'block' }}
         >
           <div className='content-title'>
@@ -137,13 +114,6 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
           <div className='content-options'>
             <div className='content-text'>选项</div>
             {this.renderOptions(options)}
-            <div className='option-wrapper add' onClick={this.handleAddOption}>
-              <i
-                className='fa fa-plus-circle fa-3x option-add'
-                aria-hidden='true'
-              />
-              <TextareaItem value='添加选项' editable={false} />
-            </div>
           </div>
         </div>
       </div>
@@ -158,17 +128,17 @@ interface IProps extends Partial<injectorReturnType> {
   num: number
   title: string
   required: boolean
-  options: Array<{ id: string; value: '' }>
   type: string
-  cached?: boolean // ?
+  cached?: boolean
+  options: Array<{ id: string; value: '' }>
   onRemove: () => void
 }
 
 interface IState extends Partial<injectorReturnType> {
   title: string
   required: boolean
-  options: Array<{ id: string; value: '' }>
   hidden: boolean
+  options: Array<{ id: string; value: '' }>
 }
 
 function injector({

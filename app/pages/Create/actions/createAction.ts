@@ -38,13 +38,11 @@ export default class CreateAction {
     return createStore.questions.length
   }
 
-  submitQuestions(questions: IQuestion[]) {
+  submitQuestions(questions: IQuestion[], callback: () => void) {
     const { createStore } = this.stores
-    console.log(questions)
 
-    if (createStore.cached) {
-      createStore.setQst(questions)
-    }
+    // if (createStore.cached) {}
+    this.updateQuestions(questions)
 
     const qstsToSubmit: IQstToSubmit[] = questions.map((qst, index) => {
       const { type, title, options, required } = qst
@@ -59,6 +57,7 @@ export default class CreateAction {
     })
 
     console.log(qstsToSubmit) // TODO: 上传 await
+    callback()
   }
 
   updateQuestions(questions: IQuestion[]) {
