@@ -6,9 +6,9 @@ $blue: #2e61c8;
 
 $background: #efeff4;
 
-$info: #2e61c8;
+$background2: #f5f5f9;
 
-$info2: #2dbe8a;
+$info: #2dbe8a;
 
 $warning: #ffb142;
 
@@ -16,7 +16,7 @@ $error: #f43530;
 
 $border: #d6d6db;
 
-$bgTag: #ecf3fc;
+$bg-tag: #ecf3fc;
 
 // fonts color
 
@@ -40,17 +40,15 @@ $small: #bfbfbf;
     top: 0;
     box-sizing: border-box;
     border: $size solid $borderColor;
-
-    @if $border {
-      border-#{$border}-width: 1px;
-    }
-
-    color: $borderColor;
+    border-radius: 5px;
+    transform: scale(0.5, 0.5);
     transform-origin: left top;
-    transform: scale(.5);
-    pointer-events: none;
+    @if $border {
+      border-#{$border}-width: 2px;
+    }
+    color: $borderColor;
+    pointer-events: none; /* 防止点击触发 */
 
-    /* 防止点击触发 */
     @media screen and (min-device-pixel-ratio:3) {
       width: 300%;
       height: 300%;

@@ -1,0 +1,46 @@
+$prefixCls: 'page-create-question';
+
+.#{$prefixCls} {
+  position: relative;
+  height: 100vh;
+
+  .title {
+    padding: 140px 0 45px;
+    margin: 0;
+    text-align: center;
+    font-size: 34px;
+    color: $title;
+  }
+
+  .desc {
+    line-height: 48px;
+    padding: 0 100px 60px;
+    text-align: center;
+    font-size: 30px;
+    color: $main;
+  }
+
+  .add-img {
+    text-align: center;
+
+    img {
+      width: 320px;
+      height: 320px;
+    }
+  }
+
+  .add-question {
+    width: 210px;
+    height: 80px;
+    line-height: 80px;
+    margin: 64px auto 200px;
+    font-size: 30px;
+    border-radius: 10px;
+    background: $warning;
+    color: #fff;
+
+    span {
+      margin-left: 10px;
+    }
+  }
+}

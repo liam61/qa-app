@@ -1,0 +1,13 @@
+$prefixCls: 'component-page-modal';
+
+.#{$prefixCls} {}
+
+.page-modal {
+  .am-modal-content {
+    text-align: initial;
+
+    .am-modal-body {
+      background: $background2;
+    }
+  }
+}

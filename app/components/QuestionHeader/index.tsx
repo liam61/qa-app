@@ -9,7 +9,7 @@ import './index.scss'
 @observer
 export default class QuestionHeader extends React.Component<IProps, {}> {
   static defaultProps = {
-    prefixCls: 'component-question',
+    prefixCls: 'component-question-header',
   }
 
   render() {
@@ -25,7 +25,7 @@ export default class QuestionHeader extends React.Component<IProps, {}> {
     return (
       <React.Fragment>
         <WhiteSpace size='lg' />
-        <div className='qa-question-header'>
+        <div className='qa-question-header qa-border-1px-bottom'>
           <div className='header-title'>
             <i
               className={`fa fa-caret-${

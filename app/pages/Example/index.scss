@@ -7,7 +7,7 @@ $prefixCls: 'page-example';
 
   ul {
     padding: 0;
-    background: $info2;
+    background: $info;
 
     li {
       list-style: none;
@@ -29,8 +29,4 @@ $prefixCls: 'page-example';
 .loading {
   text-align: center;
   margin-top: 50px;
-}
-
-.#{$globalPrefixCls}-border-1px {
-  @include border-mixin(1px);
 }

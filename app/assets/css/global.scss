@@ -3,10 +3,10 @@
 }
 
 // $borderList: top bottom left right;
-$borderList: bottom;
+$borderList: top bottom;
 
 .#{$globalPrefixCls}-border-1px {
-  @include border-mixin(1px);
+  @include border-mixin(2px);
 }
 
 @each $b in $borderList {
@@ -15,7 +15,7 @@ $borderList: bottom;
   }
 }
 
-.#{$globalPrefixCls} .am-switch {
+.#{$globalPrefixCls} .am-switch, .page-modal .am-switch {
   &-checkbox {
     &:checked+.checkbox {
       background: $blue !important;
@@ -36,8 +36,8 @@ $borderList: bottom;
     }
 
     &:after {
-      width: 36px;
-      height: 36px;
+      width: 37px;
+      height: 37px;
     }
   }
 }
@@ -62,14 +62,12 @@ $borderList: bottom;
 // portal
 .am-toast {
   &-text {
-    /* width: 260px; */
-    min-width: 260px !important;
-    height: 160px;
-    padding-bottom: 20px !important;
+    min-width: 360px !important;
+    padding: 15px 10px 20px !important;
 
     .am-icon {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
       padding: 20px 0 5px;
     }
 

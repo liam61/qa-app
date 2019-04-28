@@ -25,8 +25,9 @@ export default class InfoModal extends React.Component<IProps, {}> {
           visible={visible}
           className='qa-modal'
           transparent
-          animationType='fade'
+          // animationType='fade'
           maskTransitionName='am-fade'
+          transitionName='am-zoom'
           footer={[
             {
               text: '我知道了',
@@ -51,6 +52,13 @@ interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   type: InfoTypes
   visible: boolean
+  title: React.ReactNode
+  content: React.ReactNode
+  onClose: () => void
+}
+
+export interface IInfoProps {
+  type: InfoTypes
   title: React.ReactNode
   content: React.ReactNode
   onClose: () => void

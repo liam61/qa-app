@@ -25,4 +25,42 @@ export const QUESTION_TYPES = [
   },
 ]
 
-export const DELAY_TIME = 1.5
+export const TYPE_OPTIONS = [
+  {
+    value: '公告',
+    key: 'notice',
+  },
+  {
+    value: '测试',
+    key: 'exam',
+  },
+  {
+    value: '投票',
+    key: 'vote',
+  },
+  {
+    value: '资料收集',
+    key: 'collect',
+  },
+]
+
+export const TIME_OPTIONS = [
+  {
+    value: '永久',
+    key: 'permanent',
+  },
+  {
+    value: '一天后',
+    key: 'day',
+  },
+  {
+    value: '一周后',
+    key: 'week',
+  },
+  {
+    value: '一个月后',
+    key: 'month',
+  },
+]
+
+export const DELAY_TIME = 3

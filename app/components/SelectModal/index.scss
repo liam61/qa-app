@@ -1,0 +1,60 @@
+$prefixCls: 'component-select-modal';
+
+.#{$prefixCls} {
+  .btn-wrapper {
+    display: flex;
+    height: 90px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    // border-bottom: 1px solid $border;
+
+    a {
+      font-size: 34px;
+      color: $blue;
+
+      &.cancel {
+        color: #bfbfbf;
+      }
+    }
+  }
+
+  .select-item {
+    display: flex;
+    align-items: center;
+    padding: 0 45px 0 30px;
+    height: 84px;
+    text-align: initial;
+    font-size: 28px;
+    color: $title;
+
+    &-text {
+      flex: 1;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      width: 60px;
+      height: 60px;
+    }
+
+    input[type="radio"]+label:before {
+      content: '';
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 34px 34px;
+      background-image: url(../../assets/images/radio-unchecked.svg);
+    }
+
+    input[type="radio"]:checked+label:before {
+      content: '';
+      background-image: url(../../assets/images/radio-checked.svg);
+    }
+  }
+}

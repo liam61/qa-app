@@ -1,5 +1,53 @@
-$prefixCls: 'component-question';
+$prefixCls: 'component-question-header';
 
-.#{$prefixCls} {
+.#{$prefixCls} {}
 
+.#{$globalPrefixCls}-question {
+  &-header {
+    display: flex;
+    height: 88px;
+    padding-right: 30px;
+    align-items: center;
+    background: #fff;
+
+    .header-title {
+      // position: relative;
+      flex: 1;
+
+      &-toggle {
+        position: relative;
+        // padding: 25px 20px 15px;
+        padding: 0 20px;
+        top: 5px;
+      }
+
+      &-text {
+        font-size: 30px;
+        color: #353535;
+      }
+
+      &-type {
+        font-size: 26px;
+      }
+    }
+
+    .header-required {
+      position: relative;
+      margin: 2px 22px 0 16px;
+      font-size: 26px;
+
+      &:after {
+        position: absolute;
+        content: '';
+        right: -22px;
+        width: 1px;
+        height: 100%;
+        background: $border;
+      }
+    }
+
+    .header-remove {
+      margin-left: 24px;
+    }
+  }
 }

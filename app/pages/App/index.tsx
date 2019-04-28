@@ -26,7 +26,7 @@ const homeTabs = [
     ),
   },
   {
-    path: '/create',
+    path: '/create?steps=info',
     title: (
       <i
         className='fa fa-pencil-square-o fa-4x tab-create'

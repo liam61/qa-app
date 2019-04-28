@@ -175,13 +175,13 @@ function toSplitDash(str) {
     .join('/')
   // str = str.replace(/\//g, (m, index) => (index ? '_' : ''))
   str = str.replace(/\//g, '')
-  str = str.replace(
+  return str.replace(
     upperCaseRegex,
     (m, index) => (index ? '-' : '') + m.toLowerCase()
   )
 
-  const lastIdx = str.lastIndexOf('-')
-  return lastIdx === -1 ? str : str.slice(0, lastIdx)
+  // const lastIdx = str.lastIndexOf('-')
+  // return lastIdx === -1 ? str : str.slice(0, lastIdx)
 }
 
 function fisrtToLowercase(str) {

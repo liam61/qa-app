@@ -6,79 +6,6 @@ $prefixCls: 'component-single';
   position: relative;
   color: #bfbfbf;
 
-  &-header {
-    display: flex;
-    height: 88px;
-    // padding: 0 30px;
-    padding-right: 30px;
-    align-items: center;
-    border-bottom: 1px solid $border;
-    background: #fff;
-
-    .header-title {
-      flex: 1;
-
-      &-toggle {
-        padding: 20px;
-      }
-
-      &-text {
-        font-size: 34px;
-        color: #353535;
-      }
-
-      &-type {
-        font-size: 26px;
-      }
-    }
-
-    // .am-switch {
-    //   input {
-    //     &:checked+.checkbox {
-    //       background: $blue;
-    //     }
-
-    //     &:checked+.checkbox:after {
-    //       transform: translateX(41px);
-    //     }
-    //   }
-
-    //   .checkbox {
-    //     width: 82px;
-    //     height: 40px;
-
-    //     &:before {
-    //       width: 78px;
-    //       height: 36px;
-    //     }
-
-    //     &:after {
-    //       width: 36px;
-    //       height: 36px;
-    //     }
-    //   }
-    // }
-
-    .header-required {
-      position: relative;
-      margin: 2px 22px 0 16px;
-      font-size: 30px;
-
-      &:after {
-        position: absolute;
-        content: '';
-        right: -22px;
-        width: 1px;
-        height: 100%;
-        background: $border;
-      }
-    }
-
-    .header-remove {
-      margin-left: 24px;
-    }
-  }
-
   &-content {
     padding: 20px 30px 0;
     background: #fff;
@@ -96,8 +23,7 @@ $prefixCls: 'component-single';
         height: 60px;
         line-height: 60px;
         padding: 0 25px;
-        border: 1px solid $border;
-        border-radius: 5px;
+        @include border-mixin(2px);
 
         .am-list-line {
           padding-right: 0;
@@ -114,7 +40,7 @@ $prefixCls: 'component-single';
       .option-wrapper {
         display: flex;
         align-items: center;
-        border-top: 1px solid $border;
+        padding: 1px 0;
 
         .option-add,
         .option-remove,
@@ -138,7 +64,7 @@ $prefixCls: 'component-single';
 
         .option-warn {
           &::before {
-            color: $info2;
+            color: $info;
 
           }
         }

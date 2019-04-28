@@ -2,6 +2,9 @@ import { IStoresToProps, IReactComponent, IWrappedComponent } from 'mobx-react'
 import AppStore from '../pages/App/stores/appStore'
 import CollectionStore from '../pages/Collection/stores/collectionStore'
 import CreateStore from '../pages/Create/stores/createStore'
+import ExtraStore from '../pages/Create/stores/extraStore'
+import InfoStore from '../pages/Create/stores/infoStore'
+import QuestionStore from '../pages/Create/stores/questionStore'
 import ExampleStore from '../pages/Example/stores/exampleStore'
 import MessageStore from '../pages/Message/stores/messageStore'
 import TodoStore from '../pages/Todo/stores/todoStore'
@@ -9,6 +12,9 @@ import UserStore from '../pages/User/stores/userStore'
 import AppAction from '../pages/App/actions/appAction'
 import CollectionAction from '../pages/Collection/actions/collectionAction'
 import CreateAction from '../pages/Create/actions/createAction'
+import ExtraAction from '../pages/Create/actions/extraAction'
+import InfoAction from '../pages/Create/actions/infoAction'
+import QuestionAction from '../pages/Create/actions/questionAction'
 import ExampleAction from '../pages/Example/actions/exampleAction'
 import MessageAction from '../pages/Message/actions/messageAction'
 import TodoAction from '../pages/Todo/actions/todoAction'
@@ -23,6 +29,9 @@ export interface IRootStore {
   }
   Create: {
     createStore: CreateStore
+    extraStore: ExtraStore
+    infoStore: InfoStore
+    questionStore: QuestionStore
   }
   Example: {
     exampleStore: ExampleStore
@@ -47,6 +56,9 @@ export interface IRootAction {
   }
   Create: {
     createAction: CreateAction
+    extraAction: ExtraAction
+    infoAction: InfoAction
+    questionAction: QuestionAction
   }
   Example: {
     exampleAction: ExampleAction

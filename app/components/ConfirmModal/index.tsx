@@ -4,6 +4,7 @@ import { Modal } from 'antd-mobile'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
+import '../PageModal/anim.less'
 
 @inject(injector)
 @observer
@@ -20,8 +21,9 @@ export default class ConfirmModal extends React.Component<IProps, {}> {
           visible={visible}
           className='qa-modal'
           transparent
-          animationType='fade'
+          // animationType='fade'
           maskTransitionName='am-fade'
+          transitionName='am-zoom'
           footer={[
             { text: '取消', onPress: onCancel },
             { text: '确定', onPress: onOK },
@@ -41,6 +43,11 @@ interface IProps extends Partial<injectorReturnType> {
   visible: boolean
   title: React.ReactNode
   onCancel: () => void
+  onOK: () => void
+}
+
+export interface IConfirmProps {
+  title: React.ReactNode
   onOK: () => void
 }
 

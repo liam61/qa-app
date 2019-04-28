@@ -88,17 +88,17 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
     options.map((option, index) => {
       const { id, value } = option
       return (
-        <div className='option-wrapper' key={id}>
+        <div className='option-wrapper qa-border-1px-top' key={id}>
           <i
             className='fa fa-minus-circle fa-3x option-remove'
             aria-hidden='true'
             onClick={() => this.handleRemoveOption(index)}
           />
           <TextareaItem
-            placeholder='输入选项内容'
+            placeholder='请输入选项内容（不超过30字）'
             value={value}
             autoHeight
-            count={50}
+            count={30}
             onChange={val => this.handleContentChange(val, index)}
           />
         </div>
@@ -130,14 +130,14 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
             <InputItem
               placeholder='请输入题目'
               value={title}
-              maxLength={30}
+              maxLength={20}
               onChange={this.handleTitleChange}
             />
           </div>
           <div className='content-options'>
             <div className='content-text'>选项</div>
             {this.renderOptions(options)}
-            <div className='option-wrapper add' onClick={this.handleAddOption}>
+            <div className='option-wrapper add qa-border-1px-top' onClick={this.handleAddOption}>
               <i
                 className='fa fa-plus-circle fa-3x option-add'
                 aria-hidden='true'

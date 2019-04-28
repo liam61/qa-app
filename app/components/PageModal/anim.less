@@ -1,0 +1,97 @@
+/*do not import this file except components/style/index.less*/
+.qa {
+  .effect() {
+    animation-duration: .2s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(.55, 0, .55, .2);
+  }
+
+  &-slide-left-enter,
+  &-slide-left-appear {
+    transform: translate(100%, 0);
+  }
+
+  &-slide-left-enter,
+  &-slide-left-appear,
+  &-slide-left-leave {
+    .effect();
+
+    animation-play-state: paused;
+  }
+
+  &-slide-left-enter&-slide-left-enter-active,
+  &-slide-left-appear&-slide-left-appear-active {
+    animation-name: amSlideLeftIn;
+    animation-play-state: running;
+  }
+
+  &-slide-left-leave&-slide-left-leave-active {
+    animation-name: amSlideLeftOut;
+    animation-play-state: running;
+  }
+
+  @keyframes amSlideLeftIn {
+    0% {
+      transform: translate(100%, 0);
+    }
+
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes amSlideLeftOut {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(100%, 0);
+    }
+  }
+
+
+  &-slide-right-enter,
+  &-slide-right-appear {
+    transform: translate(-100%, 0);
+  }
+
+  &-slide-right-enter,
+  &-slide-right-appear,
+  &-slide-right-leave {
+    .effect();
+
+    animation-play-state: paused;
+  }
+
+  &-slide-right-enter&-slide-right-enter-active,
+  &-slide-right-appear&-slide-right-appear-active {
+    animation-name: amSlideRightIn;
+    animation-play-state: running;
+  }
+
+  &-slide-right-leave&-slide-right-leave-active {
+    animation-name: amSlideRightOut;
+    animation-play-state: running;
+  }
+
+  @keyframes amSlideRightIn {
+    0% {
+      transform: translate(-100%, 0);
+    }
+
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes amSlideRightOut {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(-100%, 0);
+    }
+  }
+}
