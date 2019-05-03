@@ -21,7 +21,7 @@ export class UserService {
   }
 
   public getUser(id: string): IUser {
-    let result: IUser;
+    let result = { email: '', name: '' } as IUser;
     this.userStorage.map(user => {
       if (user.name === id) {
         result = user;

@@ -93,7 +93,14 @@ class Extra extends React.Component<IProps, IState> {
     //   return
     // }
 
-    action!.updateExtra(type.key, time.key, receiver, showAuthor, secret, anonymous)
+    action!.updateExtra(
+      type.key,
+      time.key,
+      receiver,
+      showAuthor,
+      secret,
+      anonymous,
+    )
     onOK()
 
     // this.handleModalClose('confirmModal')
@@ -180,11 +187,11 @@ class Extra extends React.Component<IProps, IState> {
           </div>
           <Button
             type='primary'
-            className='page-create-add-finish'
+            className='btn-bottom'
             disabled={!type.value || !time.value || !receiver}
             onClick={() => this.handleModalShow('confirmModal')}
           >
-            <div>添加完成</div>
+            添加完成
           </Button>
         </div>
         <ConfirmModal

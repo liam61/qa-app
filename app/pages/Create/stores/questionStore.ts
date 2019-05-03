@@ -4,7 +4,7 @@ import { mStore } from '../../../mobx/store'
 
 export interface IQuestion {
   id: string
-  Element: React.ElementType
+  Element: React.ReactNode
   type: string
   title?: string
   options?: object[]

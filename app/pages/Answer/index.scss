@@ -1,0 +1,18 @@
+$prefixCls: 'page-answer';
+
+.#{$prefixCls} {
+  .finish-question {
+    width: 210px;
+    height: 80px;
+    line-height: 80px;
+    margin: 64px auto 200px;
+    font-size: 30px;
+    border-radius: 10px;
+    background: $warning;
+    color: #fff;
+
+    span {
+      margin-left: 10px;
+    }
+  }
+}

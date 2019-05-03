@@ -8,6 +8,7 @@
       "esnext",
       "dom"
     ],
+    "types": ["reflect-metadata"],
     "sourceMap": true,
     "jsx": "react",
     "importHelpers": true,

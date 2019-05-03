@@ -258,7 +258,7 @@ class Question extends React.Component<IProps, IState> {
         )}
         <Button
           type='primary'
-          className='page-create-add-finish'
+          className='btn-bottom'
           disabled={length === 0}
           onClick={() =>
             this.handleConfirmModalShow({
@@ -267,13 +267,8 @@ class Question extends React.Component<IProps, IState> {
             })
           }
         >
-          <div>
-            添加完成
-            <i
-              className='fa fa-angle-right add-finish-icon'
-              aria-hidden='true'
-            />
-          </div>
+          添加完成
+          <i className='fa fa-angle-right btn-bottom-icon' aria-hidden='true' />
         </Button>
         <ConfirmModal
           visible={confirmModal}

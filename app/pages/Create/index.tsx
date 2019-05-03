@@ -27,23 +27,17 @@ class Create extends React.Component<IProps, IState> {
   //   }
   // }
 
-  constructor(props) {
-    super(props)
-
-    // const { store } = props
-
-    this.state = {
-      infoPageModal: true,
-      qstPageModal: false,
-      extraPageModal: false,
-      infoModal: false,
-      infoProps: {
-        type: 'warning',
-        title: '',
-        content: '',
-        onClose: () => console.log('info'),
-      },
-    }
+  state = {
+    infoPageModal: true,
+    qstPageModal: false,
+    extraPageModal: false,
+    infoModal: false,
+    infoProps: {
+      type: 'warning' as InfoTypes,
+      title: '',
+      content: '',
+      onClose: () => console.log('info'),
+    },
   }
 
   componentWillUnmount() {
@@ -52,10 +46,10 @@ class Create extends React.Component<IProps, IState> {
     console.log('unmount create')
   }
 
-  handleInfoModalShow = (props: IInfoProps) => {
+  handleInfoModalShow = (infoProps: IInfoProps) => {
     this.setState({
       infoModal: true,
-      infoProps: props,
+      infoProps,
     })
   }
 
@@ -70,7 +64,6 @@ class Create extends React.Component<IProps, IState> {
   handleFinish = () => {
     const { action } = this.props
 
-    // action!.submitQuestions(result => this.handleInfoModalShow(modalPropsFactory(result)))
     action!.submitQuestions((type: InfoTypes) =>
       this.handleInfoModalShow({
         type,
@@ -136,7 +129,7 @@ export const steps = [
   },
 ].map((s, i) => <Step key={i} title={s.title} />)
 
-export const renderSteps = num => (
+export const renderSteps = (num: number) => (
   <Steps current={num} direction='horizontal'>
     {steps}
   </Steps>

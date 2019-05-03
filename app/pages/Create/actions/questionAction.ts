@@ -1,3 +1,4 @@
+import { toJS } from 'mobx';
 import { fromJS, is } from 'immutable'
 import { mAction } from '../../../mobx/action'
 import { IQuestion, IQstToSubmit } from '../stores/questionStore'
@@ -11,7 +12,7 @@ export default class QuestionAction {
     public actions: IRootAction['Create'],
   ) {}
 
-  addQuestion(type: string, Element: React.ElementType) {
+  addQuestion(type: string, Element: React.ReactNode) {
     const { questionStore } = this.stores
     questionStore.addQst({
       id: getUid(),
@@ -48,7 +49,7 @@ export default class QuestionAction {
         num: index,
         type,
         title,
-        options,
+        options: toJS(options),
         required,
       }
     })

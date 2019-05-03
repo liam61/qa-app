@@ -1,0 +1,68 @@
+$prefixCls: 'component-answer-qst-todo';
+
+.#{$prefixCls} {
+  background: #fff;
+
+  &-header {
+    display: flex;
+    height: 88px;
+    align-items: center;
+    padding: 0 30px;
+
+    .header-tag {
+      padding: 4px 10px;
+      margin-right: 10px;
+      font-size: 20px;
+      color: $blue;
+      background: rgba(46, 97, 200, 0.1);
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 30px;
+      color: $title;
+
+      &.required {
+        position: relative;
+
+        &:before {
+          content: '*';
+          position: relative;
+          display: inline-block;
+          top: 9px;
+          line-height: 1;
+          padding-right: 8px;
+          font-size: 40px;
+          color: $error;
+        }
+      }
+    }
+
+    .header-disabled {
+      font-size: 24px;
+      color: $nav;
+      margin-left: 10px;
+    }
+  }
+
+  .am-textarea-item {
+    flex: 1;
+    // padding-left: 0;
+    padding: 0 25px;
+    @include border-mixin(2px);
+
+    .am-textarea-control {
+      padding: 0;
+      padding-top: 3px;
+
+      textarea {
+        min-height: 180px;
+        max-height: 300px;
+        line-height: 45px;
+        padding-top: 10px;
+        font-size: 30px;
+      }
+    }
+  }
+}

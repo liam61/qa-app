@@ -3,7 +3,7 @@
 }
 
 // $borderList: top bottom left right;
-$borderList: top bottom;
+$borderList: top bottom right;
 
 .#{$globalPrefixCls}-border-1px {
   @include border-mixin(2px);
@@ -117,5 +117,25 @@ $borderList: top bottom;
         color: $blue;
       }
     }
+  }
+}
+
+.btn-bottom {
+  position: fixed !important;
+  height: 95px;
+  line-height: 95px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0;
+  background: $blue;
+  font-size: 34px;
+  z-index: 1;
+
+  &-icon {
+    position: relative;
+    // top: 4.5px;
+    left: 12px;
+    font-size: 1.5em;
   }
 }

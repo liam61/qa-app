@@ -11,10 +11,10 @@ export default class ExtraStore {
   type = ''
 
   @observable
-  time = ''
+  expire = ''
 
   @observable
-  receiver = []
+  receiver = [] as object[]
 
   @observable
   showAuthor = true
@@ -31,8 +31,8 @@ export default class ExtraStore {
   }
 
   @action
-  setTime(t: string) {
-    this.time = t
+  setExpire(t: string) {
+    this.expire = t
   }
 
   @action

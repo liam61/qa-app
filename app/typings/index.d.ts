@@ -1,4 +1,7 @@
 import { IStoresToProps, IReactComponent, IWrappedComponent } from 'mobx-react'
+import AnswerStore from '../pages/Answer/stores/answerStore'
+import InfoStore from '../pages/Answer/stores/infoStore'
+import QuestionStore from '../pages/Answer/stores/questionStore'
 import AppStore from '../pages/App/stores/appStore'
 import CollectionStore from '../pages/Collection/stores/collectionStore'
 import CreateStore from '../pages/Create/stores/createStore'
@@ -9,6 +12,9 @@ import ExampleStore from '../pages/Example/stores/exampleStore'
 import MessageStore from '../pages/Message/stores/messageStore'
 import TodoStore from '../pages/Todo/stores/todoStore'
 import UserStore from '../pages/User/stores/userStore'
+import AnswerAction from '../pages/Answer/actions/answerAction'
+import InfoAction from '../pages/Answer/actions/infoAction'
+import QuestionAction from '../pages/Answer/actions/questionAction'
 import AppAction from '../pages/App/actions/appAction'
 import CollectionAction from '../pages/Collection/actions/collectionAction'
 import CreateAction from '../pages/Create/actions/createAction'
@@ -21,6 +27,11 @@ import TodoAction from '../pages/Todo/actions/todoAction'
 import UserAction from '../pages/User/actions/userAction'
 
 export interface IRootStore {
+  Answer: {
+    answerStore: AnswerStore
+    infoStore: InfoStore
+    questionStore: QuestionStore
+  }
   App: {
     appStore: AppStore
   }
@@ -48,6 +59,11 @@ export interface IRootStore {
 }
 
 export interface IRootAction {
+  Answer: {
+    answerAction: AnswerAction
+    infoAction: InfoAction
+    questionAction: QuestionAction
+  }
   App: {
     appAction: AppAction
   }

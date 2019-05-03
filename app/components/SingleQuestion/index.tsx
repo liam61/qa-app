@@ -1,3 +1,4 @@
+// 创建问题组件
 // 单选 | 多选 | 投票
 
 import * as React from 'react'

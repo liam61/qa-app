@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import { ListView } from 'antd-mobile'
+import AnswerPage from '../Answer'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
@@ -21,7 +23,7 @@ export default class Todo extends React.Component<IProps, {}> {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-        todos
+        <AnswerPage />
       </div>
     )
   }

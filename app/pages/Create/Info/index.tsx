@@ -92,57 +92,6 @@ class Info extends React.Component<IProps, IState> {
     onOK()
   }
 
-  // handleSubmit = () => {
-  //   const {
-  //     title,
-  //     content,
-  //     file,
-  //   } = this.props
-
-  //   if (
-  //     !title ||
-  //     !content ||
-  //     title.length > 20 ||
-  //     content.length > 100 ||
-  //   ) {
-  //     // eslint-disable-line
-  //     Toast.info('请检查以上字段', DELAY_TIME)
-  //     return
-  //   }
-
-  //   // if (isLoading) {
-  //   //   return;
-  //   // }
-  //   // this.setState({ isLoading: true });
-  //   // Toast.info('正在提交', DELAY_TIME);
-  //   this.bindActionCreators.submitCreateNotice({
-  //     noticeData: {
-  //       title,
-  //       content,
-  //       file,
-  //       type: noticeType,
-  //       receiver: {
-  //         to_accounts: toAccounts,
-  //         to_departments: toDepartments,
-  //       },
-  //       period,
-  //       secret,
-  //       show_author: showAuthor,
-  //       questions: questions.map(qst => {
-  //         const { options, type, required, title } = qst // eslint-disable-line
-  //         return {
-  //           options: options.map(opt => opt.value),
-  //           type,
-  //           required,
-  //           title,
-  //         }
-  //       }),
-  //       anonymous,
-  //     },
-  //     callback: this.handleModalShow,
-  //   })
-  // }
-
   render() {
     const { prefixCls } = this.props
     const {
@@ -186,25 +135,24 @@ class Info extends React.Component<IProps, IState> {
               files={files}
               length={5}
               onImageClick={this.handleImgClick}
-              // onAddImageClick={() }
-              onChange={(newFiles, type, index) => this.setState({ files: newFiles })}
+              onChange={(newFiles, type, index) =>
+                this.setState({ files: newFiles })
+              }
               multiple
             />
           </div>
           {/* <Picker fileId={file} onChangeFile={this.handleChangeFile} /> */}
           <Button
             type='primary'
-            className='page-create-add-finish'
+            className='btn-bottom'
             disabled={!title || !content}
             onClick={() => this.handleModalShow('confirmModal')}
           >
-            <div>
-              添加完成
-              <i
-                className='fa fa-angle-right add-finish-icon'
-                aria-hidden='true'
-              />
-            </div>
+            添加完成
+            <i
+              className='fa fa-angle-right btn-bottom-icon'
+              aria-hidden='true'
+            />
           </Button>
         </div>
         <Modal

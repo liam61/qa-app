@@ -22,4 +22,6 @@ server.setConfig(app => {
 });
 
 const serverInstance = server.build();
-serverInstance.listen(3000, () => console.log(`your app is running at http://localhost:3000`));
+serverInstance.listen(4000);
+
+console.log('Server started on port 4000 :)');

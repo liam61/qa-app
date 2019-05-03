@@ -1,6 +1,6 @@
 export const PREFIXCLS = 'qa'
 
-export const TOKEN = '12345678'
+export const TOKEN = 'f3660dec0866f0d5ad60cd5d761649ed12a4dad6b4e33a8cd7277129b41e0098'
 
 export const QUESTION_TYPES = [
   {
@@ -50,17 +50,17 @@ export const TIME_OPTIONS = [
     key: 'permanent',
   },
   {
-    value: '一天后',
+    value: '一天',
     key: 'day',
   },
   {
-    value: '一周后',
+    value: '一周',
     key: 'week',
   },
   {
-    value: '一个月后',
+    value: '一个月',
     key: 'month',
   },
 ]
 
-export const DELAY_TIME = 3
+export const DELAY_TIME = 2.5

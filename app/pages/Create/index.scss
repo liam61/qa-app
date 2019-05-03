@@ -31,26 +31,6 @@ $prefixCls: 'page-create';
       color: $main;
     }
   }
-
-  &-add-finish {
-    position: fixed !important;
-    height: 95px;
-    line-height: 95px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 0;
-    background: $blue;
-    font-size: 34px;
-    z-index: 1;
-
-    .add-finish-icon {
-      position: relative;
-      top: 4.5px;
-      left: 12px;
-      font-size: 1.5em;
-    }
-  }
 }
 
 .page-modal {

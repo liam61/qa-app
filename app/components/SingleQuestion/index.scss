@@ -74,15 +74,14 @@ $prefixCls: 'component-single';
           padding-left: 0;
 
           .am-textarea-control {
-            padding: 0;
-            padding-top: 3px;
+            // padding-top: 3px;
 
             textarea {
-              min-height: 50px;
-              max-height: 60px;
-              line-height: 40px;
-              padding-top: 18px;
-              font-size: 30px;
+              min-height: 40px;
+              max-height: 100px;
+              line-height: 35px;
+              margin-top: 6px;
+              font-size: 28px;
             }
           }
         }

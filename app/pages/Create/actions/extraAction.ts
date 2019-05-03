@@ -1,3 +1,4 @@
+import { toJS } from 'mobx'
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
 
@@ -20,7 +21,7 @@ export default class ExtraAction {
 
   updateExtra(
     type: string,
-    time: string,
+    expire: string,
     receiver: object[],
     showAuthor: boolean,
     secret: boolean,
@@ -28,7 +29,7 @@ export default class ExtraAction {
   ) {
     const { extraStore } = this.stores
     extraStore.setType(type)
-    extraStore.setTime(time)
+    extraStore.setExpire(expire)
     extraStore.setReceiver(receiver)
     extraStore.setShowAuthor(showAuthor)
     extraStore.setSecret(secret)
@@ -37,15 +38,16 @@ export default class ExtraAction {
 
   getExtra() {
     const { extraStore } = this.stores
-    const { type, time, receiver, showAuthor, secret, anonymous } = extraStore
+    const { type, expire, receiver, showAuthor, secret, anonymous } = extraStore
 
     return {
       type,
-      time,
-      receiver,
+      expire,
+      receiver: toJS(receiver),
       showAuthor,
       secret,
       anonymous,
+      date: Date.now().toString(),
     }
   }
 }

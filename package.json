@@ -49,7 +49,7 @@
     "@types/mongodb": "^3.1.23",
     "@types/morgan": "^1.7.35",
     "@types/node": "^11.13.6",
-    "@types/react": "^16.8.14",
+    "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
     "@types/react-loadable": "^5.5.1",
     "@types/react-router-dom": "^4.3.2",
@@ -125,6 +125,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "antd-mobile": "^2.2.11",
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
@@ -143,6 +144,7 @@
     "multer": "^1.4.1",
     "pg": "^7.9.0",
     "prop-types": "^15.6.2",
+    "qs": "^6.7.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-helmet": "^5.2.0",
@@ -150,6 +152,7 @@
     "react-loadable": "^5.5.0",
     "react-router-dom": "^4.3.1",
     "reflect-metadata": "^0.1.13",
+    "styled-components": "^4.2.0",
     "zone.js": "^0.9.0"
   }
 }
