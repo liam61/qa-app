@@ -184,7 +184,6 @@ class Question extends React.Component<IProps, IState> {
 
   renderQsts = (questions: IQuestion[], cached: boolean) =>
     questions.map((qst, index) => {
-      // const { id, Element, options, title, required, type } = qst
       const { id, Element, ...restProps } = qst
       const props = Object.assign({
         num: index + 1,

@@ -1,6 +1,32 @@
 $prefixCls: 'page-answer-question';
 
 .#{$prefixCls} {
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    margin-bottom: 16px;
+    background: #fff;
+
+    .title {
+      position: relative;
+      flex: 1;
+      font-size: 34px;
+      color: $title;
+    }
+
+    .type {
+      margin-left: 10px;
+      padding: 12px 30px;
+      font-size: 26px;
+      color: $blue;
+      background: rgba(46, 97, 200, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+  }
+
   .question-wrapper {
     margin-bottom: 170px;
   }

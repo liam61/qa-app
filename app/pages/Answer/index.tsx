@@ -46,22 +46,16 @@ class Answer extends React.Component<IProps, IState> {
     const { data } = store!
 
     if (!data) {
-      return <h1>Loading</h1>
+      return <h1>Loading...</h1>
     }
 
     const { questions, ...rest } = data
 
     return (
       <div className={prefixCls}>
-        <InfoPage {...rest} />
-        <Button className='finish-question' onClick={this.onEnterQstPage}>
-          <i className='fa fa-paint-brush' aria-hidden='true' />
-          <span>完成问题</span>
-        </Button>
+        <InfoPage onOK={this.onEnterQstPage} {...rest} />
         <PageModal visible={qstPageModal}>
           <QuestionPage
-            // onOK={this.handleFinish}
-            // questions={questions}
             onCancel={() => this.handleModalClose('qstPageModal')}
           />
         </PageModal>

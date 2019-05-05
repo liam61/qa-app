@@ -1,8 +1,6 @@
 $prefixCls: 'component-single-qst-todo';
 
-.#{$prefixCls} {
-  background: #fff;
-
+.#{$globalPrefixCls}-qst-todo {
   &-header {
     display: flex;
     height: 88px;
@@ -20,6 +18,8 @@ $prefixCls: 'component-single-qst-todo';
     }
 
     .header-title {
+      flex: 1;
+      // max-width: 450px;
       font-size: 30px;
       color: $title;
 
@@ -40,11 +40,17 @@ $prefixCls: 'component-single-qst-todo';
     }
 
     .header-disabled {
+      // flex: 1;
+      margin-left: 10px;
+      text-align: right;
       font-size: 24px;
       color: $nav;
-      margin-left: 10px;
     }
   }
+}
+
+.#{$prefixCls} {
+  background: #fff;
 
   .option-item {
     display: flex;
@@ -70,7 +76,7 @@ $prefixCls: 'component-single-qst-todo';
       }
 
       &.checked {
-        border-color: rgba(255, 177, 66, .5);
+        border-color: rgba(255, 177, 66, 0.5);
         background: $warning;
 
         &::before {
@@ -80,13 +86,18 @@ $prefixCls: 'component-single-qst-todo';
         &.judge {
           &::before {
             content: '✔';
-            left: 10px;
+            left: 9px;
           }
         }
 
         &.vote {
+          border-color: rgba(244, 53, 48, 0.5);
+          background: $error;
+
           &::before {
-            // content: '';
+            content: '♥';
+            left: 7px;
+            top: 2px;
           }
         }
       }

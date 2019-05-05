@@ -17,6 +17,7 @@ export interface IQstToSubmit {
   title?: string
   options?: object[]
   required?: boolean
+  reply?: string[]
 }
 
 @mStore

@@ -25,10 +25,9 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
   }
 
   getReply = () => {
-    const { num } = this.props
     const { value } = this.state
 
-    return { reply: value, num }
+    return value ? [value] : []
   }
 
   render() {
@@ -45,14 +44,12 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
-        <div className={`${prefixCls}-header`}>
+        <div className='qa-qst-todo-header'>
           <span className='header-tag'>
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>
-          <span className={`header-title${required ? ' required' : ''}`}>
-            {num}
-.
-            {title}
+          <span className={`header-title${required ? ' required' : ''} text-ellipsis`}>
+            {`${num}. ${title}`}
           </span>
           {writable ? null : (
             <span className='header-disabled'>(不可编辑)</span>
@@ -61,9 +58,10 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
         <div className={`${prefixCls}-content`}>
           <TextareaItem
             placeholder='请输入内容（不超过100字）'
-            value={value}
+            value={writable ? value : reply}
             autoHeight
             count={100}
+            editable={writable}
             onChange={this.handleChange}
           />
         </div>
@@ -82,7 +80,7 @@ interface IProps extends Partial<injectorReturnType> {
   options: object[]
   type: string
   writable: boolean
-  reply?: number
+  reply?: string
 }
 
 interface IState extends Partial<injectorReturnType> {

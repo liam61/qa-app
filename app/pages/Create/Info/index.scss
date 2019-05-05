@@ -62,47 +62,4 @@ $prefixCls: 'page-create-info';
       }
     }
   }
-
-  .am-image-picker {
-    margin-bottom: 200px;
-
-    .am-image-picker-list {
-      padding: 0;
-      margin: 0;
-      background: #fff;
-
-      .am-flexbox {
-        margin: 0;
-        margin-bottom: 30px;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        .am-flexbox-item {
-          width: 116px;
-          /* height: 116px; */
-
-          .am-image-picker-item {
-
-            &:before {
-              width: 4px;
-              height: 56px;
-            }
-
-            &:after {
-              width: 56px;
-              height: 4px;
-            }
-
-            &-remove {
-              width: 30px;
-              height: 30px;
-              background-size: 100%;
-            }
-          }
-        }
-      }
-    }
-  }
 }

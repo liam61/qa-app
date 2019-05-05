@@ -15,13 +15,14 @@ $borderList: top bottom right;
   }
 }
 
-.#{$globalPrefixCls} .am-switch, .page-modal .am-switch {
+.#{$globalPrefixCls} .am-switch,
+.page-modal .am-switch {
   &-checkbox {
-    &:checked+.checkbox {
+    &:checked + .checkbox {
       background: $blue !important;
     }
 
-    &:checked+.checkbox:after {
+    &:checked + .checkbox:after {
       transform: translateX(42px) !important;
     }
   }
@@ -120,6 +121,63 @@ $borderList: top bottom right;
   }
 }
 
+.#{$globalPrefixCls}-image-picker {
+  .am-image-picker-list {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+
+    .am-flexbox {
+      margin: 0;
+      margin-bottom: 30px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .am-flexbox-item {
+        width: 116px;
+        /* height: 116px; */
+
+        .am-image-picker-item {
+          &:before {
+            width: 4px;
+            height: 56px;
+          }
+
+          &:after {
+            width: 56px;
+            height: 4px;
+          }
+
+          &-remove {
+            width: 30px;
+            height: 30px;
+            background-size: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.#{$globalPrefixCls}-img-modal {
+  width: inherit;
+
+  .am-modal-content {
+    padding-top: 0;
+    background: transparent;
+
+    .am-modal-body {
+      padding: 0;
+
+      img {
+        // width: 600px;
+      }
+    }
+  }
+}
+
 .btn-bottom {
   position: fixed !important;
   height: 95px;
@@ -138,4 +196,10 @@ $borderList: top bottom right;
     left: 12px;
     font-size: 1.5em;
   }
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

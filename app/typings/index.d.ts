@@ -1,92 +1,92 @@
 import { IStoresToProps, IReactComponent, IWrappedComponent } from 'mobx-react'
-import AnswerStore from '../pages/Answer/stores/answerStore'
-import InfoStore from '../pages/Answer/stores/infoStore'
-import QuestionStore from '../pages/Answer/stores/questionStore'
-import AppStore from '../pages/App/stores/appStore'
-import CollectionStore from '../pages/Collection/stores/collectionStore'
-import CreateStore from '../pages/Create/stores/createStore'
-import ExtraStore from '../pages/Create/stores/extraStore'
-import InfoStore from '../pages/Create/stores/infoStore'
-import QuestionStore from '../pages/Create/stores/questionStore'
-import ExampleStore from '../pages/Example/stores/exampleStore'
-import MessageStore from '../pages/Message/stores/messageStore'
-import TodoStore from '../pages/Todo/stores/todoStore'
-import UserStore from '../pages/User/stores/userStore'
-import AnswerAction from '../pages/Answer/actions/answerAction'
-import InfoAction from '../pages/Answer/actions/infoAction'
-import QuestionAction from '../pages/Answer/actions/questionAction'
-import AppAction from '../pages/App/actions/appAction'
-import CollectionAction from '../pages/Collection/actions/collectionAction'
-import CreateAction from '../pages/Create/actions/createAction'
-import ExtraAction from '../pages/Create/actions/extraAction'
-import InfoAction from '../pages/Create/actions/infoAction'
-import QuestionAction from '../pages/Create/actions/questionAction'
-import ExampleAction from '../pages/Example/actions/exampleAction'
-import MessageAction from '../pages/Message/actions/messageAction'
-import TodoAction from '../pages/Todo/actions/todoAction'
-import UserAction from '../pages/User/actions/userAction'
+import AnswerAnswerStore from '../pages/Answer/stores/answerStore'
+import AnswerInfoStore from '../pages/Answer/stores/infoStore'
+import AnswerQuestionStore from '../pages/Answer/stores/questionStore'
+import AppAppStore from '../pages/App/stores/appStore'
+import CollectionCollectionStore from '../pages/Collection/stores/collectionStore'
+import CreateCreateStore from '../pages/Create/stores/createStore'
+import CreateExtraStore from '../pages/Create/stores/extraStore'
+import CreateInfoStore from '../pages/Create/stores/infoStore'
+import CreateQuestionStore from '../pages/Create/stores/questionStore'
+import ExampleExampleStore from '../pages/Example/stores/exampleStore'
+import MessageMessageStore from '../pages/Message/stores/messageStore'
+import TodoTodoStore from '../pages/Todo/stores/todoStore'
+import UserUserStore from '../pages/User/stores/userStore'
+import AnswerAnswerAction from '../pages/Answer/actions/answerAction'
+import AnswerInfoAction from '../pages/Answer/actions/infoAction'
+import AnswerQuestionAction from '../pages/Answer/actions/questionAction'
+import AppAppAction from '../pages/App/actions/appAction'
+import CollectionCollectionAction from '../pages/Collection/actions/collectionAction'
+import CreateCreateAction from '../pages/Create/actions/createAction'
+import CreateExtraAction from '../pages/Create/actions/extraAction'
+import CreateInfoAction from '../pages/Create/actions/infoAction'
+import CreateQuestionAction from '../pages/Create/actions/questionAction'
+import ExampleExampleAction from '../pages/Example/actions/exampleAction'
+import MessageMessageAction from '../pages/Message/actions/messageAction'
+import TodoTodoAction from '../pages/Todo/actions/todoAction'
+import UserUserAction from '../pages/User/actions/userAction'
 
 export interface IRootStore {
   Answer: {
-    answerStore: AnswerStore
-    infoStore: InfoStore
-    questionStore: QuestionStore
+    answerStore: AnswerAnswerStore
+    infoStore: AnswerInfoStore
+    questionStore: AnswerQuestionStore
   }
   App: {
-    appStore: AppStore
+    appStore: AppAppStore
   }
   Collection: {
-    collectionStore: CollectionStore
+    collectionStore: CollectionCollectionStore
   }
   Create: {
-    createStore: CreateStore
-    extraStore: ExtraStore
-    infoStore: InfoStore
-    questionStore: QuestionStore
+    createStore: CreateCreateStore
+    extraStore: CreateExtraStore
+    infoStore: CreateInfoStore
+    questionStore: CreateQuestionStore
   }
   Example: {
-    exampleStore: ExampleStore
+    exampleStore: ExampleExampleStore
   }
   Message: {
-    messageStore: MessageStore
+    messageStore: MessageMessageStore
   }
   Todo: {
-    todoStore: TodoStore
+    todoStore: TodoTodoStore
   }
   User: {
-    userStore: UserStore
+    userStore: UserUserStore
   }
 }
 
 export interface IRootAction {
   Answer: {
-    answerAction: AnswerAction
-    infoAction: InfoAction
-    questionAction: QuestionAction
+    answerAction: AnswerAnswerAction
+    infoAction: AnswerInfoAction
+    questionAction: AnswerQuestionAction
   }
   App: {
-    appAction: AppAction
+    appAction: AppAppAction
   }
   Collection: {
-    collectionAction: CollectionAction
+    collectionAction: CollectionCollectionAction
   }
   Create: {
-    createAction: CreateAction
-    extraAction: ExtraAction
-    infoAction: InfoAction
-    questionAction: QuestionAction
+    createAction: CreateCreateAction
+    extraAction: CreateExtraAction
+    infoAction: CreateInfoAction
+    questionAction: CreateQuestionAction
   }
   Example: {
-    exampleAction: ExampleAction
+    exampleAction: ExampleExampleAction
   }
   Message: {
-    messageAction: MessageAction
+    messageAction: MessageMessageAction
   }
   Todo: {
-    todoAction: TodoAction
+    todoAction: TodoTodoAction
   }
   User: {
-    userAction: UserAction
+    userAction: UserUserAction
   }
 }
 

@@ -16,6 +16,7 @@ import ConfirmModal from '../../../components/ConfirmModal'
 import { IRootStore, IRootAction } from '../../../typings'
 
 import './index.scss'
+import { IFile } from '../stores/infoStore'
 
 @inject(injector)
 @observer
@@ -68,8 +69,8 @@ class Info extends React.Component<IProps, IState> {
   handleImgClick = (index, files) => {
     console.log(index, files)
     this.setState({
+      imgUrl: files[index].url,
       imgModal: true,
-      imgUrl: files[index].trueUrl,
     })
   }
 
@@ -132,13 +133,15 @@ class Info extends React.Component<IProps, IState> {
           <div className='content-options'>
             <div className='content-text'>图片</div>
             <ImagePicker
+              className='qa-image-picker'
               files={files}
-              length={5}
+              length='5'
               onImageClick={this.handleImgClick}
               onChange={(newFiles, type, index) =>
-                this.setState({ files: newFiles })
+                this.setState({ files: newFiles as IFile[] })
               }
               multiple
+              selectable={files.length < 5}
             />
           </div>
           {/* <Picker fileId={file} onChangeFile={this.handleChangeFile} /> */}
@@ -161,7 +164,7 @@ class Info extends React.Component<IProps, IState> {
           onClose={() => this.handleModalClose('imgModal')}
           // animationType="fade"
           transitionName='am-zoom'
-          className='img-modal'
+          className='qa-img-modal'
           // wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
           <img src={imgUrl} alt='预览图片' />
@@ -189,7 +192,7 @@ interface IProps extends Partial<injectorReturnType> {
 interface IState extends Partial<injectorReturnType> {
   title: string
   content: string
-  files: object[]
+  files: IFile[]
   imgModal: boolean
   imgUrl: string
   confirmModal: boolean

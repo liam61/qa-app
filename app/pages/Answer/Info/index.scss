@@ -22,6 +22,7 @@ $prefixCls: 'page-answer-info';
       }
 
       .type {
+        margin-left: 10px;
         padding: 12px 30px;
         font-size: 26px;
         color: $blue;
@@ -95,7 +96,7 @@ $prefixCls: 'page-answer-info';
   }
 
   &-content {
-    padding: 5px 30px 46px;
+    padding: 5px 30px 30px;
     // background: #fff;
 
     img {
@@ -106,8 +107,23 @@ $prefixCls: 'page-answer-info';
 
     p {
       padding: 0 5px;
+      text-indent: 2em;
       font-size: 26px;
       color: $main;
+    }
+
+    .info-img-picker {
+      padding: 1px;
+
+      .am-flexbox-item {
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .am-image-picker-item-remove {
+          display: none;
+        }
+      }
     }
   }
 }

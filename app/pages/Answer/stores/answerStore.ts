@@ -1,13 +1,29 @@
 import { action, observable, computed } from 'mobx'
+import { IQstToSubmit } from './../../Create/stores/questionStore';
 import { mStore } from '../../../mobx/store'
+import { IFile } from '../../Create/stores/infoStore';
+
+interface IData {
+  title: string
+  content: string
+  files: IFile[]
+  questions: IQstToSubmit[]
+  receiver: object[]
+  secret: boolean
+  showAuthor: boolean
+  expire: string
+  type: string
+  anonymous: boolean
+  date: string
+}
 
 @mStore
 export default class AnswerStore {
   @observable
-  data: object
+  data: IData
 
   @action
-  setData(data: object) {
+  setData(data: IData) {
     this.data = data
   }
 

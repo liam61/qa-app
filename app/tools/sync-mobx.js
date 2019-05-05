@@ -2,6 +2,7 @@ const FS = require('fs-extra')
 const Path = require('path')
 const Chalk = require('chalk')
 const listFile = require('./utils/io').listFiles
+const uid = require('uid')
 
 const packageJson = FS.readJSONSync(Path.join(process.cwd(), 'package.json'), {
   encoding: 'utf-8',
@@ -61,12 +62,14 @@ function generatorIRootStore() {
     ret[pathArr[0]].push(pathArr[1])
     return ret
   }, {})
+  // console.log(pathMap)
   let content = 'export interface IRootStore {\n'
   content += Object.keys(pathMap).reduce((ret, pageName) => {
     ret += `  ${pageName}: {\n`
     const storeArr = pathMap[pageName]
+    // console.log(storeArr)
     storeArr.forEach(storeName => {
-      ret += `    ${storeName}: ${firstToUppercase(storeName)}\n`
+      ret += `    ${storeName}: ${pageName}${firstToUppercase(storeName)}\n`
     })
     ret += '  }\n'
     return ret
@@ -88,7 +91,7 @@ function generatorIRootAction() {
     ret += `  ${pageName}: {\n`
     const actionArr = pathMap[pageName]
     actionArr.forEach(actionName => {
-      ret += `    ${actionName}: ${firstToUppercase(actionName)}\n`
+      ret += `    ${actionName}: ${pageName}${firstToUppercase(actionName)}\n`
     })
     ret += '  }\n'
     return ret
@@ -120,12 +123,13 @@ function createTypingsImportContent(base) {
     'import { IStoresToProps, IReactComponent, IWrappedComponent } from \'mobx-react\'\n'
   content += storesPath.concat(actionsPath).reduce((content, path) => {
     const pathArr = getFileNameFrom(path)
+    // console.log(path, pathArr)
     let relativePath = Path.relative(base, path)
     if (relativePath.indexOf('.') !== 0) {
       relativePath = `./${relativePath}`
     }
     relativePath = removeExt(relativePath)
-    const importConent = `import ${firstToUppercase(
+    const importConent = `import ${pathArr[0]}${firstToUppercase(
       pathArr[1]
     )} from '${relativePath}'`
 
@@ -146,7 +150,7 @@ function getFileNameFrom(path) {
 }
 
 function firstToUppercase(str) {
-  return str.charAt(0).toUpperCase() + str.substr(1)
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 function removeExt(path) {

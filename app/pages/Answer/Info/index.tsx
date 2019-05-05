@@ -1,19 +1,38 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Button, Toast, WhiteSpace, Modal } from 'antd-mobile'
+import { Button, Toast, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
 import { IRootStore, IRootAction } from '../../../typings'
+import { IFile } from '../../Create/stores/infoStore'
+import { TIME_OPTIONS, TYPE_OPTIONS } from '../../../common/global'
 
 import './index.scss'
 
+// tslint:disable-next-line: no-var-requires
+const contentBgByRandom = require(`../../../assets/images/random/material-${Math.ceil(
+  Math.random() * 19,
+)}.png`)
+
 @inject(injector)
 @observer
-export default class Info extends React.Component<IProps, {}> {
+export default class Info extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-answer-info',
+    read: 23,
+    unread: 8,
   }
 
-  constructor(props) {
-    super(props)
+  state = {
+    imgModal: false,
+    imgUrl: '',
+    readNum: 0,
+    unreadNum: 0,
+  }
+
+  componentDidMount() {
+    const { read, unread } = this.props
+
+    this.increaseCount('readNum', read, 700)
+    this.increaseCount('unreadNum', unread, 700)
   }
 
   increaseCount = (key: string, toCount: number, during = 500, delay = 20) => {
@@ -33,41 +52,90 @@ export default class Info extends React.Component<IProps, {}> {
     })()
   }
 
+  handleModalClose = type => {
+    this.setState({ [type]: false }) // tslint:disable-line
+  }
+
+  handleImgClick = (index, files) => {
+    console.log(index, files)
+    this.setState({
+      imgUrl: files[index].url,
+      imgModal: true,
+    })
+  }
+
   render() {
-    const { prefixCls, title, type, date, content, files, expire } = this.props
+    const {
+      prefixCls,
+      title,
+      type,
+      date,
+      content,
+      files,
+      expire,
+      onOK,
+    } = this.props
+    const { imgUrl, imgModal, readNum, unreadNum } = this.state
 
     return (
       <div className={prefixCls}>
         <div className={`${prefixCls}-header qa-border-1px-bottom`}>
           <div className='header-content'>
-            <div className='title'>{title}</div>
-            <span className='type'>{type}</span>
+            <div className='title text-ellipsis'>{title}</div>
+            <span className='type'>
+              {TYPE_OPTIONS.find(t => t.key === type)!.value}
+            </span>
           </div>
           <div className='header-info'>
             <img
-              src='https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg'
+              src='https://avatars3.githubusercontent.com/u/38933451?s=400&u=fec40d54d423074a4c9d86dcc9bc8f042d7a2d0a&v=4'
               alt='user-avatar'
             />
             <span className='info-name qa-border-1px-right'>lawler</span>
             <span className='info-date qa-border-1px-right'>{date}</span>
-            <span className='info-expire'>{expire}</span>
+            <span className='info-expire'>
+              期限：
+              {TIME_OPTIONS.find(t => t.key === expire)!.value}
+            </span>
           </div>
         </div>
         <div className={`${prefixCls}-read`}>
           <div className='read-wrapper qa-border-1px-right'>
             <span className='count-title'>已读</span>
-            <span className='count-number read'>16</span>
+            <span className='count-number read'>{readNum}</span>
           </div>
           <div className='read-wrapper'>
             <span className='count-title'>未读</span>
-            <span className='count-number unread'>8</span>
+            <span className='count-number unread'>{unreadNum}</span>
           </div>
         </div>
         <div className={`${prefixCls}-content`}>
-          <img src={files[0].url} alt='content-img' />
+          <img src={contentBgByRandom} alt='content-img' />
           <p>{content}</p>
+          <ImagePicker
+            className='qa-image-picker info-img-picker qa-border-1px'
+            files={files}
+            length='5'
+            onImageClick={this.handleImgClick}
+            selectable={false}
+          />
         </div>
+        <Button className='finish-question' onClick={onOK}>
+          <i className='fa fa-paint-brush' aria-hidden='true' />
+          <span>完成问题</span>
+        </Button>
         <WhiteSpace size='lg' />
+        <Modal
+          visible={imgModal}
+          transparent
+          onClose={() => this.handleModalClose('imgModal')}
+          // animationType="fade"
+          transitionName='am-zoom'
+          className='qa-img-modal'
+          // wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+        >
+          <img src={imgUrl} alt='预览图片' />
+        </Modal>
       </div>
     )
   }
@@ -81,8 +149,18 @@ interface IProps extends Partial<injectorReturnType> {
   type: string
   date: string
   content: string
-  files: object[]
+  files: IFile[]
   expire: string
+  read?: number
+  unread?: number
+  onOK: () => void
+}
+
+interface IState extends Partial<injectorReturnType> {
+  imgModal: boolean
+  imgUrl: string
+  readNum: number
+  unreadNum: number
 }
 
 function injector({

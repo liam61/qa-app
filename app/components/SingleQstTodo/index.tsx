@@ -27,6 +27,7 @@ const getLabel = (index: number, checked: boolean, type: string) => {
 export default class SingleQstTodo extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'component-single-qst-todo',
+    reply: ['asdf'],
   }
 
   state = {
@@ -34,8 +35,12 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
   }
 
   handleChange = (val: string) => {
-    const { type } = this.props
+    const { type, writable } = this.props
     const { checkedArr } = this.state
+
+    if (!writable) {
+      return
+    }
 
     if (type === 'Multiple') {
       const index = checkedArr.indexOf(val)
@@ -47,12 +52,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
     this.setState({ checkedArr })
   }
 
-  getReply = () => {
-    const { num } = this.props
-    const { checkedArr } = this.state
-
-    return { reply: checkedArr, num }
-  }
+  getReply = () => this.state.checkedArr
 
   render() {
     const {
@@ -69,12 +69,12 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
-        <div className={`${prefixCls}-header`}>
+        <div className='qa-qst-todo-header'>
           <span className='header-tag'>
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>
-          <span className={`header-title${required ? ' required' : ''}`}>
-            {num}.{title}
+          <span className={`header-title${required ? ' required' : ''} text-ellipsis`}>
+            {`${num}. ${title}`}
           </span>
           {writable ? null : (
             <span className='header-disabled'>(不可编辑)</span>
@@ -90,7 +90,13 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
                 className='option-item'
                 onClick={() => this.handleChange(value)}
               >
-                {getLabel(index, checkedArr.includes(value), type)}
+                {getLabel(
+                  index,
+                  writable
+                    ? checkedArr.includes(value)
+                    : reply!.includes(value),
+                  type,
+                )}
                 <div className='option-item-text'>{value}</div>
               </div>
             )
@@ -111,7 +117,7 @@ interface IProps extends Partial<injectorReturnType> {
   options: object[]
   type: string
   writable: boolean
-  reply?: number
+  reply?: string[]
 }
 
 interface IState extends Partial<injectorReturnType> {
