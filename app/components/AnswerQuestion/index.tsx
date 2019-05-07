@@ -14,7 +14,7 @@ export default class AnswerQuestion extends React.Component<IProps, IState> {
     prefixCls: 'component-answer',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
 
     const { required = false, title = '' } = props

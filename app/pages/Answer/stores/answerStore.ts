@@ -1,38 +1,32 @@
 import { action, observable, computed } from 'mobx'
-import { IQstToSubmit } from './../../Create/stores/questionStore';
+import { IQstToSubmit, IReply } from '../../Create/interface'
 import { mStore } from '../../../mobx/store'
-import { IFile } from '../../Create/stores/infoStore';
 
 interface IData {
-  title: string
-  content: string
-  files: IFile[]
   questions: IQstToSubmit[]
-  receiver: object[]
-  secret: boolean
-  showAuthor: boolean
-  expire: string
-  type: string
-  anonymous: boolean
-  date: string
+  receiver: object
 }
 
 @mStore
 export default class AnswerStore {
   @observable
-  data: IData
+  data: IData = { questions: [], receiver: {} }
 
   @action
   setData(data: IData) {
     this.data = data
+
+    return this
   }
 
   @action
-  updateQstReply(patch: object) {
+  updateQstReply(patch: IReply) {
     const { reply, num } = patch
 
     const index = this.data.questions.findIndex(qst => qst.num === num)
 
-    this.data.questions[index].reply = reply
+    this.data.questions[index].reply = { lawler: reply }
+
+    return this
   }
 }

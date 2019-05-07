@@ -37,6 +37,7 @@ $prefixCls: 'page-create';
   .am-steps {
     padding: 30px 80px 15px;
     @include border-mixin(0, bottom);
+    background: #fff;
 
     &-item {
       &-icon {

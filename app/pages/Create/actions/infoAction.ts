@@ -1,7 +1,7 @@
 import { toJS } from 'mobx'
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
-import { IFile } from '../stores/infoStore';
+import { IFile } from '../interface'
 
 @mAction
 export default class InfoAction {
@@ -13,9 +13,10 @@ export default class InfoAction {
   updateInfo(title: string, content: string, files: IFile[]) {
     const { infoStore } = this.stores
 
-    infoStore.setTitle(title)
-    infoStore.setContent(content)
-    infoStore.setFiles(files)
+    infoStore
+      .setTitle(title)
+      .setContent(content)
+      .setFiles(files)
   }
 
   getInfo() {

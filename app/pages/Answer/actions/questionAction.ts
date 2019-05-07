@@ -1,5 +1,8 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
+import { IReply } from '../../Create/interface'
+import axios from '../../../utils/axios'
+import { InfoTypes } from '../../../components/InfoModal';
 
 @mAction
 export default class QuestionAction {
@@ -8,10 +11,20 @@ export default class QuestionAction {
     public actions: IRootAction['Answer'],
   ) {}
 
-  updateQstsWithReply(replyArr: object[]) {
-    const { answerStore } = this.stores
-    console.log(replyArr)
+  async updateQstsWithReply(
+    id: string,
+    userId: string,
+    replies: IReply[],
+    callback: (status: InfoTypes) => void,
+  ) {
+    // const { answerStore } = this.stores
+    // replyArr.forEach(reply => answerStore.updateQstReply(reply))
+    // console.log(replies)
 
-    replyArr.forEach(reply => answerStore.updateQstReply(reply))
+    const res = await axios
+      .setPath('questions')
+      .post({ uri: id, data: { id: userId, replies } })
+
+    res.id ? callback('success') : callback('fail')
   }
 }

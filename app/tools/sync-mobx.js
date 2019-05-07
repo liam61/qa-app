@@ -2,7 +2,6 @@ const FS = require('fs-extra')
 const Path = require('path')
 const Chalk = require('chalk')
 const listFile = require('./utils/io').listFiles
-const uid = require('uid')
 
 const packageJson = FS.readJSONSync(Path.join(process.cwd(), 'package.json'), {
   encoding: 'utf-8',

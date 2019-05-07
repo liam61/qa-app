@@ -1,7 +1,7 @@
 import { toJS } from 'mobx';
 import { fromJS, is } from 'immutable'
 import { mAction } from '../../../mobx/action'
-import { IQuestion, IQstToSubmit } from '../stores/questionStore'
+import { IQuestion, IQstToSubmit } from '../interface'
 import { IRootAction, IRootStore } from '../../../typings'
 import { getUid } from '../../../utils'
 

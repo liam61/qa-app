@@ -13,5 +13,7 @@ export default class AppStore {
   @action
   setCurTab(index: number) {
     this.curTab = index
+
+    return this
   }
 }

@@ -24,7 +24,7 @@ export default class QuestionHeader extends React.Component<IProps, {}> {
     } = this.props
     return (
       <React.Fragment>
-        <WhiteSpace size='lg' />
+        {/* <WhiteSpace size='lg' /> */}
         <div className='qa-question-header qa-border-1px-bottom'>
           <div className='header-title'>
             <i

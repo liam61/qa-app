@@ -84,6 +84,9 @@ $prefixCls: 'component-single-qst-todo';
         }
 
         &.judge {
+          border-color: rgba(45, 190, 138, 0.5);
+          background: $info;
+
           &::before {
             content: '✔';
             left: 9px;
@@ -96,7 +99,7 @@ $prefixCls: 'component-single-qst-todo';
 
           &::before {
             content: '♥';
-            left: 7px;
+            left: 6.5px;
             top: 2px;
           }
         }

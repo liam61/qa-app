@@ -1,0 +1,59 @@
+$prefixCls: 'component-qa-list-view';
+
+.#{$prefixCls} {
+  height: 100vh;
+  overflow: auto;
+
+  .am-pull-to-refresh-content {
+    .am-pull-to-refresh-indicator {
+      height: auto;
+      margin-top: -43px;
+      margin-bottom: 15px;
+      font-size: 26px;
+
+      .am-icon {
+        width: 40px;
+        height: 40px;
+        margin-top: 26px;
+      }
+
+      .qa-refresh-indicator-finish {
+        margin-top: 43px;
+        transition: transform 0.3s;
+      }
+    }
+    
+  }
+
+  .am-list-body {
+    background: inherit;
+
+    .am-list-item {
+      padding: 0 30px;
+      background: inherit;
+
+      .am-list-line {
+        &::after {
+          display: none !important;
+        }
+
+        .am-list-content {
+          padding: 20px 0;
+          color: $nav;
+          font-size: 26px;
+        }
+      }
+    }
+
+    .list-view-section-body {
+      padding: 0 30px;
+    }
+  }
+
+  .am-list-footer {
+    padding: 30px 30px 40px;
+    text-align: center;
+    font-size: 26px;
+    color: $nav;
+  }
+}

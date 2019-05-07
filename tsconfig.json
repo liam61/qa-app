@@ -15,7 +15,7 @@
 
     "strict": true,
     /* Enable all strict type-checking options. */
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     /* Raise error on expressions and declarations with an implied 'any' type. */
     "strictNullChecks": true,
     /* Enable strict null checks. */
@@ -48,6 +48,7 @@
   },
   "compileOnSave": false,
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "app/mobx"
   ]
 }

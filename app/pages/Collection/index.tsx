@@ -11,7 +11,7 @@ export default class Collection extends React.Component<IProps, {}> {
     prefixCls: 'page-collection',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
   }
 

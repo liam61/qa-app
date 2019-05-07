@@ -11,7 +11,7 @@ export default class Message extends React.Component<IProps, {}> {
     prefixCls: 'page-message',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
   }
 

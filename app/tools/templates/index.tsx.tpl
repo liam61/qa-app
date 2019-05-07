@@ -11,7 +11,7 @@ export default class ${uppercaseName}$ extends React.Component<IProps, {}> {
     prefixCls: '${type}$-${splitDashName}$',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
   }
 

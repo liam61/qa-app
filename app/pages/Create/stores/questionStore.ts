@@ -1,24 +1,7 @@
 import { action, observable, computed } from 'mobx'
+import { IQuestion } from '../interface'
 import { mStore } from '../../../mobx/store'
 // import { fromJS } from 'immutable'
-
-export interface IQuestion {
-  id: string
-  Element: React.ReactNode
-  type: string
-  title?: string
-  options?: object[]
-  required?: boolean
-}
-
-export interface IQstToSubmit {
-  num: number
-  type: string
-  title?: string
-  options?: object[]
-  required?: boolean
-  reply?: string[]
-}
 
 @mStore
 export default class QuestionStore {
@@ -34,25 +17,35 @@ export default class QuestionStore {
   @action
   setQst(qsts: IQuestion[]) {
     this.questions = qsts
+
+    return this
   }
 
   @action
   addQst(qst: IQuestion) {
     this.questions.push(qst)
+
+    return this
   }
 
   @action
   removeQst(i: number) {
     this.questions.splice(i, 1)
+
+    return this
   }
 
   @action
   clearQsts() {
     this.questions = []
+
+    return this
   }
 
   @action
   changeCached() {
     this.cached = !this.cached
+
+    return this
   }
 }

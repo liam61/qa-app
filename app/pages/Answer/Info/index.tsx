@@ -2,23 +2,16 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button, Toast, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
 import { IRootStore, IRootAction } from '../../../typings'
-import { IFile } from '../../Create/stores/infoStore'
+import { IFile } from '../../Create/interface'
 import { TIME_OPTIONS, TYPE_OPTIONS } from '../../../common/global'
 
 import './index.scss'
-
-// tslint:disable-next-line: no-var-requires
-const contentBgByRandom = require(`../../../assets/images/random/material-${Math.ceil(
-  Math.random() * 19,
-)}.png`)
 
 @inject(injector)
 @observer
 export default class Info extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-answer-info',
-    read: 23,
-    unread: 8,
   }
 
   state = {
@@ -35,6 +28,12 @@ export default class Info extends React.Component<IProps, IState> {
     this.increaseCount('unreadNum', unread, 700)
   }
 
+  /**
+   * 阅读量的加载动画
+   *
+   * @param [during] 动画总时间
+   * @param [delay] 每次变化间隔时间
+   */
   increaseCount = (key: string, toCount: number, during = 500, delay = 20) => {
     const that = this
     const step =
@@ -52,11 +51,14 @@ export default class Info extends React.Component<IProps, IState> {
     })()
   }
 
-  handleModalClose = type => {
+  handleModalClose = (type: string) => {
     this.setState({ [type]: false }) // tslint:disable-line
   }
 
-  handleImgClick = (index, files) => {
+  handleImgClick = (
+    index: number | undefined = 0,
+    files: IFile[] | undefined = [],
+  ) => {
     console.log(index, files)
     this.setState({
       imgUrl: files[index].url,
@@ -71,7 +73,11 @@ export default class Info extends React.Component<IProps, IState> {
       type,
       date,
       content,
+      cover,
       files,
+      author,
+      avatar,
+      showAuthor,
       expire,
       onOK,
     } = this.props
@@ -88,10 +94,16 @@ export default class Info extends React.Component<IProps, IState> {
           </div>
           <div className='header-info'>
             <img
-              src='https://avatars3.githubusercontent.com/u/38933451?s=400&u=fec40d54d423074a4c9d86dcc9bc8f042d7a2d0a&v=4'
+              src={
+                showAuthor
+                  ? avatar
+                  : 'https://avatars3.githubusercontent.com/u/38933451?s=400&u=fec40d54d423074a4c9d86dcc9bc8f042d7a2d0a&v=4'
+              }
               alt='user-avatar'
             />
-            <span className='info-name qa-border-1px-right'>lawler</span>
+            <span className='info-name qa-border-1px-right'>
+              {showAuthor ? author : '匿名'}
+            </span>
             <span className='info-date qa-border-1px-right'>{date}</span>
             <span className='info-expire'>
               期限：
@@ -110,15 +122,17 @@ export default class Info extends React.Component<IProps, IState> {
           </div>
         </div>
         <div className={`${prefixCls}-content`}>
-          <img src={contentBgByRandom} alt='content-img' />
+          <img src={cover} alt='content-img' />
           <p>{content}</p>
-          <ImagePicker
-            className='qa-image-picker info-img-picker qa-border-1px'
-            files={files}
-            length='5'
-            onImageClick={this.handleImgClick}
-            selectable={false}
-          />
+          {files.length ? (
+            <ImagePicker
+              className='qa-image-picker info-img-picker qa-border-1px'
+              files={files.filter(f => !f.cover)}
+              length='5'
+              onImageClick={this.handleImgClick}
+              selectable={false}
+            />
+          ) : null}
         </div>
         <Button className='finish-question' onClick={onOK}>
           <i className='fa fa-paint-brush' aria-hidden='true' />
@@ -149,10 +163,14 @@ interface IProps extends Partial<injectorReturnType> {
   type: string
   date: string
   content: string
+  cover: string
   files: IFile[]
+  author: string
+  avatar: string
   expire: string
-  read?: number
-  unread?: number
+  read: number
+  unread: number
+  showAuthor: boolean
   onOK: () => void
 }
 

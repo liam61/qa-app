@@ -50,7 +50,10 @@ class Extra extends React.Component<IProps, IState> {
   }
 
   showActionSheet = (actionType: string) => {
-    const types = require('../../../common/global')[
+    const types: Array<{
+      key: string
+      value: string,
+    }> = require('../../../common/global')[
       `${actionType.toUpperCase()}_OPTIONS`
     ]
 
@@ -121,13 +124,13 @@ class Extra extends React.Component<IProps, IState> {
     return (
       <div className={prefixCls}>
         {renderSteps(2)}
+        <WhiteSpace size='lg' />
         <div className='page-create-header qa-border-1px-bottom'>
           <span className='header-title'>
             标题：
             {title}
           </span>
         </div>
-        <WhiteSpace size='lg' />
         <div className={`${prefixCls}-main`}>
           <div className='content-title'>
             {/* <div className="content-text">有效时间</div> */}

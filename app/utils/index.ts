@@ -1,5 +1,5 @@
-import { PREFIXCLS } from '../common/global'
 import uid from 'uid'
+import { PREFIXCLS } from '../common/global'
 
 export function formatDate(date: Date, fmt: string) {
   // 匹配以y开头的一个或多个字符串
@@ -35,5 +35,8 @@ function padLeftZero(str: string) {
 }
 
 export function getUid() {
-  return PREFIXCLS + '-' + uid()
+  return `${PREFIXCLS}-${uid()}`
 }
+
+// tslint:disable-next-line: no-empty
+export function emptyFn() {}

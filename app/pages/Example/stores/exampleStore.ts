@@ -1,6 +1,5 @@
 import { action, observable, computed } from 'mobx'
 import { mStore } from '../../../mobx/store'
-import { getGoods } from '../../../mockData/apis';
 
 interface IGoods {
   id: string
@@ -11,23 +10,22 @@ interface IGoods {
 @mStore
 export default class ExampleStore {
   @observable
-  curGoods: IGoods | null = null;
+  curGoods: IGoods | null = null
 
   @observable
   isloading = true
 
-  async changeCurGoods() {
-    const data = await getGoods()
-    this.setCurGoods(data)
-  }
-
   @action
   setCurGoods(goods: IGoods) {
     this.curGoods = goods
+
+    return this
   }
 
   @action
   setLoading(flag: boolean) {
     this.isloading = flag
+
+    return this
   }
 }

@@ -1,29 +1,113 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { ListView } from 'antd-mobile'
+import { withRouter } from 'react-router-dom'
+import { SearchBar } from 'antd-mobile'
 import AnswerPage from '../Answer'
+import PageModal from '../../components/PageModal'
+import ListView from '../../components/QaListView'
 import { IRootStore, IRootAction } from '../../typings'
+import { IData } from './stores/todoStore'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-export default class Todo extends React.Component<IProps, {}> {
+class Todo extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-todo',
   }
 
-  constructor(props) {
-    super(props)
+  state = {
+    search: '',
+    answerPageModal: false,
+    answerPageKey: '',
+    answerPageInfo: {} as IData,
   }
 
-  // componentDidMount() {}
+  componentDidMount() {
+    const { action } = this.props
+
+    action!.getListData()
+  }
+
+  handleSearchChange = val => {
+    this.setState({ search: val })
+  }
+
+  handleModalShow = type => {
+    this.setState({ [type]: true })
+  }
+
+  handleModalClose = type => {
+    this.setState({ [type]: false })
+  }
+
+  handleListItemClick = (id: string, info: IData, cover: string) => {
+    const { history } = this.props
+    history.push(`/?steps=todo&id=${id}`)
+
+    this.setState({
+      answerPageKey: id,
+      answerPageModal: true,
+      answerPageInfo: Object.assign({ cover }, info),
+    })
+  }
+
+  handleEndReached = event => {
+    // load new data
+    console.log('reach end')
+
+    const { store, action } = this.props
+    const { pageIndex, totalPage } = store!
+
+    if (pageIndex === totalPage) {
+      return
+    }
+
+    action!.getNextListData(pageIndex)
+  }
+
+  handleRefresh = () => {
+    const { action } = this.props
+
+    action!.getListData(1, true)
+  }
 
   render() {
-    const { prefixCls } = this.props
+    const { prefixCls, store } = this.props
+    const {
+      search,
+      answerPageModal,
+      answerPageKey,
+      answerPageInfo,
+    } = this.state
+
+    const { dataList, loading, refreshing, pageSize } = store!
+
     return (
       <div className={prefixCls}>
-        <AnswerPage />
+        <SearchBar
+          value={search}
+          placeholder='搜索...'
+          maxLength={20}
+          onChange={this.handleSearchChange}
+        />
+        <ListView
+          dataList={dataList}
+          loading={loading}
+          onEndReached={this.handleEndReached}
+          refreshing={refreshing}
+          onRefresh={this.handleRefresh}
+          onClick={this.handleListItemClick}
+          pageSize={pageSize}
+        />
+        <PageModal visible={answerPageModal}>
+          <AnswerPage
+            id={answerPageKey}
+            info={answerPageInfo}
+            onCancel={() => this.handleModalClose('answerPageModal')}
+          />
+        </PageModal>
       </div>
     )
   }
@@ -36,12 +120,24 @@ interface IProps extends Partial<injectorReturnType> {
   [k: string]: any
 }
 
+interface IState extends Partial<injectorReturnType> {
+  search: string
+  answerPageModal: boolean
+  answerPageKey: string
+  answerPageInfo: IData
+}
+
 function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore,
+  rootStore: IRootStore
   rootAction: IRootAction,
 }) {
-  return {}
+  return {
+    store: rootStore.Todo.todoStore,
+    action: rootAction.Todo.todoAction,
+  }
 }
+
+export default withRouter(Todo)

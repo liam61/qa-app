@@ -1,5 +1,6 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
+import { getGoods } from '../apis'
 
 @mAction
 export default class ExampleAction {
@@ -9,8 +10,11 @@ export default class ExampleAction {
   ) {}
 
   async loadGoods() {
-    this.stores.exampleStore.setLoading(true)
-    await this.stores.exampleStore.changeCurGoods()
-    this.stores.exampleStore.setLoading(false)
+    const { exampleStore } = this.stores
+
+    exampleStore
+      .setLoading(true)
+      .setCurGoods(await getGoods())
+      .setLoading(false)
   }
 }

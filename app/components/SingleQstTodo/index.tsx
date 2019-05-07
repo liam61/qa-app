@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 import { QUESTION_TYPES } from '../../common/global'
 import { IRootStore, IRootAction } from '../../typings'
+import { IOption } from '../../pages/Create/interface';
 
 import './index.scss'
 
@@ -114,7 +115,7 @@ interface IProps extends Partial<injectorReturnType> {
   num: number
   title: string
   required: boolean
-  options: object[]
+  options: IOption[]
   type: string
   writable: boolean
   reply?: string[]

@@ -7,6 +7,7 @@ import { TextareaItem, InputItem, Toast } from 'antd-mobile'
 import QuestionHeader from '../../components/QuestionHeader'
 import { IRootStore, IRootAction } from '../../typings'
 import { DELAY_TIME, QUESTION_TYPES } from '../../common/global'
+import { IOption } from '../../pages/Create/interface';
 import { getUid } from '../../utils'
 
 import './index.scss'
@@ -18,7 +19,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
     prefixCls: 'component-single',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
 
     const defaultOpts = [
@@ -37,21 +38,21 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
     this.state = { required, title, options, hidden: false }
   }
 
-  handleRequiredChange = val => {
+  handleRequiredChange = (val: boolean) => {
     this.setState({ required: val })
   }
 
-  handleTitleChange = val => {
+  handleTitleChange = (val: string) => {
     this.setState({ title: val })
   }
 
-  handleContentChange = (val, index) => {
+  handleContentChange = (val: string, index: number) => {
     const { options } = this.state
     options[index].value = val
     this.setState({ options })
   }
 
-  handleRemoveOption = index => {
+  handleRemoveOption = (index: number) => {
     const { options } = this.state
     options.splice(index, 1)
     this.setState({ options })
@@ -85,7 +86,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
     }
   }
 
-  renderOptions = options =>
+  renderOptions = (options: IOption[]) =>
     options.map((option, index) => {
       const { id, value } = option
       return (
@@ -159,7 +160,7 @@ interface IProps extends Partial<injectorReturnType> {
   num: number
   title: string
   required: boolean
-  options: Array<{ id: string; value: '' }>
+  options: IOption[]
   type: string
   cached?: boolean // ?
   onRemove: () => void
@@ -168,7 +169,7 @@ interface IProps extends Partial<injectorReturnType> {
 interface IState extends Partial<injectorReturnType> {
   title: string
   required: boolean
-  options: Array<{ id: string; value: '' }>
+  options: IOption[]
   hidden: boolean
 }
 

@@ -7,6 +7,7 @@ import { getUid } from '../../utils'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
+import { IOption } from '../../pages/Create/interface';
 
 @inject(injector)
 @observer
@@ -15,7 +16,7 @@ export default class JudgeQuestion extends React.Component<IProps, IState> {
     prefixCls: 'component-judge',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
 
     const defaultOpts = [
@@ -47,7 +48,7 @@ export default class JudgeQuestion extends React.Component<IProps, IState> {
     this.setState({ title: val })
   }
 
-  handleContentChange = (val, index) => {
+  handleContentChange = (val, index: number) => {
     const { options } = this.state
     options[index].value = val
     this.setState({ options })
@@ -63,7 +64,7 @@ export default class JudgeQuestion extends React.Component<IProps, IState> {
     }
   }
 
-  renderOptions = options =>
+  renderOptions = (options: IOption[]) =>
     options.map((option, index) => {
       const { id, value } = option
       return (
@@ -130,7 +131,7 @@ interface IProps extends Partial<injectorReturnType> {
   required: boolean
   type: string
   cached?: boolean
-  options: Array<{ id: string; value: '' }>
+  options: IOption[]
   onRemove: () => void
 }
 
@@ -138,7 +139,7 @@ interface IState extends Partial<injectorReturnType> {
   title: string
   required: boolean
   hidden: boolean
-  options: Array<{ id: string; value: '' }>
+  options: IOption[]
 }
 
 function injector({

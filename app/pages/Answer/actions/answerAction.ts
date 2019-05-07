@@ -7,13 +7,14 @@ export default class AnswerAction {
   constructor(
     public stores: IRootStore['Answer'],
     public actions: IRootAction['Answer'],
-  ) {
-    axios.setPath('questions')
-  }
+  ) {}
 
-  async getQuestions() {
+  async getQuestions(id: string) {
     const { answerStore } = this.stores
-    answerStore.setData(await axios.get())
+
+    // setTimeout(async () => {
+      answerStore.setData(await axios.setPath('questions').get({ uri: id }))
+    // }, 100000);
     // questionStore.setQsts(data.questions)
     // const result = await axios.setPath('user').delete({ uri: 'Dolor' })
     // const result = await axios.setPath('user').post({

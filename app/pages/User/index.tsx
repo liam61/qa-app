@@ -11,7 +11,7 @@ export default class User extends React.Component<IProps, {}> {
     prefixCls: 'page-user',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
   }
 

@@ -14,9 +14,9 @@ import {
 import { renderSteps } from '../index'
 import ConfirmModal from '../../../components/ConfirmModal'
 import { IRootStore, IRootAction } from '../../../typings'
+import { IFile } from '../interface'
 
 import './index.scss'
-import { IFile } from '../stores/infoStore'
 
 @inject(injector)
 @observer
@@ -25,7 +25,7 @@ class Info extends React.Component<IProps, IState> {
     prefixCls: 'page-create-info',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
 
     this.state = {
@@ -54,19 +54,22 @@ class Info extends React.Component<IProps, IState> {
     // onCancel()
   }
 
-  handleTitleChange = val => {
+  handleTitleChange = (val: string | undefined = '') => {
     this.setState({ title: val })
   }
 
-  handleContentChange = val => {
+  handleContentChange = (val: string | undefined = '') => {
     this.setState({ content: val })
   }
 
-  handleChangeFile = (fileId, type) => {
-    this.setState({ files: fileId })
-  }
+  // handleChangeFile = (fileId, type) => {
+  //   this.setState({ files: fileId })
+  // }
 
-  handleImgClick = (index, files) => {
+  handleImgClick = (
+    index: number | undefined = 0,
+    files: IFile[] | undefined = [],
+  ) => {
     console.log(index, files)
     this.setState({
       imgUrl: files[index].url,
@@ -74,11 +77,11 @@ class Info extends React.Component<IProps, IState> {
     })
   }
 
-  handleModalShow = type => {
+  handleModalShow = (type: string) => {
     this.setState({ [type]: true }) // tslint:disable-line
   }
 
-  handleModalClose = type => {
+  handleModalClose = (type: string) => {
     this.setState({ [type]: false }) // tslint:disable-line
   }
 

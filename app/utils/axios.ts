@@ -22,6 +22,13 @@ interface IRequestOpts {
   data: object
 }
 
+// 默认按此返回
+interface IResponse {
+  status: number
+  statusText: string
+  data: object
+}
+
 class Axios {
   [x: string]: any
 
@@ -32,6 +39,8 @@ class Axios {
   methods = ['get', 'post', 'put', 'delete']
 
   path = ''
+
+  curPath = ''
 
   constructor(options) {
     // this.options = options
@@ -57,7 +66,7 @@ class Axios {
    * @param {string} [options.uri=''] 资源唯一标示，一般是 ID
    * @param {Object} [options.query=null] GET 参数
    * @param {Object} [options.data=null] POST/PUT/PATCH 数据
-   * @returns {Promise<any>}
+   * @returns {Promise<>}
    */
   async request(
     method: string,
@@ -65,7 +74,7 @@ class Axios {
   ): Promise<any> {
     const { uri, query, data } = options
 
-    let url = this.path + (uri ? `/${uri}` : '')
+    let url = this.curPath + (uri ? `/${uri}` : '')
     url += query ? `?${qs.stringify(query)}` : ''
 
     // return new Promise((resolve, reject) => {
@@ -82,7 +91,6 @@ class Axios {
 
     try {
       const response = await this.axios[method](url, data)
-
       const { status, data: res } = response
       const { errcode, errmsg } = res
 
@@ -100,7 +108,7 @@ class Axios {
   }
 
   setPath(...paths: string[]) {
-    this.path += `/${paths.join('/')}`
+    this.curPath = `${this.path}/${paths.join('/')}`
 
     return this
   }
@@ -113,7 +121,7 @@ class Axios {
    */
   replace(options: object = {}) {
     Object.keys(options).forEach(key => {
-      this.path = this.path.replace(new RegExp(`{${key}}`, 'img'), options[key])
+      this.curPath = this.curPath.replace(new RegExp(`{${key}}`, 'img'), options[key])
     })
 
     return this

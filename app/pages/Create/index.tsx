@@ -7,9 +7,32 @@ import InfoPage from './Info'
 import ExtraPage from './Extra'
 import PageModal from '../../components/PageModal'
 import InfoModal, { InfoTypes, IInfoProps } from '../../components/InfoModal'
+import { emptyFn } from '../../utils'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
+
+// TODO: modalProps 的工厂
+const infoModalFactory = {
+  warning: (callback: () => void = emptyFn): IInfoProps => ({
+    type: 'warning',
+    title: '暂无消息',
+    content: '',
+    onClose: callback,
+  }),
+  success: (callback: () => void = emptyFn): IInfoProps => ({
+    type: 'success',
+    title: '创建成功',
+    content: '可在「已创建」界面中查看！',
+    onClose: callback,
+  }),
+  fail: (callback: () => void = emptyFn): IInfoProps => ({
+    type: 'fail',
+    title: '创建失败',
+    content: '请检查填写的内容！',
+    onClose: callback,
+  }),
+}
 
 @inject(injector)
 @observer
@@ -18,26 +41,12 @@ class Create extends React.Component<IProps, IState> {
     prefixCls: 'page-create',
   }
 
-  // TODO: modalProps 的工厂
-  // modalPropsFactory = {
-  //   info() {
-  //     init: {
-  //       type: 'warning', title: '', content: ''
-  //     }
-  //   }
-  // }
-
   state = {
     infoPageModal: true,
     qstPageModal: false,
     extraPageModal: false,
     infoModal: false,
-    infoProps: {
-      type: 'warning' as InfoTypes,
-      title: '',
-      content: '',
-      onClose: () => console.log('info'),
-    },
+    infoProps: infoModalFactory.warning(),
   }
 
   componentWillUnmount() {
@@ -53,11 +62,11 @@ class Create extends React.Component<IProps, IState> {
     })
   }
 
-  handlePageModalShow = type => {
+  handlePageModalShow = (type: string) => {
     this.setState({ [type]: true }) // tslint:disable-line
   }
 
-  handleModalClose = type => {
+  handleModalClose = (type: string) => {
     this.setState({ [type]: false }) // tslint:disable-line
   }
 
@@ -65,17 +74,14 @@ class Create extends React.Component<IProps, IState> {
     const { action } = this.props
 
     action!.submitQuestions((type: InfoTypes) =>
-      this.handleInfoModalShow({
-        type,
-        title: '创建成功',
-        content: '可在个人中心中查看',
-        onClose: () => {
+      this.handleInfoModalShow(
+        infoModalFactory[type](() => {
           this.handleModalClose('infoModal')
           if (type === 'success') {
             this.props.history.push('/')
           }
-        },
-      }),
+        }),
+      ),
     )
   }
 

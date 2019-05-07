@@ -1,12 +1,6 @@
 import { action, observable, computed } from 'mobx'
+import { IFile } from '../interface'
 import { mStore } from '../../../mobx/store'
-
-export interface IFile {
-  id: string
-  url: string
-  name?: string
-  size?: string
-}
 
 @mStore
 export default class InfoStore {
@@ -22,20 +16,28 @@ export default class InfoStore {
   @action
   setTitle(t: string) {
     this.title = t
+
+    return this
   }
 
   @action
   setContent(c: string) {
     this.content = c
+
+    return this
   }
 
   @action
   setFiles(f: IFile[]) {
     this.files = f
+
+    return this
   }
 
   @action
   addFile(f: IFile) {
     this.files.push(f)
+
+    return this
   }
 }

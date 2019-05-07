@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
-import { Button, ActionSheet, Switch, Toast } from 'antd-mobile'
+import { Button, ActionSheet, Switch, Toast, WhiteSpace } from 'antd-mobile'
 import { fromJS } from 'immutable'
 import ConfirmModal, { IConfirmProps } from '../../../components/ConfirmModal'
 import { renderSteps } from '../index'
 import { IRootStore, IRootAction } from '../../../typings'
 import { QUESTION_TYPES, DELAY_TIME } from '../../../common/global'
-import { IQuestion } from '../stores/questionStore'
+import { IQuestion } from '../interface'
 import { getUid } from '../../../utils'
 
 import './index.scss'
@@ -25,7 +25,7 @@ import addQstIcon from '../../../assets/images/add-question.png'
 // }
 
 // type modalType = 'infoModal' | 'confirmModal'
-let timerId
+let timerId: number
 
 @inject(injector)
 @observer
@@ -34,7 +34,7 @@ class Question extends React.Component<IProps, IState> {
     prefixCls: 'page-create-question',
   }
 
-  constructor(props) {
+  constructor(props: IProps) {
     super(props)
 
     const { store } = props
@@ -136,7 +136,7 @@ class Question extends React.Component<IProps, IState> {
     onOK()
   }
 
-  handleQstsCached = fromHooks => {
+  handleQstsCached = (fromHooks: boolean) => {
     const { action, store } = this.props
     const { questions } = this.state
 
@@ -197,14 +197,13 @@ class Question extends React.Component<IProps, IState> {
       })
 
       return (
-        <Element
-          key={id}
-          ref={node => (this[`question${index}`] = node)}
-          {...props}
-        />
+        <React.Fragment key={id}>
+          {index === 0 ? null : <WhiteSpace size='lg' />}
+          <Element ref={(node: React.ReactNode) => (this[`question${index}`] = node)} {...props} />
+        </React.Fragment>
       )
     })
-
+˝
   render() {
     const { prefixCls, store, title } = this.props
     const {
@@ -217,6 +216,7 @@ class Question extends React.Component<IProps, IState> {
     return (
       <div className={prefixCls}>
         {renderSteps(1)}
+        <WhiteSpace size='lg' />
         <div className='page-create-header qa-border-1px-bottom'>
           <span className='header-title'>
             标题：

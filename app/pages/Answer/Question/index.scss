@@ -1,6 +1,11 @@
 $prefixCls: 'page-answer-question';
 
 .#{$prefixCls} {
+  &.loading {
+    margin: 300px auto;
+    color: $nav;
+    font-size: 50px;
+  }
 
   .header-content {
     display: flex;

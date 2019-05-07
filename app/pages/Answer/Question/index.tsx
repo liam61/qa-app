@@ -1,13 +1,37 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router-dom'
 import { Button, WhiteSpace, Toast } from 'antd-mobile'
+import qs from 'qs'
 import ConfirmModal from '../../../components/ConfirmModal'
-import { IQstToSubmit } from '../../Create/stores/questionStore'
+import InfoModal, { InfoTypes, IInfoProps } from '../../../components/InfoModal'
+import { IQstToSubmit, IReply } from '../../Create/interface'
 import { DELAY_TIME, TYPE_OPTIONS } from '../../../common/global'
+import { emptyFn } from '../../../utils'
 import { IRootStore, IRootAction } from '../../../typings'
 
 import './index.scss'
+
+const infoModalFactory = {
+  warning: (callback: () => void = emptyFn): IInfoProps => ({
+    type: 'warning',
+    title: '暂无消息',
+    content: '',
+    onClose: callback,
+  }),
+  success: (callback: () => void = emptyFn): IInfoProps => ({
+    type: 'success',
+    title: '提交成功',
+    content: '可在「待完成」界面中查看！',
+    onClose: callback,
+  }),
+  fail: (callback: () => void = emptyFn): IInfoProps => ({
+    type: 'fail',
+    title: '提交失败',
+    content: '请检查填写的内容！',
+    onClose: callback,
+  }),
+}
 
 @inject(injector)
 @observer
@@ -18,6 +42,8 @@ class Question extends React.Component<IProps, IState> {
 
   state = {
     confirmModal: false,
+    infoModal: false,
+    infoProps: infoModalFactory.warning(),
   }
 
   componentDidMount() {
@@ -25,16 +51,20 @@ class Question extends React.Component<IProps, IState> {
 
     history.listen((params: object, type: string) => {
       const { pathname, search } = params
-
-      if (pathname === '/' && search === '' && type === 'POP') {
+      console.log(search)
+      if (
+        pathname === '/' &&
+        qs.parse(search.slice(1)).steps === 'todo' &&
+        type === 'POP'
+      ) {
         onCancel()
       }
     })
   }
 
   handleFinishReply = () => {
-    const { action, questions = [] } = this.props
-    const replyArr: object[] = []
+    const { id, action, questions = [], history } = this.props
+    const replyArr: IReply[] = []
 
     this.handleModalClose('confirmModal')
 
@@ -55,17 +85,34 @@ class Question extends React.Component<IProps, IState> {
     })
 
     if (flag) {
-      // TODO: 提交答案
-      action!.updateQstsWithReply(replyArr)
+      // TODO: 获取用户 id
+      action!.updateQstsWithReply(id, 'lawler', replyArr, (type: InfoTypes) =>
+        this.handleInfoModalShow(
+          infoModalFactory[type](() => {
+            this.handleModalClose('infoModal')
+            if (type === 'success') {
+              // TODO: 路由跳转
+              // history.go(-2)
+            }
+          }),
+        ),
+      )
     }
   }
 
-  handleModalShow = type => {
+  handleModalShow = (type: string) => {
     this.setState({ [type]: true }) // tslint:disable-line
   }
 
-  handleModalClose = type => {
+  handleModalClose = (type: string) => {
     this.setState({ [type]: false }) // tslint:disable-line
+  }
+
+  handleInfoModalShow = (infoProps: IInfoProps) => {
+    this.setState({
+      infoModal: true,
+      infoProps,
+    })
   }
 
   renderQuestions(questions: IQstToSubmit[]) {
@@ -79,7 +126,7 @@ class Question extends React.Component<IProps, IState> {
         <React.Fragment key={num}>
           <Element
             writable
-            ref={node => (this[`question${num}`] = node)}
+            ref={(node: React.ReactNode) => (this[`question${num}`] = node)}
             {...question}
           />
           <WhiteSpace size='lg' />
@@ -90,7 +137,12 @@ class Question extends React.Component<IProps, IState> {
 
   render() {
     const { prefixCls, questions = [], title, type } = this.props
-    const { confirmModal } = this.state
+    const { confirmModal, infoModal, infoProps } = this.state
+
+    if (!questions.length) {
+      return <div className={`${prefixCls} loading`}>加载中，请稍等...</div>
+    }
+
     return (
       <div className={prefixCls}>
         <div className='header-content'>
@@ -115,6 +167,7 @@ class Question extends React.Component<IProps, IState> {
           title='你确定完成问题填写吗？'
           onOK={this.handleFinishReply}
         />
+        <InfoModal visible={infoModal} {...infoProps} />
       </div>
     )
   }
@@ -124,11 +177,16 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
+  id: string
+  title: string
+  type: string
   onCancel: () => void
 }
 
 interface IState extends Partial<injectorReturnType> {
   confirmModal: boolean
+  infoModal: boolean
+  infoProps: IInfoProps
 }
 
 function injector({
@@ -142,8 +200,6 @@ function injector({
     store: rootStore.Answer.questionStore,
     action: rootAction.Answer.questionAction,
     questions: rootStore.Answer.answerStore.data.questions,
-    title: rootStore.Answer.answerStore.data.title,
-    type: rootStore.Answer.answerStore.data.type,
   }
 }
 

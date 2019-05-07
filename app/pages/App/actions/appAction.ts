@@ -10,6 +10,7 @@ export default class AppAction {
 
   changeTab(index: number) {
     const { appStore } = this.stores
+
     appStore.setCurTab(index)
   }
 }

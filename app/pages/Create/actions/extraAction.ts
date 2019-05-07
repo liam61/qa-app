@@ -28,12 +28,13 @@ export default class ExtraAction {
     anonymous: boolean,
   ) {
     const { extraStore } = this.stores
-    extraStore.setType(type)
-    extraStore.setExpire(expire)
-    extraStore.setReceiver(receiver)
-    extraStore.setShowAuthor(showAuthor)
-    extraStore.setSecret(secret)
-    extraStore.setAnonymous(anonymous)
+    extraStore
+      .setType(type)
+      .setExpire(expire)
+      .setReceiver(receiver)
+      .setShowAuthor(showAuthor)
+      .setSecret(secret)
+      .setAnonymous(anonymous)
   }
 
   getExtra() {
