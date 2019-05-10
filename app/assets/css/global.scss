@@ -178,7 +178,7 @@ $borderList: top bottom right;
   }
 }
 
-.btn-bottom {
+.#{$globalPrefixCls}-btn-bottom {
   position: fixed !important;
   height: 95px;
   line-height: 95px;

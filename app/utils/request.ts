@@ -16,25 +16,28 @@ const defaultOptions = {
   },
 }
 
+interface IOption {
+  [key: string]: any
+}
+
 interface IRequestOpts {
   uri: string
   query: object | null
   data: object
 }
 
-// 默认按此返回
 interface IResponse {
   status: number
   statusText: string
   data: object
 }
 
-class Axios {
+class Request {
   [x: string]: any
 
-  static instance: Axios
+  static instance: Request
 
-  axios: any
+  request: any
 
   methods = ['get', 'post', 'put', 'delete']
 
@@ -42,18 +45,17 @@ class Axios {
 
   curPath = ''
 
-  constructor(options) {
-    // this.options = options
-    this.axios = axios.create(options)
+  constructor(options: IOption) {
+    this.request = axios.create(options)
 
     this.methods.forEach(method => {
-      this[method] = (params: IRequestOpts) => this.request(method, params)
+      this[method] = (params: IRequestOpts) => this.getRequest(method, params)
     })
   }
 
-  static getInstance(options) {
+  static getInstance(options: IOption) {
     if (!this.instance) {
-      this.instance = new Axios(options)
+      this.instance = new Request(options)
     }
     return this.instance
   }
@@ -68,7 +70,7 @@ class Axios {
    * @param {Object} [options.data=null] POST/PUT/PATCH 数据
    * @returns {Promise<>}
    */
-  async request(
+  async getRequest(
     method: string,
     options: IRequestOpts = { uri: '', query: null, data: {} },
   ): Promise<any> {
@@ -78,7 +80,7 @@ class Axios {
     url += query ? `?${qs.stringify(query)}` : ''
 
     // return new Promise((resolve, reject) => {
-    //   this.axios[method](url, data)
+    //   this.request[method](url, data)
     //     .then((res: any) => resolve(res))
     //     .catch(err => {
     //       Toast.fail('网络错误！', DELAY_TIME)
@@ -90,7 +92,9 @@ class Axios {
     let result = {}
 
     try {
-      const response = await this.axios[method](url, data)
+      const response = await this.request[method](url, data)
+      // console.log(response)
+
       const { status, data: res } = response
       const { errcode, errmsg } = res
 
@@ -114,18 +118,21 @@ class Axios {
   }
 
   /**
-   * 替换链接
+   * 替换链接参数
    *
    * @param {*} [options={}]
    * @memberof Axios
    */
-  replace(options: object = {}) {
+  replace(options: IOption = {}) {
     Object.keys(options).forEach(key => {
-      this.curPath = this.curPath.replace(new RegExp(`{${key}}`, 'img'), options[key])
+      this.curPath = this.curPath.replace(
+        new RegExp(`{${key}}`, 'img'),
+        options[key],
+      )
     })
 
     return this
   }
 }
 
-export default Axios.getInstance(defaultOptions)
+export default Request.getInstance(defaultOptions)

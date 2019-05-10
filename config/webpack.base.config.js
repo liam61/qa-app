@@ -33,7 +33,7 @@ module.exports = ({
   const isDevMode = env === 'development'
   const dllWebpack = require(resolve(`${outputDir}/react.manifest.json`))
   const assetOptions = {
-    limit: 100,
+    limit: 10000,
     name: `${assetsPath}/[name].[ext]`,
     publicPath: '../',
   }
@@ -49,7 +49,7 @@ module.exports = ({
             removeAttributeQuotes: true,
             collapseWhitespace: true,
           },
-      // favicon: './favicon.ico',
+      favicon: resolve(entryDir, 'assets/images/favicon-l.ico'),
     }),
     new webpack.BannerPlugin(`created by ${author}`),
     new webpack.DllReferencePlugin({
@@ -176,7 +176,7 @@ module.exports = ({
               loader: 'sass-loader',
               options: {
                 javascriptEnabled: true,
-                includePaths: [resolve('app/common')],
+                includePaths: [resolve(entryDir, 'common')],
                 sourceMap: true,
               },
             },
@@ -184,7 +184,7 @@ module.exports = ({
               loader: 'sass-resources-loader', // 全局共用 scss 样式
               options: {
                 sourceMap: true,
-                resources: resolve('app/assets/css/global_vars.scss'),
+                resources: resolve(entryDir, 'assets/css/global_vars.scss'),
               },
             },
           ],

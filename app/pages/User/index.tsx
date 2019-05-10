@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import Register from '../../components/Register'
+import { InfoTypes } from '../../components/InfoModal'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
@@ -17,11 +19,27 @@ export default class User extends React.Component<IProps, {}> {
 
   // componentDidMount() {}
 
+  handleValidateUser(callback: (status: InfoTypes) => void) {
+    console.log('发送验证 user')
+
+    callback('success')
+  }
+
+  handleValidateEmail(callback: (status: InfoTypes) => void) {
+    console.log('发送验证 email')
+
+    callback('success')
+  }
+
   render() {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-        users
+        <Register
+          onOK={() => console.log('发送注册请求')}
+          onValidateUser={this.handleValidateUser}
+          onValidateEmail={this.handleValidateEmail}
+        />
       </div>
     )
   }
@@ -38,7 +56,7 @@ function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore,
+  rootStore: IRootStore
   rootAction: IRootAction,
 }) {
   return {}

@@ -1,0 +1,678 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "qa-app",
+    "version": "last",
+    "description": "毕业设计——问答系统"
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "公共分类",
+      "description": "公共分类"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/todos": {
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "获取问题列表",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "lists": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "url": {
+                                    "type": "string",
+                                    "mock": {
+                                      "mock": "@url"
+                                    }
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "size": {
+                                    "type": "string"
+                                  },
+                                  "cover": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "url",
+                                  "name",
+                                  "size",
+                                  "cover"
+                                ]
+                              },
+                              "minItems": 1,
+                              "maxItems": 5
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "notice",
+                                "exam",
+                                "vote",
+                                "collect"
+                              ]
+                            },
+                            "date": {
+                              "type": "string",
+                              "mock": {
+                                "mock": "@date"
+                              }
+                            },
+                            "showAuthor": {
+                              "type": "boolean"
+                            },
+                            " secret": {
+                              "type": "boolean"
+                            },
+                            "anonymous": {
+                              "type": "boolean"
+                            },
+                            "author": {
+                              "type": "string"
+                            },
+                            "avatar": {
+                              "type": "string",
+                              "mock": {
+                                "mock": "@url"
+                              }
+                            },
+                            "expire": {
+                              "type": "string",
+                              "enum": [
+                                "permanent",
+                                "day",
+                                "week",
+                                "month"
+                              ]
+                            },
+                            "read": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 30
+                            },
+                            "unread": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 30
+                            }
+                          },
+                          "required": [
+                            "title",
+                            "id",
+                            "content",
+                            "files",
+                            "type",
+                            "date",
+                            "showAuthor",
+                            " secret",
+                            "anonymous",
+                            "author",
+                            "avatar",
+                            "expire",
+                            "read",
+                            "unread"
+                          ]
+                        },
+                        "minItems": 1,
+                        "maxItems": 4
+                      },
+                      "section": {
+                        "type": "string",
+                        "mock": {
+                          "mock": "@date"
+                        },
+                        "maxLength": 7
+                      }
+                    },
+                    "required": [
+                      "data",
+                      "section"
+                    ]
+                  },
+                  "minItems": 2,
+                  "maxItems": 5
+                },
+                "total": {
+                  "type": "integer",
+                  "minimum": 6,
+                  "maximum": 15
+                }
+              },
+              "required": [
+                "lists",
+                "total"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/questions/{id}": {
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "获取问题详情",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "questions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "num": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Single",
+                          "Multiple",
+                          "Answer",
+                          "Judge",
+                          "Vote"
+                        ]
+                      },
+                      "options": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "value"
+                          ]
+                        },
+                        "minItems": 0,
+                        "maxItems": 5
+                      },
+                      "required": {
+                        "type": "boolean"
+                      },
+                      "replies": {
+                        "type": "object",
+                        "properties": {
+                          "lawler": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "num": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 20
+                                },
+                                "reply": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "num",
+                                "reply"
+                              ]
+                            },
+                            "description": "userid"
+                          }
+                        },
+                        "required": [
+                          "lawler"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "num",
+                      "type",
+                      "options",
+                      "required",
+                      "replies"
+                    ]
+                  },
+                  "minItems": 3,
+                  "maxItems": 6
+                },
+                "receiver": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "department": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 2,
+                  "maxItems": 4
+                },
+                "account": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 2,
+                  "maxItems": 4
+                }
+              },
+              "required": [
+                "questions",
+                "receiver",
+                "department",
+                "account"
+              ]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "回答问题",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "replies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer"
+                      },
+                      "reply": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "reply"
+                    ]
+                  }
+                },
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "replies",
+                "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "注册",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "@email"
+                  }
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "登录",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                " password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                " password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "获取用户信息",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "@email"
+                  }
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "sex": {
+                  "type": "string"
+                },
+                "birthday": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "@url"
+                  }
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "birthday",
+                "sex",
+                "phone",
+                "profile",
+                "avatar"
+              ]
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "修改用户信息",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "@email"
+                  }
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "sex": {
+                  "type": "string"
+                },
+                "birthday": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "@url"
+                  }
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "birthday",
+                "sex",
+                "phone",
+                "profile",
+                "avatar"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

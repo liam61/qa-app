@@ -48,7 +48,6 @@
   },
   "compileOnSave": false,
   "exclude": [
-    "node_modules",
-    "app/mobx"
+    "node_modules"
   ]
 }

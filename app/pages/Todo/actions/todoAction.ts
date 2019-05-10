@@ -1,7 +1,6 @@
 import { mAction } from '../../../mobx/action'
-import axios from '../../../utils/axios'
+import request from '../../../utils/request'
 import { IRootAction, IRootStore } from '../../../typings'
-import { IList } from '../stores/todoStore'
 
 @mAction
 export default class TodoAction {
@@ -21,7 +20,7 @@ export default class TodoAction {
       .setLoading(true)
       .setRefresh(refresh, true)
       .setListData(
-        await axios.setPath('todos').get({
+        await request.setPath('todos').get({
           query: { page: index || todoStore.pageIndex },
         }),
       )
@@ -40,7 +39,7 @@ export default class TodoAction {
     todoStore
       .setLoading(true)
       .setPageIndex(++index)
-      .addListData(await axios.get({ query: { page: todoStore.pageIndex } }))
+      .addListData(await request.get({ query: { page: todoStore.pageIndex } }))
       .setLoading(false)
   }
 }

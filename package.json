@@ -41,6 +41,7 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "@types/fscreen": "^1.0.1",
     "@types/helmet": "^0.0.43",
     "@types/node": "^12.0.0",
     "@types/qs": "^6.5.3",

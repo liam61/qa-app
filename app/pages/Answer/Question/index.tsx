@@ -156,7 +156,7 @@ class Question extends React.Component<IProps, IState> {
         </div>
         <Button
           type='primary'
-          className='btn-bottom'
+          className='qa-btn-bottom'
           onClick={() => this.handleModalShow('confirmModal')}
         >
           回答完成

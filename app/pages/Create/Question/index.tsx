@@ -25,7 +25,7 @@ import addQstIcon from '../../../assets/images/add-question.png'
 // }
 
 // type modalType = 'infoModal' | 'confirmModal'
-let timerId: number
+let timerId: number | undefined
 
 @inject(injector)
 @observer
@@ -257,7 +257,7 @@ class Question extends React.Component<IProps, IState> {
         )}
         <Button
           type='primary'
-          className='btn-bottom'
+          className='qa-btn-bottom'
           disabled={length === 0}
           onClick={() =>
             this.handleConfirmModalShow({

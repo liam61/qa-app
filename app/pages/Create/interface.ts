@@ -1,6 +1,10 @@
+// import SingleQuestion from '../../components/SingleQuestion'
+// import AnswerQuestion from '../../components/AnswerQuestion'
+
 interface IQuestion {
   id: string
   Element: React.ReactNode
+  // Element: SingleQuestion | AnswerQuestion
   type: string
   title?: string
   options?: object[]

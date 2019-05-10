@@ -15,7 +15,7 @@ const baseOptions = {
   moduleToDll: {
     react: ['react', 'react-dom', 'react-router-dom'],
   },
-  dllFiles: ['react.dll.js', 'react.manifest.json', 'createMobxTransformer.js'],
+  dllFiles: ['react.dll.js', 'react.manifest.json'],
 }
 
 // 可选参数

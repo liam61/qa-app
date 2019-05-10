@@ -6,7 +6,7 @@ import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
-import addIcon from '../../assets/images/add.svg'
+import addIcon from '../../assets/images/radio-add.svg'
 
 @inject(injector)
 @observer

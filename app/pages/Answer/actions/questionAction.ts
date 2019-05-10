@@ -1,7 +1,7 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
 import { IReply } from '../../Create/interface'
-import axios from '../../../utils/axios'
+import request from '../../../utils/request'
 import { InfoTypes } from '../../../components/InfoModal';
 
 @mAction
@@ -21,7 +21,7 @@ export default class QuestionAction {
     // replyArr.forEach(reply => answerStore.updateQstReply(reply))
     // console.log(replies)
 
-    const res = await axios
+    const res = await request
       .setPath('questions')
       .post({ uri: id, data: { id: userId, replies } })
 

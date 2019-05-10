@@ -10,7 +10,7 @@ export function formatDate(date: Date, fmt: string) {
       `${date.getFullYear()}`.substr(4 - RegExp.$1.length),
     )
   }
-  const data = {
+  const data: { [key: string]: number } = {
     'M+': date.getMonth() + 1, // 日期从0开始计算，要+1
     'd+': date.getDate(),
     'h+': date.getHours(),

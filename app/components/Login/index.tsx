@@ -1,27 +1,25 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { IRootStore, IRootAction } from '${relDir}$typings'
+import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-export default class ${uppercaseName}$ extends React.Component<IProps, IState> {
+export default class Login extends React.Component<IProps, IState> {
   static defaultProps = {
-    prefixCls: '${type}$-${splitDashName}$',
+    prefixCls: 'component-login',
   }
 
   constructor(props: IProps) {
     super(props)
   }
 
-  componentDidMount() {}
-
   render() {
     const { prefixCls } = this.props
     return (
       <div className={prefixCls}>
-        this is ${splitDashName}$
+        this is login
       </div>
     )
   }

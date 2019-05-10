@@ -190,7 +190,7 @@ class Extra extends React.Component<IProps, IState> {
           </div>
           <Button
             type='primary'
-            className='btn-bottom'
+            className='qa-btn-bottom'
             disabled={!type.value || !time.value || !receiver}
             onClick={() => this.handleModalShow('confirmModal')}
           >

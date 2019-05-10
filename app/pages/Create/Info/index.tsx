@@ -150,7 +150,7 @@ class Info extends React.Component<IProps, IState> {
           {/* <Picker fileId={file} onChangeFile={this.handleChangeFile} /> */}
           <Button
             type='primary'
-            className='btn-bottom'
+            className='qa-btn-bottom'
             disabled={!title || !content}
             onClick={() => this.handleModalShow('confirmModal')}
           >

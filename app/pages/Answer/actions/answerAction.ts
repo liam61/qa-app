@@ -1,5 +1,5 @@
 import { mAction } from '../../../mobx/action'
-import axios from '../../../utils/axios'
+import request from '../../../utils/request'
 import { IRootAction, IRootStore } from '../../../typings'
 
 @mAction
@@ -13,17 +13,17 @@ export default class AnswerAction {
     const { answerStore } = this.stores
 
     // setTimeout(async () => {
-      answerStore.setData(await axios.setPath('questions').get({ uri: id }))
+      answerStore.setData(await request.setPath('questions').get({ uri: id }))
     // }, 100000);
     // questionStore.setQsts(data.questions)
-    // const result = await axios.setPath('user').delete({ uri: 'Dolor' })
-    // const result = await axios.setPath('user').post({
+    // const result = await request.setPath('user').delete({ uri: 'Dolor' })
+    // const result = await request.setPath('user').post({
     //   data: {
     //     name: 'lawler',
     //     email: 'admin@omyleon.com',
     //   },
     // })
-    // const result = await axios.put({
+    // const result = await request.put({
     //   uri: 'Dolor',
     //   data: {
     //     name: 'Bolor',
