@@ -22,7 +22,9 @@
           "公共分类"
         ],
         "summary": "获取问题列表",
-        "description": "",
+        "consumes": [
+          "text/plain"
+        ],
         "parameters": [
           {
             "name": "page",
@@ -30,6 +32,15 @@
             "required": false,
             "description": "",
             "type": "string"
+          },
+          {
+            "name": "raw",
+            "in": "body",
+            "description": "raw paramter",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
           }
         ],
         "responses": {
@@ -203,7 +214,9 @@
           "公共分类"
         ],
         "summary": "获取问题详情",
-        "description": "",
+        "consumes": [
+          "text/plain"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -211,6 +224,15 @@
             "description": "",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "raw",
+            "in": "body",
+            "description": "raw paramter",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
           }
         ],
         "responses": {
@@ -348,7 +370,6 @@
           "公共分类"
         ],
         "summary": "回答问题",
-        "description": "",
         "consumes": [
           "application/json"
         ],
@@ -464,12 +485,56 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "id": {
+                "status": {
                   "type": "string"
                 }
               },
               "required": [
-                "id"
+                "status"
+              ]
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "注册-验证",
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                }
+              },
+              "required": [
+                "status"
               ]
             }
           }
@@ -494,16 +559,16 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "username": {
+                "account": {
                   "type": "string"
                 },
-                " password": {
+                "password": {
                   "type": "string"
                 }
               },
               "required": [
-                "username",
-                " password"
+                "account",
+                "password"
               ]
             }
           }
@@ -515,12 +580,49 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "id": {
+                "status": {
                   "type": "string"
                 }
               },
               "required": [
-                "id"
+                "status"
+              ]
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "登录-验证",
+        "description": "",
+        "parameters": [
+          {
+            "name": "account",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                }
+              },
+              "required": [
+                "status"
               ]
             }
           }
@@ -533,7 +635,9 @@
           "公共分类"
         ],
         "summary": "获取用户信息",
-        "description": "",
+        "consumes": [
+          "text/plain"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -541,6 +645,15 @@
             "description": "",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "raw",
+            "in": "body",
+            "description": "raw paramter",
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
           }
         ],
         "responses": {
@@ -596,7 +709,6 @@
           "公共分类"
         ],
         "summary": "修改用户信息",
-        "description": "",
         "consumes": [
           "application/json"
         ],

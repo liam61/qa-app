@@ -1,6 +1,9 @@
-$prefixCls: 'component-register';
+$prefixCls: 'page-login';
 
 .#{$prefixCls} {
+}
+
+.#{$globalPrefixCls}-login {
   height: 100vh;
   // background: #fff;
   padding: 0 30px 0;
@@ -14,8 +17,6 @@ $prefixCls: 'component-register';
   }
 
   &-main {
-    margin-bottom: 60px;
-
     .am-input-item {
       height: 90px;
       line-height: 90px;
@@ -37,14 +38,14 @@ $prefixCls: 'component-register';
             margin-left: 5.5px;
             font-size: 1.8em;
             // color: $nav;
-            color: rgba(46, 97, 200, 0.8);
+            color: rgba(255, 177, 66, 0.8);
           }
           
           .email-icon {
             margin-left: 3px;
             font-size: 1.7em;
             // color: $nav;
-            color: rgba(255, 177, 66, 0.8);
+            color: rgba(46, 97, 200, 0.8);
           }
 
           img {
@@ -66,6 +67,38 @@ $prefixCls: 'component-register';
           height: 40px;
           background-size: 100%;
         }
+      }
+    }
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+    padding: 0 5px;
+
+    .btn-login {
+      padding: 0 10px;
+      height: 45px;
+      line-height: 45px;
+      font-size: 26px;
+      color: $nav;
+      background: inherit;
+
+      &::before {
+        display: none;
+      }
+
+      &-active, &:active {
+        background: $background;
+
+      }
+
+      .icon {
+        position: relative;
+        margin: 0 8px;
+        font-size: 1.5em;
+        top: 3px;
       }
     }
   }

@@ -190,11 +190,17 @@ $borderList: top bottom right;
   font-size: 34px;
   z-index: 1;
 
-  &-icon {
+  .btn-bottom-icon {
     position: relative;
     // top: 4.5px;
     left: 12px;
     font-size: 1.5em;
+  }
+
+  .am-button-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 20px;
   }
 }
 

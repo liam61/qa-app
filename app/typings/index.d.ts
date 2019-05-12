@@ -9,7 +9,9 @@ import CreateExtraStore from '../pages/Create/stores/extraStore'
 import CreateInfoStore from '../pages/Create/stores/infoStore'
 import CreateQuestionStore from '../pages/Create/stores/questionStore'
 import ExampleExampleStore from '../pages/Example/stores/exampleStore'
+import LoginLoginStore from '../pages/Login/stores/loginStore'
 import MessageMessageStore from '../pages/Message/stores/messageStore'
+import RegisterRegisterStore from '../pages/Register/stores/registerStore'
 import TodoTodoStore from '../pages/Todo/stores/todoStore'
 import UserUserStore from '../pages/User/stores/userStore'
 import AnswerAnswerAction from '../pages/Answer/actions/answerAction'
@@ -22,7 +24,9 @@ import CreateExtraAction from '../pages/Create/actions/extraAction'
 import CreateInfoAction from '../pages/Create/actions/infoAction'
 import CreateQuestionAction from '../pages/Create/actions/questionAction'
 import ExampleExampleAction from '../pages/Example/actions/exampleAction'
+import LoginLoginAction from '../pages/Login/actions/loginAction'
 import MessageMessageAction from '../pages/Message/actions/messageAction'
+import RegisterRegisterAction from '../pages/Register/actions/registerAction'
 import TodoTodoAction from '../pages/Todo/actions/todoAction'
 import UserUserAction from '../pages/User/actions/userAction'
 
@@ -47,8 +51,14 @@ export interface IRootStore {
   Example: {
     exampleStore: ExampleExampleStore
   }
+  Login: {
+    loginStore: LoginLoginStore
+  }
   Message: {
     messageStore: MessageMessageStore
+  }
+  Register: {
+    registerStore: RegisterRegisterStore
   }
   Todo: {
     todoStore: TodoTodoStore
@@ -79,8 +89,14 @@ export interface IRootAction {
   Example: {
     exampleAction: ExampleExampleAction
   }
+  Login: {
+    loginAction: LoginLoginAction
+  }
   Message: {
     messageAction: MessageMessageAction
+  }
+  Register: {
+    registerAction: RegisterRegisterAction
   }
   Todo: {
     todoAction: TodoTodoAction

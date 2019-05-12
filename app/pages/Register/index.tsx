@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import { Link } from 'react-router-dom'
 import { InputItem, Button, Toast } from 'antd-mobile'
 import debounce from '../../utils/debounce'
 import lockIcon from '../../assets/images/lock.svg'
 // import lock2Icon from '../../assets/images/lock2.svg'
 import lock3Icon from '../../assets/images/lock3.svg'
+import { IResponse } from './actions/registerAction'
+import { INoError } from '../Login/interface'
 import { IRootStore, IRootAction } from '../../typings'
-import { InfoTypes } from '../InfoModal'
 
 import './index.scss'
 
@@ -18,7 +20,7 @@ const passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 @observer
 export default class Register extends React.Component<IProps, IState> {
   static defaultProps = {
-    prefixCls: 'component-register',
+    prefixCls: 'page-register',
   }
 
   userInput: React.ReactNode
@@ -29,25 +31,28 @@ export default class Register extends React.Component<IProps, IState> {
 
   psdConfirmInput: React.ReactNode
 
-  validateTemp = { hasError: false, error: '' }
+  noErrors: INoError = { hasError: false, error: '' }
 
   state = {
     user: '',
     email: '',
     password: '',
     psdConfirm: '',
-    userInfo: this.validateTemp,
-    emailInfo: this.validateTemp,
-    passwordInfo: this.validateTemp,
-    psdConfirmInfo: this.validateTemp,
+    userInfo: this.noErrors,
+    emailInfo: this.noErrors,
+    passwordInfo: this.noErrors,
+    psdConfirmInfo: this.noErrors,
+    loading: false,
   }
 
   handleChange = (type: string, val: string) => {
     this.setState({ [type]: val })
   }
 
-  validateUser = (val: string) => { // handle by debounce
-    const { onValidateUser } = this.props
+  validateUser = (val: string) => {
+    // handle by debounce
+    const { action } = this.props
+    const { user } = this.state
 
     if (val.length < 6) {
       this.setState({
@@ -68,15 +73,19 @@ export default class Register extends React.Component<IProps, IState> {
       return
     }
 
-    onValidateUser((status: InfoTypes) => {
-      if (status === 'success') {
-        this.setState({ userInfo: this.validateTemp })
-      }
+    action!.validateUser(user, (data: IResponse) => {
+      data.status === 'success'
+        ? this.setState({ userInfo: this.noErrors })
+        : this.setState({
+            userInfo: { hasError: true, error: '该用户名已被注册！' },
+          })
     })
   }
 
-  validateEmail = (val: string) => { // handle by debounce
-    const { onValidateEmail } = this.props
+  validateEmail = (val: string) => {
+    // handle by debounce
+    const { action } = this.props
+    const { email } = this.state
 
     if (!emailReg.test(val)) {
       // console.log('email')
@@ -86,10 +95,12 @@ export default class Register extends React.Component<IProps, IState> {
       return
     }
 
-    onValidateEmail((status: InfoTypes) => {
-      if (status === 'success') {
-        this.setState({ emailInfo: this.validateTemp })
-      }
+    action!.validateEmail(email, (data: IResponse) => {
+      data.status === 'success'
+        ? this.setState({ emailInfo: this.noErrors })
+        : this.setState({
+            emailInfo: { hasError: true, error: '该邮箱已被注册！' },
+          })
     })
   }
 
@@ -104,7 +115,7 @@ export default class Register extends React.Component<IProps, IState> {
     }
 
     passwordReg.test(val) || val === ''
-      ? this.setState({ passwordInfo: this.validateTemp })
+      ? this.setState({ passwordInfo: this.noErrors })
       : this.setState({
           passwordInfo: {
             hasError: true,
@@ -119,7 +130,7 @@ export default class Register extends React.Component<IProps, IState> {
     const { password } = this.state
 
     val === password
-      ? this.setState({ psdConfirmInfo: this.validateTemp })
+      ? this.setState({ psdConfirmInfo: this.noErrors })
       : this.setState({
           psdConfirmInfo: { hasError: true, error: '两次填写的密码不一致！' },
         })
@@ -134,10 +145,21 @@ export default class Register extends React.Component<IProps, IState> {
   }
 
   handleSubmit = () => {
-    const { onOK } = this.props
-    const { user, email, password } = this.state
+    const { action } = this.props
+    const { user, email, password, passwordInfo } = this.state
 
-    onOK({ user, email, password })
+    if (!user || !email || !password || !passwordInfo) {
+      Toast.fail('请输入注册信息！')
+      return
+    }
+
+    this.setState({ loading: true })
+
+    action!.register({ user, email, password }, (data: IResponse) => {
+      console.log(data)
+
+      this.setState({ loading: false })
+    })
   }
 
   render() {
@@ -151,6 +173,7 @@ export default class Register extends React.Component<IProps, IState> {
       emailInfo,
       passwordInfo,
       psdConfirmInfo,
+      loading,
     } = this.state
 
     const { hasError: userErr } = userInfo
@@ -159,65 +182,85 @@ export default class Register extends React.Component<IProps, IState> {
     const { hasError: psdConfirmErr } = psdConfirmInfo
 
     return (
-      <div className={prefixCls}>
-        <div className={`${prefixCls}-header`}>开启你的问答之旅！</div>
-        <div className={`${prefixCls}-main`}>
+      <div className={`${prefixCls} qa-login`}>
+        <div className="qa-login-header">开启你的问答之旅！</div>
+        <div className="qa-login-main">
           <InputItem
             ref={(node: React.ReactNode) => (this.userInput = node)}
-            placeholder='请输入用户名'
+            placeholder="请输入用户名"
             value={user}
             maxLength={20}
             error={userErr}
             onErrorClick={() => this.handleErrorClick('userInfo')}
             onChange={debounce(this.validateUser, (val: string) =>
-              this.setState({ user: val }),
+              this.setState({ user: val })
             )}
           >
-            <i className='fa fa-user-o fa-2x user-icon' aria-hidden='true' />
+            <i className="fa fa-user-o fa-2x user-icon" aria-hidden="true" />
           </InputItem>
           <InputItem
             ref={(node: React.ReactNode) => (this.emailInput = node)}
-            placeholder='请输入邮箱'
+            placeholder="请输入邮箱"
             value={email}
             error={emailErr}
             onErrorClick={() => this.handleErrorClick('emailInfo')}
             maxLength={30}
             onChange={debounce(this.validateEmail, (val: string) =>
-              this.setState({ email: val }),
+              this.setState({ email: val })
             )}
           >
-            <i className='fa fa-envelope-o fa-2x email-icon' aria-hidden='true' />
+            <i
+              className="fa fa-envelope-o fa-2x email-icon"
+              aria-hidden="true"
+            />
           </InputItem>
           <InputItem
             ref={(node: React.ReactNode) => (this.passwordInput = node)}
-            type='password'
-            placeholder='请输入密码'
+            type="password"
+            placeholder="请输入密码"
             value={password}
             maxLength={20}
             error={passwordErr}
             onErrorClick={() => this.handleErrorClick('passwordInfo')}
             onChange={this.handlePasswordChange}
           >
-            <img src={lock3Icon} className='password-icon' alt='password-icon' />
+            <img
+              src={lock3Icon}
+              className="password-icon"
+              alt="password-icon"
+            />
           </InputItem>
           <InputItem
             ref={(node: React.ReactNode) => (this.psdConfirmInput = node)}
-            type='password'
-            placeholder='请确认密码'
+            type="password"
+            placeholder="请确认密码"
             value={psdConfirm}
             maxLength={20}
             error={psdConfirmErr}
             onErrorClick={() => this.handleErrorClick('psdConfirmInfo')}
             onChange={this.handlePsdConfirmChange}
           >
-            <img src={lockIcon} className='psd-confirm-icon' alt='password-confirm-icon' />
+            <img
+              src={lockIcon}
+              className="psd-confirm-icon"
+              alt="password-confirm-icon"
+            />
           </InputItem>
           {/* TODO: 验证码 */}
         </div>
+        <div className="qa-login-footer">
+          <Link to="/login" className="btn-login">
+            <i className="fa fa-angle-left icon" aria-hidden="true" />
+            已拥有账号
+          </Link>
+        </div>
         <Button
-          type='primary'
-          className='qa-btn-bottom'
-          disabled={userErr || emailErr || passwordErr || psdConfirmErr}
+          type="primary"
+          className="qa-btn-bottom"
+          disabled={
+            userErr || emailErr || passwordErr || psdConfirmErr || loading
+          }
+          loading={loading}
           onClick={this.handleSubmit}
         >
           立即注册
@@ -231,9 +274,6 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
-  onOK: (info: object) => void
-  onValidateUser: (callback: (status: InfoTypes) => void) => void
-  onValidateEmail: (callback: (status: InfoTypes) => void) => void
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -241,10 +281,11 @@ interface IState extends Partial<injectorReturnType> {
   email: string
   password: string
   psdConfirm: string
-  userInfo: { hasError: boolean; error: string }
-  emailInfo: { hasError: boolean; error: string }
-  passwordInfo: { hasError: boolean; error: string }
-  psdConfirmInfo: { hasError: boolean; error: string }
+  userInfo: INoError
+  emailInfo: INoError
+  passwordInfo: INoError
+  psdConfirmInfo: INoError
+  loading: boolean
 }
 
 function injector({
@@ -252,7 +293,10 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
-  return {}
+  return {
+    store: rootStore.Register.registerStore,
+    action: rootAction.Register.registerAction,
+  }
 }
