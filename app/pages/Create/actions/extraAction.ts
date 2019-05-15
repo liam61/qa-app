@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
 
@@ -44,7 +43,7 @@ export default class ExtraAction {
     return {
       type,
       expire,
-      receiver: toJS(receiver),
+      receiver,
       showAuthor,
       secret,
       anonymous,

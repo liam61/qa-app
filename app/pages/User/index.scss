@@ -1,5 +1,136 @@
 $prefixCls: 'page-user';
 
 .#{$prefixCls} {
+  &-header {
+    position: relative;
+    padding: 40px 30px;
+    // background: #fff;
+    background-size: cover;
+    background-position: center;
 
+    &::before {
+      display: none;
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      // background-image: url(../../assets/images/random/material-5.png);
+      background-size: cover;
+      background-position: center;
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    input {
+      display: none;
+    }
+
+    .edit {
+      margin-bottom: 50px;
+      text-align: right;
+      font-size: 26px;
+      color: $bg-tag;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &-avatar {
+        position: relative;
+
+        img {
+          width: 136px;
+          height: 136px;
+          border-radius: 50%;
+        }
+
+        .change-icon {
+          position: absolute;
+          padding: 5px 7px;
+          right: 4px;
+          bottom: 4px;
+          font-size: 28px;
+          color: $bg-tag;
+          background: $nav;
+          border-radius: 50%;
+        }
+      }
+
+      &-username {
+        margin-top: 15px;
+        margin-bottom: 8px;
+        font-size: 34px;
+        font-weight: bold;
+        color: #000;
+      }
+
+      &-profile {
+        font-size: 26px;
+        color: $title;
+      }
+    }
+  }
+
+  &-nav {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+
+    li {
+      display: flex;
+      padding: 35px 0;
+      margin: 10px;
+      // margin-right: 0;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      list-style: none;
+      border-radius: 6px;
+      @include border-3Of4-mixin(0, right);
+
+      &::before {
+        margin: 0 10px;
+      }
+
+      &:active {
+        background: $background2;
+      }
+
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+
+      .nav-num {
+        font-size: 34px;
+        color: $blue;
+        margin-bottom: 8px;
+      }
+
+      .nav-title {
+        font-size: 26px;
+        color: $nav;
+      }
+    }
+  }
+
+  &-extra {
+  }
+}
+
+.#{$globalPrefixCls}, .page-modal {
+  .user-input {
+    height: 90px !important;
+    line-height: 90px;
+
+    &:active {
+      background: $background2;
+    }
+  }
 }

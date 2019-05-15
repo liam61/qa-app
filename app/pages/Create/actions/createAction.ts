@@ -1,5 +1,6 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
+import { request } from '../../../utils'
 import { InfoTypes } from '../../../components/InfoModal'
 
 @mAction
@@ -9,18 +10,19 @@ export default class CreateAction {
     public actions: IRootAction['Create'],
   ) {}
 
-  submitQuestions(callback: (result: InfoTypes) => void) {
+  async submitQuestions(callback: (result: InfoTypes) => void) {
     const { infoAction, questionAction, extraAction } = this.actions
 
-    console.log(
-      Object.assign(
-        {},
+    // TODO: 获取用户 id
+    const { id } = await request.setPath('questions').post({
+      data: Object.assign(
+        { userId: 'lawler' },
         infoAction.getInfo(),
-        { questions: questionAction.getQuestions() },
+        questionAction.getQuestions(),
         extraAction.getExtra(),
       ),
-    )
-    // TODO: 上传 await
-    callback('success')
+    })
+
+    callback(id ? 'success' : 'fail')
   }
 }

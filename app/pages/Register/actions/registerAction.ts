@@ -1,7 +1,8 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
+import { IError } from '../../Login/interface'
 import { InfoTypes } from '../../../components/InfoModal'
-import request from '../../../utils/request'
+import { request, validator } from '../../../utils'
 
 export interface IResponse {
   status: InfoTypes
@@ -11,23 +12,34 @@ export interface IResponse {
 export default class RegisterAction {
   constructor(
     public stores: IRootStore['Register'],
-    public actions: IRootAction['Register']
+    public actions: IRootAction['Register'],
+  ) {}
+
+  validateUser(user: string, callback: (error: IError) => void) {
+    validator.username(user, callback)
+  }
+
+  validateEmail(email: string, callback: (error: IError) => void) {
+    validator.email(email, callback)
+  }
+
+  validatePassword(password: string, callback: (error: IError) => void) {
+    validator.password(password, callback)
+  }
+
+  validatePsdConfirm(
+    psdConfirm: string,
+    password: string,
+    callback: (error: IError) => void,
   ) {
-    request.setPath('register')
-  }
-
-  async validateUser(user: string, callback: (data: IResponse) => void) {
-    callback(await request.get({ query: { username: user } }))
-  }
-
-  async validateEmail(email: string, callback: (data: IResponse) => void) {
-    callback(await request.get({ query: { email } }))
+    validator.psdConfirm(psdConfirm, password, callback)
   }
 
   async register(
     data: { user: string; email: string; password: string },
-    callback: (data: IResponse) => void
+    callback: (success: boolean) => void,
   ) {
-    callback(await request.post({ data }))
+    const { status } = await request.setPath('register').post({ data })
+    callback(status === 'success')
   }
 }

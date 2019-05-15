@@ -157,8 +157,6 @@ export default class QaListView extends React.Component<IProps, IState> {
     } = this.props
     const { dataSource } = this.state
 
-    // TODO: 调整 css 样式
-
     return (
       <ListView
         className={prefixCls}

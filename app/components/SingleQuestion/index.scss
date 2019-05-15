@@ -1,6 +1,7 @@
 $prefixCls: 'component-single';
 
-.#{$prefixCls} {}
+.#{$prefixCls} {
+}
 
 .#{$globalPrefixCls}-question {
   position: relative;
@@ -19,20 +20,8 @@ $prefixCls: 'component-single';
     .content-title {
       padding-bottom: 50px;
 
-      .am-input-item {
-        height: 60px;
-        line-height: 60px;
-        padding: 0 25px;
+      .#{$globalPrefixCls}-input-item {
         @include border-mixin(2px);
-
-        .am-list-line {
-          padding-right: 0;
-          padding-top: 10px;
-
-          input {
-            font-size: 30px;
-          }
-        }
       }
     }
 
@@ -51,21 +40,18 @@ $prefixCls: 'component-single';
         .option-add {
           &::before {
             color: $blue;
-
           }
         }
 
         .option-remove {
           &::before {
             color: $error;
-
           }
         }
 
         .option-warn {
           &::before {
             color: $info;
-
           }
         }
 

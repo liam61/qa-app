@@ -19,6 +19,7 @@ export default class ${uppercaseName}$ extends React.Component<IProps, IState> {
 
   render() {
     const { prefixCls } = this.props
+
     return (
       <div className={prefixCls}>
         this is ${splitDashName}$

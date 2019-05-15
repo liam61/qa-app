@@ -1,5 +1,5 @@
 import { mAction } from '../../../mobx/action'
-import request from '../../../utils/request'
+import { request } from '../../../utils'
 import { IRootAction, IRootStore } from '../../../typings'
 
 @mAction
@@ -39,7 +39,11 @@ export default class TodoAction {
     todoStore
       .setLoading(true)
       .setPageIndex(++index)
-      .addListData(await request.get({ query: { page: todoStore.pageIndex } }))
+      .addListData(
+        await request
+          .setPath('todos')
+          .get({ query: { page: todoStore.pageIndex } }),
+      )
       .setLoading(false)
   }
 }

@@ -1,5 +1,5 @@
 import { mAction } from '../../../mobx/action'
-import request from '../../../utils/request'
+import { request } from '../../../utils'
 import { IRootAction, IRootStore } from '../../../typings'
 
 @mAction

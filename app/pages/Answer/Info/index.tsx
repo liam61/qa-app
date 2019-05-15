@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button, Toast, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
+import { increaseCount } from '../../../utils'
 import { IRootStore, IRootAction } from '../../../typings'
 import { IFile } from '../../Create/interface'
 import { TIME_OPTIONS, TYPE_OPTIONS } from '../../../common/global'
@@ -24,31 +25,12 @@ export default class Info extends React.Component<IProps, IState> {
   componentDidMount() {
     const { read, unread } = this.props
 
-    this.increaseCount('readNum', read, 700)
-    this.increaseCount('unreadNum', unread, 700)
-  }
-
-  /**
-   * 阅读量的加载动画
-   *
-   * @param [during] 动画总时间
-   * @param [delay] 每次变化间隔时间
-   */
-  increaseCount = (key: string, toCount: number, during = 500, delay = 20) => {
-    const that = this
-    const step =
-      (toCount * delay) / during <= 1
-        ? 1
-        : Math.floor((toCount * delay) / during)
-    return (function increase() {
-      const { [key]: count } = that.state
-      if (count < toCount) {
-        that.setState(
-          { [key]: count + step >= toCount ? toCount : count + step },
-          () => setTimeout(() => increase(), (during * step) / toCount),
-        )
-      }
-    })()
+    increaseCount(read, (count, next) =>
+      this.setState({ readNum: count }, next),
+    )
+    increaseCount(unread, (count, next) =>
+      this.setState({ unreadNum: count }, next),
+    )
   }
 
   handleModalClose = (type: string) => {

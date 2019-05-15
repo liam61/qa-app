@@ -130,6 +130,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
           <div className='content-title'>
             <div className='content-text'>题目</div>
             <InputItem
+              className='qa-input-item'
               placeholder='请输入题目'
               value={title}
               maxLength={20}

@@ -15,6 +15,7 @@ export default class ConfirmModal extends React.Component<IProps, {}> {
 
   render() {
     const { prefixCls, visible, onCancel, title, onOK } = this.props
+
     return (
       <div className={prefixCls}>
         <Modal

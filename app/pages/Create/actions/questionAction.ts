@@ -1,6 +1,5 @@
-import { toJS } from 'mobx';
-import { fromJS, is } from 'immutable'
 import { mAction } from '../../../mobx/action'
+// import { fromJS, is } from 'immutable'
 import { IQuestion, IQstToSubmit } from '../interface'
 import { IRootAction, IRootStore } from '../../../typings'
 import { getUid } from '../../../utils'
@@ -39,30 +38,30 @@ export default class QuestionAction {
     return questionStore.questions.length
   }
 
-  getQuestions(): IQstToSubmit[] {
+  getQuestions(): { questions: IQstToSubmit[] } {
     const { questionStore } = this.stores
 
-    return questionStore.questions.map((qst, index) => {
+    const questions = questionStore.questions.map((qst, index) => {
       const { type, title, options, required } = qst
 
       return {
         num: index,
         type,
         title,
-        options: toJS(options),
+        options,
         required,
       }
     })
+
+    return { questions }
   }
 
   updateQuestions(questions: IQuestion[]) {
     const { questionStore } = this.stores
-    const curQsts = questionStore.questions
+    // const curQsts = questionStore.questions
 
-    // NOTE: 根据 questions 是否改变来执行，但引入 immutable 相对较大
-    if (!is(fromJS(curQsts), fromJS(questions))) {
-      questionStore.setQst([...questions])
-    }
+    // if (!is(fromJS(curQsts), fromJS(questions))) {}
+    questionStore.setQst(questions)
   }
 
   cachedChange() {

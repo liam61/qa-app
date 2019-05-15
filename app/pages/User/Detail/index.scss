@@ -1,0 +1,40 @@
+$prefixCls: 'page-user-detail';
+
+.#{$prefixCls} {
+  &-header {
+    position: relative;
+    height: 100px;
+    line-height: 100px;
+    padding-left: 30px;
+    background: rgba(46, 97, 200, 0.9);
+    color: #fff;
+
+    i {
+      vertical-align: -3px;
+    }
+
+    span {
+      margin-left: 20px;
+      font-size: 34px;
+    }
+  }
+
+  &-main {
+    margin-bottom: 80px;
+
+    .main-btn-quit {
+      height: 90px;
+      line-height: 90px;
+      color: $error;
+      font-size: 30px;
+    }
+  }
+
+  .#{$globalPrefixCls}-btn-bottom {
+    position: inherit !important;
+    margin: 0 30px;
+    height: 90px;
+    line-height: 90px;
+    border-radius: 6px;
+  }
+}

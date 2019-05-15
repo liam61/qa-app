@@ -1,0 +1,13 @@
+$prefixCls: 'component-input-modal';
+
+.#{$prefixCls} {
+}
+
+.input-modal {
+  .#{$globalPrefixCls}-input-item {
+    height: 80px !important;
+    line-height: 80px;
+    @include border-mixin(2px);
+    margin-bottom: 25px;
+  }
+}

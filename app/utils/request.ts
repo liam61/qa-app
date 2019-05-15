@@ -21,15 +21,16 @@ interface IOption {
 }
 
 interface IRequestOpts {
-  uri: string
-  query: object | null
+  uri?: string
+  query?: object | null
   data: object
 }
 
 interface IResponse {
   status: number
   statusText: string
-  data: object
+  data: { [key: string]: any }
+  [key: string]: any
 }
 
 class Request {
@@ -39,7 +40,7 @@ class Request {
 
   request: any
 
-  methods = ['get', 'post', 'put', 'delete']
+  methods = ['get', 'post', 'put', 'patch', 'delete']
 
   path = ''
 
@@ -51,6 +52,9 @@ class Request {
     this.methods.forEach(method => {
       this[method] = (params: IRequestOpts) => this.getRequest(method, params)
     })
+
+    this.upload = (data: object, callback: (process: any) => void) =>
+      this.getUploader(data, callback)
   }
 
   static getInstance(options: IOption) {
@@ -68,7 +72,7 @@ class Request {
    * @param {string} [options.uri=''] 资源唯一标示，一般是 ID
    * @param {Object} [options.query=null] GET 参数
    * @param {Object} [options.data=null] POST/PUT/PATCH 数据
-   * @returns {Promise<>}
+   * @returns {Promise<any>}
    */
   async getRequest(
     method: string,
@@ -92,7 +96,40 @@ class Request {
     let result = {}
 
     try {
-      const response = await this.request[method](url, data)
+      const response: IResponse = await this.request[method](url, data)
+      // console.log(response)
+
+      const { status, data: res } = response
+      const { errcode, errmsg } = res
+
+      if (status === 200 && !errcode) {
+        result = res
+      } else {
+        throw new Error(`${errcode}: ${errmsg}`)
+      }
+    } catch (err) {
+      Toast.fail(err.toString(), DELAY_TIME)
+      console.error(err)
+    }
+
+    return result
+  }
+
+  async getUploader(data = {}, callback: (process: any) => void): Promise<any> {
+    let result = {}
+
+    try {
+      const response: IResponse = await this.request.put('/upload', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (progressEvent: any) => {
+          const { loaded, total } = progressEvent
+
+          // callback(((loaded * 100) / total).toFixed(2))
+          callback(`${Math.round((loaded * 10000) / total) / 100}%`)
+        },
+      })
       // console.log(response)
 
       const { status, data: res } = response

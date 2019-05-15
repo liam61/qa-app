@@ -1,4 +1,4 @@
-export interface INoError {
+export interface IError {
   hasError: boolean
   error: string
 }

@@ -11,47 +11,25 @@ $prefixCls: 'page-create-extra';
     .content-title {
       // padding-bottom: 20px;
 
-      .am-input-item {
-        height: 80px;
+      .#{$globalPrefixCls}-input-item {
+        height: 80px !important;
         line-height: 80px;
-        padding: 0 20px;
-        @include border-mixin(0, bottom);
-
-        .am-list-line {
-          padding-right: 0;
-
-          .am-input-label {
-            width: auto;
-            line-height: 1;
-            color: $nav;
-            font-size: 30px;
-          }
-
-          .am-input-control {
-            padding-top: 10px;
-
-            input {
-              text-align: right;
-              font-size: 30px;
-            }
-          }
-        }
       }
     }
 
     .page-create-header {
+      padding-left: 30px;
+      padding-right: 30px;
 
-      // margin-bottom: 20px;
       .header-title {
         color: $nav;
       }
 
       .am-switch-checkbox {
-        &:checked+.checkbox {
+        &:checked + .checkbox {
           background: $blue !important;
         }
       }
     }
   }
-
 }

@@ -1,8 +1,8 @@
-export const PREFIXCLS = 'qa'
+const PREFIXCLS = 'qa'
 
-export const TOKEN = 'f3660dec0866f0d5ad60cd5d761649ed12a4dad6b4e33a8cd7277129b41e0098'
+const TOKEN = 'f3660dec0866f0d5ad60cd5d761649ed12a4dad6b4e33a8cd7277129b41e0098'
 
-export const QUESTION_TYPES = [
+const QUESTION_TYPES = [
   {
     key: 'Single',
     value: '单选题',
@@ -25,7 +25,7 @@ export const QUESTION_TYPES = [
   },
 ]
 
-export const TYPE_OPTIONS = [
+const TYPE_OPTIONS = [
   {
     value: '公告',
     key: 'notice',
@@ -44,7 +44,7 @@ export const TYPE_OPTIONS = [
   },
 ]
 
-export const TIME_OPTIONS = [
+const TIME_OPTIONS = [
   {
     value: '永久',
     key: 'permanent',
@@ -63,4 +63,25 @@ export const TIME_OPTIONS = [
   },
 ]
 
-export const DELAY_TIME = 2.5
+const DELAY_TIME = 2.5
+
+const USER_REG = /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
+const EMAIL_REG = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+const PASSWORD_REG = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+const PHONE_REG = /^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[35678]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|66\d{2})\d{6}$/
+
+const ACCEPT_EXTS = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
+
+export {
+  PREFIXCLS,
+  TOKEN,
+  QUESTION_TYPES,
+  TYPE_OPTIONS,
+  TIME_OPTIONS,
+  DELAY_TIME,
+  USER_REG,
+  EMAIL_REG,
+  PASSWORD_REG,
+  PHONE_REG,
+  ACCEPT_EXTS,
+}

@@ -135,6 +135,7 @@ class Extra extends React.Component<IProps, IState> {
           <div className='content-title'>
             {/* <div className="content-text">有效时间</div> */}
             <InputItem
+              className='qa-input-item text-right'
               placeholder='请选择'
               value={type.value}
               maxLength={10}
@@ -146,6 +147,7 @@ class Extra extends React.Component<IProps, IState> {
           </div>
           <div className='content-title'>
             <InputItem
+              className='qa-input-item text-right'
               placeholder='请选择'
               value={time.value}
               maxLength={10}
@@ -157,6 +159,7 @@ class Extra extends React.Component<IProps, IState> {
           </div>
           <div className='content-title'>
             <InputItem
+              className='qa-input-item text-right'
               placeholder='请选择'
               value={receiver.toString()}
               maxLength={20}

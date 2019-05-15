@@ -1,12 +1,12 @@
-import { action, observable, computed } from 'mobx'
+import { action, observable, computed, comparer } from 'mobx'
+// import { fromJS } from 'immutable'
 import { IQuestion } from '../interface'
 import { mStore } from '../../../mobx/store'
-// import { fromJS } from 'immutable'
 
 @mStore
 export default class QuestionStore {
   @observable
-  questions: IQuestion[] = [] // TODO: 用 immutable 包住，使用 merge 重写 setQst
+  questions: IQuestion[] = []
 
   @observable
   finished = false // 是否为返回重新填写
@@ -16,7 +16,10 @@ export default class QuestionStore {
 
   @action
   setQst(qsts: IQuestion[]) {
-    this.questions = qsts
+    // TODO: 是否可使用 merge 改进 set 方法
+    if (!comparer.structural(qsts, this.questions)) {
+      this.questions = [...qsts]
+    }
 
     return this
   }

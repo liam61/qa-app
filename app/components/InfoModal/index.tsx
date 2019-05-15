@@ -19,6 +19,7 @@ export default class InfoModal extends React.Component<IProps, {}> {
 
   render() {
     const { prefixCls, visible, onClose, title, type, content } = this.props
+
     return (
       <div className={prefixCls}>
         <Modal

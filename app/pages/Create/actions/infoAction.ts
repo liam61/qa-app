@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
 import { IFile } from '../interface'
@@ -26,7 +25,7 @@ export default class InfoAction {
     return {
       title,
       content,
-      files: toJS(files),
+      files,
     }
   }
 }

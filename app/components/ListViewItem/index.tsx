@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import { getRandomImg } from '../../utils'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
@@ -11,10 +12,7 @@ export default class ListViewItem extends React.Component<IProps, IState> {
     prefixCls: 'component-list-view-item',
   }
 
-  // tslint:disable-next-line: no-var-requires
-  coverByRandom = require(`../../assets/images/random/material-${Math.ceil(
-    Math.random() * 19,
-  )}.png`)
+  coverByRandom = getRandomImg()
 
   render() {
     const {
@@ -45,10 +43,7 @@ export default class ListViewItem extends React.Component<IProps, IState> {
           </div>
           <div className='body-content'>{content}</div>
           <div className='body-info'>
-            <img
-              src={avatar}
-              alt='author-avatar'
-            />
+            <img src={avatar} alt='author-avatar' />
             <span className='info-name qa-border-1px-right'>{author}</span>
             <span className='info-date'>{date}</span>
             {/* <span className="info-expire">期限：{expire}</span> */}

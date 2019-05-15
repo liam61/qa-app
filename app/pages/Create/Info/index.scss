@@ -15,20 +15,8 @@ $prefixCls: 'page-create-info';
     .content-title {
       padding-bottom: 30px;
 
-      .am-input-item {
-        height: 60px;
-        line-height: 60px;
-        padding: 0 25px;
+      .#{$globalPrefixCls}-input-item {
         @include border-mixin(2px);
-
-        .am-list-line {
-          padding-right: 0;
-          padding-top: 10px;
-
-          input {
-            font-size: 30px;
-          }
-        }
       }
     }
 
@@ -43,7 +31,7 @@ $prefixCls: 'page-create-info';
         .am-textarea-item {
           flex: 1;
           // padding-left: 0;
-          padding: 0 25px;
+          padding: 0 30px;
           @include border-mixin(2px);
 
           .am-textarea-control {

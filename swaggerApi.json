@@ -214,6 +214,7 @@
           "公共分类"
         ],
         "summary": "获取问题详情",
+        "description": "",
         "consumes": [
           "text/plain"
         ],
@@ -335,24 +336,28 @@
                 },
                 "receiver": {
                   "type": "object",
-                  "properties": {},
-                  "required": []
-                },
-                "department": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
+                  "properties": {
+                    "department": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 2,
+                      "maxItems": 4
+                    },
+                    "account": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 2,
+                      "maxItems": 4
+                    }
                   },
-                  "minItems": 2,
-                  "maxItems": 4
-                },
-                "account": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "minItems": 2,
-                  "maxItems": 4
+                  "required": [
+                    "field_4",
+                    "field_5"
+                  ]
                 }
               },
               "required": [
@@ -365,11 +370,12 @@
           }
         }
       },
-      "post": {
+      "patch": {
         "tags": [
           "公共分类"
         ],
         "summary": "回答问题",
+        "description": "",
         "consumes": [
           "application/json"
         ],
@@ -416,6 +422,221 @@
               "required": [
                 "replies",
                 "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/questions": {
+      "post": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "上传问题",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string",
+                        "mock": {
+                          "mock": "@url"
+                        }
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "string"
+                      },
+                      "cover": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "url",
+                      "name",
+                      "size",
+                      "cover"
+                    ]
+                  },
+                  "minItems": 1,
+                  "maxItems": 5
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "notice",
+                    "exam",
+                    "vote",
+                    "collect"
+                  ]
+                },
+                "date": {
+                  "type": "string",
+                  "mock": {
+                    "mock": "@date"
+                  }
+                },
+                "showAuthor": {
+                  "type": "boolean"
+                },
+                " secret": {
+                  "type": "boolean"
+                },
+                "anonymous": {
+                  "type": "boolean"
+                },
+                "expire": {
+                  "type": "string",
+                  "enum": [
+                    "permanent",
+                    "day",
+                    "week",
+                    "month"
+                  ]
+                },
+                "userId": {
+                  "type": "string"
+                },
+                "questions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "num": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Single",
+                          "Multiple",
+                          "Answer",
+                          "Judge",
+                          "Vote"
+                        ]
+                      },
+                      "options": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "value"
+                          ]
+                        },
+                        "minItems": 0,
+                        "maxItems": 5
+                      },
+                      "required": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "title",
+                      "num",
+                      "type",
+                      "options",
+                      "required"
+                    ]
+                  },
+                  "minItems": 3,
+                  "maxItems": 6
+                },
+                "receiver": {
+                  "type": "object",
+                  "properties": {
+                    "department": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 2,
+                      "maxItems": 4
+                    },
+                    "account": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 2,
+                      "maxItems": 4
+                    }
+                  },
+                  "required": [
+                    "field_4",
+                    "field_5"
+                  ]
+                }
+              },
+              "required": [
+                "title",
+                "content",
+                "files",
+                "type",
+                "date",
+                "showAuthor",
+                " secret",
+                "anonymous",
+                "expire",
+                "userId",
+                "questions",
+                "receiver"
               ]
             }
           }
@@ -486,7 +707,11 @@
               "title": "empty object",
               "properties": {
                 "status": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
                 }
               },
               "required": [
@@ -635,6 +860,7 @@
           "公共分类"
         ],
         "summary": "获取用户信息",
+        "description": "",
         "consumes": [
           "text/plain"
         ],
@@ -675,40 +901,72 @@
                 "phone": {
                   "type": "string"
                 },
-                "sex": {
-                  "type": "string"
+                "gender": {
+                  "type": "string",
+                  "enum": [
+                    "male",
+                    "female"
+                  ]
                 },
                 "birthday": {
-                  "type": "string"
+                  "type": "string",
+                  "mock": {
+                    "mock": "@date"
+                  }
                 },
                 "avatar": {
                   "type": "string",
+                  "enum": [
+                    "https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg"
+                  ],
                   "mock": {
                     "mock": "@url"
                   }
                 },
                 "profile": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 10,
+                  "maxLength": 26
+                },
+                "answer": {
+                  "type": "integer",
+                  "minimum": 10,
+                  "maximum": 20
+                },
+                "ask": {
+                  "type": "integer",
+                  "minimum": 10,
+                  "maximum": 20
+                },
+                "score": {
+                  "type": "integer",
+                  "description": "积分",
+                  "minimum": 10,
+                  "maximum": 20
                 }
               },
               "required": [
                 "username",
                 "email",
                 "birthday",
-                "sex",
+                "gender",
                 "phone",
                 "profile",
-                "avatar"
+                "avatar",
+                "ask",
+                "answer",
+                "score"
               ]
             }
           }
         }
       },
-      "patch": {
+      "put": {
         "tags": [
           "公共分类"
         ],
         "summary": "修改用户信息",
+        "description": "",
         "consumes": [
           "application/json"
         ],
@@ -739,7 +997,7 @@
                 "phone": {
                   "type": "string"
                 },
-                "sex": {
+                "gender": {
                   "type": "string"
                 },
                 "birthday": {
@@ -753,16 +1011,28 @@
                 },
                 "profile": {
                   "type": "string"
+                },
+                "answer": {
+                  "type": "integer"
+                },
+                "ask": {
+                  "type": "integer"
+                },
+                "score": {
+                  "type": "integer"
                 }
               },
               "required": [
                 "username",
                 "email",
                 "birthday",
-                "sex",
+                "gender",
                 "phone",
                 "profile",
-                "avatar"
+                "avatar",
+                "answer",
+                "ask",
+                "score"
               ]
             }
           }
@@ -774,12 +1044,60 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "id": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                }
+              },
+              "required": [
+                "status"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "put": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "上传图片",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "key",
+            "in": "formData",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "url": {
                   "type": "string"
                 }
               },
               "required": [
-                "id"
+                "url"
               ]
             }
           }

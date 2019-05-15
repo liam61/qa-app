@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import { toJS } from 'mobx'
 import { withRouter } from 'react-router-dom'
 import { Button, ActionSheet, Switch, Toast, WhiteSpace } from 'antd-mobile'
-import { fromJS } from 'immutable'
+// import { fromJS } from 'immutable'
 import ConfirmModal, { IConfirmProps } from '../../../components/ConfirmModal'
 import { renderSteps } from '../index'
 import { IRootStore, IRootAction } from '../../../typings'
 import { QUESTION_TYPES, DELAY_TIME } from '../../../common/global'
 import { IQuestion } from '../interface'
-import { getUid } from '../../../utils'
+import { getUid, emptyFn } from '../../../utils'
 
 import './index.scss'
 
@@ -41,10 +42,11 @@ class Question extends React.Component<IProps, IState> {
 
     this.state = {
       questions: store!.cached
-        ? fromJS(store!.questions).toJS() // 深拷贝
+        // ? fromJS(store!.questions).toJS() // 深拷贝
+        ? toJS(store!.questions)
         : ([] as IQuestion[]),
       confirmModal: false,
-      confirmProps: { title: '', onOK: () => console.log('aa') },
+      confirmProps: { title: '', onOK: emptyFn },
     }
   }
 

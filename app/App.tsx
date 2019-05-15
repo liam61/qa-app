@@ -6,7 +6,7 @@ import { provider } from './mobx/provider'
 import routes from './routes'
 import './mobxDependence'
 
-import './assets/css/global.scss';
+import './assets/css/global.scss'
 import './assets/css/font-awesome.min.css'
 
 configure({ enforceActions: 'observed' }) // 不允许在动作外部修改状态

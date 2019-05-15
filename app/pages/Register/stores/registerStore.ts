@@ -1,8 +1,8 @@
 import { action, observable, computed } from 'mobx'
-import { INoError } from '../../Login/interface'
+import { IError } from '../../Login/interface'
 import { mStore } from '../../../mobx/store'
 
-const noError: INoError = { hasError: false, error: '' }
+const noError: IError = { hasError: false, error: '' }
 
 @mStore
 export default class RegisterStore {
@@ -54,22 +54,22 @@ export default class RegisterStore {
   }
 
   @action
-  setUserInfo(ui: INoError) {
+  setUserInfo(ui: IError) {
     this.userInfo = ui
   }
 
   @action
-  setEmailInfo(ei: INoError) {
+  setEmailInfo(ei: IError) {
     this.emailInfo = ei
   }
 
   @action
-  setPasswordInfo(pi: INoError) {
+  setPasswordInfo(pi: IError) {
     this.passwordInfo = pi
   }
 
   @action
-  setPsdConfirmInfo(pi: INoError) {
+  setPsdConfirmInfo(pi: IError) {
     this.psdConfirmInfo = pi
   }
 

@@ -2,7 +2,6 @@
   @include border-mixin(1px);
 }
 
-// $borderList: top bottom left right;
 $borderList: top bottom right;
 
 .#{$globalPrefixCls}-border-1px {
@@ -211,4 +210,102 @@ $borderList: top bottom right;
   /* display: -webkit-box; */
   /* -webkit-line-clamp: 2; */
   /* -webkit-box-orient: vertical; */
+}
+
+.#{$globalPrefixCls}-input-item {
+  height: 60px !important;
+  line-height: 60px;
+  // padding: 0 30px !important;
+  padding: 0 30px 0 25px !important;
+  @include border-mixin(0, bottom);
+
+  &.text-right {
+    input {
+      text-align: right;
+    }
+  }
+
+  .am-list-line {
+    padding-right: 0;
+
+    .am-input-label {
+      display: flex;
+      width: auto;
+      align-items: center;
+      line-height: 1;
+      margin-right: 10px;
+      color: $nav;
+      font-size: 30px;
+
+      i {
+        width: 64px;
+        text-align: center;
+        font-size: 1.7em;
+        color: rgba(127, 131, 137, 0.8);
+      }
+
+      span {
+        margin-left: 10px;
+      }
+
+      img {
+        // position: relative;
+        // right: 5px;
+        width: 64px;
+        height: 64px;
+      }
+
+      .warning {
+        color: rgba(255, 177, 66, 0.8);
+      }
+
+      .info {
+        color: rgba(45, 190, 138, 0.8);
+      }
+
+      .blue {
+        color: rgba(46, 97, 200, 0.8);
+      }
+
+      .error {
+        color: rgba(244, 53, 48, 0.8);
+      }
+
+      .fa-paper-plane-o {
+        font-size: 1.6em;
+      }
+
+      .fa-user-o,
+      .fa-smile-o {
+        font-size: 1.8em;
+      }
+
+      .fa-male {
+        font-size: 2.2em;
+      }
+
+      .fa-mobile {
+        font-size: 2.6em;
+      }
+    }
+
+    .am-input-control {
+      padding-top: 10px;
+
+      input {
+        font-size: 30px;
+      }
+    }
+
+    .am-input-extra {
+      max-height: initial;
+    }
+
+    .am-input-error-extra {
+      width: 40px;
+      height: 40px;
+      margin-left: 10px;
+      background-size: 100%;
+    }
+  }
 }

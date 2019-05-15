@@ -17,57 +17,10 @@ $prefixCls: 'page-login';
   }
 
   &-main {
-    .am-input-item {
-      height: 90px;
+    .#{$globalPrefixCls}-input-item {
+      height: 90px !important;
       line-height: 90px;
-      // padding-left: 0;
-      padding-right: 20px;
       margin-bottom: 25px;
-      @include border-mixin(0, bottom);
-
-      .am-list-line {
-        padding-right: 0;
-
-        .am-input-label {
-          width: 75px;
-          line-height: 1;
-          color: $nav;
-          font-size: 30px;
-
-          .user-icon {
-            margin-left: 5.5px;
-            font-size: 1.8em;
-            // color: $nav;
-            color: rgba(255, 177, 66, 0.8);
-          }
-          
-          .email-icon {
-            margin-left: 3px;
-            font-size: 1.7em;
-            // color: $nav;
-            color: rgba(46, 97, 200, 0.8);
-          }
-
-          img {
-            width: 60px;
-            height: 60px;
-          }
-        }
-
-        .am-input-control {
-          padding-top: 10px;
-
-          input {
-            font-size: 30px;
-          }
-        }
-
-        .am-input-error-extra {
-          width: 40px;
-          height: 40px;
-          background-size: 100%;
-        }
-      }
     }
   }
 
@@ -89,9 +42,9 @@ $prefixCls: 'page-login';
         display: none;
       }
 
-      &-active, &:active {
+      &-active,
+      &:active {
         background: $background;
-
       }
 
       .icon {

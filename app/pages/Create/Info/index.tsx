@@ -115,6 +115,7 @@ class Info extends React.Component<IProps, IState> {
           <div className='content-title'>
             <div className='content-text'>标题</div>
             <InputItem
+              className='qa-input-item'
               placeholder='请输入标题'
               value={title}
               maxLength={20}

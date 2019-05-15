@@ -13,6 +13,8 @@ import LoginLoginStore from '../pages/Login/stores/loginStore'
 import MessageMessageStore from '../pages/Message/stores/messageStore'
 import RegisterRegisterStore from '../pages/Register/stores/registerStore'
 import TodoTodoStore from '../pages/Todo/stores/todoStore'
+import UserDetailStore from '../pages/User/stores/detailStore'
+import UserSettingStore from '../pages/User/stores/settingStore'
 import UserUserStore from '../pages/User/stores/userStore'
 import AnswerAnswerAction from '../pages/Answer/actions/answerAction'
 import AnswerInfoAction from '../pages/Answer/actions/infoAction'
@@ -28,6 +30,8 @@ import LoginLoginAction from '../pages/Login/actions/loginAction'
 import MessageMessageAction from '../pages/Message/actions/messageAction'
 import RegisterRegisterAction from '../pages/Register/actions/registerAction'
 import TodoTodoAction from '../pages/Todo/actions/todoAction'
+import UserDetailAction from '../pages/User/actions/detailAction'
+import UserSettingAction from '../pages/User/actions/settingAction'
 import UserUserAction from '../pages/User/actions/userAction'
 
 export interface IRootStore {
@@ -64,6 +68,8 @@ export interface IRootStore {
     todoStore: TodoTodoStore
   }
   User: {
+    detailStore: UserDetailStore
+    settingStore: UserSettingStore
     userStore: UserUserStore
   }
 }
@@ -102,6 +108,8 @@ export interface IRootAction {
     todoAction: TodoTodoAction
   }
   User: {
+    detailAction: UserDetailAction
+    settingAction: UserSettingAction
     userAction: UserUserAction
   }
 }
