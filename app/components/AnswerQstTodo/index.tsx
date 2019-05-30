@@ -36,7 +36,7 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
       num,
       required,
       title,
-      writable,
+      editable,
       reply,
       type,
     } = this.props
@@ -44,24 +44,28 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
-        <div className='qa-qst-todo-header'>
-          <span className='header-tag'>
+        <div className="qa-qst-todo-header">
+          <span className="header-tag">
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>
-          <span className={`header-title${required ? ' required' : ''} text-ellipsis`}>
+          <span
+            className={`header-title${
+              required ? ' required' : ''
+            } text-ellipsis`}
+          >
             {`${num}. ${title}`}
           </span>
-          {writable ? null : (
-            <span className='header-disabled'>(不可编辑)</span>
+          {editable ? null : (
+            <span className="header-disabled">(不可编辑)</span>
           )}
         </div>
         <div className={`${prefixCls}-content`}>
           <TextareaItem
-            placeholder='请输入内容（不超过100字）'
-            value={writable ? value : reply}
+            placeholder={editable ? '请输入内容（不超过100字）' : ''}
+            value={editable ? value : reply}
             autoHeight
             count={100}
-            editable={writable}
+            editable={editable}
             onChange={this.handleChange}
           />
         </div>
@@ -79,7 +83,7 @@ interface IProps extends Partial<injectorReturnType> {
   required: boolean
   options: object[]
   type: string
-  writable: boolean
+  editable: boolean
   reply?: string
 }
 
@@ -92,7 +96,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {}
 }

@@ -1,44 +1,48 @@
-import axios from 'axios'
+import axios, {
+  AxiosRequestConfig,
+  AxiosInstance,
+  AxiosResponse,
+  Canceler,
+} from 'axios'
 import qs from 'qs'
 import { Toast } from 'antd-mobile'
-import { TOKEN, DELAY_TIME } from '../common/global'
+import { DELAY_TIME } from '../common/global'
+import { IReqOptions, IResponse } from '../interface'
 
-// TODO: token 请求
-const defaultOptions = {
-  baseURL: 'https://mock.omyleon.com/mock/11/api',
+// examples:
+// const result = await request.setPath('user').get({ uri: 'Dolor' })
+// const result = await request.setPath('user').delete({ uri: 'Dolor' })
+// const result = await request.setPath('user').post({
+//   data: { name: 'lawler', email: 'admin@omyleon.com' },
+// })
+// const result = await request.put({
+//   uri: 'Dolor',
+//   data: { name: 'Bolor' },
+// })
+
+const defaultOptions: AxiosRequestConfig = {
+  // baseURL: 'https://mock.omyleon.com/mock/11/api/v1',
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:4000/v1'
+      : 'https://mock.omyleon.com/mock/11/api/v1',
   timeout: 6000,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json;charset=utf-8', // 跨域的时候会产生 options预检
-    common: {
-      Authorization: TOKEN,
-    },
   },
 }
 
-interface IOption {
-  [key: string]: any
-}
-
-interface IRequestOpts {
-  uri?: string
-  query?: object | null
-  data: object
-}
-
-interface IResponse {
-  status: number
-  statusText: string
-  data: { [key: string]: any }
-  [key: string]: any
-}
+const { CancelToken } = axios
 
 class Request {
   [x: string]: any
 
   static instance: Request
 
-  request: any
+  request: AxiosInstance
+
+  cancel: Canceler
 
   methods = ['get', 'post', 'put', 'patch', 'delete']
 
@@ -46,22 +50,50 @@ class Request {
 
   curPath = ''
 
-  constructor(options: IOption) {
+  constructor(options: AxiosRequestConfig) {
     this.request = axios.create(options)
 
     this.methods.forEach(method => {
-      this[method] = (params: IRequestOpts) => this.getRequest(method, params)
+      this[method] = (params: IReqOptions) => this.getRequest(method, params)
     })
 
     this.upload = (data: object, callback: (process: any) => void) =>
       this.getUploader(data, callback)
+
+    this.initInterceptors()
   }
 
-  static getInstance(options: IOption) {
+  static getInstance(options: AxiosRequestConfig) {
     if (!this.instance) {
       this.instance = new Request(options)
     }
     return this.instance
+  }
+
+  initInterceptors() {
+    this.request.interceptors.request.use((config: AxiosRequestConfig) => {
+      const token = localStorage.getItem('token')
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+
+      return config
+    })
+
+    this.request.interceptors.response.use(
+      (res: AxiosResponse<any>) => {
+        if (res.status === 401) {
+          Toast.fail('认证失败，请登录后再操作', DELAY_TIME)
+          console.log('跳转到 /login')
+        }
+
+        return res
+      },
+      err => {
+        throw err
+      }
+    )
   }
 
   /**
@@ -76,47 +108,48 @@ class Request {
    */
   async getRequest(
     method: string,
-    options: IRequestOpts = { uri: '', query: null, data: {} },
+    options: IReqOptions = { uri: '', query: null, data: {} }
   ): Promise<any> {
     const { uri, query, data } = options
 
     let url = this.curPath + (uri ? `/${uri}` : '')
     url += query ? `?${qs.stringify(query)}` : ''
 
-    // return new Promise((resolve, reject) => {
-    //   this.request[method](url, data)
-    //     .then((res: any) => resolve(res))
-    //     .catch(err => {
-    //       Toast.fail('网络错误！', DELAY_TIME)
-    //       console.log(err)
-    //       reject(err)
-    //     })
-    // })
+    let result: any = {}
 
-    let result = {}
+    if (data && data.cancelToken) {
+      // An executor function receives a cancel function as a parameter
+      data.cancelToken = new CancelToken(c => (this.cancel = c))
+    }
 
     try {
-      const response: IResponse = await this.request[method](url, data)
+      const { data: response } = await this.request[method](url, data)
       // console.log(response)
+      const { errcode, errmsg } = response
 
-      const { status, data: res } = response
-      const { errcode, errmsg } = res
-
-      if (status === 200 && !errcode) {
-        result = res
+      if (!errcode) {
+        result = response
       } else {
         throw new Error(`${errcode}: ${errmsg}`)
       }
     } catch (err) {
-      Toast.fail(err.toString(), DELAY_TIME)
+      Toast.fail(err.message, DELAY_TIME)
       console.error(err)
     }
 
     return result
   }
 
-  async getUploader(data = {}, callback: (process: any) => void): Promise<any> {
-    let result = {}
+  async getUploader(
+    data: any = {},
+    callback: (process: any) => void
+  ): Promise<any> {
+    let result: any = {}
+
+    if (data && data.cancelToken) {
+      // An executor function receives a cancel function as a parameter
+      data.cancelToken = new CancelToken(c => (this.cancel = c))
+    }
 
     try {
       const response: IResponse = await this.request.put('/upload', data, {
@@ -130,7 +163,6 @@ class Request {
           callback(`${Math.round((loaded * 10000) / total) / 100}%`)
         },
       })
-      // console.log(response)
 
       const { status, data: res } = response
       const { errcode, errmsg } = res
@@ -157,16 +189,12 @@ class Request {
   /**
    * 替换链接参数
    *
-   * @param {*} [options={}]
-   * @memberof Axios
+   * @param {...string[]} params
    */
-  replace(options: IOption = {}) {
-    Object.keys(options).forEach(key => {
-      this.curPath = this.curPath.replace(
-        new RegExp(`{${key}}`, 'img'),
-        options[key],
-      )
-    })
+  replace(...params: string[]) {
+    let count = 0
+    // questions/{id}/details/{ab}/c
+    this.curPath = this.curPath.replace(/\{.*?\}/g, match => params[count++])
 
     return this
   }

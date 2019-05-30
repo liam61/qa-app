@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { InputItem, Button, Toast } from 'antd-mobile'
 import { debounce } from '../../utils'
 import lockIcon from '../../assets/images/lock.svg'
-import { IResponse } from '../Register/actions/registerAction'
+// import { IResponse } from '../Register/actions/registerAction'
 import { IError } from './interface'
 import { IRootStore, IRootAction } from '../../typings'
 
@@ -14,7 +14,7 @@ export const noErrors: IError = { hasError: false, error: '' }
 
 @inject(injector)
 @observer
-export default class Login extends React.Component<IProps, IState> {
+class Login extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-login',
   }
@@ -28,6 +28,7 @@ export default class Login extends React.Component<IProps, IState> {
     password: '',
     accountInfo: noErrors,
     loading: false,
+    validate: '',
   }
 
   handleChange = (type: string, val: string) => {
@@ -37,32 +38,10 @@ export default class Login extends React.Component<IProps, IState> {
   handleAccountChange = (val: string) => {
     const { action } = this.props
 
-    action!.validateAccount(val, (errors: IError) =>
-      this.setState({ accountInfo: errors }),
+    action!.validateAccount(val, (errors: IError, validate?: string) =>
+      this.setState({ accountInfo: errors, validate })
     )
   }
-
-  // validateAccount = (val: string) => {
-  //   // handle by debounce
-  //   const { action } = this.props
-  //   const { account } = this.state
-
-  //   if (val.length < 6) {
-  //     this.setState({
-  //       accountInfo: { hasError: true, error: '账户名长度至少6位！' },
-  //     })
-
-  //     return
-  //   }
-
-  //   action!.validateAccount(account, (success: boolean) => {
-  //     success
-  //       ? this.setState({ accountInfo: noErrors })
-  //       : this.setState({
-  //           accountInfo: { hasError: true, error: '该账户名不存在！' },
-  //         })
-  //   })
-  // }
 
   handlePasswordChange = (val: string) => {
     this.setState({ password: val })
@@ -75,8 +54,8 @@ export default class Login extends React.Component<IProps, IState> {
   }
 
   handleSubmit = () => {
-    const { action } = this.props
-    const { account, password } = this.state
+    const { action, history } = this.props
+    const { account, password, validate } = this.state
 
     if (!account || !password) {
       Toast.fail('请输入登录信息！')
@@ -86,10 +65,14 @@ export default class Login extends React.Component<IProps, IState> {
 
     this.setState({ loading: true })
 
-    action!.login({ account, password }, (success: boolean) => {
+    action!.login({ account, password, validate }, (success: boolean) => {
       console.log(success)
 
       this.setState({ loading: false })
+
+      if (success) {
+        history.push('/')
+      }
     })
   }
 
@@ -101,47 +84,47 @@ export default class Login extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-login`}>
-        <div className='qa-login-header'>欢迎使用！</div>
-        <div className='qa-login-main'>
+        <div className="qa-login-header">欢迎使用！</div>
+        <div className="qa-login-main">
           <InputItem
-            className='qa-input-item'
+            className="qa-input-item"
             ref={(node: React.ReactNode) => (this.accountInput = node)}
-            placeholder='请输入用户名或邮箱'
+            placeholder="请输入用户名或邮箱"
             value={account}
             maxLength={20}
             error={accountErr}
             onErrorClick={() => this.handleErrorClick('accountInfo')}
             onChange={debounce(this.handleAccountChange, (val: string) =>
-              this.setState({ account: val }),
+              this.setState({ account: val })
             )}
           >
-            <i className='fa fa-user-o fa-2x warning' aria-hidden='true' />
+            <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
           </InputItem>
           <InputItem
-            className='qa-input-item'
+            className="qa-input-item"
             ref={(node: React.ReactNode) => (this.passwordInput = node)}
-            type='password'
-            placeholder='请输入密码'
+            type="password"
+            placeholder="请输入密码"
             value={password}
             maxLength={20}
             onChange={this.handlePasswordChange}
           >
-            <img src={lockIcon} className='password-icon' alt='password-icon' />
+            <img src={lockIcon} className="password-icon" alt="password-icon" />
           </InputItem>
         </div>
-        <div className='qa-login-footer'>
-          <Link to='/register' className='btn-login'>
+        <div className="qa-login-footer">
+          <Link to="/register" className="btn-login">
             注册
-            <i className='fa fa-angle-right icon' aria-hidden='true' />
+            <i className="fa fa-angle-right icon" aria-hidden="true" />
           </Link>
           {/* <Link >忘记密码</Link> */}
-          <Button className='btn-login' activeClassName='btn-login-active'>
+          <Button className="btn-login" activeClassName="btn-login-active">
             忘记密码
           </Button>
         </div>
         <Button
-          type='primary'
-          className='qa-btn-bottom'
+          type="primary"
+          className="qa-btn-bottom"
           disabled={accountErr || loading}
           loading={loading}
           onClick={this.handleSubmit}
@@ -164,6 +147,7 @@ interface IState extends Partial<injectorReturnType> {
   password: string
   accountInfo: IError
   loading: boolean
+  validate: string | undefined
 }
 
 function injector({
@@ -171,10 +155,12 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {
     store: rootStore.Login.loginStore,
     action: rootAction.Login.loginAction,
   }
 }
+
+export default withRouter(Login)

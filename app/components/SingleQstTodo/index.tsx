@@ -36,10 +36,10 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
   }
 
   handleChange = (val: string) => {
-    const { type, writable } = this.props
+    const { type, editable } = this.props
     const { checkedArr } = this.state
 
-    if (!writable) {
+    if (!editable) {
       return
     }
 
@@ -62,7 +62,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
       required,
       title,
       options,
-      writable,
+      editable,
       reply,
       type,
     } = this.props
@@ -77,7 +77,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
           <span className={`header-title${required ? ' required' : ''} text-ellipsis`}>
             {`${num}. ${title}`}
           </span>
-          {writable ? null : (
+          {editable ? null : (
             <span className='header-disabled'>(不可编辑)</span>
           )}
         </div>
@@ -93,7 +93,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
               >
                 {getLabel(
                   index,
-                  writable
+                  editable
                     ? checkedArr.includes(value)
                     : reply!.includes(value),
                   type,
@@ -117,7 +117,7 @@ interface IProps extends Partial<injectorReturnType> {
   required: boolean
   options: IOption[]
   type: string
-  writable: boolean
+  editable: boolean
   reply?: string[]
 }
 

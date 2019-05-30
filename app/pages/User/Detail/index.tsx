@@ -2,6 +2,7 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { InputItem, Button, Toast, WhiteSpace } from 'antd-mobile'
 import InputModal, { IInputProps } from '../../../components/InputModal'
+import PageHeader from '../../../components/PageHeader'
 import { DELAY_TIME } from '../../../common/global'
 import { IError } from '../../Login/interface'
 import { noErrors } from '../../Login'
@@ -52,7 +53,7 @@ export default class Detail extends React.Component<IProps, IState> {
     this.setState({ inputModal: false })
 
     action!.updateUserDataByKey(key, val, (errors: IError) =>
-      this.setState({ [`${key}Info`]: errors }),
+      this.setState({ [`${key}Info`]: errors })
     )
   }
 
@@ -61,7 +62,7 @@ export default class Detail extends React.Component<IProps, IState> {
     const { inputModal, inputProps, usernameInfo } = this.state
 
     const {
-      data: { username, profile, gender, birthday },
+      data: { name, profile, gender, birthday },
       updating,
     } = store!
 
@@ -69,54 +70,54 @@ export default class Detail extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <div className={`${prefixCls}-header`} onClick={onCancel}>
-          <i className='fa fa-angle-left fa-3x' aria-hidden='true' />
-          <span>编辑</span>
-        </div>
-        <WhiteSpace size='lg' />
+        <PageHeader text="编辑" onCancel={onCancel} />
+        <WhiteSpace size="lg" />
         <div className={`${prefixCls}-main`}>
           <InputItem
-            className='qa-input-item user-input text-right'
-            value={username}
+            className="qa-input-item user-input text-right"
+            value={name}
             editable={false}
             error={hasError}
             onErrorClick={() => this.handleErrorClick('usernameInfo')}
-            onClick={() => this.handleModalShow('用户名', { username })}
+            onClick={() => this.handleModalShow('用户名', { name })}
           >
-            <i className='fa fa-user-o blue' aria-hidden='true' />
+            <i className="fa fa-user-o blue" aria-hidden="true" />
             <span>用户名</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={profile}
             editable={false}
             onClick={() => this.handleModalShow('简介', { profile })}
+            placeholder="请填写"
           >
-            <i className='fa fa-list-alt' aria-hidden='true' />
+            <i className="fa fa-list-alt" aria-hidden="true" />
             <span>简介</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={`${gender === 'male' ? '男' : '女'}`}
             editable={false}
             onClick={() => this.handleModalShow('性别', { gender })}
+            placeholder="请填写"
           >
-            <i className='fa fa-male warning' aria-hidden='true' />
+            <i className="fa fa-male warning" aria-hidden="true" />
             <span>性别</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={birthday}
             editable={false}
             onClick={() => this.handleModalShow('生日', { birthday })}
+            placeholder="请填写"
           >
-            <i className='fa fa-birthday-cake error' aria-hidden='true' />
+            <i className="fa fa-birthday-cake error" aria-hidden="true" />
             <span>生日</span>
           </InputItem>
         </div>
         <Button
-          className='qa-btn-bottom'
-          type='primary'
+          className="qa-btn-bottom"
+          type="primary"
           onClick={onOK}
           loading={updating}
           disabled={updating || hasError}
@@ -154,7 +155,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {
     store: rootStore.User.userStore,

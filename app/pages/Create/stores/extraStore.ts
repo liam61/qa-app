@@ -1,5 +1,6 @@
 import { action, observable, computed } from 'mobx'
 import { mStore } from '../../../mobx/store'
+import { receiversType } from '../interface'
 
 // interface ISomething {
 
@@ -14,7 +15,7 @@ export default class ExtraStore {
   expire = ''
 
   @observable
-  receiver = [] as object[]
+  receivers: receiversType = {}
 
   @observable
   showAuthor = true
@@ -40,8 +41,8 @@ export default class ExtraStore {
   }
 
   @action
-  setReceiver(r: object[]) {
-    this.receiver = r
+  setReceiver(r: receiversType) {
+    this.receivers = r
 
     return this
   }

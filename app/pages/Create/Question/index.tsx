@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { Button, ActionSheet, Switch, Toast, WhiteSpace } from 'antd-mobile'
 // import { fromJS } from 'immutable'
 import ConfirmModal, { IConfirmProps } from '../../../components/ConfirmModal'
+import PageHeader from '../../../components/PageHeader';
 import { renderSteps } from '../index'
 import { IRootStore, IRootAction } from '../../../typings'
 import { QUESTION_TYPES, DELAY_TIME } from '../../../common/global'
@@ -118,7 +119,7 @@ class Question extends React.Component<IProps, IState> {
 
       qstArr.push(Object.assign({}, qst, extraProps))
 
-      return !title || options.length === 0 // title 不能为空，单选题的选项不能未空
+      return !title || (options && options.length === 0) // title 不能为空，单选题的选项不能未空
     })
 
     this.handleModalClose('confirmModal')
@@ -207,7 +208,7 @@ class Question extends React.Component<IProps, IState> {
     })
 ˝
   render() {
-    const { prefixCls, store, title } = this.props
+    const { prefixCls, store, title, onCancel } = this.props
     const {
       questions,
       questions: { length },
@@ -217,6 +218,7 @@ class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
+      <PageHeader text="创建问题" onCancel={onCancel} />
         {renderSteps(1)}
         <WhiteSpace size='lg' />
         <div className='page-create-header qa-border-1px-bottom'>

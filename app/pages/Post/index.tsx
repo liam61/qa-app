@@ -6,15 +6,15 @@ import AnswerPage from '../Answer'
 import PageModal from '../../components/PageModal'
 import ListView from '../../components/QaListView'
 import { IRootStore, IRootAction } from '../../typings'
-import { IData } from './stores/todoStore'
+import { IData } from '../Todo/stores/todoStore'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-class Todo extends React.Component<IProps, IState> {
+class Post extends React.Component<IProps, IState> {
   static defaultProps = {
-    prefixCls: 'page-todo',
+    prefixCls: 'page-post',
   }
 
   state = {
@@ -44,7 +44,7 @@ class Todo extends React.Component<IProps, IState> {
 
   handleListItemClick = (id: string, info: IData, cover: string) => {
     const { history } = this.props
-    history.push(`/?steps=todo&id=${id}`)
+    history.push(`/?steps=post&id=${id}`)
 
     this.setState({
       answerPageKey: id,
@@ -105,7 +105,7 @@ class Todo extends React.Component<IProps, IState> {
           <AnswerPage
             id={answerPageKey}
             info={answerPageInfo}
-            poster={false}
+            poster
             onCancel={() => this.handleModalClose('answerPageModal')}
           />
         </PageModal>
@@ -137,9 +137,9 @@ function injector({
   rootAction: IRootAction
 }) {
   return {
-    store: rootStore.Todo.todoStore,
-    action: rootAction.Todo.todoAction,
+    store: rootStore.Post.postStore,
+    action: rootAction.Post.postAction,
   }
 }
 
-export default withRouter(Todo)
+export default withRouter(Post)

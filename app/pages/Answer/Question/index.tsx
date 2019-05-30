@@ -5,6 +5,7 @@ import { Button, WhiteSpace, Toast } from 'antd-mobile'
 import qs from 'qs'
 import ConfirmModal from '../../../components/ConfirmModal'
 import InfoModal, { InfoTypes, IInfoProps } from '../../../components/InfoModal'
+import PageHeader from '../../../components/PageHeader';
 import { IQstToSubmit, IReply } from '../../Create/interface'
 import { DELAY_TIME, TYPE_OPTIONS } from '../../../common/global'
 import { emptyFn } from '../../../utils'
@@ -63,30 +64,31 @@ class Question extends React.Component<IProps, IState> {
   }
 
   handleFinishReply = () => {
-    const { id, action, questions = [], history } = this.props
+    const { action, data, history, store } = this.props
     const replyArr: IReply[] = []
+
+    const { qstItems, _id: detailId } = data!
 
     this.handleModalClose('confirmModal')
 
-    const flag = questions.every(qst => {
-      const { num, required } = qst
-      const reply = this[`question${num}`].wrappedInstance.getReply()
+    const flag = qstItems.every(qst => {
+      const { _id: id, num, required } = qst
+      const replies = this[`question${num}`].wrappedInstance.getReply()
 
-      if (required && !reply.length) {
+      if (required && !replies.length) {
         Toast.fail('有必填项未完成！', DELAY_TIME)
         return false
       }
 
-      if (reply.length) {
-        replyArr.push({ reply, num })
+      if (replies.length) {
+        replyArr.push({ replies, id })
       }
 
       return true
     })
 
     if (flag) {
-      // TODO: 获取用户 id
-      action!.updateQstsWithReply(id, 'lawler', replyArr, (type: InfoTypes) =>
+      action!.submitReply(detailId, replyArr, (type: InfoTypes) =>
         this.handleInfoModalShow(
           infoModalFactory[type](() => {
             this.handleModalClose('infoModal')
@@ -94,8 +96,8 @@ class Question extends React.Component<IProps, IState> {
               // TODO: 路由跳转
               // history.go(-2)
             }
-          }),
-        ),
+          })
+        )
       )
     }
   }
@@ -115,8 +117,8 @@ class Question extends React.Component<IProps, IState> {
     })
   }
 
-  renderQuestions(questions: IQstToSubmit[]) {
-    return questions.map(question => {
+  renderQuestions(qstItems: IQstToSubmit[], editable: boolean) {
+    return qstItems.map(question => {
       const { num, type } = question
       const Element = require(`../../../components/${
         type === 'Answer' ? type : 'Single'
@@ -125,38 +127,41 @@ class Question extends React.Component<IProps, IState> {
       return (
         <React.Fragment key={num}>
           <Element
-            writable
+            editable={editable}
             ref={(node: React.ReactNode) => (this[`question${num}`] = node)}
             {...question}
           />
-          <WhiteSpace size='lg' />
+          <WhiteSpace size="lg" />
         </React.Fragment>
       )
     })
   }
 
   render() {
-    const { prefixCls, questions = [], title, type } = this.props
+    const { prefixCls, data, title, type, editable, onCancel } = this.props
     const { confirmModal, infoModal, infoProps } = this.state
 
-    if (!questions.length) {
+    const { qstItems } = data!
+
+    if (!qstItems.length) {
       return <div className={`${prefixCls} loading`}>加载中，请稍等...</div>
     }
 
     return (
       <div className={prefixCls}>
-        <div className='header-content'>
-          <div className='title text-ellipsis'>{title}</div>
-          <span className='type'>
+        <PageHeader text='问答问题' onCancel={onCancel} />
+        <div className="header-content">
+          <div className="title text-ellipsis">{title}</div>
+          <span className="type">
             {TYPE_OPTIONS.find(t => t.key === type)!.value}
           </span>
         </div>
-        <div className='question-wrapper'>
-          {this.renderQuestions(questions)}
+        <div className="question-wrapper">
+          {this.renderQuestions(qstItems, editable)}
         </div>
         <Button
-          type='primary'
-          className='qa-btn-bottom'
+          type="primary"
+          className={`qa-btn-bottom${editable ? '' : ' qa-hidden'}`}
           onClick={() => this.handleModalShow('confirmModal')}
         >
           回答完成
@@ -164,7 +169,7 @@ class Question extends React.Component<IProps, IState> {
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
-          title='你确定完成问题填写吗？'
+          title="你确定完成问题填写吗？"
           onOK={this.handleFinishReply}
         />
         <InfoModal visible={infoModal} {...infoProps} />
@@ -177,9 +182,10 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
-  id: string
+  id: string // questionId
   title: string
   type: string
+  editable: boolean
   onCancel: () => void
 }
 
@@ -194,12 +200,12 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {
     store: rootStore.Answer.questionStore,
     action: rootAction.Answer.questionAction,
-    questions: rootStore.Answer.answerStore.data.questions,
+    data: rootStore.Answer.answerStore.data,
   }
 }
 

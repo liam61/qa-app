@@ -1,16 +1,17 @@
 import { action, observable, computed } from 'mobx'
-import { IQstToSubmit, IReply } from '../../Create/interface'
+import { IQstToSubmit, IReply, receiversType } from '../../Create/interface'
 import { mStore } from '../../../mobx/store'
 
 interface IData {
-  questions: IQstToSubmit[]
-  receiver: object
+  _id: string
+  qstItems: IQstToSubmit[]
+  receivers: receiversType
 }
 
 @mStore
 export default class AnswerStore {
   @observable
-  data: IData = { questions: [], receiver: {} }
+  data: IData = { _id: '', qstItems: [], receivers: {} }
 
   @action
   setData(data: IData) {
@@ -21,11 +22,11 @@ export default class AnswerStore {
 
   @action
   updateQstReply(patch: IReply) {
-    const { reply, num } = patch
+    const { replies, num } = patch
 
-    const index = this.data.questions.findIndex(qst => qst.num === num)
+    const index = this.data.qstItems.findIndex(qst => qst.num === num)
 
-    this.data.questions[index].reply = { lawler: reply }
+    this.data.qstItems[index].replies = { lawler: replies }
 
     return this
   }

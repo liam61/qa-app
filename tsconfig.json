@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "uid": [
+        "app/typings/uid.d.ts"
+      ]
+    },
     "target": "es6",
     "module": "esnext",
     "lib": [
@@ -8,11 +14,13 @@
       "esnext",
       "dom"
     ],
-    "types": ["reflect-metadata"],
+    "types": [
+      "reflect-metadata",
+      "node"
+    ],
     "sourceMap": true,
     "jsx": "react",
     "importHelpers": true,
-
     "strict": true,
     /* Enable all strict type-checking options. */
     "noImplicitAny": true,
@@ -24,7 +32,6 @@
     /* Raise error on 'this' expressions with an implied 'any' type. */
     "alwaysStrict": true,
     /* Parse in strict mode and emit "use strict" for each source file. */
-
     /* Additional Checks */
     "noUnusedLocals": true,
     /* Report errors on unused locals. */
@@ -32,7 +39,6 @@
     /* Report errors on unused parameters. */
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-
     /* Report error when not all code paths in function return a value. */
     "noEmitOnError": false,
     /* Module Resolution Options */
@@ -41,7 +47,6 @@
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "moduleResolution": "node",
-
     /* Experimental Options */
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true

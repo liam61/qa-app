@@ -3,10 +3,10 @@ import { request } from '../../../utils'
 import { IRootAction, IRootStore } from '../../../typings'
 
 @mAction
-export default class TodoAction {
+export default class PostAction {
   constructor(
-    public stores: IRootStore['Todo'],
-    public actions: IRootAction['Todo']
+    public stores: IRootStore['Post'],
+    public actions: IRootAction['Post']
   ) {}
 
   async getListData(
@@ -14,40 +14,42 @@ export default class TodoAction {
     callback: (type: string, num: number) => void,
     index?: number
   ) {
-    const { todoStore } = this.stores
+    const { postStore } = this.stores
 
     if (refresh) {
-      todoStore.setListData({ lists: [], total: 0, newer: 0 })
+      postStore.setListData({ lists: [], total: 0, newer: 0 })
     }
 
-    todoStore.setLoading(true).setRefresh(refresh, true)
+    postStore.setLoading(true).setRefresh(refresh, true)
 
+    const id = localStorage.getItem('userId')
     const { data /* , type */ } = await request.setPath('questions').get({
-      query: { page: index || todoStore.pageIndex },
+      uri: id,
+      query: { page: index || postStore.pageIndex },
     })
 
-    todoStore
+    postStore
       .setListData(data)
       .setRefresh(refresh, false)
       .setLoading(false)
-    // if (!todoStore.totalPage) {
-    //   const { dataList, pageSize } = todoStore
+    // if (!postStore.totalPage) {
+    //   const { dataList, pageSize } = postStore
     //   const len = dataList.reduce((sum, list) => sum + list.data.length, 0)
-    //   todoStore.setTotalPage(Math.ceil(len / pageSize))
+    //   postStore.setTotalPage(Math.ceil(len / pageSize))
     // }
-    callback('todosNum', todoStore.newer)
+    callback('postsNum', postStore.newer)
   }
 
   async getNextListData(index: number) {
-    const { todoStore } = this.stores
+    const { postStore } = this.stores
 
-    todoStore
+    postStore
       .setLoading(true)
       .setPageIndex(++index)
       .addListData(
         await request
           .setPath('questions')
-          .get({ query: { page: todoStore.pageIndex } })
+          .get({ query: { page: postStore.pageIndex } })
       )
       .setLoading(false)
   }

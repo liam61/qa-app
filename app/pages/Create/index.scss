@@ -40,13 +40,23 @@ $prefixCls: 'page-create';
     background: #fff;
 
     &-item {
+      &-tail {
+        width: 98%;
+        top: 20px;
+        margin-left: 60px;
+
+        &::after {
+          left: 0;
+        }
+      }
+
       &-icon {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
 
         .am-steps-icon {
-          top: 5px;
-          font-size: 18px;
+          top: 8px;
+          font-size: 24px;
 
           .am-icon {
             width: 100%;

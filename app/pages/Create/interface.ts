@@ -7,23 +7,24 @@ interface IQuestion {
   // Element: SingleQuestion | AnswerQuestion
   type: string
   title?: string
-  options?: object[]
+  options?: IOption[]
   required?: boolean
 }
 
 interface IReply {
-  userId?: string
-  num: number
-  reply: string[]
+  id: string
+  num?: number
+  replies: string[]
 }
 
 interface IQstToSubmit {
+  readonly _id: string
   num: number
   type: string
   title?: string
-  options?: object[]
+  options?: IOption[]
   required?: boolean
-  reply?: { [key: string]: string[] }
+  replies?: { [key: string]: string[] }
 }
 
 interface IOption {
@@ -39,4 +40,6 @@ interface IFile {
   cover?: boolean
 }
 
-export { IQuestion, IQstToSubmit, IReply, IOption, IFile }
+type receiversType = { [key in 'department' | 'account']?: string[] }
+
+export { IQuestion, IQstToSubmit, IReply, IOption, IFile, receiversType }

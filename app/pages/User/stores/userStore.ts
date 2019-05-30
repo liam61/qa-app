@@ -2,7 +2,8 @@ import { action, observable, computed, toJS, comparer } from 'mobx'
 import { mStore } from '../../../mobx/store'
 
 export interface IUser {
-  username: string
+  _id: string
+  name: string
   profile: string
   avatar: string
   cover: string
@@ -16,7 +17,8 @@ export interface IUser {
 }
 
 const initStore: IUser = {
-  username: '',
+  _id: '',
+  name: '',
   profile: '',
   avatar: '',
   cover: '',
@@ -44,7 +46,7 @@ export default class UserStore {
   updating = false
 
   @action
-  setData(d: IUser) {
+  setUserData(d: IUser) {
     this.data = d
 
     if (!comparer.structural(this.dataPre, this.data)) {

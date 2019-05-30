@@ -1,5 +1,6 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
+import { receiversType } from '../interface';
 
 @mAction
 export default class ExtraAction {
@@ -21,7 +22,7 @@ export default class ExtraAction {
   updateExtra(
     type: string,
     expire: string,
-    receiver: object[],
+    receivers: receiversType,
     showAuthor: boolean,
     secret: boolean,
     anonymous: boolean,
@@ -30,7 +31,7 @@ export default class ExtraAction {
     extraStore
       .setType(type)
       .setExpire(expire)
-      .setReceiver(receiver)
+      .setReceiver(receivers)
       .setShowAuthor(showAuthor)
       .setSecret(secret)
       .setAnonymous(anonymous)
@@ -38,16 +39,15 @@ export default class ExtraAction {
 
   getExtra() {
     const { extraStore } = this.stores
-    const { type, expire, receiver, showAuthor, secret, anonymous } = extraStore
+    const { type, expire, receivers, showAuthor, secret, anonymous } = extraStore
 
     return {
       type,
       expire,
-      receiver,
+      receivers,
       showAuthor,
       secret,
       anonymous,
-      date: Date.now().toString(),
     }
   }
 }

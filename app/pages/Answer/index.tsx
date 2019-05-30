@@ -23,9 +23,9 @@ class Answer extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    const { action, id, history, onCancel } = this.props
+    const { action, id, history, onCancel, poster } = this.props
 
-    action!.getQuestions(id)
+    action!.getQstDetail(id, poster)
 
     history.listen((params: object, type: string) => {
       const { pathname, search } = params
@@ -51,9 +51,9 @@ class Answer extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { prefixCls, info } = this.props
+    const { prefixCls, info, poster } = this.props
     const { qstPageModal } = this.state
-    const { id, title, type } = info
+    const { _id: id, title, type } = info
 
     return (
       <div className={prefixCls}>
@@ -63,6 +63,7 @@ class Answer extends React.Component<IProps, IState> {
             id={id}
             title={title}
             type={type}
+            editable={!poster}
             onCancel={() => this.handleModalClose('qstPageModal')}
           />
         </PageModal>
@@ -79,6 +80,7 @@ interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   id: string
   info: IData & { cover: string }
+  poster: boolean // 是否为本人查看 （post 界面传来的）
   onCancel: () => void
 }
 
@@ -91,7 +93,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {
     store: rootStore.Answer.answerStore,

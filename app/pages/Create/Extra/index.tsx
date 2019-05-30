@@ -11,10 +11,12 @@ import {
 import { withRouter } from 'react-router-dom'
 import { renderSteps } from '../index'
 import ConfirmModal from '../../../components/ConfirmModal'
+import PageHeader from '../../../components/PageHeader'
 import { DELAY_TIME } from '../../../common/global'
 import { IRootStore, IRootAction } from '../../../typings'
 
 import './index.scss'
+import { receiversType } from '../interface'
 
 @inject(injector)
 @observer
@@ -26,7 +28,7 @@ class Extra extends React.Component<IProps, IState> {
   state = {
     type: { key: '', value: '' },
     time: { key: '', value: '' },
-    receiver: [],
+    receivers: {},
     showAuthor: true,
     secret: false,
     anonymous: false,
@@ -52,7 +54,7 @@ class Extra extends React.Component<IProps, IState> {
   showActionSheet = (actionType: string) => {
     const types: Array<{
       key: string
-      value: string,
+      value: string
     }> = require('../../../common/global')[
       `${actionType.toUpperCase()}_OPTIONS`
     ]
@@ -70,7 +72,7 @@ class Extra extends React.Component<IProps, IState> {
         }
 
         this.setState({ [actionType]: types[index] })
-      },
+      }
     )
   }
 
@@ -88,10 +90,10 @@ class Extra extends React.Component<IProps, IState> {
 
   handleFinish = () => {
     const { onOK, action } = this.props
-    const { type, time, receiver, showAuthor, secret, anonymous } = this.state
+    const { type, time, receivers, showAuthor, secret, anonymous } = this.state
 
     this.handleModalClose('confirmModal')
-    // if (!type.value || !time.value || !receiver) {
+    // if (!type.value || !time.value || !receivers) {
     //   Toast.fail('请检查以上内容!', DELAY_TIME)
     //   return
     // }
@@ -99,10 +101,10 @@ class Extra extends React.Component<IProps, IState> {
     action!.updateExtra(
       type.key,
       time.key,
-      receiver,
+      receivers,
       showAuthor,
       secret,
-      anonymous,
+      anonymous
     )
     onOK()
 
@@ -110,10 +112,10 @@ class Extra extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { prefixCls, title } = this.props
+    const { prefixCls, title, onCancel } = this.props
     const {
       type,
-      receiver,
+      receivers,
       time,
       showAuthor,
       secret,
@@ -123,20 +125,21 @@ class Extra extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
+        <PageHeader text="创建问题" onCancel={onCancel} />
         {renderSteps(2)}
-        <WhiteSpace size='lg' />
-        <div className='page-create-header qa-border-1px-bottom'>
-          <span className='header-title'>
+        <WhiteSpace size="lg" />
+        <div className="page-create-header qa-border-1px-bottom">
+          <span className="header-title">
             标题：
             {title}
           </span>
         </div>
         <div className={`${prefixCls}-main`}>
-          <div className='content-title'>
+          <div className="content-title">
             {/* <div className="content-text">有效时间</div> */}
             <InputItem
-              className='qa-input-item text-right'
-              placeholder='请选择'
+              className="qa-input-item text-right"
+              placeholder="请选择"
               value={type.value}
               maxLength={10}
               onClick={() => this.showActionSheet('type')}
@@ -145,10 +148,10 @@ class Extra extends React.Component<IProps, IState> {
               问题类型
             </InputItem>
           </div>
-          <div className='content-title'>
+          <div className="content-title">
             <InputItem
-              className='qa-input-item text-right'
-              placeholder='请选择'
+              className="qa-input-item text-right"
+              placeholder="请选择"
               value={time.value}
               maxLength={10}
               editable={false}
@@ -157,44 +160,44 @@ class Extra extends React.Component<IProps, IState> {
               有效时间
             </InputItem>
           </div>
-          <div className='content-title'>
+          <div className="content-title">
             <InputItem
-              className='qa-input-item text-right'
-              placeholder='请选择'
-              value={receiver.toString()}
+              className="qa-input-item text-right"
+              placeholder="请选择"
+              value={receivers.toString()}
               maxLength={20}
               editable={false}
-              onClick={() => console.log('receiver')}
+              onClick={() => console.log('receivers')}
             >
               发送范围
             </InputItem>
           </div>
-          <WhiteSpace size='lg' />
-          <div className='page-create-header qa-border-1px-bottom'>
-            <span className='header-title'>显示作者</span>
+          <WhiteSpace size="lg" />
+          <div className="page-create-header qa-border-1px-bottom">
+            <span className="header-title">显示作者</span>
             <Switch
               checked={showAuthor}
               onChange={() => this.handleSwitchChange('showAuthor')}
             />
           </div>
-          <div className='page-create-header qa-border-1px-bottom'>
-            <span className='header-title'>设为保密</span>
+          <div className="page-create-header qa-border-1px-bottom">
+            <span className="header-title">设为保密</span>
             <Switch
               checked={secret}
               onChange={() => this.handleSwitchChange('secret')}
             />
           </div>
-          <div className='page-create-header qa-border-1px-bottom'>
-            <span className='header-title'>匿名回答</span>
+          <div className="page-create-header qa-border-1px-bottom">
+            <span className="header-title">匿名回答</span>
             <Switch
               checked={anonymous}
               onChange={() => this.handleSwitchChange('anonymous')}
             />
           </div>
           <Button
-            type='primary'
-            className='qa-btn-bottom'
-            disabled={!type.value || !time.value || !receiver}
+            type="primary"
+            className="qa-btn-bottom"
+            disabled={!type.value || !time.value || !receivers}
             onClick={() => this.handleModalShow('confirmModal')}
           >
             添加完成
@@ -203,7 +206,7 @@ class Extra extends React.Component<IProps, IState> {
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
-          title='你确定提交问题吗？'
+          title="你确定提交问题吗？"
           onOK={this.handleFinish}
         />
       </div>
@@ -223,7 +226,7 @@ interface IProps extends Partial<injectorReturnType> {
 interface IState extends Partial<injectorReturnType> {
   type: { key: string; value: string }
   time: { key: string; value: string }
-  receiver: object[]
+  receivers: receiversType
   showAuthor: boolean
   secret: boolean
   anonymous: boolean
@@ -235,7 +238,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {
     store: rootStore.Create.extraStore,

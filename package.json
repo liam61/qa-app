@@ -1,6 +1,6 @@
 {
   "name": "qa-app",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "question-answer app",
   "basePath": "app",
   "main": "app/index.tsx",
@@ -10,8 +10,7 @@
     "start": "webpack-dev-server --config config/webpack.dev.config.js --progress",
     "lint": "tslint --fix --project .",
     "dll": "webpack --config config/webpack.dll.config.js --progress",
-    "serve": "nodemon app/serve.js",
-    "server": "ts-node server/bootstrap.ts"
+    "serve": "nodemon app/serve.js"
   },
   "author": "lawler61",
   "license": "ISC",
@@ -21,7 +20,7 @@
   "keywords": [
     "react",
     "mobx",
-    "router-router",
+    "router",
     "question-answer"
   ],
   "browserslist": [
@@ -32,6 +31,25 @@
     "ie >= 9",
     "Firefox ESR"
   ],
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "antd-mobile": "^2.2.11",
+    "axios": "^0.18.0",
+    "fscreen": "^1.0.2",
+    "helmet": "^3.16.0",
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.3",
+    "qs": "^6.7.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-helmet": "^5.2.0",
+    "react-hot-loader": "^4.6.3",
+    "react-loadable": "^5.5.0",
+    "react-router-dom": "^4.3.1",
+    "styled-components": "^4.2.0",
+    "uid": "^0.0.2",
+    "zone.js": "^0.9.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
@@ -43,7 +61,7 @@
     "@babel/preset-react": "^7.0.0",
     "@types/fscreen": "^1.0.1",
     "@types/helmet": "^0.0.43",
-    "@types/node": "^12.0.0",
+    "@types/node": "^12.0.2",
     "@types/qs": "^6.5.3",
     "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
@@ -105,36 +123,16 @@
     "style-loader": "^0.23.1",
     "sugarss": "^2.0.0",
     "ts-import-plugin": "^1.5.5",
-    "ts-node": "^8.0.3",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
     "typescript": "^3.4.3",
-    "uid": "^0.0.2",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.11",
     "webpack-merge": "^4.1.5",
     "webpack-parallel-uglify-plugin": "^1.1.0"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.2.5",
-    "antd-mobile": "^2.2.11",
-    "axios": "^0.18.0",
-    "fscreen": "^1.0.2",
-    "helmet": "^3.16.0",
-    "mobx": "^5.9.4",
-    "mobx-react": "^5.4.3",
-    "qs": "^6.7.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-helmet": "^5.2.0",
-    "react-hot-loader": "^4.6.3",
-    "react-loadable": "^5.5.0",
-    "react-router-dom": "^4.3.1",
-    "styled-components": "^4.2.0",
-    "zone.js": "^0.9.0"
   }
 }

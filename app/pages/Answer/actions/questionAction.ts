@@ -8,23 +8,19 @@ import { InfoTypes } from '../../../components/InfoModal'
 export default class QuestionAction {
   constructor(
     public stores: IRootStore['Answer'],
-    public actions: IRootAction['Answer'],
+    public actions: IRootAction['Answer']
   ) {}
 
-  async updateQstsWithReply(
+  async submitReply(
     id: string,
-    userId: string,
     replies: IReply[],
-    callback: (type: InfoTypes) => void,
+    callback: (type: InfoTypes) => void
   ) {
-    // const { answerStore } = this.stores
-    // replyArr.forEach(reply => answerStore.updateQstReply(reply))
-    // console.log(replies)
+    const { type } = await request
+      .setPath('questions/{id}/details')
+      .replace(id)
+      .patch({ data: replies })
 
-    const { id: resId } = await request
-      .setPath('questions')
-      .patch({ uri: id, data: { id: userId, replies } })
-
-    callback(resId ? 'success' : 'fail')
+    callback(type)
   }
 }

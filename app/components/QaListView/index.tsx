@@ -59,12 +59,12 @@ export default class QaListView extends React.Component<IProps, IState> {
     const origin = new ListView.DataSource({
       getRowData: (
         dataSource: IDataSource,
-        sectionID: string | number,
-        rowID: string | number,
+        _sectionID: string | number,
+        rowID: string | number
       ) => dataSource[rowID],
       getSectionHeaderData: (
         dataSource: IDataSource,
-        sectionID: string | number,
+        sectionID: string | number
       ) => dataSource[sectionID],
       rowHasChanged: (row1: IData, row2: IData) => row1 !== row2, // 当行数据放生变化时，只更新变化的行数据 cloneRows
       sectionHeaderHasChanged: (s1: string | number, s2: string | number) =>
@@ -95,7 +95,7 @@ export default class QaListView extends React.Component<IProps, IState> {
       dataSource: origin.cloneWithRowsAndSections(
         dataSource,
         sectionIDs,
-        rowIDs,
+        rowIDs
       ),
       count: totalCount,
     })
@@ -104,28 +104,28 @@ export default class QaListView extends React.Component<IProps, IState> {
   renderSpace = (sectionID: string | number, rowID: string | number) => (
     <WhiteSpace
       key={`${sectionID}-${rowID}`}
-      size='lg'
+      size="lg"
       style={{ background: '#F5F5F9' }}
     />
   )
 
   renderRow = (
     rowData: IData,
-    sectionID: string | number,
-    rowID: string | number,
+    _sectionID: string | number,
+    rowID: string | number
   ) => {
     const { onClick } = this.props
     const {
-      id,
+      _id: id,
       title,
       files,
-      author,
-      avatar,
+      user: { name: author, avatar },
       date,
       type,
       content,
       expire,
       showAuthor,
+      status
     } = rowData
 
     const coverFile = files.find(f => !!f.cover)
@@ -141,6 +141,7 @@ export default class QaListView extends React.Component<IProps, IState> {
         date={date}
         type={TYPE_OPTIONS.find(t => t.key === type)!.value}
         expire={TIME_OPTIONS.find(t => t.key === expire)!.value}
+        status={status}
         onClick={(cover: string) => onClick(id, rowData, cover)}
       />
     )
@@ -167,10 +168,7 @@ export default class QaListView extends React.Component<IProps, IState> {
           </React.Fragment>
         )}
         renderSectionHeader={sectionData => (
-          <React.Fragment>
-            时间：
-            {sectionData}
-          </React.Fragment>
+          <React.Fragment>{sectionData}</React.Fragment>
         )}
         renderRow={this.renderRow}
         renderSeparator={this.renderSpace}
@@ -209,7 +207,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {}
 }

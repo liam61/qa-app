@@ -4,7 +4,7 @@ $prefixCls: 'component-list-view-item';
   position: relative;
   display: flex;
   flex-direction: row;
-  height: 200px;
+  height: 220px;
   background: #fff;
   border-radius: 6px;
   overflow: hidden;
@@ -34,14 +34,38 @@ $prefixCls: 'component-list-view-item';
         font-size: 30px;
         color: $title;
 
-        &.dot {
+        &.unread {
           &::after {
             position: absolute;
             content: '';
             right: 0;
             width: 10px;
             height: 10px;
-            background: red;
+            background: $error;
+            border-radius: 50%;
+          }
+        }
+
+        &.completed {
+          &::after {
+            position: absolute;
+            content: '';
+            right: 0;
+            width: 10px;
+            height: 10px;
+            background: $info;
+            border-radius: 50%;
+          }
+        }
+
+        &.expired {
+          &::after {
+            position: absolute;
+            content: '';
+            right: 0;
+            width: 10px;
+            height: 10px;
+            background: $warning;
             border-radius: 50%;
           }
         }

@@ -1,0 +1,19 @@
+$prefixCls: 'component-page-header';
+
+.#{$prefixCls} {
+  position: relative;
+  height: 100px;
+  line-height: 100px;
+  padding-left: 30px;
+  background: rgba(46, 97, 200, 0.9);
+  color: #fff;
+
+  i {
+    vertical-align: -3px;
+  }
+
+  span {
+    margin-left: 20px;
+    font-size: 34px;
+  }
+}

@@ -3,8 +3,8 @@ import AppPage from '../pages/App'
 import CreatePage from '../pages/Create/Loadable'
 import ExamplePage from '../pages/Example'
 import NoMatchPage from '../pages/404'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
+import LoginPage from '../pages/Login'
+import SignupPage from '../pages/Register'
 
 export interface IRoute {
   key: string
@@ -35,12 +35,12 @@ const routes: IRoute[] = [
   {
     key: 'login',
     path: '/login',
-    component: Login,
+    component: LoginPage,
   },
   {
-    key: 'register',
-    path: '/register',
-    component: Register,
+    key: 'signup',
+    path: '/signup',
+    component: SignupPage,
   },
   {
     key: 'example',

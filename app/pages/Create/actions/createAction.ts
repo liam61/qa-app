@@ -7,22 +7,20 @@ import { InfoTypes } from '../../../components/InfoModal'
 export default class CreateAction {
   constructor(
     public stores: IRootStore['Create'],
-    public actions: IRootAction['Create'],
+    public actions: IRootAction['Create']
   ) {}
 
   async submitQuestions(callback: (result: InfoTypes) => void) {
     const { infoAction, questionAction, extraAction } = this.actions
 
-    // TODO: 获取用户 id
-    const { id } = await request.setPath('questions').post({
+    const { type } = await request.setPath('questions').post({
       data: Object.assign(
-        { userId: 'lawler' },
         infoAction.getInfo(),
         questionAction.getQuestions(),
-        extraAction.getExtra(),
+        extraAction.getExtra()
       ),
     })
 
-    callback(id ? 'success' : 'fail')
+    callback(type)
   }
 }

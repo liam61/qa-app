@@ -1,6 +1,7 @@
 $prefixCls: 'page-todo';
 
-.#{$prefixCls} {
+.#{$prefixCls},
+.page-post {
   position: relative;
   height: 100vw;
 
@@ -11,7 +12,7 @@ $prefixCls: 'page-todo';
 
     &-input {
       height: 70px;
-      
+
       .am-search-synthetic-ph {
         height: inherit;
         line-height: 70px;
@@ -45,7 +46,7 @@ $prefixCls: 'page-todo';
       }
     }
 
-    &-cancel{ 
+    &-cancel {
       padding-left: 20px;
       font-size: 30px;
     }

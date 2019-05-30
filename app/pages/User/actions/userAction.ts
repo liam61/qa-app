@@ -1,14 +1,18 @@
 import { mAction } from '../../../mobx/action'
-import { request, validator } from '../../../utils'
+import { request, validator, uploadFile } from '../../../utils'
 import { IError } from '../../Login/interface'
 import { IRootAction, IRootStore } from '../../../typings'
 
 @mAction
 export default class UserAction {
+  // uploadFile: (file: any, key: string) => Promise<any>
+
   constructor(
     public stores: IRootStore['User'],
-    public actions: IRootAction['User'],
-  ) {}
+    public actions: IRootAction['User']
+  ) {
+    // this.uploadFile = uploadFile
+  }
 
   changeCover(cover: string) {
     const { userStore } = this.stores
@@ -16,27 +20,51 @@ export default class UserAction {
     userStore.setCover(cover)
   }
 
-  async getData(id: string) {
+  async getUserData() {
     const { userStore } = this.stores
 
-    userStore
-      .setLoading(true)
-      .setData(await request.setPath('users').get({ uri: id }))
-      .setLoading(false)
+    userStore.setLoading(true)
+
+    const id = localStorage.getItem('userId')
+    const { data } = await request
+      .setPath('users')
+      .get({ uri: id, data: { cancelToken: true } })
+
+    userStore.setUserData(data).setLoading(false)
   }
 
-  uploadFile(file: any, key: string) {
-    const data = new FormData()
-    data.append('file', file)
-    data.append('key', key)
+  async uploadFile(
+    file: any,
+    key: string,
+    callback: (success: boolean) => void
+  ) {
+    const { userStore } = this.stores
 
-    request.upload(data, (process: any) => console.log(process))
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('key', key)
+
+    const {
+      data: { url },
+    } = await request.upload(formData, (process: any) => console.log(process))
+
+    userStore.updateDataByKey(key, url)
+
+    const { type } = await request.setPath('users').put({
+      uri: userStore.data._id,
+      data: { [key]: url },
+    })
+
+    const success = type === 'success'
+
+    success ? userStore.advanceBakData() : userStore.rollbackData()
+    callback(success)
   }
 
   updateUserDataByKey(
     key: string,
     value: string,
-    callback: (error: IError) => void,
+    callback: (error: IError) => void
   ) {
     const { userStore } = this.stores
 
@@ -52,20 +80,20 @@ export default class UserAction {
 
     userStore.setUpdating(true)
 
-    // TODO: 获取用户id
-    const { status } = await request
-      .setPath('users')
-      .setPath('users')
-      .put({
-        uri: 'lawler',
-        data: userStore.data,
-      })
+    const { type } = await request.setPath('users').put({
+      uri: localStorage.getItem('userId'),
+      data: userStore.data,
+    })
 
-    const success = status === 'success'
+    const success = type === 'success'
 
     success ? userStore.advanceBakData() : userStore.rollbackData()
     callback(success)
 
     userStore.setUpdating(false)
+  }
+
+  cancel() {
+    request.cancel('用户手动取消请求！')
   }
 }

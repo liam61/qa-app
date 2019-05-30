@@ -11,8 +11,10 @@ import {
   Modal,
   ImagePicker,
 } from 'antd-mobile'
+import { getUid } from '../../../utils'
 import { renderSteps } from '../index'
 import ConfirmModal from '../../../components/ConfirmModal'
+import PageHeader from '../../../components/PageHeader'
 import { IRootStore, IRootAction } from '../../../typings'
 import { IFile } from '../interface'
 
@@ -25,27 +27,22 @@ class Info extends React.Component<IProps, IState> {
     prefixCls: 'page-create-info',
   }
 
+  input: any
+
   constructor(props: IProps) {
     super(props)
 
     this.state = {
       title: '',
       content: '',
-      files: [
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-          id: '2121',
-        },
-        {
-          url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-          id: '2122',
-        },
-      ],
+      files: [],
       imgModal: false,
       imgUrl: '',
       confirmModal: false,
       // confirmProps: { title: '你确定完成基本信息吗？', onOK }, 只有这种情况需要 confirmModal
     }
+
+    this.handleAddFile = this.handleAddFile.bind(this)
   }
 
   componentWillUnmount() {
@@ -62,19 +59,29 @@ class Info extends React.Component<IProps, IState> {
     this.setState({ content: val })
   }
 
-  // handleChangeFile = (fileId, type) => {
-  //   this.setState({ files: fileId })
-  // }
-
   handleImgClick = (
     index: number | undefined = 0,
-    files: IFile[] | undefined = [],
+    files: IFile[] | undefined = []
   ) => {
     console.log(index, files)
-    this.setState({
-      imgUrl: files[index].url,
-      imgModal: true,
-    })
+    this.setState({ imgUrl: files[index].url, imgModal: true })
+  }
+
+  handleAddImageClick = (e: any) => {
+    e.preventDefault()
+    this.input.click()
+  }
+
+  async handleAddFile(e: any) {
+    const { action } = this.props
+
+    if (e.target) {
+      const { data } = await action!.uploadFile(e.target.files[0], 'files')
+
+      const { files } = this.state
+      files.push({ id: getUid(), url: data.url })
+      this.setState({ files })
+    }
   }
 
   handleModalShow = (type: string) => {
@@ -97,7 +104,7 @@ class Info extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { prefixCls } = this.props
+    const { prefixCls, onCancel } = this.props
     const {
       title,
       content,
@@ -110,23 +117,24 @@ class Info extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
+        <PageHeader text="创建问题" onCancel={onCancel} />
         {renderSteps(0)}
         <div className={`${prefixCls}-main`}>
-          <div className='content-title'>
-            <div className='content-text'>标题</div>
+          <div className="content-title">
+            <div className="content-text">标题</div>
             <InputItem
-              className='qa-input-item'
-              placeholder='请输入标题'
+              className="qa-input-item"
+              placeholder="请输入标题"
               value={title}
               maxLength={20}
               onChange={this.handleTitleChange}
             />
           </div>
-          <div className='content-options'>
-            <div className='content-text'>内容</div>
-            <div className='option-wrapper'>
+          <div className="content-options">
+            <div className="content-text">内容</div>
+            <div className="option-wrapper">
               <TextareaItem
-                placeholder='请输入内容（不超过80字）'
+                placeholder="请输入内容（不超过80字）"
                 value={content}
                 autoHeight
                 count={80}
@@ -134,31 +142,35 @@ class Info extends React.Component<IProps, IState> {
               />
             </div>
           </div>
-          <div className='content-options'>
-            <div className='content-text'>图片</div>
+          <div className="content-options">
+            <div className="content-text">图片</div>
             <ImagePicker
-              className='qa-image-picker'
+              className="qa-image-picker"
               files={files}
-              length='5'
+              length="5"
               onImageClick={this.handleImgClick}
-              onChange={(newFiles, type, index) =>
-                this.setState({ files: newFiles as IFile[] })
-              }
-              multiple
+              onAddImageClick={this.handleAddImageClick}
+              // multiple
               selectable={files.length < 5}
+            />
+            <input
+              style={{ display: 'none' }}
+              type="file"
+              ref={(node: any) => (this.input = node)}
+              onChange={this.handleAddFile}
             />
           </div>
           {/* <Picker fileId={file} onChangeFile={this.handleChangeFile} /> */}
           <Button
-            type='primary'
-            className='qa-btn-bottom'
+            type="primary"
+            className="qa-btn-bottom"
             disabled={!title || !content}
             onClick={() => this.handleModalShow('confirmModal')}
           >
             添加完成
             <i
-              className='fa fa-angle-right btn-bottom-icon'
-              aria-hidden='true'
+              className="fa fa-angle-right btn-bottom-icon"
+              aria-hidden="true"
             />
           </Button>
         </div>
@@ -167,16 +179,16 @@ class Info extends React.Component<IProps, IState> {
           transparent
           onClose={() => this.handleModalClose('imgModal')}
           // animationType="fade"
-          transitionName='am-zoom'
-          className='qa-img-modal'
+          transitionName="am-zoom"
+          className="qa-img-modal"
           // wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
-          <img src={imgUrl} alt='预览图片' />
+          <img src={imgUrl} alt="预览图片" />
         </Modal>
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
-          title='你确定完成基本信息吗？'
+          title="你确定完成基本信息吗？"
           onOK={this.onEnterQstPage}
         />
       </div>
@@ -208,7 +220,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {
     store: rootStore.Create.infoStore,

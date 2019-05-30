@@ -45,11 +45,11 @@ export default class AnswerQuestion extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { num, onRemove, type } = this.props
+    const { prefixCls, num, onRemove, type } = this.props
     const { required, title, hidden } = this.state
 
     return (
-      <div className='qa-question'>
+      <div className={`${prefixCls} qa-question`}>
         <QuestionHeader
           num={num}
           type={QUESTION_TYPES.find(t => t.key === type)!.value}
@@ -60,13 +60,14 @@ export default class AnswerQuestion extends React.Component<IProps, IState> {
           onRemove={onRemove}
         />
         <div
-          className='qa-question-content'
+          className={`${prefixCls}-content`}
           style={{ display: hidden ? 'none' : 'block' }}
         >
-          <div className='content-title'>
-            <div className='content-text'>题目</div>
+          <div className="content-title">
+            <div className="content-text">题目</div>
             <InputItem
-              placeholder='请输入题目'
+              className="qa-input-item"
+              placeholder="请输入题目"
               value={title}
               maxLength={30}
               onChange={this.handleTitleChange}
@@ -101,7 +102,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction,
+  rootAction: IRootAction
 }) {
   return {}
 }

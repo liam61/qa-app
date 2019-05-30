@@ -8,7 +8,7 @@ import { getUid } from '../../../utils'
 export default class QuestionAction {
   constructor(
     public stores: IRootStore['Create'],
-    public actions: IRootAction['Create'],
+    public actions: IRootAction['Create']
   ) {}
 
   addQuestion(type: string, Element: React.ReactNode) {
@@ -38,10 +38,10 @@ export default class QuestionAction {
     return questionStore.questions.length
   }
 
-  getQuestions(): { questions: IQstToSubmit[] } {
+  getQuestions(): { qstItems: IQstToSubmit[] } {
     const { questionStore } = this.stores
 
-    const questions = questionStore.questions.map((qst, index) => {
+    const qstItems = questionStore.questions.map((qst, index) => {
       const { type, title, options, required } = qst
 
       return {
@@ -53,7 +53,7 @@ export default class QuestionAction {
       }
     })
 
-    return { questions }
+    return { qstItems }
   }
 
   updateQuestions(questions: IQuestion[]) {

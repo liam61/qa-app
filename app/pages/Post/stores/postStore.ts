@@ -2,7 +2,7 @@ import { action, observable, computed } from 'mobx'
 import { mStore } from '../../../mobx/store'
 import { IFile } from '../../Create/interface'
 
-export interface IData {
+interface IData {
   readonly _id: string
   title: string
   content: string
@@ -19,13 +19,13 @@ export interface IData {
   status: 'unread' | 'unfilled' | 'completed' | 'expired'
 }
 
-export interface IList {
+interface IList {
   section: string
   data: IData[]
 }
 
 @mStore
-export default class TodoStore {
+export default class PostStore {
   @observable
   dataList: IList[] = []
 

@@ -6,22 +6,18 @@ import './index.scss'
 
 @inject(injector)
 @observer
-export default class Collection extends React.Component<IProps, {}> {
+export default class PageHeader extends React.Component<IProps, IState> {
   static defaultProps = {
-    prefixCls: 'page-collection',
+    prefixCls: 'component-page-header',
   }
-
-  constructor(props: IProps) {
-    super(props)
-  }
-
-  // componentDidMount() {}
 
   render() {
-    const { prefixCls } = this.props
+    const { prefixCls, text, onCancel } = this.props
+
     return (
-      <div className={prefixCls}>
-        collections
+      <div className={prefixCls} onClick={onCancel}>
+        <i className="fa fa-angle-left fa-3x" aria-hidden="true" />
+        <span>{text}</span>
       </div>
     )
   }
@@ -31,6 +27,11 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
+  text: React.ReactNode
+  onCancel: () => void
+}
+
+interface IState extends Partial<injectorReturnType> {
   [k: string]: any
 }
 
@@ -38,8 +39,8 @@ function injector({
   rootStore,
   rootAction,
 }: {
-  rootStore: IRootStore,
-  rootAction: IRootAction,
+  rootStore: IRootStore
+  rootAction: IRootAction
 }) {
   return {}
 }

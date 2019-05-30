@@ -1,3 +1,7 @@
+.#{$globalPrefixCls}-hidden {
+  display: none !important;
+}
+
 .#{$globalPrefixCls}-border-1px {
   @include border-mixin(1px);
 }
