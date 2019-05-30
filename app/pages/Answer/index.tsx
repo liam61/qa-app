@@ -93,7 +93,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction
+  rootAction: IRootAction,
 }) {
   return {
     store: rootStore.Answer.answerStore,

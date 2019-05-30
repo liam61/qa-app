@@ -60,11 +60,11 @@ export default class QaListView extends React.Component<IProps, IState> {
       getRowData: (
         dataSource: IDataSource,
         _sectionID: string | number,
-        rowID: string | number
+        rowID: string | number,
       ) => dataSource[rowID],
       getSectionHeaderData: (
         dataSource: IDataSource,
-        sectionID: string | number
+        sectionID: string | number,
       ) => dataSource[sectionID],
       rowHasChanged: (row1: IData, row2: IData) => row1 !== row2, // 当行数据放生变化时，只更新变化的行数据 cloneRows
       sectionHeaderHasChanged: (s1: string | number, s2: string | number) =>
@@ -95,7 +95,7 @@ export default class QaListView extends React.Component<IProps, IState> {
       dataSource: origin.cloneWithRowsAndSections(
         dataSource,
         sectionIDs,
-        rowIDs
+        rowIDs,
       ),
       count: totalCount,
     })
@@ -104,7 +104,7 @@ export default class QaListView extends React.Component<IProps, IState> {
   renderSpace = (sectionID: string | number, rowID: string | number) => (
     <WhiteSpace
       key={`${sectionID}-${rowID}`}
-      size="lg"
+      size='lg'
       style={{ background: '#F5F5F9' }}
     />
   )
@@ -112,7 +112,7 @@ export default class QaListView extends React.Component<IProps, IState> {
   renderRow = (
     rowData: IData,
     _sectionID: string | number,
-    rowID: string | number
+    rowID: string | number,
   ) => {
     const { onClick } = this.props
     const {
@@ -125,7 +125,7 @@ export default class QaListView extends React.Component<IProps, IState> {
       content,
       expire,
       showAuthor,
-      status
+      status,
     } = rowData
 
     const coverFile = files.find(f => !!f.cover)
@@ -207,7 +207,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction
+  rootAction: IRootAction,
 }) {
   return {}
 }

@@ -57,7 +57,7 @@ export default class Register extends React.Component<IProps, IState> {
     const { action } = this.props
 
     action!.validateEmail(val, (errors: IError, validate?: string) =>
-      this.setState({ emailInfo: errors, validate })
+      this.setState({ emailInfo: errors, validate }),
     )
   }
 
@@ -67,7 +67,7 @@ export default class Register extends React.Component<IProps, IState> {
     this.setState({ password: val })
 
     action!.validatePassword(val, (errors: IError) =>
-      this.setState({ passwordInfo: errors })
+      this.setState({ passwordInfo: errors }),
     )
   }
 
@@ -78,7 +78,7 @@ export default class Register extends React.Component<IProps, IState> {
     this.setState({ psdConfirm: val })
 
     action!.validatePsdConfirm(val, password, (errors: IError) =>
-      this.setState({ psdConfirmInfo: errors })
+      this.setState({ psdConfirmInfo: errors }),
     )
   }
 
@@ -107,7 +107,7 @@ export default class Register extends React.Component<IProps, IState> {
         // TODO: 可以用 infoModal 来提示
 
         this.setState({ loading: false })
-      }
+      },
     )
   }
 
@@ -132,27 +132,27 @@ export default class Register extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-login`}>
-        <div className="qa-login-header">开启你的问答之旅！</div>
-        <div className="qa-login-main">
+        <div className='qa-login-header'>开启你的问答之旅！</div>
+        <div className='qa-login-main'>
           <InputItem
-            className="qa-input-item"
+            className='qa-input-item'
             ref={(node: React.ReactNode) => (this.userInput = node)}
-            placeholder="请输入用户名"
+            placeholder='请输入用户名'
             value={user}
             maxLength={12}
             error={usernameErr}
             onErrorClick={() => this.handleErrorClick('usernameInfo')}
             onChange={debounce(this.handleUserChange, (val: string) =>
-              this.setState({ user: val })
+              this.setState({ user: val }),
             )}
           >
-            <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
+            <i className='fa fa-user-o fa-2x warning' aria-hidden='true' />
           </InputItem>
           <InputItem
-            className="qa-input-item"
+            className='qa-input-item'
             ref={(node: React.ReactNode) => (this.passwordInput = node)}
-            type="password"
-            placeholder="请输入密码"
+            type='password'
+            placeholder='请输入密码'
             value={password}
             maxLength={20}
             error={passwordErr}
@@ -161,15 +161,15 @@ export default class Register extends React.Component<IProps, IState> {
           >
             <img
               src={lock3Icon}
-              className="password-icon"
-              alt="password-icon"
+              className='password-icon'
+              alt='password-icon'
             />
           </InputItem>
           <InputItem
-            className="qa-input-item"
+            className='qa-input-item'
             ref={(node: React.ReactNode) => (this.psdConfirmInput = node)}
-            type="password"
-            placeholder="请确认密码"
+            type='password'
+            placeholder='请确认密码'
             value={psdConfirm}
             maxLength={20}
             error={psdConfirmErr}
@@ -178,21 +178,21 @@ export default class Register extends React.Component<IProps, IState> {
           >
             <img
               src={lockIcon}
-              className="psd-confirm-icon"
-              alt="password-confirm-icon"
+              className='psd-confirm-icon'
+              alt='password-confirm-icon'
             />
           </InputItem>
           {/* TODO: 验证码 */}
         </div>
-        <div className="qa-login-footer">
-          <Link to="/login" className="btn-login">
-            <i className="fa fa-angle-left icon" aria-hidden="true" />
+        <div className='qa-login-footer'>
+          <Link to='/login' className='btn-login'>
+            <i className='fa fa-angle-left icon' aria-hidden='true' />
             已拥有账号
           </Link>
         </div>
         <Button
-          type="primary"
-          className="qa-btn-bottom"
+          type='primary'
+          className='qa-btn-bottom'
           disabled={
             usernameErr || emailErr || passwordErr || psdConfirmErr || loading
           }
@@ -230,7 +230,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction
+  rootAction: IRootAction,
 }) {
   return {
     store: rootStore.Register.registerStore,

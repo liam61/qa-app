@@ -9,7 +9,7 @@ export default class InfoAction {
 
   constructor(
     public stores: IRootStore['Create'],
-    public actions: IRootAction['Create']
+    public actions: IRootAction['Create'],
   ) {
     this.uploadFile = uploadFile
   }

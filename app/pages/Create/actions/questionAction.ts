@@ -8,7 +8,7 @@ import { getUid } from '../../../utils'
 export default class QuestionAction {
   constructor(
     public stores: IRootStore['Create'],
-    public actions: IRootAction['Create']
+    public actions: IRootAction['Create'],
   ) {}
 
   addQuestion(type: string, Element: React.ReactNode) {

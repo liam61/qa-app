@@ -6,13 +6,13 @@ import { IRootAction, IRootStore } from '../../../typings'
 export default class TodoAction {
   constructor(
     public stores: IRootStore['Todo'],
-    public actions: IRootAction['Todo']
+    public actions: IRootAction['Todo'],
   ) {}
 
   async getListData(
     refresh = false,
     callback: (type: string, num: number) => void,
-    index?: number
+    index?: number,
   ) {
     const { todoStore } = this.stores
 
@@ -47,7 +47,7 @@ export default class TodoAction {
       .addListData(
         await request
           .setPath('questions')
-          .get({ query: { page: todoStore.pageIndex } })
+          .get({ query: { page: todoStore.pageIndex } }),
       )
       .setLoading(false)
   }

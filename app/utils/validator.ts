@@ -9,7 +9,7 @@ const PHONE_LENGTH = 11
 
 async function name(
   value: string,
-  callback: (error: IError, validate?: string) => void
+  callback: (error: IError, validate?: string) => void,
 ) {
   if (value.length < MIN_USERNAME_LENGTH) {
     callback({ hasError: true, error: '用户名长度至少6位！' })
@@ -32,13 +32,13 @@ async function name(
 
   callback(
     exist ? { hasError: true, error: '该用户名已被注册！' } : noErrors,
-    validate
+    validate,
   )
 }
 
 async function email(
   value: string,
-  callback: (error: IError, validate?: string) => void
+  callback: (error: IError, validate?: string) => void,
 ) {
   if (!EMAIL_REG.test(value)) {
     callback({ hasError: true, error: '请输入正确的邮箱！' })
@@ -52,13 +52,13 @@ async function email(
 
   callback(
     exist ? { hasError: true, error: '该邮箱已被注册！' } : noErrors,
-    validate
+    validate,
   )
 }
 
 async function phone(
   value: string,
-  callback: (error: IError, validate?: string) => void
+  callback: (error: IError, validate?: string) => void,
 ) {
   if (value.length < PHONE_LENGTH) {
     callback({ hasError: true, error: '请输入11位手记号码！' })
@@ -78,7 +78,7 @@ async function phone(
 
   callback(
     exist ? { hasError: true, error: '该手机号码已被注册！' } : noErrors,
-    validate
+    validate,
   )
 }
 
@@ -95,26 +95,26 @@ function password(value: string, callback: (error: IError) => void) {
       : {
           hasError: true,
           error: '至少包含一个字母和一个数字！',
-        }
+        },
   )
 }
 
 function psdConfirm(
   value: string,
   psd: string,
-  callback: (error: IError) => void
+  callback: (error: IError) => void,
 ) {
   callback(
     value === psd
       ? noErrors
-      : { hasError: true, error: '两次填写的密码不一致！' }
+      : { hasError: true, error: '两次填写的密码不一致！' },
   )
 }
 
 // 登录时验证用户名或邮箱
 async function account(
   value: string,
-  callback: (error: IError, validate?: string) => void
+  callback: (error: IError, validate?: string) => void,
 ) {
   if (value.length < MIN_USERNAME_LENGTH) {
     callback({ hasError: true, error: '账户名长度至少6位！' })
@@ -128,7 +128,7 @@ async function account(
 
   callback(
     !exist ? { hasError: true, error: '该账户名不存在！' } : noErrors,
-    validate
+    validate,
   )
 }
 

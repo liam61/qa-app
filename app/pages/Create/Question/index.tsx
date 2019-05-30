@@ -218,7 +218,7 @@ class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-      <PageHeader text="创建问题" onCancel={onCancel} />
+      <PageHeader text='创建问题' onCancel={onCancel} />
         {renderSteps(1)}
         <WhiteSpace size='lg' />
         <div className='page-create-header qa-border-1px-bottom'>

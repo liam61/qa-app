@@ -7,26 +7,26 @@ import { request, validator } from '../../../utils'
 export default class RegisterAction {
   constructor(
     public stores: IRootStore['Register'],
-    public actions: IRootAction['Register']
+    public actions: IRootAction['Register'],
   ) {}
 
   validateUser(
     user: string,
-    callback: (error: IError, validate?: string) => void
+    callback: (error: IError, validate?: string) => void,
   ) {
     validator.name(user, callback)
   }
 
   validateEmail(
     email: string,
-    callback: (error: IError, validate?: string) => void
+    callback: (error: IError, validate?: string) => void,
   ) {
     validator.email(email, callback)
   }
 
   validatePhone(
     phone: string,
-    callback: (error: IError, validate?: string) => void
+    callback: (error: IError, validate?: string) => void,
   ) {
     validator.phone(phone, callback)
   }
@@ -38,14 +38,14 @@ export default class RegisterAction {
   validatePsdConfirm(
     psdConfirm: string,
     password: string,
-    callback: (error: IError) => void
+    callback: (error: IError) => void,
   ) {
     validator.psdConfirm(psdConfirm, password, callback)
   }
 
   async signup(
     data: { name: string; email: string; password: string; validate: string },
-    callback: (success: boolean) => void
+    callback: (success: boolean) => void,
   ) {
     // const { type } = await request.setPath('register').post({ data })
     const { name, password, validate } = data

@@ -15,7 +15,7 @@ function emptyFn() {}
 function getRandomImg(size = 19) {
   // tslint:disable-next-line: no-var-requires
   return require(`../assets/images/random/material-${Math.ceil(
-    Math.random() * size
+    Math.random() * size,
   )}.png`)
 }
 
@@ -35,7 +35,7 @@ function increaseCount(
   callback: (count: number, next: () => void) => void,
   initValue = 0,
   during = 700,
-  delay = 20
+  delay = 20,
 ) {
   const step =
     (toCount * delay) / during <= 1 ? 1 : Math.floor((toCount * delay) / during)
@@ -46,7 +46,7 @@ function increaseCount(
     if (count < toCount) {
       curCount = count + step >= toCount ? toCount : count + step
       callback(curCount, () =>
-        setTimeout(() => increase(curCount), (during * step) / toCount)
+        setTimeout(() => increase(curCount), (during * step) / toCount),
       )
     }
   }

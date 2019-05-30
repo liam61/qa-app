@@ -88,7 +88,7 @@ class Todo extends React.Component<IProps, IState> {
       <div className={prefixCls}>
         <SearchBar
           value={search}
-          placeholder="搜索..."
+          placeholder='搜索...'
           maxLength={20}
           onChange={this.handleSearchChange}
         />
@@ -134,7 +134,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction
+  rootAction: IRootAction,
 }) {
   return {
     store: rootStore.Todo.todoStore,

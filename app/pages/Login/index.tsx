@@ -39,7 +39,7 @@ class Login extends React.Component<IProps, IState> {
     const { action } = this.props
 
     action!.validateAccount(val, (errors: IError, validate?: string) =>
-      this.setState({ accountInfo: errors, validate })
+      this.setState({ accountInfo: errors, validate }),
     )
   }
 
@@ -84,47 +84,47 @@ class Login extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-login`}>
-        <div className="qa-login-header">欢迎使用！</div>
-        <div className="qa-login-main">
+        <div className='qa-login-header'>欢迎使用！</div>
+        <div className='qa-login-main'>
           <InputItem
-            className="qa-input-item"
+            className='qa-input-item'
             ref={(node: React.ReactNode) => (this.accountInput = node)}
-            placeholder="请输入用户名或邮箱"
+            placeholder='请输入用户名或邮箱'
             value={account}
             maxLength={20}
             error={accountErr}
             onErrorClick={() => this.handleErrorClick('accountInfo')}
             onChange={debounce(this.handleAccountChange, (val: string) =>
-              this.setState({ account: val })
+              this.setState({ account: val }),
             )}
           >
-            <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
+            <i className='fa fa-user-o fa-2x warning' aria-hidden='true' />
           </InputItem>
           <InputItem
-            className="qa-input-item"
+            className='qa-input-item'
             ref={(node: React.ReactNode) => (this.passwordInput = node)}
-            type="password"
-            placeholder="请输入密码"
+            type='password'
+            placeholder='请输入密码'
             value={password}
             maxLength={20}
             onChange={this.handlePasswordChange}
           >
-            <img src={lockIcon} className="password-icon" alt="password-icon" />
+            <img src={lockIcon} className='password-icon' alt='password-icon' />
           </InputItem>
         </div>
-        <div className="qa-login-footer">
-          <Link to="/register" className="btn-login">
+        <div className='qa-login-footer'>
+          <Link to='/register' className='btn-login'>
             注册
-            <i className="fa fa-angle-right icon" aria-hidden="true" />
+            <i className='fa fa-angle-right icon' aria-hidden='true' />
           </Link>
           {/* <Link >忘记密码</Link> */}
-          <Button className="btn-login" activeClassName="btn-login-active">
+          <Button className='btn-login' activeClassName='btn-login-active'>
             忘记密码
           </Button>
         </div>
         <Button
-          type="primary"
-          className="qa-btn-bottom"
+          type='primary'
+          className='qa-btn-bottom'
           disabled={accountErr || loading}
           loading={loading}
           onClick={this.handleSubmit}
@@ -155,7 +155,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction
+  rootAction: IRootAction,
 }) {
   return {
     store: rootStore.Login.loginStore,

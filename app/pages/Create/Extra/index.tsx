@@ -54,7 +54,7 @@ class Extra extends React.Component<IProps, IState> {
   showActionSheet = (actionType: string) => {
     const types: Array<{
       key: string
-      value: string
+      value: string,
     }> = require('../../../common/global')[
       `${actionType.toUpperCase()}_OPTIONS`
     ]
@@ -72,7 +72,7 @@ class Extra extends React.Component<IProps, IState> {
         }
 
         this.setState({ [actionType]: types[index] })
-      }
+      },
     )
   }
 
@@ -104,7 +104,7 @@ class Extra extends React.Component<IProps, IState> {
       receivers,
       showAuthor,
       secret,
-      anonymous
+      anonymous,
     )
     onOK()
 
@@ -125,21 +125,21 @@ class Extra extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text="创建问题" onCancel={onCancel} />
+        <PageHeader text='创建问题' onCancel={onCancel} />
         {renderSteps(2)}
-        <WhiteSpace size="lg" />
-        <div className="page-create-header qa-border-1px-bottom">
-          <span className="header-title">
+        <WhiteSpace size='lg' />
+        <div className='page-create-header qa-border-1px-bottom'>
+          <span className='header-title'>
             标题：
             {title}
           </span>
         </div>
         <div className={`${prefixCls}-main`}>
-          <div className="content-title">
+          <div className='content-title'>
             {/* <div className="content-text">有效时间</div> */}
             <InputItem
-              className="qa-input-item text-right"
-              placeholder="请选择"
+              className='qa-input-item text-right'
+              placeholder='请选择'
               value={type.value}
               maxLength={10}
               onClick={() => this.showActionSheet('type')}
@@ -148,10 +148,10 @@ class Extra extends React.Component<IProps, IState> {
               问题类型
             </InputItem>
           </div>
-          <div className="content-title">
+          <div className='content-title'>
             <InputItem
-              className="qa-input-item text-right"
-              placeholder="请选择"
+              className='qa-input-item text-right'
+              placeholder='请选择'
               value={time.value}
               maxLength={10}
               editable={false}
@@ -160,10 +160,10 @@ class Extra extends React.Component<IProps, IState> {
               有效时间
             </InputItem>
           </div>
-          <div className="content-title">
+          <div className='content-title'>
             <InputItem
-              className="qa-input-item text-right"
-              placeholder="请选择"
+              className='qa-input-item text-right'
+              placeholder='请选择'
               value={receivers.toString()}
               maxLength={20}
               editable={false}
@@ -172,31 +172,31 @@ class Extra extends React.Component<IProps, IState> {
               发送范围
             </InputItem>
           </div>
-          <WhiteSpace size="lg" />
-          <div className="page-create-header qa-border-1px-bottom">
-            <span className="header-title">显示作者</span>
+          <WhiteSpace size='lg' />
+          <div className='page-create-header qa-border-1px-bottom'>
+            <span className='header-title'>显示作者</span>
             <Switch
               checked={showAuthor}
               onChange={() => this.handleSwitchChange('showAuthor')}
             />
           </div>
-          <div className="page-create-header qa-border-1px-bottom">
-            <span className="header-title">设为保密</span>
+          <div className='page-create-header qa-border-1px-bottom'>
+            <span className='header-title'>设为保密</span>
             <Switch
               checked={secret}
               onChange={() => this.handleSwitchChange('secret')}
             />
           </div>
-          <div className="page-create-header qa-border-1px-bottom">
-            <span className="header-title">匿名回答</span>
+          <div className='page-create-header qa-border-1px-bottom'>
+            <span className='header-title'>匿名回答</span>
             <Switch
               checked={anonymous}
               onChange={() => this.handleSwitchChange('anonymous')}
             />
           </div>
           <Button
-            type="primary"
-            className="qa-btn-bottom"
+            type='primary'
+            className='qa-btn-bottom'
             disabled={!type.value || !time.value || !receivers}
             onClick={() => this.handleModalShow('confirmModal')}
           >
@@ -206,7 +206,7 @@ class Extra extends React.Component<IProps, IState> {
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
-          title="你确定提交问题吗？"
+          title='你确定提交问题吗？'
           onOK={this.handleFinish}
         />
       </div>
@@ -238,7 +238,7 @@ function injector({
   rootAction,
 }: {
   rootStore: IRootStore
-  rootAction: IRootAction
+  rootAction: IRootAction,
 }) {
   return {
     store: rootStore.Create.extraStore,

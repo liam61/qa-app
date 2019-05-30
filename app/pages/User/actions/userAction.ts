@@ -9,7 +9,7 @@ export default class UserAction {
 
   constructor(
     public stores: IRootStore['User'],
-    public actions: IRootAction['User']
+    public actions: IRootAction['User'],
   ) {
     // this.uploadFile = uploadFile
   }
@@ -36,7 +36,7 @@ export default class UserAction {
   async uploadFile(
     file: any,
     key: string,
-    callback: (success: boolean) => void
+    callback: (success: boolean) => void,
   ) {
     const { userStore } = this.stores
 
@@ -64,7 +64,7 @@ export default class UserAction {
   updateUserDataByKey(
     key: string,
     value: string,
-    callback: (error: IError) => void
+    callback: (error: IError) => void,
   ) {
     const { userStore } = this.stores
 
