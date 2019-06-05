@@ -1,10 +1,7 @@
 import { action, observable, computed } from 'mobx'
+import { IFriend } from '../../Message/stores/messageStore'
 import { mStore } from '../../../mobx/store'
 import { receiversType } from '../interface'
-
-// interface ISomething {
-
-// }
 
 @mStore
 export default class ExtraStore {
@@ -25,6 +22,9 @@ export default class ExtraStore {
 
   @observable
   anonymous = false
+
+  @observable
+  friends: IFriend[] = []
 
   @action
   setType(t: string) {
@@ -64,6 +64,13 @@ export default class ExtraStore {
   @action
   setAnonymous(a: boolean) {
     this.secret = a
+
+    return this
+  }
+
+  @action
+  setFriends(fs: IFriend[]) {
+    this.friends = fs
 
     return this
   }

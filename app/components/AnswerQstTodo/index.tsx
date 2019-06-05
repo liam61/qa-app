@@ -44,8 +44,8 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
-        <div className='qa-qst-todo-header'>
-          <span className='header-tag'>
+        <div className="qa-qst-todo-header">
+          <span className="header-tag">
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>
           <span
@@ -56,7 +56,7 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
             {`${num}. ${title}`}
           </span>
           {editable ? null : (
-            <span className='header-disabled'>(不可编辑)</span>
+            <span className="header-disabled">(不可编辑)</span>
           )}
         </div>
         <div className={`${prefixCls}-content`}>

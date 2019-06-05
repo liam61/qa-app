@@ -75,12 +75,7 @@ class Todo extends React.Component<IProps, IState> {
 
   render() {
     const { prefixCls, store } = this.props
-    const {
-      search,
-      answerPageModal,
-      answerPageKey,
-      answerPageInfo,
-    } = this.state
+    const { search, answerPageModal, answerPageKey, answerPageInfo } = this.state
 
     const { dataList, loading, refreshing, pageSize } = store!
 
@@ -88,7 +83,7 @@ class Todo extends React.Component<IProps, IState> {
       <div className={prefixCls}>
         <SearchBar
           value={search}
-          placeholder='搜索...'
+          placeholder="搜索..."
           maxLength={20}
           onChange={this.handleSearchChange}
         />
@@ -129,13 +124,7 @@ interface IState extends Partial<injectorReturnType> {
   answerPageInfo: IData
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Todo.todoStore,
     action: rootAction.Todo.todoAction,

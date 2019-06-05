@@ -2,6 +2,7 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Modal, InputItem } from 'antd-mobile'
 import { IRootStore, IRootAction } from '../../typings'
+import { emptyFn } from '../../utils'
 
 import './index.scss'
 
@@ -12,7 +13,7 @@ export default class InputModal extends React.Component<IProps, IState> {
     prefixCls: 'component-input-modal',
   }
 
-  state = { value: this.props.defaultValue }
+  state = { value: this.props.defaultValue || '' }
 
   input: any
 
@@ -20,12 +21,6 @@ export default class InputModal extends React.Component<IProps, IState> {
   //   super(props)
   //   console.log(props.defaultValue)
   // }
-
-  componentDidMount() {
-    if (this.input) {
-      this.input.focus()
-    }
-  }
 
   componentWillReceiveProps(nextProps: IProps) {
     const { defaultValue } = nextProps
@@ -37,32 +32,33 @@ export default class InputModal extends React.Component<IProps, IState> {
   }
 
   handleChange = (value: string) => {
+    const { onChange = emptyFn } = this.props
     this.setState({ value })
+
+    onChange(value)
   }
 
   render() {
-    const { prefixCls, visible, onCancel, title, onOK } = this.props
+    const { prefixCls, visible, onCancel, title, onOK, placeholder = '' } = this.props
     const { value } = this.state
 
     return (
       <div className={prefixCls}>
         <Modal
           visible={visible}
-          className='qa-modal input-modal'
+          className="qa-modal input-modal"
           transparent
-          maskTransitionName='am-fade'
-          transitionName='am-zoom'
-          footer={[
-            { text: '取消', onPress: onCancel },
-            { text: '确定', onPress: () => onOK(value) },
-          ]}
+          maskTransitionName="am-fade"
+          transitionName="am-zoom"
+          footer={[{ text: '取消', onPress: onCancel }, { text: '确定', onPress: () => onOK(value) }]}
         >
-          <div className='qa-modal-title'>{title}</div>
+          <div className="qa-modal-title">{title}</div>
           <InputItem
-            ref={(node: any) => (this.input = node)}
-            className='qa-input-item'
+            className="qa-input-item"
             value={value}
             onChange={this.handleChange}
+            placeholder={placeholder}
+            autoFocus
           />
         </Modal>
       </div>
@@ -76,8 +72,10 @@ interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   visible: boolean
   title: React.ReactNode
-  defaultValue: string
+  placeholder?: string
+  defaultValue?: string
   onOK: (val: string) => void
+  onChange?: (val: string) => void
   onCancel: () => void
 }
 
@@ -87,16 +85,10 @@ interface IState extends Partial<injectorReturnType> {
 
 export interface IInputProps {
   title: React.ReactNode
-  defaultValue: string
-  key?: string
+  defaultValue?: string
+  key?: string // TODO: key 有什么用
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

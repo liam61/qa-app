@@ -9,6 +9,7 @@ import CreateInfoStore from '../pages/Create/stores/infoStore'
 import CreateQuestionStore from '../pages/Create/stores/questionStore'
 import ExampleExampleStore from '../pages/Example/stores/exampleStore'
 import LoginLoginStore from '../pages/Login/stores/loginStore'
+import MessageChatStore from '../pages/Message/stores/chatStore'
 import MessageMessageStore from '../pages/Message/stores/messageStore'
 import PostPostStore from '../pages/Post/stores/postStore'
 import RegisterRegisterStore from '../pages/Register/stores/registerStore'
@@ -26,6 +27,7 @@ import CreateInfoAction from '../pages/Create/actions/infoAction'
 import CreateQuestionAction from '../pages/Create/actions/questionAction'
 import ExampleExampleAction from '../pages/Example/actions/exampleAction'
 import LoginLoginAction from '../pages/Login/actions/loginAction'
+import MessageChatAction from '../pages/Message/actions/chatAction'
 import MessageMessageAction from '../pages/Message/actions/messageAction'
 import PostPostAction from '../pages/Post/actions/postAction'
 import RegisterRegisterAction from '../pages/Register/actions/registerAction'
@@ -56,6 +58,7 @@ export interface IRootStore {
     loginStore: LoginLoginStore
   }
   Message: {
+    chatStore: MessageChatStore
     messageStore: MessageMessageStore
   }
   Post: {
@@ -96,6 +99,7 @@ export interface IRootAction {
     loginAction: LoginLoginAction
   }
   Message: {
+    chatAction: MessageChatAction
     messageAction: MessageMessageAction
   }
   Post: {

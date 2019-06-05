@@ -136,7 +136,7 @@ export const steps = [
 ].map((s, i) => <Step key={i} title={s.title} />)
 
 export const renderSteps = (num: number) => (
-  <Steps current={num} direction='horizontal'>
+  <Steps current={num} direction="horizontal">
     {steps}
   </Steps>
 )

@@ -1,6 +1,7 @@
 $prefixCls: 'component-qa-list-view';
 
 .#{$prefixCls} {
+  position: relative;
   height: 100vh;
   overflow: auto;
 

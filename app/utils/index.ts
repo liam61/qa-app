@@ -14,9 +14,7 @@ function emptyFn() {}
 
 function getRandomImg(size = 19) {
   // tslint:disable-next-line: no-var-requires
-  return require(`../assets/images/random/material-${Math.ceil(
-    Math.random() * size,
-  )}.png`)
+  return require(`../assets/images/random/material-${Math.ceil(Math.random() * size)}.png`)
 }
 
 /**
@@ -37,17 +35,14 @@ function increaseCount(
   during = 700,
   delay = 20,
 ) {
-  const step =
-    (toCount * delay) / during <= 1 ? 1 : Math.floor((toCount * delay) / during)
+  const step = (toCount * delay) / during <= 1 ? 1 : Math.floor((toCount * delay) / during)
 
   let curCount = initValue
 
   function increase(count: number) {
     if (count < toCount) {
       curCount = count + step >= toCount ? toCount : count + step
-      callback(curCount, () =>
-        setTimeout(() => increase(curCount), (during * step) / toCount),
-      )
+      callback(curCount, () => setTimeout(() => increase(curCount), (during * step) / toCount))
     }
   }
 
@@ -81,6 +76,18 @@ async function uploadFile(file: any, key: string) {
   return await request.upload(data, (process: any) => console.log(process))
 }
 
+function getLocalDate(date: Date) {
+  return date.toLocaleString('zh', { hour12: false }).replace(/\//g, '-')
+  // return date.toLocaleString().replace(/\//g, '-')
+}
+
+function getDaysOfYear(date: Date) {
+  const firstDayOfYear = new Date(date.getFullYear(), 0, 1)
+  const dateDiff = +date - +firstDayOfYear
+  const msPerDay = 1000 * 60 * 60 * 24
+  return Math.ceil(dateDiff / msPerDay)
+}
+
 export {
   getUid,
   emptyFn,
@@ -91,4 +98,6 @@ export {
   increaseCount,
   validator,
   uploadFile,
+  getLocalDate,
+  getDaysOfYear,
 }

@@ -3,12 +3,12 @@
     <style>
       .cls-1 {
         fill: none;
-        stroke: #c7c7cc;
-        stroke-width: 2px;
+        stroke: #ffb142;
+        stroke-width: 3px;
       }
 
       .cls-2 {
-        fill: #c7c7cc;
+        fill: #ffb142;
         fill-rule: evenodd;
       }
     </style>

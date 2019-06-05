@@ -51,11 +51,9 @@ export default class Setting extends React.Component<IProps, IState> {
       inputProps: { key },
     } = this.state
 
-    this.setState({ inputModal: false })
+    action!.updateUserDataByKey(key, val, (errors: IError) => this.setState({ [`${key}Info`]: errors }))
 
-    action!.updateUserDataByKey(key, val, (errors: IError) =>
-      this.setState({ [`${key}Info`]: errors }),
-    )
+    this.setState({ inputModal: false })
   }
 
   render() {
@@ -71,47 +69,47 @@ export default class Setting extends React.Component<IProps, IState> {
     const { hasError: phoneErr } = phoneInfo
 
     return (
-      <div className='page-user-detail'>
-        <PageHeader text='设置' onCancel={onCancel} />
-        <WhiteSpace size='lg' />
-        <div className='page-user-detail-main'>
+      <div className="page-user-detail">
+        <PageHeader text="设置" onCancel={onCancel} />
+        <WhiteSpace size="lg" />
+        <div className="page-user-detail-main">
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={email}
             editable={false}
             error={emailErr}
             onErrorClick={() => this.handleErrorClick('emailInfo')}
             onClick={() => this.handleModalShow('邮箱', { email })}
           >
-            <i className='fa fa-envelope-o warning' aria-hidden='true' />
+            <i className="fa fa-envelope-o warning" aria-hidden="true" />
             <span>邮箱</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={phone}
             editable={false}
             error={phoneErr}
             onErrorClick={() => this.handleErrorClick('phoneInfo')}
             onClick={() => this.handleModalShow('手机号码', { phone })}
           >
-            <i className='fa fa-mobile' aria-hidden='true' />
+            <i className="fa fa-mobile" aria-hidden="true" />
             <span>手机号码</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             editable={false}
-            extra={<i className='fa fa-angle-right fa-3x' aria-hidden='true' />}
+            extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
             onClick={() => console.log('click passwor')}
           >
-            <img src={lockIcon} className='password-icon' alt='password-icon' />
+            <img src={lockIcon} className="password-icon" alt="password-icon" />
             <span>修改密码</span>
           </InputItem>
-          <WhiteSpace size='lg' />
-          <Button className='main-btn-quit'>退出登录</Button>
+          <WhiteSpace size="lg" />
+          <Button className="main-btn-quit">退出登录</Button>
         </div>
         <Button
-          className='qa-btn-bottom'
-          type='primary'
+          className="qa-btn-bottom"
+          type="primary"
           onClick={onOK}
           loading={updating}
           disabled={updating || emailErr || phoneErr}
@@ -144,13 +142,7 @@ interface IState extends Partial<injectorReturnType> {
   phoneInfo: IError
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.User.userStore,
     action: rootAction.User.userAction,

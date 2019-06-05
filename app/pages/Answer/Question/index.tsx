@@ -131,7 +131,7 @@ class Question extends React.Component<IProps, IState> {
             ref={(node: React.ReactNode) => (this[`question${num}`] = node)}
             {...question}
           />
-          <WhiteSpace size='lg' />
+          <WhiteSpace size="lg" />
         </React.Fragment>
       )
     })
@@ -149,18 +149,18 @@ class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text='问答问题' onCancel={onCancel} />
-        <div className='header-content'>
-          <div className='title text-ellipsis'>{title}</div>
-          <span className='type'>
+        <PageHeader text="问答问题" onCancel={onCancel} />
+        <div className="header-content">
+          <div className="title text-ellipsis">{title}</div>
+          <span className="type">
             {TYPE_OPTIONS.find(t => t.key === type)!.value}
           </span>
         </div>
-        <div className='question-wrapper'>
+        <div className="question-wrapper">
           {this.renderQuestions(qstItems, editable)}
         </div>
         <Button
-          type='primary'
+          type="primary"
           className={`qa-btn-bottom${editable ? '' : ' qa-hidden'}`}
           onClick={() => this.handleModalShow('confirmModal')}
         >
@@ -169,7 +169,7 @@ class Question extends React.Component<IProps, IState> {
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
-          title='你确定完成问题填写吗？'
+          title="你确定完成问题填写吗？"
           onOK={this.handleFinishReply}
         />
         <InfoModal visible={infoModal} {...infoProps} />

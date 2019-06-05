@@ -117,24 +117,24 @@ class Info extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text='创建问题' onCancel={onCancel} />
+        <PageHeader text="创建问题" onCancel={onCancel} />
         {renderSteps(0)}
         <div className={`${prefixCls}-main`}>
-          <div className='content-title'>
-            <div className='content-text'>标题</div>
+          <div className="content-title">
+            <div className="content-text">标题</div>
             <InputItem
-              className='qa-input-item'
-              placeholder='请输入标题'
+              className="qa-input-item"
+              placeholder="请输入标题"
               value={title}
               maxLength={20}
               onChange={this.handleTitleChange}
             />
           </div>
-          <div className='content-options'>
-            <div className='content-text'>内容</div>
-            <div className='option-wrapper'>
+          <div className="content-options">
+            <div className="content-text">内容</div>
+            <div className="option-wrapper">
               <TextareaItem
-                placeholder='请输入内容（不超过80字）'
+                placeholder="请输入内容（不超过80字）"
                 value={content}
                 autoHeight
                 count={80}
@@ -142,12 +142,12 @@ class Info extends React.Component<IProps, IState> {
               />
             </div>
           </div>
-          <div className='content-options'>
-            <div className='content-text'>图片</div>
+          <div className="content-options">
+            <div className="content-text">图片</div>
             <ImagePicker
-              className='qa-image-picker'
+              className="qa-image-picker"
               files={files}
-              length='5'
+              length="5"
               onImageClick={this.handleImgClick}
               onAddImageClick={this.handleAddImageClick}
               // multiple
@@ -155,22 +155,22 @@ class Info extends React.Component<IProps, IState> {
             />
             <input
               style={{ display: 'none' }}
-              type='file'
+              type="file"
               ref={(node: any) => (this.input = node)}
               onChange={this.handleAddFile}
             />
           </div>
           {/* <Picker fileId={file} onChangeFile={this.handleChangeFile} /> */}
           <Button
-            type='primary'
-            className='qa-btn-bottom'
+            type="primary"
+            className="qa-btn-bottom"
             disabled={!title || !content}
             onClick={() => this.handleModalShow('confirmModal')}
           >
             添加完成
             <i
-              className='fa fa-angle-right btn-bottom-icon'
-              aria-hidden='true'
+              className="fa fa-angle-right btn-bottom-icon"
+              aria-hidden="true"
             />
           </Button>
         </div>
@@ -179,16 +179,16 @@ class Info extends React.Component<IProps, IState> {
           transparent
           onClose={() => this.handleModalClose('imgModal')}
           // animationType="fade"
-          transitionName='am-zoom'
-          className='qa-img-modal'
+          transitionName="am-zoom"
+          className="qa-img-modal"
           // wrapProps={{ onTouchStart: this.onWrapTouchStart }}
         >
-          <img src={imgUrl} alt='预览图片' />
+          <img src={imgUrl} alt="预览图片" />
         </Modal>
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
-          title='你确定完成基本信息吗？'
+          title="你确定完成基本信息吗？"
           onOK={this.onEnterQstPage}
         />
       </div>

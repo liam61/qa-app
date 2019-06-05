@@ -16,7 +16,7 @@ export default class SelectModal extends React.Component<IProps, IState> {
     selected: '',
   }
 
-  handleChange = val => {
+  handleChange = (val: string) => {
     this.setState({ selected: val })
   }
 
@@ -25,17 +25,12 @@ export default class SelectModal extends React.Component<IProps, IState> {
     const { selected } = this.state
 
     return (
-      <Modal
-        popup
-        visible={visible}
-        animationType='slide-up'
-        className={prefixCls}
-      >
-        <div className='btn-wrapper qa-border-1px-bottom'>
-          <a role='button' className='cancel' onClick={onCancel}>
+      <Modal popup visible={visible} animationType="slide-up" className={prefixCls}>
+        <div className="btn-wrapper qa-border-1px-bottom">
+          <a role="button" className="cancel" onClick={onCancel}>
             取消
           </a>
-          <a role='button' className='ok' onClick={() => onOK(selected)}>
+          <a role="button" className="ok" onClick={() => onOK(selected)}>
             确定
           </a>
         </div>
@@ -43,17 +38,12 @@ export default class SelectModal extends React.Component<IProps, IState> {
           {data.map((opt, index) => {
             const { key, value } = opt
             return (
-              <div
-                key={index}
-                className={`select-item ${
-                  index !== data.length - 1 ? 'qa-border-1px-bottom' : ''
-                }`}
-              >
-                <div className='select-item-text'>{value}</div>
+              <div key={index} className={`select-item ${index !== data.length - 1 ? 'qa-border-1px-bottom' : ''}`}>
+                <div className="select-item-text">{value}</div>
                 <input
-                  name='selectInput'
+                  name="selectInput"
                   id={`selectInput${index}`}
-                  type='radio'
+                  type="radio"
                   value={key}
                   checked={key === selected}
                   onChange={this.handleChange}
@@ -82,12 +72,6 @@ interface IState extends Partial<injectorReturnType> {
   selected: string
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

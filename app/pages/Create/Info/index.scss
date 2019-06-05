@@ -30,13 +30,11 @@ $prefixCls: 'page-create-info';
 
         .am-textarea-item {
           flex: 1;
-          // padding-left: 0;
           padding: 0 30px;
           @include border-mixin(2px);
 
           .am-textarea-control {
-            padding: 0;
-            padding-top: 3px;
+            padding: 3px 0 0;
 
             textarea {
               min-height: 180px;

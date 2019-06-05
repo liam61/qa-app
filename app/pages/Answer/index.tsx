@@ -37,11 +37,11 @@ class Answer extends React.Component<IProps, IState> {
   }
 
   handleModalShow = (type: string) => {
-    this.setState({ [type]: true }) // tslint:disable-line
+    this.setState({ [type]: true })
   }
 
   handleModalClose = (type: string) => {
-    this.setState({ [type]: false }) // tslint:disable-line
+    this.setState({ [type]: false })
   }
 
   onEnterQstPage = () => {
@@ -88,13 +88,7 @@ interface IState extends Partial<injectorReturnType> {
   qstPageModal: boolean
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Answer.answerStore,
     action: rootAction.Answer.answerAction,

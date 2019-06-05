@@ -5,7 +5,8 @@ $prefixCls: 'component-page-header';
   height: 100px;
   line-height: 100px;
   padding-left: 30px;
-  background: rgba(46, 97, 200, 0.9);
+  // background: rgba(46, 97, 200, 0.9);
+  background: $blue;
   color: #fff;
 
   i {

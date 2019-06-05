@@ -1,27 +1,164 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import { SearchBar, Toast } from 'antd-mobile'
+import PageModal from '../../components/PageModal'
+import FriendItem from '../../components/FriendItem'
+import InputModal from '../../components/InputModal'
+import AddFriendModal from '../../components/AddFriendModal'
+import { IFriend } from './stores/messageStore'
+import { IError } from '../Login/interface'
+import { getLocalDate } from '../../utils'
+import ChatPage from './Chat'
 import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-export default class Message extends React.Component<IProps, {}> {
+export default class Message extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-message',
   }
 
-  constructor(props: IProps) {
-    super(props)
+  state = {
+    chatPageModal: false,
+    applies: [],
+    friend4chat: {} as IFriend,
+    inputModal: false,
+    applyModal: false,
   }
 
-  // componentDidMount() {}
+  async componentDidMount() {
+    const { action } = this.props
+
+    action!.initWebSocket()
+
+    await action!.getFriends()
+    await action!.getApplies()
+  }
+
+  handleModalShow = (type: string) => {
+    this.setState({ [type]: true })
+  }
+
+  handleModalClose = (type: string) => {
+    this.setState({ [type]: false })
+  }
+
+  handleFriendChange = (friend: any) => {
+    // console.log('handleFriendChange');
+    this.setState({ friend4chat: friend, chatPageModal: true })
+  }
+
+  handleInputModalShow = () => {
+    this.setState({ inputModal: true })
+  }
+
+  handleAddChange = (val: string) => {
+    const { action } = this.props
+
+    action!.searchUserByName(val)
+
+    this.setState({ inputModal: false })
+  }
+
+  handleAccountChange = (val: string) => {
+    const { action } = this.props
+
+    action!.validateAccount(val, (errors: IError, validate?: string) => {
+      console.log(errors)
+    })
+  }
+
+  handleApplyAgree = (id: string) => {
+    const { action } = this.props
+
+    action!.applyAgreed(id)
+  }
+
+  handleApplyRefuse = (id: string) => {
+    const { action } = this.props
+
+    action!.applyRefused(id)
+  }
+
+  handleAppliesShow = () => {
+    this.setState({ applyModal: true })
+  }
+
+  renderFriends = (friends: IFriend[]) =>
+    friends.map(friend => {
+      const userId = localStorage.getItem('userId')
+
+      let { _id, user1, user2, lastedMsg } = friend
+
+      if (userId === user2._id) {
+        const temp = user1
+        user1 = user2
+        user2 = temp
+      }
+
+      const { name, avatar } = user2
+      const { content, createdAt } = lastedMsg
+
+      return (
+        <FriendItem
+          key={_id}
+          name={name}
+          avatar={avatar}
+          content={`${content.slice(0, 16)}...`}
+          date={getLocalDate(new Date(createdAt || 0)).slice(5)}
+          onClick={() => this.handleFriendChange({ _id, user1, user2 })}
+        />
+      )
+    })
 
   render() {
-    const { prefixCls } = this.props
+    const { prefixCls, action, store } = this.props
+    const { chatPageModal, friend4chat, inputModal, applyModal } = this.state
+
+    const { friends, applies, loadingFriends, loadingApplies } = store!
+
+    if (!friends) {
+      return <h1>Loading...</h1>
+    }
+
     return (
       <div className={prefixCls}>
-        messages
+        <SearchBar value={store!.search} placeholder="搜索..." maxLength={20} onChange={action!.changeSearch} />
+        <div className={`${prefixCls}-header`}>
+          <div
+            className={`applies qa-border-1px-bottom${loadingApplies || !applies.length ? ' hidden' : ''}`}
+            onClick={this.handleAppliesShow}
+          >
+            <span className="applies-info">好友请求</span>
+            <span className="applies-count">{applies.length}</span>
+          </div>
+          <div className="add" onClick={this.handleInputModalShow} />
+        </div>
+        <div className={`${prefixCls}-lists`}>{loadingFriends ? <h1>Loading...</h1> : this.renderFriends(friends)}</div>
+        <PageModal visible={chatPageModal}>
+          {/* NOTE: modal 在 visible 为 false 时，会预加载内部组件，所以会预实例化 ChatPage，
+          此时 _id 为空，所以在进入 Message 界面后，“实例化”的 ChatPage 也会发送一条请求为 localhost:4000/v1/messages
+        */}
+          <ChatPage friend={friend4chat} onCancel={() => this.handleModalClose('chatPageModal')} />
+        </PageModal>
+        <InputModal
+          visible={inputModal}
+          // onChange={}
+          onOK={this.handleAddChange}
+          onCancel={() => this.handleModalClose('inputModal')}
+          title="添加好友"
+          placeholder="请输入用户名/邮箱/手机号"
+        />
+        <AddFriendModal
+          visible={applyModal}
+          title="申请列表"
+          applies={applies}
+          onCancel={() => this.handleModalClose('applyModal')}
+          onAgree={this.handleApplyAgree}
+          onRefuse={this.handleApplyRefuse}
+        />
       </div>
     )
   }
@@ -31,15 +168,20 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
-  [k: string]: any
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore,
-  rootAction: IRootAction,
-}) {
-  return {}
+interface IState extends Partial<injectorReturnType> {
+  applies: IFriend[]
+  chatPageModal: boolean
+  friend4chat: IFriend
+  inputModal: boolean
+  applyModal: boolean
+  // [key: string]: any
+}
+
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
+  return {
+    store: rootStore.Message.messageStore,
+    action: rootAction.Message.messageAction,
+  }
 }

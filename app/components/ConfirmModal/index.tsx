@@ -20,17 +20,17 @@ export default class ConfirmModal extends React.Component<IProps, {}> {
       <div className={prefixCls}>
         <Modal
           visible={visible}
-          className='qa-modal'
+          className="qa-modal"
           transparent
           // animationType='fade'
-          maskTransitionName='am-fade'
-          transitionName='am-zoom'
+          maskTransitionName="am-fade"
+          transitionName="am-zoom"
           footer={[
             { text: '取消', onPress: onCancel },
             { text: '确定', onPress: onOK },
           ]}
         >
-          <div className='qa-modal-title'>{title}</div>
+          <div className="qa-modal-title">{title}</div>
         </Modal>
       </div>
     )

@@ -1,0 +1,70 @@
+$prefixCls: 'page-message-chat';
+
+.#{$prefixCls} {
+  position: relative;
+  height: 100vh;
+
+  .component-page-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+  }
+
+  &-body {
+    overflow-y: scroll;
+    padding: 120px 0;
+  }
+
+  &-footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+
+    .am-textarea-item {
+      flex: 1;
+      align-items: flex-end;
+      padding: 5px 20px 5px 25px;
+      @include border-mixin(2px);
+
+      &.sending {
+        .am-textarea-error-extra {
+          background-color: #ddd;
+          opacity: 0.5;
+        }
+      }
+
+      .am-textarea-control {
+        // padding: 5px 0;
+
+        textarea {
+          min-height: 50px;
+          max-height: 200px;
+          line-height: 1.2;
+          margin-top: 11px;
+          font-size: 30px;
+          color: $title;
+        }
+      }
+
+      .am-textarea-error-extra {
+        width: 100px;
+        height: 70px;
+        margin: 0;
+        margin-left: 10px;
+        margin-bottom: 4px;
+        border-radius: 6px;
+        background-color: $background2;
+        background-image: url(../../../assets/images/send.svg);
+        background-repeat: no-repeat;
+        background-size: 40px 100%;
+        background-position: center;
+
+        &:active {
+          background-color: #ddd;
+        }
+      }
+    }
+  }
+}

@@ -31,18 +31,18 @@ export default class Example extends React.Component<IProps, {}> {
     return (
       <div className={prefixCls}>
         this is example page
-        <ExampleCom name='lawler' />
-        <img src={addIcon} alt='addIcon' />
+        <ExampleCom name="lawler" />
+        <img src={addIcon} alt="addIcon" />
         <h1>当前产品</h1>
         {isloading ? (
-          <h1 className='loading'>loading...</h1>
+          <h1 className="loading">loading...</h1>
         ) : (
           <React.Fragment>
-            <ul className='qa-border-1px'>
+            <ul className="qa-border-1px">
               <li>{curGoods!.name}</li>
               <li>{curGoods!.desc}</li>
             </ul>
-            <Button type='primary' onClick={this.handleLoadGoods}>
+            <Button type="primary" onClick={this.handleLoadGoods}>
               换一个
             </Button>
           </React.Fragment>

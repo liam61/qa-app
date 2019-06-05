@@ -1,0 +1,56 @@
+$prefixCls: 'component-add-friend-modal';
+
+.#{$prefixCls} {
+}
+
+.qa-modal.apply-modal {
+  width: 600px !important;
+
+  .am-modal-body {
+    padding-bottom: 0;
+  }
+
+  .add-friend-item {
+    display: flex;
+    padding: 20px 5px;
+
+    .main {
+      display: flex;
+      align-items: center;
+      flex: 1;
+
+      &-avatar {
+        margin-right: 15px;
+
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+        }
+      }
+
+      &-name {
+        margin-right: auto;
+        font-size: 30px;
+        color: $title;
+      }
+
+      &-date {
+        margin-top: 3px;
+        // margin-right: 20px;
+        font-size: 24px;
+        color: $nav;
+      }
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+
+      &-btn {
+        padding: 0 10px;
+      }
+    }
+  }
+}

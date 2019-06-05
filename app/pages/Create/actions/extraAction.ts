@@ -1,23 +1,12 @@
 import { mAction } from '../../../mobx/action'
 import { IRootAction, IRootStore } from '../../../typings'
-import { receiversType } from '../interface';
+import { receiversType } from '../interface'
+// import { IFriend } from '../../../pages/Message/stores/messageStore'
+import { request } from '../../../utils'
 
 @mAction
 export default class ExtraAction {
-  constructor(
-    public stores: IRootStore['Create'],
-    public actions: IRootAction['Create'],
-  ) {}
-
-  // updateType(type: string) {
-  //   const { extraStore } = this.stores
-  //   extraStore.setType(type)
-  // }
-
-  // updateTime(time: string) {
-  //   const { extraStore } = this.stores
-  //   extraStore.setTime(time)
-  // }
+  constructor(public stores: IRootStore['Create'], public actions: IRootAction['Create']) {}
 
   updateExtra(
     type: string,
@@ -35,6 +24,14 @@ export default class ExtraAction {
       .setShowAuthor(showAuthor)
       .setSecret(secret)
       .setAnonymous(anonymous)
+  }
+
+  async getFriends() {
+    const { extraStore } = this.stores
+
+    const { data } = await request.setPath('friends').get()
+
+    extraStore.setFriends(data)
   }
 
   getExtra() {

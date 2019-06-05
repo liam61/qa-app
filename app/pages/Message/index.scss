@@ -1,5 +1,51 @@
 $prefixCls: 'page-message';
 
 .#{$prefixCls} {
+  position: relative;
+  height: 100vw;
+  z-index: 1;
 
+  &-header {
+    .applies {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px 10px;
+
+      &.hidden {
+        display: none;
+      }
+
+      &-info {
+        font-size: 24px;
+        color: $nav;
+      }
+
+      &-count {
+        // padding: 5px 10px;
+
+        // margin-left: auto;
+        padding: 12px 18px 10px;
+        line-height: 1;
+        font-size: 24px;
+        color: $blue;
+        background: rgba(46, 97, 200, 0.1);
+        border-radius: 10px;
+        text-align: center;
+      }
+    }
+
+    .add {
+      width: 60px;
+      height: 60px;
+      margin: 10px 30px 20px auto;
+      background-image: url(../../assets/images/add.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &-lists {
+    margin-bottom: 15px;
+  }
 }

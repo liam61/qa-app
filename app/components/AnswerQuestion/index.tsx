@@ -63,11 +63,11 @@ export default class AnswerQuestion extends React.Component<IProps, IState> {
           className={`${prefixCls}-content`}
           style={{ display: hidden ? 'none' : 'block' }}
         >
-          <div className='content-title'>
-            <div className='content-text'>题目</div>
+          <div className="content-title">
+            <div className="content-text">题目</div>
             <InputItem
-              className='qa-input-item'
-              placeholder='请输入题目'
+              className="qa-input-item"
+              placeholder="请输入题目"
               value={title}
               maxLength={30}
               onChange={this.handleTitleChange}

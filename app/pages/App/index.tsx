@@ -14,14 +14,14 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
   {
     title: (
       <Badge text={`${todos === 0 ? '' : todos}`}>
-        <i className='fa fa-hourglass-half fa-3x' aria-hidden='true' />
+        <i className="fa fa-hourglass-half fa-3x" aria-hidden="true" />
       </Badge>
     ),
   },
   {
     title: (
       <Badge text={`${colls === 0 ? '' : todos}`}>
-        <i className='fa fa-map-o fa-3x' aria-hidden='true' />
+        <i className="fa fa-map-o fa-3x" aria-hidden="true" />
       </Badge>
     ),
   },
@@ -29,22 +29,22 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
     path: '/create?steps=info',
     title: (
       <i
-        className='fa fa-pencil-square-o fa-4x tab-create'
-        aria-hidden='true'
+        className="fa fa-pencil-square-o fa-4x tab-create"
+        aria-hidden="true"
       />
     ),
   },
   {
     title: (
       <Badge text={`${msgs === 0 ? '' : todos}`}>
-        <i className='fa fa-comments-o fa-3x' aria-hidden='true' />
+        <i className="fa fa-comments-o fa-3x" aria-hidden="true" />
       </Badge>
     ),
   },
   {
     title: (
       <Badge dot>
-        <i className='fa fa-user-o fa-3x' aria-hidden='true' />
+        <i className="fa fa-user-o fa-3x" aria-hidden="true" />
       </Badge>
     ),
   },
@@ -94,12 +94,12 @@ export default class App extends React.Component<IProps, IState> {
         <Tabs
           tabs={getHomeTabs(todosNum, collectionsNum, messagesNum)}
           initialPage={curTab}
-          tabBarPosition='bottom'
+          tabBarPosition="bottom"
           swipeable={false}
           renderTab={tab =>
             tab.path ? (
               // <Link to={{ pathname: tab.path, state: { curTab } }}>{tab.title}</Link>
-              <Link className='tab-link' to={tab.path}>
+              <Link className="tab-link" to={tab.path}>
                 {tab.title}
               </Link>
             ) : (

@@ -25,21 +25,21 @@ export default class QuestionHeader extends React.Component<IProps, {}> {
     return (
       <React.Fragment>
         {/* <WhiteSpace size='lg' /> */}
-        <div className='qa-question-header qa-border-1px-bottom'>
-          <div className='header-title'>
+        <div className="qa-question-header qa-border-1px-bottom">
+          <div className="header-title">
             <i
               className={`fa fa-caret-${
                 hidden ? 'down' : 'right'
               } fa-3x header-title-toggle`}
-              aria-hidden='true'
+              aria-hidden="true"
               onClick={onToggle}
             />
-            <span className='header-title-text'>
+            <span className="header-title-text">
 第
               {num}
 题
             </span>
-            <span className='header-title-type'>
+            <span className="header-title-type">
               {' '}
 (
               {type}
@@ -47,10 +47,10 @@ export default class QuestionHeader extends React.Component<IProps, {}> {
             </span>
           </div>
           <Switch checked={required} onChange={onRequiredChange} />
-          <span className='header-required'>必答</span>
+          <span className="header-required">必答</span>
           <i
-            className='fa fa-trash-o fa-3x header-remove'
-            aria-hidden='true'
+            className="fa fa-trash-o fa-3x header-remove"
+            aria-hidden="true"
             onClick={onRemove}
           />
         </div>

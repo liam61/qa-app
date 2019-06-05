@@ -70,15 +70,15 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
-        <div className='qa-qst-todo-header'>
-          <span className='header-tag'>
+        <div className="qa-qst-todo-header">
+          <span className="header-tag">
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>
           <span className={`header-title${required ? ' required' : ''} text-ellipsis`}>
             {`${num}. ${title}`}
           </span>
           {editable ? null : (
-            <span className='header-disabled'>(不可编辑)</span>
+            <span className="header-disabled">(不可编辑)</span>
           )}
         </div>
         <div className={`${prefixCls}-options`}>
@@ -88,7 +88,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
             return (
               <div
                 key={id}
-                className='option-item'
+                className="option-item"
                 onClick={() => this.handleChange(value)}
               >
                 {getLabel(
@@ -98,7 +98,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
                     : reply!.includes(value),
                   type,
                 )}
-                <div className='option-item-text'>{value}</div>
+                <div className="option-item-text">{value}</div>
               </div>
             )
           })}

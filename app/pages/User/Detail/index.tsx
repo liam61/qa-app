@@ -70,54 +70,54 @@ export default class Detail extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text='编辑' onCancel={onCancel} />
-        <WhiteSpace size='lg' />
+        <PageHeader text="编辑" onCancel={onCancel} />
+        <WhiteSpace size="lg" />
         <div className={`${prefixCls}-main`}>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={name}
             editable={false}
             error={hasError}
             onErrorClick={() => this.handleErrorClick('usernameInfo')}
             onClick={() => this.handleModalShow('用户名', { name })}
           >
-            <i className='fa fa-user-o blue' aria-hidden='true' />
+            <i className="fa fa-user-o blue" aria-hidden="true" />
             <span>用户名</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={profile}
             editable={false}
             onClick={() => this.handleModalShow('简介', { profile })}
-            placeholder='请填写'
+            placeholder="请填写"
           >
-            <i className='fa fa-list-alt' aria-hidden='true' />
+            <i className="fa fa-list-alt" aria-hidden="true" />
             <span>简介</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={`${gender === 'male' ? '男' : '女'}`}
             editable={false}
             onClick={() => this.handleModalShow('性别', { gender })}
-            placeholder='请填写'
+            placeholder="请填写"
           >
-            <i className='fa fa-male warning' aria-hidden='true' />
+            <i className="fa fa-male warning" aria-hidden="true" />
             <span>性别</span>
           </InputItem>
           <InputItem
-            className='qa-input-item user-input text-right'
+            className="qa-input-item user-input text-right"
             value={birthday}
             editable={false}
             onClick={() => this.handleModalShow('生日', { birthday })}
-            placeholder='请填写'
+            placeholder="请填写"
           >
-            <i className='fa fa-birthday-cake error' aria-hidden='true' />
+            <i className="fa fa-birthday-cake error" aria-hidden="true" />
             <span>生日</span>
           </InputItem>
         </div>
         <Button
-          className='qa-btn-bottom'
-          type='primary'
+          className="qa-btn-bottom"
+          type="primary"
           onClick={onOK}
           loading={updating}
           disabled={updating || hasError}

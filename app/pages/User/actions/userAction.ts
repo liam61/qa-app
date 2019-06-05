@@ -7,10 +7,7 @@ import { IRootAction, IRootStore } from '../../../typings'
 export default class UserAction {
   // uploadFile: (file: any, key: string) => Promise<any>
 
-  constructor(
-    public stores: IRootStore['User'],
-    public actions: IRootAction['User'],
-  ) {
+  constructor(public stores: IRootStore['User'], public actions: IRootAction['User']) {
     // this.uploadFile = uploadFile
   }
 
@@ -26,18 +23,12 @@ export default class UserAction {
     userStore.setLoading(true)
 
     const id = localStorage.getItem('userId')
-    const { data } = await request
-      .setPath('users')
-      .get({ uri: id, data: { cancelToken: true } })
+    const { data } = await request.setPath('users').get({ uri: id, data: { cancelToken: true } })
 
     userStore.setUserData(data).setLoading(false)
   }
 
-  async uploadFile(
-    file: any,
-    key: string,
-    callback: (success: boolean) => void,
-  ) {
+  async uploadFile(file: any, key: string, callback: (success: boolean) => void) {
     const { userStore } = this.stores
 
     const formData = new FormData()
@@ -61,11 +52,7 @@ export default class UserAction {
     callback(success)
   }
 
-  updateUserDataByKey(
-    key: string,
-    value: string,
-    callback: (error: IError) => void,
-  ) {
+  updateUserDataByKey(key: string, value: string, callback: (error: IError) => void) {
     const { userStore } = this.stores
 
     userStore.updateDataByKey(key, value)

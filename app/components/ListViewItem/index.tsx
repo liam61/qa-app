@@ -35,18 +35,18 @@ export default class ListViewItem extends React.Component<IProps, IState> {
         onClick={() => onClick(cover || this.coverByRandom)}
       >
         <div className={`${prefixCls}-cover`}>
-          <img src={cover || this.coverByRandom} alt='item-cover' />
+          <img src={cover || this.coverByRandom} alt="item-cover" />
         </div>
         <div className={`${prefixCls}-body`}>
-          <div className='body-title'>
+          <div className="body-title">
             <span className={`title text-ellipsis ${status}`}>{title}</span>
-            <span className='type'>{type}</span>
+            <span className="type">{type}</span>
           </div>
-          <div className='body-content'>{content}</div>
-          <div className='body-info'>
-            <img src={avatar} alt='author-avatar' />
-            <span className='info-name qa-border-1px-right'>{author}</span>
-            <span className='info-date'>{date}</span>
+          <div className="body-content">{content}</div>
+          <div className="body-info">
+            <img src={avatar} alt="author-avatar" />
+            <span className="info-name qa-border-1px-right">{author}</span>
+            <span className="info-date">{date}</span>
             {/* <span className="info-expire">期限：{expire}</span> */}
           </div>
         </div>

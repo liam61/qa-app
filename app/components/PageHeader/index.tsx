@@ -16,7 +16,7 @@ export default class PageHeader extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls} onClick={onCancel}>
-        <i className='fa fa-angle-left fa-3x' aria-hidden='true' />
+        <i className="fa fa-angle-left fa-3x" aria-hidden="true" />
         <span>{text}</span>
       </div>
     )

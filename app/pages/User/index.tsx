@@ -132,7 +132,7 @@ export default class User extends React.Component<IProps, IState> {
       return (
         <React.Fragment>
           <h1>正在加载...</h1>
-          <Button type='warning' onClick={this.props.action!.cancel}>
+          <Button type="warning" onClick={this.props.action!.cancel}>
             取消
           </Button>
         </React.Fragment>
@@ -148,89 +148,89 @@ export default class User extends React.Component<IProps, IState> {
           style={{ backgroundImage: `url(${this.curCover})` }}
           onClick={event => this.handleInputClick('cover', event)}
         >
-          <div className='edit' onClick={this.handleEdit}>
+          <div className="edit" onClick={this.handleEdit}>
             编辑
           </div>
-          <div className='main'>
-            <div className='main-avatar'>
-              <img src={avatar} alt='user-avatar' />
+          <div className="main">
+            <div className="main-avatar">
+              <img src={avatar} alt="user-avatar" />
               <i
-                className='fa fa-pencil change-icon'
-                aria-hidden='true'
+                className="fa fa-pencil change-icon"
+                aria-hidden="true"
                 onClick={event => this.handleInputClick('avatar', event)}
               />
             </div>
-            <span className='main-username'>{name}</span>
-            <span className='main-profile'>{profile}</span>
+            <span className="main-username">{name}</span>
+            <span className="main-profile">{profile}</span>
           </div>
           <input
-            type='file'
-            accept='image/*'
+            type="file"
+            accept="image/*"
             ref={(node: any) => (this.imgInput = node)}
             onChange={this.handleFileChange}
           />
         </div>
         <ul className={`${prefixCls}-nav qa-border-1px-top`}>
           <li>
-            <span className='nav-num'>{answerNum}</span>
-            <span className='nav-title'>回答</span>
+            <span className="nav-num">{answerNum}</span>
+            <span className="nav-title">回答</span>
           </li>
           <li>
-            <span className='nav-num'>{askNum}</span>
-            <span className='nav-title'>提问</span>
+            <span className="nav-num">{askNum}</span>
+            <span className="nav-title">提问</span>
           </li>
           <li>
-            <span className='nav-num'>{scoreNum}</span>
-            <span className='nav-title'>积分</span>
+            <span className="nav-num">{scoreNum}</span>
+            <span className="nav-title">积分</span>
           </li>
         </ul>
 
-        <WhiteSpace size='lg' />
+        <WhiteSpace size="lg" />
         <div className={`${prefixCls}-extra`}>
           <InputItem
-            className='qa-input-item user-input'
-            value='我的动态'
+            className="qa-input-item user-input"
+            value="我的动态"
             editable={false}
-            extra={<i className='fa fa-angle-right fa-3x' aria-hidden='true' />}
+            extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
             onClick={() => console.log('item click')}
           >
-            <i className='fa fa-paper-plane-o warning' aria-hidden='true' />
+            <i className="fa fa-paper-plane-o warning" aria-hidden="true" />
           </InputItem>
           <InputItem
-            className='qa-input-item user-input'
-            value='我的关注'
+            className="qa-input-item user-input"
+            value="我的关注"
             editable={false}
-            extra={<i className='fa fa-angle-right fa-3x' aria-hidden='true' />}
+            extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
             onClick={() => console.log('item click')}
           >
-            <i className='fa fa-bullseye error' aria-hidden='true' />
+            <i className="fa fa-bullseye error" aria-hidden="true" />
           </InputItem>
           <InputItem
-            className='qa-input-item user-input'
-            value='意见反馈'
+            className="qa-input-item user-input"
+            value="意见反馈"
             editable={false}
-            extra={<i className='fa fa-angle-right fa-3x' aria-hidden='true' />}
+            extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
             onClick={() => console.log('item click')}
           >
-            <i className='fa fa-file-text-o info' aria-hidden='true' />
+            <i className="fa fa-file-text-o info" aria-hidden="true" />
           </InputItem>
           <InputItem
-            className='qa-input-item user-input'
-            value='设置'
+            className="qa-input-item user-input"
+            value="设置"
             editable={false}
-            extra={<i className='fa fa-angle-right fa-3x' aria-hidden='true' />}
+            extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
             onClick={() => this.setState({ settingPageModal: true })}
           >
-            <i className='fa fa-cog' aria-hidden='true' />
+            <i className="fa fa-cog" aria-hidden="true" />
           </InputItem>
           <InputItem
-            className='qa-input-item user-input'
-            value='关于我'
+            className="qa-input-item user-input"
+            value="关于我"
             editable={false}
-            extra={<i className='fa fa-angle-right fa-3x' aria-hidden='true' />}
+            extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
             onClick={() => console.log('item click')}
           >
-            <i className='fa fa-smile-o blue' aria-hidden='true' />
+            <i className="fa fa-smile-o blue" aria-hidden="true" />
           </InputItem>
         </div>
         <PageModal visible={detailPageModal}>

@@ -88,7 +88,7 @@ class Post extends React.Component<IProps, IState> {
       <div className={prefixCls}>
         <SearchBar
           value={search}
-          placeholder='搜索...'
+          placeholder="搜索..."
           maxLength={20}
           onChange={this.handleSearchChange}
         />

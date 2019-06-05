@@ -24,11 +24,11 @@ export default class InfoModal extends React.Component<IProps, {}> {
       <div className={prefixCls}>
         <Modal
           visible={visible}
-          className='qa-modal'
+          className="qa-modal"
           transparent
           // animationType='fade'
-          maskTransitionName='am-fade'
-          transitionName='am-zoom'
+          maskTransitionName="am-fade"
+          transitionName="am-zoom"
           footer={[
             {
               text: '我知道了',
@@ -36,11 +36,11 @@ export default class InfoModal extends React.Component<IProps, {}> {
             },
           ]}
         >
-          <div className='qa-modal-img'>
-            <img src={this.getIconByType(type)} alt='modal-img' />
+          <div className="qa-modal-img">
+            <img src={this.getIconByType(type)} alt="modal-img" />
           </div>
-          <div className='qa-modal-title'>{title}</div>
-          <div className='qa-modal-content'>{content}</div>
+          <div className="qa-modal-title">{title}</div>
+          <div className="qa-modal-content">{content}</div>
         </Modal>
       </div>
     )

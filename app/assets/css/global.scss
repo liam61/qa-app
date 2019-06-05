@@ -87,6 +87,8 @@ $borderList: top bottom right;
 
   .am-modal-content {
     .am-modal-body {
+      padding: 0 20px 15px;
+
       .qa-modal-img {
         width: 100%;
         margin: 15px 0 20px;
@@ -181,6 +183,53 @@ $borderList: top bottom right;
   }
 }
 
+.#{$globalPrefixCls} .am-search {
+  height: 95px;
+  padding: 0 20px;
+  background: inherit;
+
+  &-input {
+    height: 70px;
+
+    .am-search-synthetic-ph {
+      height: inherit;
+      line-height: 70px;
+
+      &-icon {
+        width: 35px;
+        height: 35px;
+        vertical-align: -7px;
+        background-size: 100%;
+      }
+
+      &-placeholder {
+        font-size: 32px;
+      }
+    }
+
+    .am-search-value {
+      height: inherit;
+      padding-left: 57px !important;
+      font-size: 30px;
+    }
+
+    .am-search-clear {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      top: 16px;
+      right: 10px;
+      background-size: 100%;
+      border-radius: 0;
+    }
+  }
+
+  &-cancel {
+    padding-left: 20px;
+    font-size: 30px;
+  }
+}
+
 .#{$globalPrefixCls}-btn-bottom {
   position: fixed !important;
   height: 95px;
@@ -197,6 +246,7 @@ $borderList: top bottom right;
     position: relative;
     // top: 4.5px;
     left: 12px;
+    top: 5px;
     font-size: 1.5em;
   }
 

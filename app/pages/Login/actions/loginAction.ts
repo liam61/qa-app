@@ -5,15 +5,9 @@ import { IError } from '../interface'
 
 @mAction
 export default class LoginAction {
-  constructor(
-    public stores: IRootStore['Login'],
-    public actions: IRootAction['Login'],
-  ) {}
+  constructor(public stores: IRootStore['Login'], public actions: IRootAction['Login']) {}
 
-  validateAccount(
-    account: string,
-    callback: (error: IError, validate?: string) => void,
-  ) {
+  validateAccount(account: string, callback: (error: IError, validate?: string) => void) {
     // const { loginStore } = this.stores
     validator.account(account, callback)
   }
@@ -22,10 +16,7 @@ export default class LoginAction {
     validator.password(password, callback)
   }
 
-  async login(
-    data: { account: string; password: string; validate: string },
-    callback: (success: boolean) => void,
-  ) {
+  async login(data: { account: string; password: string; validate: string }, callback: (success: boolean) => void) {
     const { loginStore } = this.stores
 
     const {

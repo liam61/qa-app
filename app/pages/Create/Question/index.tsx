@@ -201,7 +201,7 @@ class Question extends React.Component<IProps, IState> {
 
       return (
         <React.Fragment key={id}>
-          {index === 0 ? null : <WhiteSpace size='lg' />}
+          {index === 0 ? null : <WhiteSpace size="lg" />}
           <Element ref={(node: React.ReactNode) => (this[`question${index}`] = node)} {...props} />
         </React.Fragment>
       )
@@ -218,11 +218,11 @@ class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-      <PageHeader text='创建问题' onCancel={onCancel} />
+      <PageHeader text="创建问题" onCancel={onCancel} />
         {renderSteps(1)}
-        <WhiteSpace size='lg' />
-        <div className='page-create-header qa-border-1px-bottom'>
-          <span className='header-title'>
+        <WhiteSpace size="lg" />
+        <div className="page-create-header qa-border-1px-bottom">
+          <span className="header-title">
             标题：
             {title}
           </span>
@@ -232,36 +232,36 @@ class Question extends React.Component<IProps, IState> {
                 checked={store!.cached}
                 onChange={ev => this.handleQstsCached(false)}
               />
-              <span className='header-cached'>缓存</span>
+              <span className="header-cached">缓存</span>
             </React.Fragment>
           ) : null}
         </div>
         {length ? (
           <React.Fragment>
             {this.renderQsts(questions, store!.cached)}
-            <Button className='add-question' onClick={this.showActionSheet}>
-              <i className='fa fa-plus' aria-hidden='true' />
+            <Button className="add-question" onClick={this.showActionSheet}>
+              <i className="fa fa-plus" aria-hidden="true" />
               <span>添加问题</span>
             </Button>
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <h1 className='title'>请添加题目</h1>
-            <div className='desc'>
+            <h1 className="title">请添加题目</h1>
+            <div className="desc">
               根据需求选择你要添加的题目类型，可添加多个问题
             </div>
-            <div className='add-img'>
+            <div className="add-img">
               <img
                 src={addQstIcon}
-                alt='addQuestion'
+                alt="addQuestion"
                 onClick={this.showActionSheet}
               />
             </div>
           </React.Fragment>
         )}
         <Button
-          type='primary'
-          className='qa-btn-bottom'
+          type="primary"
+          className="qa-btn-bottom"
           disabled={length === 0}
           onClick={() =>
             this.handleConfirmModalShow({
@@ -271,7 +271,7 @@ class Question extends React.Component<IProps, IState> {
           }
         >
           添加完成
-          <i className='fa fa-angle-right btn-bottom-icon' aria-hidden='true' />
+          <i className="fa fa-angle-right btn-bottom-icon" aria-hidden="true" />
         </Button>
         <ConfirmModal
           visible={confirmModal}

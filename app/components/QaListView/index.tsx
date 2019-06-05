@@ -104,7 +104,7 @@ export default class QaListView extends React.Component<IProps, IState> {
   renderSpace = (sectionID: string | number, rowID: string | number) => (
     <WhiteSpace
       key={`${sectionID}-${rowID}`}
-      size='lg'
+      size="lg"
       style={{ background: '#F5F5F9' }}
     />
   )

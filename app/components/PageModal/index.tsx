@@ -27,7 +27,7 @@ export default class PageModal extends React.Component<IProps, {}> {
       <div className={prefixCls}>
         <Modal
           visible={visible}
-          className='page-modal'
+          className="page-modal"
           transitionName={transitionName}
           maskTransitionName={transitionName}
         >

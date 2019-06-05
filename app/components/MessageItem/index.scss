@@ -1,0 +1,111 @@
+$prefixCls: 'component-message-item';
+
+.#{$prefixCls} {
+  &-date {
+    text-align: center;
+    font-size: 24px;
+    color: $nav;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &-body {
+    // 公有部分
+    display: flex;
+    justify-content: center;
+    padding: 18px 30px;
+
+    .body-avatar {
+      margin-top: 10px;
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+    }
+
+    .body-main {
+      flex: 1;
+
+      &-name {
+        margin-bottom: 3px;
+        font-size: 26px;
+        color: $nav;
+      }
+
+      &-content {
+        position: relative;
+        width: max-content;
+        max-width: 48vw;
+        padding: 12px 15px 10px;
+        /* box-shadow: .1em .1em .3em rgba(0, 0, 0, .5); */
+        filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.5));
+        font-size: 28px;
+        background: #fff;
+        color: $title;
+        border-radius: 6px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 9px;
+          width: 0;
+          height: 0;
+        }
+      }
+    }
+
+    &.friend {
+      flex-direction: row;
+
+      .body-avatar {
+        margin-right: 15px;
+      }
+
+      .body-main {
+        &-content {
+          margin-left: 6px;
+
+          &::before {
+            left: -14px;
+            border: 6px solid transparent;
+            border-right-width: 20px;
+            border-right-color: #fff;
+            border-left-width: 0;
+            border-bottom-width: 24px;
+          }
+        }
+      }
+    }
+
+    &.me {
+      flex-direction: row-reverse;
+
+      .body-avatar {
+        margin-left: 10px;
+      }
+
+      .body-main {
+        text-align: right;
+
+        &-content {
+          margin-right: 17px;
+          margin-left: auto;
+          text-align: left;
+
+          &::before {
+            right: -18px;
+            border: 5px solid transparent;
+            border-right-width: 0;
+            border-left-width: 18px;
+            border-left-color: #fff;
+            border-bottom-width: 20px;
+          }
+        }
+      }
+    }
+  }
+}
