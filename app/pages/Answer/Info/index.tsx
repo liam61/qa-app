@@ -26,10 +26,10 @@ export default class Info extends React.Component<IProps, IState> {
     const { read, unread } = this.props
 
     increaseCount(read, (count, next) =>
-      this.setState({ readNum: count }, next),
+      this.setState({ readNum: count }, next)
     )
     increaseCount(unread, (count, next) =>
-      this.setState({ unreadNum: count }, next),
+      this.setState({ unreadNum: count }, next)
     )
   }
 
@@ -39,7 +39,7 @@ export default class Info extends React.Component<IProps, IState> {
 
   handleImgClick = (
     index: number | undefined = 0,
-    files: IFile[] | undefined = [],
+    files: IFile[] | undefined = []
   ) => {
     console.log(index, files)
     this.setState({

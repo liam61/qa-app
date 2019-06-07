@@ -5,7 +5,7 @@ import { IRootAction, IRootStore } from 'typings'
 export default class SettingAction {
   constructor(
     public stores: IRootStore['User'],
-    public actions: IRootAction['User'],
+    public actions: IRootAction['User']
   ) {}
 
 }

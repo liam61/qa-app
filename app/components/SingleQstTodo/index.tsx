@@ -96,7 +96,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
                   editable
                     ? checkedArr.includes(value)
                     : reply!.includes(value),
-                  type,
+                  type
                 )}
                 <div className="option-item-text">{value}</div>
               </div>

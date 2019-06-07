@@ -80,7 +80,7 @@ export default class App extends React.Component<IProps, IState> {
 
   handleBadgeChange = (
     type: 'todosNum' | 'collectionsNum' | 'messagesNum',
-    num: number,
+    num: number
   ) => {
     this.setState({ [type]: num })
   }

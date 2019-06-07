@@ -92,7 +92,7 @@ class Request {
       },
       err => {
         throw err
-      },
+      }
     )
   }
 
@@ -108,7 +108,7 @@ class Request {
    */
   async getRequest(
     method: string,
-    options: IReqOptions = { uri: '', query: null, data: {} },
+    options: IReqOptions = { uri: '', query: null, data: {} }
   ): Promise<any> {
     const { uri, query, data } = options
 
@@ -142,7 +142,7 @@ class Request {
 
   async getUploader(
     data: any = {},
-    callback: (process: any) => void,
+    callback: (process: any) => void
   ): Promise<any> {
     let result: any = {}
 

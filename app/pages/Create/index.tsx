@@ -80,8 +80,8 @@ class Create extends React.Component<IProps, IState> {
           if (type === 'success') {
             this.props.history.push('/')
           }
-        }),
-      ),
+        })
+      )
     )
   }
 

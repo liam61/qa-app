@@ -83,7 +83,7 @@ function password(value: string, callback: (error: IError) => void) {
       : {
           hasError: true,
           error: '至少包含一个字母和一个数字！',
-        },
+        }
   )
 }
 

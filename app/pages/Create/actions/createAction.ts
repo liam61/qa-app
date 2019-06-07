@@ -7,7 +7,7 @@ import { InfoTypes } from 'components/InfoModal'
 export default class CreateAction {
   constructor(
     public stores: IRootStore['Create'],
-    public actions: IRootAction['Create'],
+    public actions: IRootAction['Create']
   ) {}
 
   async submitQuestions(callback: (result: InfoTypes) => void) {
@@ -17,7 +17,7 @@ export default class CreateAction {
       data: Object.assign(
         infoAction.getInfo(),
         questionAction.getQuestions(),
-        extraAction.getExtra(),
+        extraAction.getExtra()
       ),
     })
 

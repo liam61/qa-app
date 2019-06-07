@@ -61,7 +61,7 @@ class Info extends React.Component<IProps, IState> {
 
   handleImgClick = (
     index: number | undefined = 0,
-    files: IFile[] | undefined = [],
+    files: IFile[] | undefined = []
   ) => {
     console.log(index, files)
     this.setState({ imgUrl: files[index].url, imgModal: true })

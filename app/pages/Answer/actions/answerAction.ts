@@ -6,7 +6,7 @@ import { IRootAction, IRootStore } from 'typings'
 export default class AnswerAction {
   constructor(
     public stores: IRootStore['Answer'],
-    public actions: IRootAction['Answer'],
+    public actions: IRootAction['Answer']
   ) {}
 
   async getQstDetail(detailId: string, poster: boolean) {

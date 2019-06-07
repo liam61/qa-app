@@ -6,13 +6,13 @@ import { IRootAction, IRootStore } from 'typings'
 export default class PostAction {
   constructor(
     public stores: IRootStore['Post'],
-    public actions: IRootAction['Post'],
+    public actions: IRootAction['Post']
   ) {}
 
   async getListData(
     refresh = false,
     callback: (type: string, num: number) => void,
-    index?: number,
+    index?: number
   ) {
     const { postStore } = this.stores
 
@@ -49,7 +49,7 @@ export default class PostAction {
       .addListData(
         await request
           .setPath('questions')
-          .get({ query: { page: postStore.pageIndex } }),
+          .get({ query: { page: postStore.pageIndex } })
       )
       .setLoading(false)
   }

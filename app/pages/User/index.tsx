@@ -51,14 +51,14 @@ export default class User extends React.Component<IProps, IState> {
   }) => {
     Object.keys(numObj).forEach(type => {
       increaseCount(numObj[type], (count, next) =>
-        this.setState({ [`${type}Num`]: count }, next),
+        this.setState({ [`${type}Num`]: count }, next)
       )
     })
   }
 
   handleInputClick = (
     imageKey: string,
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     // console.log(event.target.nodeName)
     const { nodeName } = event.target

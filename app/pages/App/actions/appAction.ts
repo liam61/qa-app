@@ -5,7 +5,7 @@ import { IRootAction, IRootStore } from 'typings'
 export default class AppAction {
   constructor(
     public stores: IRootStore['App'],
-    public actions: IRootAction['App'],
+    public actions: IRootAction['App']
   ) {}
 
   changeTab(index: number) {

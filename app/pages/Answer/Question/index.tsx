@@ -96,8 +96,8 @@ class Question extends React.Component<IProps, IState> {
               // TODO: 路由跳转
               // history.go(-2)
             }
-          }),
-        ),
+          })
+        )
       )
     }
   }

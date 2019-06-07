@@ -6,7 +6,7 @@ import { getGoods } from '../apis'
 export default class ExampleAction {
   constructor(
     public stores: IRootStore['Example'],
-    public actions: IRootAction['Example'],
+    public actions: IRootAction['Example']
   ) {}
 
   async loadGoods() {

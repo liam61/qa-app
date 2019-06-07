@@ -53,7 +53,7 @@ export default class Detail extends React.Component<IProps, IState> {
     this.setState({ inputModal: false })
 
     action!.updateUserDataByKey(key, val, (errors: IError) =>
-      this.setState({ [`${key}Info`]: errors }),
+      this.setState({ [`${key}Info`]: errors })
     )
   }
 

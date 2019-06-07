@@ -5,7 +5,7 @@ import { IRootAction, IRootStore } from 'typings'
 export default class InfoAction {
   constructor(
     public stores: IRootStore['Answer'],
-    public actions: IRootAction['Answer'],
+    public actions: IRootAction['Answer']
   ) {}
 
 }

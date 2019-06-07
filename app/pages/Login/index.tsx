@@ -39,7 +39,7 @@ class Login extends React.Component<IProps, IState> {
     const { action } = this.props
 
     action!.validateAccount(val, (errors: IError, validate?: string) =>
-      this.setState({ accountInfo: errors, validate }),
+      this.setState({ accountInfo: errors, validate })
     )
   }
 
@@ -95,7 +95,7 @@ class Login extends React.Component<IProps, IState> {
             error={accountErr}
             onErrorClick={() => this.handleErrorClick('accountInfo')}
             onChange={debounce(this.handleAccountChange, (val: string) =>
-              this.setState({ account: val }),
+              this.setState({ account: val })
             )}
           >
             <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
