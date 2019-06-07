@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { InputItem } from 'antd-mobile'
-import QuestionHeader from '../../components/QuestionHeader'
-import { QUESTION_TYPES } from '../../common/global'
-import { IRootStore, IRootAction } from '../../typings'
+import QuestionHeader from 'components/QuestionHeader'
+import { QUESTION_TYPES } from 'common'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 

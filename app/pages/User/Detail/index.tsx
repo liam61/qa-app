@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { InputItem, Button, Toast, WhiteSpace } from 'antd-mobile'
-import InputModal, { IInputProps } from '../../../components/InputModal'
-import PageHeader from '../../../components/PageHeader'
-import { DELAY_TIME } from '../../../common/global'
+import InputModal, { IInputProps } from 'components/InputModal'
+import PageHeader from 'components/PageHeader'
+import { DELAY_TIME } from 'common'
 import { IError } from '../../Login/interface'
 import { noErrors } from '../../Login'
-import { IRootStore, IRootAction } from '../../../typings'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 

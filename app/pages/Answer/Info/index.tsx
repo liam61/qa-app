@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button, Toast, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
-import { increaseCount } from '../../../utils'
-import { IRootStore, IRootAction } from '../../../typings'
+import { increaseCount } from 'utils'
+import { IRootStore, IRootAction } from 'typings'
 import { IFile } from '../../Create/interface'
-import { TIME_OPTIONS, TYPE_OPTIONS } from '../../../common/global'
+import { TIME_OPTIONS, TYPE_OPTIONS } from 'common'
 
 import './index.scss'
 
@@ -68,7 +68,7 @@ export default class Info extends React.Component<IProps, IState> {
       <div className={prefixCls}>
         <div className={`${prefixCls}-header qa-border-1px-bottom`}>
           <div className="header-content">
-            <div className="title text-ellipsis">{title}</div>
+            <div className="title qa-text-ellipsis">{title}</div>
             <span className="type">
               {TYPE_OPTIONS.find(t => t.key === type)!.value}
             </span>

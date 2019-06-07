@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Modal, InputItem } from 'antd-mobile'
-import { IRootStore, IRootAction } from '../../typings'
-import { emptyFn } from '../../utils'
+import { IRootStore, IRootAction } from 'typings'
+import { emptyFn } from 'utils'
 
 import './index.scss'
 

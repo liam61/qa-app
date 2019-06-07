@@ -1,8 +1,8 @@
 import { mAction } from '../../../mobx/action'
 // import { fromJS, is } from 'immutable'
 import { IQuestion, IQstToSubmit } from '../interface'
-import { IRootAction, IRootStore } from '../../../typings'
-import { getUid } from '../../../utils'
+import { IRootAction, IRootStore } from 'typings'
+import { getUid } from 'utils'
 
 @mAction
 export default class QuestionAction {

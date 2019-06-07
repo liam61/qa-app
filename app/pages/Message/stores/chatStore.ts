@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx'
 import { mStore } from '../../../mobx/store'
-import { IMessage } from '../../../websocket/interface'
+import { IMessage } from 'websocket/interface'
 
 @mStore
 export default class ChatStore {

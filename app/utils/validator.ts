@@ -1,7 +1,7 @@
 import request from './request'
-import { IError } from '../pages/Login/interface'
-import { noErrors } from '../pages/Login/index'
-import { USER_REG, EMAIL_REG, PASSWORD_REG, PHONE_REG } from '../common/global'
+import { IError } from 'pages/Login/interface'
+import { noErrors } from 'pages/Login/index'
+import { USER_REG, EMAIL_REG, PASSWORD_REG, PHONE_REG } from 'common'
 import { emptyFn } from './index'
 
 const MIN_USERNAME_LENGTH = 6
@@ -91,7 +91,7 @@ function psdConfirm(value: string, psd: string, callback: (error: IError) => voi
   callback(value === psd ? noErrors : { hasError: true, error: '两次填写的密码不一致！' })
 }
 
-// 登录时验证用户名或邮箱
+// 验证账户名，含用户名、邮箱、手机号
 async function account(value: string, callback: (error: IError, validate?: string) => void = emptyFn): Promise<IError> {
   let res: IError
 

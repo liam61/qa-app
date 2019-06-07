@@ -1,20 +1,20 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
-import { InputItem, Button, Toast } from 'antd-mobile'
-import { debounce } from '../../utils'
-import lockIcon from '../../assets/images/lock.svg'
-// import lock2Icon from '../../assets/images/lock2.svg'
-import lock3Icon from '../../assets/images/lock3.svg'
+import { Link, withRouter } from 'react-router-dom'
+import { InputItem, Button, Toast, Picker } from 'antd-mobile'
+import { debounce } from 'utils'
+import lockIcon from 'assets/images/lock.svg'
+// import lock2Icon from 'assets/images/lock2.svg'
+import lock3Icon from 'assets/images/lock3.svg'
+import { IRootStore, IRootAction } from 'typings'
 import { noErrors } from '../Login'
 import { IError } from '../Login/interface'
-import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
 @inject(injector)
 @observer
-export default class Register extends React.Component<IProps, IState> {
+class Register extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-register',
   }
@@ -38,6 +38,13 @@ export default class Register extends React.Component<IProps, IState> {
     psdConfirmInfo: noErrors,
     loading: false,
     validate: '',
+    department: '',
+  }
+
+  async componentDidMount() {
+    const { action } = this.props
+
+    await action!.getDepartments()
   }
 
   handleChange = (type: string, val: string) => {
@@ -47,7 +54,7 @@ export default class Register extends React.Component<IProps, IState> {
   handleUserChange = (val: string) => {
     const { action } = this.props
 
-    console.log('userchange');
+    console.log('userchange')
 
     action!.validateUser(val, (errors: IError, validate?: string) => {
       console.log(errors, validate)
@@ -58,9 +65,7 @@ export default class Register extends React.Component<IProps, IState> {
   handleEmailChange = (val: string) => {
     const { action } = this.props
 
-    action!.validateEmail(val, (errors: IError, validate?: string) =>
-      this.setState({ emailInfo: errors, validate }),
-    )
+    action!.validateEmail(val, (errors: IError, validate?: string) => this.setState({ emailInfo: errors, validate }))
   }
 
   handlePasswordChange = (val: string) => {
@@ -68,9 +73,7 @@ export default class Register extends React.Component<IProps, IState> {
 
     this.setState({ password: val })
 
-    action!.validatePassword(val, (errors: IError) =>
-      this.setState({ passwordInfo: errors }),
-    )
+    action!.validatePassword(val, (errors: IError) => this.setState({ passwordInfo: errors }))
   }
 
   handlePsdConfirmChange = (val: string) => {
@@ -79,9 +82,7 @@ export default class Register extends React.Component<IProps, IState> {
 
     this.setState({ psdConfirm: val })
 
-    action!.validatePsdConfirm(val, password, (errors: IError) =>
-      this.setState({ psdConfirmInfo: errors }),
-    )
+    action!.validatePsdConfirm(val, password, (errors: IError) => this.setState({ psdConfirmInfo: errors }))
   }
 
   handleErrorClick = (type: string) => {
@@ -91,30 +92,36 @@ export default class Register extends React.Component<IProps, IState> {
   }
 
   handleSubmit = () => {
-    const { action } = this.props
-    const { user, email, password, passwordInfo, validate } = this.state
+    const { action, store, history } = this.props
+    const { user, email, password, passwordInfo, validate, department } = this.state
 
-    if (!user || !password || !passwordInfo) {
+    if (!user || !password || !passwordInfo || !department) {
       Toast.fail('请输入完整的注册信息！')
 
       return
     }
 
+    const dptId = store!.departments.find(dpt => dpt.name === department)!._id
+
     this.setState({ loading: true })
 
-    action!.signup(
-      { name: user, email, password, validate },
-      (success: boolean) => {
-        console.log(success)
-        // TODO: 可以用 infoModal 来提示
+    action!.signup({ name: user, email, password, validate, dptId }, (success: boolean) => {
+      console.log(success)
+      // TODO: 可以用 infoModal 来提示
+      this.setState({ loading: false })
 
-        this.setState({ loading: false })
-      },
-    )
+      if (success) {
+        history.push('/login')
+      }
+    })
+  }
+
+  handleDptChange = (val: string[]) => {
+    this.setState({ department: val[0] })
   }
 
   render() {
-    const { prefixCls } = this.props
+    const { prefixCls, store } = this.props
     const {
       user,
       email,
@@ -125,7 +132,18 @@ export default class Register extends React.Component<IProps, IState> {
       passwordInfo,
       psdConfirmInfo,
       loading,
+      department,
     } = this.state
+
+    const { loadingDpts, departments } = store!
+
+    let dptData: any
+
+    console.log(loadingDpts, departments.length)
+
+    if (!loadingDpts) {
+      dptData = departments.map(dpt => ({ label: dpt.name, value: dpt.name }))
+    }
 
     const { hasError: usernameErr } = usernameInfo
     const { hasError: emailErr } = emailInfo
@@ -144,12 +162,30 @@ export default class Register extends React.Component<IProps, IState> {
             maxLength={12}
             error={usernameErr}
             onErrorClick={() => this.handleErrorClick('usernameInfo')}
-            onChange={debounce(this.handleUserChange, (val: string) =>
-              this.setState({ user: val }),
-            )}
+            onChange={debounce(this.handleUserChange, (val: string) => this.setState({ user: val }))}
           >
             <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
           </InputItem>
+
+          <Picker
+            className="qa-picker-popup"
+            data={dptData}
+            extra=" "
+            onOk={this.handleDptChange}
+            cols={1}
+            disabled={loadingDpts}
+          >
+            <InputItem
+              className="qa-input-item"
+              ref={(node: React.ReactNode) => (this.userInput = node)}
+              placeholder="请选择部门"
+              editable={false}
+              value={department}
+            >
+              <i className="fa fa-building-o fa-2x blue" aria-hidden="true" />
+            </InputItem>
+          </Picker>
+
           <InputItem
             className="qa-input-item"
             ref={(node: React.ReactNode) => (this.passwordInput = node)}
@@ -161,11 +197,7 @@ export default class Register extends React.Component<IProps, IState> {
             onErrorClick={() => this.handleErrorClick('passwordInfo')}
             onChange={this.handlePasswordChange}
           >
-            <img
-              src={lock3Icon}
-              className="password-icon"
-              alt="password-icon"
-            />
+            <img src={lock3Icon} className="password-icon" alt="password-icon" />
           </InputItem>
           <InputItem
             className="qa-input-item"
@@ -178,11 +210,7 @@ export default class Register extends React.Component<IProps, IState> {
             onErrorClick={() => this.handleErrorClick('psdConfirmInfo')}
             onChange={this.handlePsdConfirmChange}
           >
-            <img
-              src={lockIcon}
-              className="psd-confirm-icon"
-              alt="password-confirm-icon"
-            />
+            <img src={lockIcon} className="psd-confirm-icon" alt="password-confirm-icon" />
           </InputItem>
           {/* TODO: 验证码 */}
         </div>
@@ -195,9 +223,7 @@ export default class Register extends React.Component<IProps, IState> {
         <Button
           type="primary"
           className="qa-btn-bottom"
-          disabled={
-            usernameErr || emailErr || passwordErr || psdConfirmErr || loading
-          }
+          disabled={usernameErr || emailErr || passwordErr || psdConfirmErr || loading}
           loading={loading}
           onClick={this.handleSubmit}
         >
@@ -225,17 +251,14 @@ interface IState extends Partial<injectorReturnType> {
   psdConfirmInfo: IError
   loading: boolean
   validate: string | undefined
+  department: string
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Register.registerStore,
     action: rootAction.Register.registerAction,
   }
 }
+
+export default withRouter(Register)

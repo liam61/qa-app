@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { IRootStore, IRootAction } from '../../typings'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
+import { IUser } from 'pages/User/stores/userStore'
 
 @inject(injector)
 @observer
@@ -16,7 +17,13 @@ export default class MessageItem extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { prefixCls, avatar, name, content, fromMe, date } = this.props
+    const {
+      prefixCls,
+      user: { avatar, name },
+      content,
+      fromMe,
+      date,
+    } = this.props
 
     return (
       <div className={prefixCls}>
@@ -39,8 +46,7 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
-  avatar: string
-  name: string
+  user: IUser
   content: string
   fromMe: boolean // 是否为自己发的信息
   date: string

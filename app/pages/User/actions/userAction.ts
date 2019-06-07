@@ -1,7 +1,7 @@
 import { mAction } from '../../../mobx/action'
-import { request, validator, uploadFile } from '../../../utils'
+import { request, validator, uploadFile } from 'utils'
 import { IError } from '../../Login/interface'
-import { IRootAction, IRootStore } from '../../../typings'
+import { IRootAction, IRootStore } from 'typings'
 
 @mAction
 export default class UserAction {

@@ -1,12 +1,12 @@
 import uid from 'uid'
-import { PREFIXCLS } from '../common/global'
+import { PREFIXCLS } from 'common'
 import formatDate from './format'
 import debounce from './debounce'
 import request from './request'
 import validator from './validator'
 
-function getUid() {
-  return `${PREFIXCLS}-${uid()}`
+function getUid(len = 10) {
+  return `${PREFIXCLS}-${uid(len)}`
 }
 
 // tslint:disable-next-line: no-empty
@@ -14,7 +14,7 @@ function emptyFn() {}
 
 function getRandomImg(size = 19) {
   // tslint:disable-next-line: no-var-requires
-  return require(`../assets/images/random/material-${Math.ceil(Math.random() * size)}.png`)
+  return require(`assets/images/random/material-${Math.ceil(Math.random() * size)}.png`)
 }
 
 /**
@@ -33,7 +33,7 @@ function increaseCount(
   callback: (count: number, next: () => void) => void,
   initValue = 0,
   during = 700,
-  delay = 20,
+  delay = 20
 ) {
   const step = (toCount * delay) / during <= 1 ? 1 : Math.floor((toCount * delay) / during)
 

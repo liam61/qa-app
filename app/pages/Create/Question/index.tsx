@@ -4,17 +4,17 @@ import { toJS } from 'mobx'
 import { withRouter } from 'react-router-dom'
 import { Button, ActionSheet, Switch, Toast, WhiteSpace } from 'antd-mobile'
 // import { fromJS } from 'immutable'
-import ConfirmModal, { IConfirmProps } from '../../../components/ConfirmModal'
-import PageHeader from '../../../components/PageHeader';
+import ConfirmModal, { IConfirmProps } from 'components/ConfirmModal'
+import PageHeader from 'components/PageHeader'
 import { renderSteps } from '../index'
-import { IRootStore, IRootAction } from '../../../typings'
-import { QUESTION_TYPES, DELAY_TIME } from '../../../common/global'
+import { IRootStore, IRootAction } from 'typings'
+import { QUESTION_TYPES, DELAY_TIME } from 'common'
 import { IQuestion } from '../interface'
-import { getUid, emptyFn } from '../../../utils'
+import { getUid, emptyFn } from 'utils'
 
 import './index.scss'
 
-import addQstIcon from '../../../assets/images/add-question.png'
+import addQstIcon from 'assets/images/add-question.png'
 
 // tslint:disable-next-line: no-empty
 
@@ -43,8 +43,8 @@ class Question extends React.Component<IProps, IState> {
 
     this.state = {
       questions: store!.cached
-        // ? fromJS(store!.questions).toJS() // 深拷贝
-        ? toJS(store!.questions)
+        ? // ? fromJS(store!.questions).toJS() // 深拷贝
+          toJS(store!.questions)
         : ([] as IQuestion[]),
       confirmModal: false,
       confirmProps: { title: '', onOK: emptyFn },
@@ -61,11 +61,7 @@ class Question extends React.Component<IProps, IState> {
     history.listen((params: object, type: string) => {
       const { pathname, search } = params
 
-      if (
-        pathname === '/create' &&
-        search === '?steps=info' &&
-        type === 'POP'
-      ) {
+      if (pathname === '/create' && search === '?steps=info' && type === 'POP') {
         onCancel()
       }
     })
@@ -97,14 +93,13 @@ class Question extends React.Component<IProps, IState> {
         questions.push({
           id: getUid(),
           type: key,
-          Element: require(`../../../components/${
-            key === 'Multiple' || key === 'Vote' ? 'Single' : key
-          }Question`).default,
+          Element: require(`components/${key === 'Multiple' || key === 'Vote' ? 'Single' : key}Question`)
+            .default,
         })
 
         action!.updateQuestions(questions)
         this.setState({ questions })
-      },
+      }
     )
   }
 
@@ -125,10 +120,7 @@ class Question extends React.Component<IProps, IState> {
     this.handleModalClose('confirmModal')
 
     if (flag) {
-      Toast.fail(
-        '「题目」必填，「选项」至少一项（判断题两个选项必填）！',
-        DELAY_TIME,
-      )
+      Toast.fail('「题目」必填，「选项」至少一项（判断题两个选项必填）！', DELAY_TIME)
       qstArr = []
       return
     }
@@ -150,9 +142,7 @@ class Question extends React.Component<IProps, IState> {
     if (store!.cached) {
       timerId = setInterval(() => {
         const qsts = questions.map((qst, index) => {
-          const extraProps = this[
-            `question${index}`
-          ].wrappedInstance.getQuestion() // NOTE: 为啥要用 wrappedInstance
+          const extraProps = this[`question${index}`].wrappedInstance.getQuestion() // NOTE: 为啥要用 wrappedInstance
 
           return Object.assign({}, qst, extraProps)
         })
@@ -206,7 +196,7 @@ class Question extends React.Component<IProps, IState> {
         </React.Fragment>
       )
     })
-˝
+
   render() {
     const { prefixCls, store, title, onCancel } = this.props
     const {
@@ -218,7 +208,7 @@ class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-      <PageHeader text="创建问题" onCancel={onCancel} />
+        <PageHeader text="创建问题" onCancel={onCancel} />
         {renderSteps(1)}
         <WhiteSpace size="lg" />
         <div className="page-create-header qa-border-1px-bottom">
@@ -228,10 +218,7 @@ class Question extends React.Component<IProps, IState> {
           </span>
           {length ? (
             <React.Fragment>
-              <Switch
-                checked={store!.cached}
-                onChange={ev => this.handleQstsCached(false)}
-              />
+              <Switch checked={store!.cached} onChange={ev => this.handleQstsCached(false)} />
               <span className="header-cached">缓存</span>
             </React.Fragment>
           ) : null}
@@ -247,15 +234,9 @@ class Question extends React.Component<IProps, IState> {
         ) : (
           <React.Fragment>
             <h1 className="title">请添加题目</h1>
-            <div className="desc">
-              根据需求选择你要添加的题目类型，可添加多个问题
-            </div>
+            <div className="desc">根据需求选择你要添加的题目类型，可添加多个问题</div>
             <div className="add-img">
-              <img
-                src={addQstIcon}
-                alt="addQuestion"
-                onClick={this.showActionSheet}
-              />
+              <img src={addQstIcon} alt="addQuestion" onClick={this.showActionSheet} />
             </div>
           </React.Fragment>
         )}
@@ -273,11 +254,7 @@ class Question extends React.Component<IProps, IState> {
           添加完成
           <i className="fa fa-angle-right btn-bottom-icon" aria-hidden="true" />
         </Button>
-        <ConfirmModal
-          visible={confirmModal}
-          onCancel={() => this.handleModalClose('confirmModal')}
-          {...confirmProps}
-        />
+        <ConfirmModal visible={confirmModal} onCancel={() => this.handleModalClose('confirmModal')} {...confirmProps} />
       </div>
     )
   }
@@ -291,7 +268,7 @@ interface IProps extends Partial<injectorReturnType> {
   onCancel: () => void
   history: {
     push: (path: string) => void
-    listen: (cb: (params: object, type: string) => void) => void,
+    listen: (cb: (params: object, type: string) => void) => void
   }
 }
 
@@ -301,13 +278,7 @@ interface IState extends Partial<injectorReturnType> {
   confirmProps: IConfirmProps
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Create.questionStore,
     action: rootAction.Create.questionAction,

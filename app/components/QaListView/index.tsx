@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { ListView, PullToRefresh, WhiteSpace } from 'antd-mobile'
+import { TYPE_OPTIONS, TIME_OPTIONS } from 'common'
+import { IList, IData } from 'pages/Todo/stores/todoStore'
+import { IRootStore, IRootAction } from 'typings'
 import ListViewItem from '../ListViewItem'
-import { TYPE_OPTIONS, TIME_OPTIONS } from '../../common/global'
-import { IList, IData } from '../../pages/Todo/stores/todoStore'
-import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
 
@@ -57,18 +57,10 @@ export default class QaListView extends React.Component<IProps, IState> {
     super(props)
 
     const origin = new ListView.DataSource({
-      getRowData: (
-        dataSource: IDataSource,
-        _sectionID: string | number,
-        rowID: string | number,
-      ) => dataSource[rowID],
-      getSectionHeaderData: (
-        dataSource: IDataSource,
-        sectionID: string | number,
-      ) => dataSource[sectionID],
+      getRowData: (dataSource: IDataSource, _sectionID: string | number, rowID: string | number) => dataSource[rowID],
+      getSectionHeaderData: (dataSource: IDataSource, sectionID: string | number) => dataSource[sectionID],
       rowHasChanged: (row1: IData, row2: IData) => row1 !== row2, // 当行数据放生变化时，只更新变化的行数据 cloneRows
-      sectionHeaderHasChanged: (s1: string | number, s2: string | number) =>
-        s1 !== s2,
+      sectionHeaderHasChanged: (s1: string | number, s2: string | number) => s1 !== s2,
     })
 
     this.state = { dataSource: origin, count: 0 }
@@ -92,28 +84,16 @@ export default class QaListView extends React.Component<IProps, IState> {
     const { dataSource, sectionIDs, rowIDs } = parseDataToListView(newData)
 
     this.setState({
-      dataSource: origin.cloneWithRowsAndSections(
-        dataSource,
-        sectionIDs,
-        rowIDs,
-      ),
+      dataSource: origin.cloneWithRowsAndSections(dataSource, sectionIDs, rowIDs),
       count: totalCount,
     })
   }
 
   renderSpace = (sectionID: string | number, rowID: string | number) => (
-    <WhiteSpace
-      key={`${sectionID}-${rowID}`}
-      size="lg"
-      style={{ background: '#F5F5F9' }}
-    />
+    <WhiteSpace key={`${sectionID}-${rowID}`} size="lg" style={{ background: '#F5F5F9' }} />
   )
 
-  renderRow = (
-    rowData: IData,
-    _sectionID: string | number,
-    rowID: string | number,
-  ) => {
+  renderRow = (rowData: IData, _sectionID: string | number, rowID: string | number) => {
     const { onClick } = this.props
     const {
       _id: id,
@@ -148,37 +128,22 @@ export default class QaListView extends React.Component<IProps, IState> {
   }
 
   render() {
-    const {
-      prefixCls,
-      loading,
-      onEndReached,
-      refreshing,
-      onRefresh,
-      pageSize,
-    } = this.props
+    const { prefixCls, loading, onEndReached, refreshing, onRefresh, pageSize } = this.props
     const { dataSource } = this.state
 
     return (
       <ListView
         className={prefixCls}
         dataSource={dataSource}
-        renderFooter={() => (
-          <React.Fragment>
-            {loading ? '加载中...' : '没有更多数据'}
-          </React.Fragment>
-        )}
-        renderSectionHeader={sectionData => (
-          <React.Fragment>{sectionData}</React.Fragment>
-        )}
+        renderFooter={() => <div className="qa-no-more">{loading ? '加载中...' : '没有更多数据'}</div>}
+        renderSectionHeader={sectionData => <React.Fragment>{sectionData}</React.Fragment>}
         renderRow={this.renderRow}
         renderSeparator={this.renderSpace}
         pageSize={pageSize}
         scrollRenderAheadDistance={500}
         onEndReached={onEndReached}
         onEndReachedThreshold={10}
-        pullToRefresh={
-          <PullToRefresh refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={onRefresh} />}
       />
     )
   }
@@ -202,12 +167,6 @@ interface IState extends Partial<injectorReturnType> {
   count: number
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

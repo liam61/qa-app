@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Modal } from 'antd-mobile'
-import { IRootStore, IRootAction } from '../../typings'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 
@@ -15,7 +15,7 @@ export default class InfoModal extends React.Component<IProps, {}> {
   }
 
   getIconByType = (type: InfoTypes) =>
-    require(`../../assets/images/${type}.svg`)
+    require(`assets/images/${type}.svg`)
 
   render() {
     const { prefixCls, visible, onClose, title, type, content } = this.props

@@ -1,8 +1,8 @@
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
+import { IRootAction, IRootStore } from 'typings'
 import { IReply } from '../../Create/interface'
-import { request } from '../../../utils'
-import { InfoTypes } from '../../../components/InfoModal'
+import { request } from 'utils'
+import { InfoTypes } from 'components/InfoModal'
 
 @mAction
 export default class QuestionAction {

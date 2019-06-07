@@ -4,11 +4,11 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { TextareaItem, InputItem, Toast } from 'antd-mobile'
-import QuestionHeader from '../../components/QuestionHeader'
-import { IRootStore, IRootAction } from '../../typings'
-import { DELAY_TIME, QUESTION_TYPES } from '../../common/global'
-import { IOption } from '../../pages/Create/interface';
-import { getUid } from '../../utils'
+import QuestionHeader from 'components/QuestionHeader'
+import { IRootStore, IRootAction } from 'typings'
+import { DELAY_TIME, QUESTION_TYPES } from 'common'
+import { IOption } from 'pages/Create/interface';
+import { getUid } from 'utils'
 
 import './index.scss'
 

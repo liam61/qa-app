@@ -1,8 +1,8 @@
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
+import { IRootAction, IRootStore } from 'typings'
 import { receiversType } from '../interface'
-// import { IFriend } from '../../../pages/Message/stores/messageStore'
-import { request } from '../../../utils'
+// import { IFriend } from 'pages/Message/stores/messageStore'
+import { request } from 'utils'
 
 @mAction
 export default class ExtraAction {
@@ -14,7 +14,7 @@ export default class ExtraAction {
     receivers: receiversType,
     showAuthor: boolean,
     secret: boolean,
-    anonymous: boolean,
+    anonymous: boolean
   ) {
     const { extraStore } = this.stores
     extraStore
@@ -26,7 +26,7 @@ export default class ExtraAction {
       .setAnonymous(anonymous)
   }
 
-  async getFriends() {
+  async getAllUsers() {
     const { extraStore } = this.stores
 
     const { data } = await request.setPath('friends').get()

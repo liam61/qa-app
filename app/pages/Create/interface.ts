@@ -1,5 +1,5 @@
-// import SingleQuestion from '../../components/SingleQuestion'
-// import AnswerQuestion from '../../components/AnswerQuestion'
+// import SingleQuestion from 'components/SingleQuestion'
+// import AnswerQuestion from 'components/AnswerQuestion'
 
 interface IQuestion {
   id: string

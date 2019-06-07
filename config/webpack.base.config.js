@@ -108,9 +108,7 @@ module.exports = ({
       path: resolve(outputDir),
     },
     mode: env,
-    devtool: isDevMode
-      ? 'cheap-module-eval-source-map'
-      : 'cheap-module-source-map',
+    devtool: isDevMode ? 'cheap-module-eval-source-map' : 'cheap-module-source-map',
     module: {
       rules: [
         {
@@ -145,11 +143,7 @@ module.exports = ({
         },
         {
           test: /\.css$/,
-          use: [
-            useCssExtract ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
-            'postcss-loader',
-          ],
+          use: [useCssExtract ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader'],
         },
         {
           test: /\.less$/,

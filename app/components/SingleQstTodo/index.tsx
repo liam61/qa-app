@@ -4,9 +4,9 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
-import { QUESTION_TYPES } from '../../common/global'
-import { IRootStore, IRootAction } from '../../typings'
-import { IOption } from '../../pages/Create/interface';
+import { QUESTION_TYPES } from 'common'
+import { IRootStore, IRootAction } from 'typings'
+import { IOption } from 'pages/Create/interface';
 
 import './index.scss'
 
@@ -74,7 +74,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
           <span className="header-tag">
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>
-          <span className={`header-title${required ? ' required' : ''} text-ellipsis`}>
+          <span className={`header-title${required ? ' required' : ''} qa-text-ellipsis`}>
             {`${num}. ${title}`}
           </span>
           {editable ? null : (

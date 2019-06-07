@@ -6,7 +6,7 @@ import axios, {
 } from 'axios'
 import qs from 'qs'
 import { Toast } from 'antd-mobile'
-import { DELAY_TIME } from '../common/global'
+import { DELAY_TIME } from 'common'
 import { IReqOptions, IResponse } from '../interface'
 
 // examples:

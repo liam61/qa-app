@@ -1,7 +1,7 @@
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
-import { request } from '../../../utils'
-import { InfoTypes } from '../../../components/InfoModal'
+import { IRootAction, IRootStore } from 'typings'
+import { request } from 'utils'
+import { InfoTypes } from 'components/InfoModal'
 
 @mAction
 export default class CreateAction {

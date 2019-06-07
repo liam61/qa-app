@@ -1,6 +1,6 @@
 import { mAction } from '../../../mobx/action'
-import { request } from '../../../utils'
-import { IRootAction, IRootStore } from '../../../typings'
+import { request } from 'utils'
+import { IRootAction, IRootStore } from 'typings'
 
 @mAction
 export default class TodoAction {

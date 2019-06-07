@@ -1,7 +1,7 @@
 import { action, observable, computed } from 'mobx'
 import { mStore } from '../../../mobx/store'
-import WsRequest from '../../../websocket'
-import { IMessage } from '../../../websocket/interface'
+import WsRequest from 'websocket'
+import { IMessage } from 'websocket/interface'
 import { IUser } from '../../User/stores/userStore'
 
 export interface IFriend {
@@ -12,7 +12,7 @@ export interface IFriend {
   receiver: string
   success: boolean
   // status: 'sent' | 'fulfill' | 'reject';
-  lastedMsg: IMessage
+  lastMessage: IMessage
   createdAt: string
 }
 

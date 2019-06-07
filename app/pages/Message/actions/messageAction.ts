@@ -1,10 +1,12 @@
-import { IError } from 'app/pages/Login/interface'
-import { WS_PATH } from '../../../common/global'
+import { IUser } from 'pages/User/stores/userStore'
+import { Toast } from 'antd-mobile'
+import { IError } from 'pages/Login/interface'
+import { WS_PATH, DELAY_TIME } from 'common'
+import { IRootAction, IRootStore } from 'typings'
+import WsRequest from 'websocket'
+import { IMessage } from 'websocket/interface'
+import { request, validator } from 'utils'
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
-import WsRequest from '../../../websocket'
-import { IMessage } from '../../../websocket/interface'
-import { request, validator } from '../../../utils'
 import { IFriend } from '../stores/messageStore'
 
 @mAction
@@ -12,15 +14,11 @@ export default class MessageAction {
   constructor(public stores: IRootStore['Message'], public actions: IRootAction['Message']) {}
 
   initWebSocket() {
-    const { messageStore } = this.stores
+    const { messageStore, chatStore } = this.stores
 
     const id = localStorage.getItem('userId') || ''
 
-    messageStore.setWsRequest(
-      new WsRequest(WS_PATH, id, (msg: IMessage) => {
-        console.log(msg)
-      }),
-    )
+    messageStore.setWsRequest(new WsRequest(WS_PATH, id, (msg: IMessage) => chatStore.addMessage(msg)))
   }
 
   changeSearch(search: string | undefined) {
@@ -34,14 +32,7 @@ export default class MessageAction {
     // const { chatAction } = this.actions
 
     messageStore.setLoadFriends(true)
-
     const { data } = await request.setPath('friends').get()
-
-    // data.forEach(async (friend: IFriend, i: number) => {
-    //   console.log(friend._id)
-    //   const { data: message } = await chatAction.getMsgsByFriendId(friend._id)
-    //   friend.lastedMsg = message
-    // })
     messageStore.setFriends(data).setLoadFriends(false)
 
     return data
@@ -51,27 +42,37 @@ export default class MessageAction {
     const { messageStore } = this.stores
 
     messageStore.setLoadApplies(true)
-
     const { data } = await request.setPath('friends/applies').get()
-
     messageStore.setApplies(data).setLoadApplies(false)
   }
 
-  async searchUserByName(account: string) {
+  async applyByAccount(account: string, me: IUser, callback: () => void) {
+    console.log(me)
+    const { name, email, phone } = me
+
+    if ([name, email, phone].includes(account)) {
+      Toast.fail('不能添加自己为好友！', DELAY_TIME)
+      return
+    }
+
     const { hasError } = await validator.account(account)
 
     if (!hasError) {
-      const { type } = await request.setPath('friends').post({ data: { name: account } })
+      console.log('searchUserByName', account)
+      const { type } = await request.setPath('friends').post({ data: { account } })
+
+      callback()
 
       if (type === 'success') {
-        console.log('发送成功！')
+        Toast.success('请求发送成功！', DELAY_TIME)
+        return
       }
-    }
-  }
 
-  validateAccount(account: string, callback: (error: IError, validate?: string) => void) {
-    // const { loginStore } = this.stores
-    validator.account(account, callback)
+      Toast.fail('已为好友或已向该用户发送过请求！', DELAY_TIME)
+      return
+    }
+
+    Toast.fail('用户名/邮箱/手机号不存在！', DELAY_TIME)
   }
 
   async applyAgreed(id: string) {
@@ -80,12 +81,21 @@ export default class MessageAction {
     const { data }: any = await request.setPath('friends').patch({ uri: id })
 
     if (data) {
+      Toast.success('添加成功！', DELAY_TIME)
+
       chatAction.changeContent('我们已经是好友了，开始聊天吧！')
-      chatAction.sendMessage(id, data.applicant)
+      await chatAction.sendMessage(id, data.applicant)
+      await this.getFriends()
+
+      return
     }
+
+    Toast.fail('添加失败！', DELAY_TIME)
   }
 
   async applyRefused(id: string) {
-    const { type } = await request.setPath('friends').delete({ url: id })
+    await request.setPath('friends').delete({ uri: id })
+
+    Toast.success('请求已忽略！', DELAY_TIME)
   }
 }

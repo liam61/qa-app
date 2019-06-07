@@ -1,6 +1,6 @@
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
-import { request, validator, emptyFn } from '../../../utils'
+import { IRootAction, IRootStore } from 'typings'
+import { request, validator, emptyFn } from 'utils'
 import { IError } from '../interface'
 
 @mAction

@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { InputItem, Button, Toast, Switch, ActionSheet, WhiteSpace } from 'antd-mobile'
+import { InputItem, Button, Switch, ActionSheet, WhiteSpace } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
 import { renderSteps } from '../index'
-import ConfirmModal from '../../../components/ConfirmModal'
-import PageHeader from '../../../components/PageHeader'
-import ReceiversModal from '../../../components/ReceiversModal'
-import { DELAY_TIME } from '../../../common/global'
+import ConfirmModal from 'components/ConfirmModal'
+import PageHeader from 'components/PageHeader'
+import ReceiversModal from 'components/ReceiversModal'
+import { DELAY_TIME } from 'common'
 import { receiversType } from '../interface'
-import { IRootStore, IRootAction } from '../../../typings'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 
@@ -41,14 +41,14 @@ class Extra extends React.Component<IProps, IState> {
       }
     })
 
-    action!.getFriends()
+    action!.getAllUsers()
   }
 
   showActionSheet = (actionType: string) => {
     const types: Array<{
       key: string
-      value: string,
-    }> = require('../../../common/global')[`${actionType.toUpperCase()}_OPTIONS`]
+      value: string
+    }> = require('common')[`${actionType.toUpperCase()}_OPTIONS`]
 
     ActionSheet.showActionSheetWithOptions(
       {
@@ -63,7 +63,7 @@ class Extra extends React.Component<IProps, IState> {
         }
 
         this.setState({ [actionType]: types[index] })
-      },
+      }
     )
   }
 

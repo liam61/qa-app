@@ -23,7 +23,6 @@ $prefixCls: 'component-qa-list-view';
         transition: transform 0.3s;
       }
     }
-    
   }
 
   .am-list-body {
@@ -52,9 +51,9 @@ $prefixCls: 'component-qa-list-view';
   }
 
   .am-list-footer {
-    padding: 30px 30px 40px;
-    text-align: center;
-    font-size: 26px;
-    color: $nav;
+    padding: 0 30px;
+    // text-align: center;
+    // font-size: 26px;
+    // color: $nav;
   }
 }

@@ -6,7 +6,7 @@ import TodoPage from '../Todo'
 import PostPage from '../Post'
 import MessagePage from '../Message'
 import UserPage from '../User'
-import { IRootStore, IRootAction } from '../../typings'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 

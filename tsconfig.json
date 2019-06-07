@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./app",
     "paths": {
-      "uid": [
-        "app/typings/uid.d.ts"
+      "*": [
+        "*",
+        "../node_modules/@types",
+        "typings/*"
       ]
     },
     "target": "es6",
@@ -21,6 +23,8 @@
     "sourceMap": true,
     "jsx": "react",
     "importHelpers": true,
+    "skipLibCheck": true,
+    "preserveSymlinks": true,
     "strict": true,
     /* Enable all strict type-checking options. */
     "noImplicitAny": true,
@@ -53,6 +57,7 @@
   },
   "compileOnSave": false,
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "app/typings"
   ]
 }

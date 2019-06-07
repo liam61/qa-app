@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { getRandomImg } from '../../utils'
-import { IRootStore, IRootAction } from '../../typings'
+import { getRandomImg } from 'utils'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 
@@ -39,7 +39,7 @@ export default class ListViewItem extends React.Component<IProps, IState> {
         </div>
         <div className={`${prefixCls}-body`}>
           <div className="body-title">
-            <span className={`title text-ellipsis ${status}`}>{title}</span>
+            <span className={`title qa-text-ellipsis ${status}`}>{title}</span>
             <span className="type">{type}</span>
           </div>
           <div className="body-content">{content}</div>

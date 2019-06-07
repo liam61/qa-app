@@ -1,6 +1,6 @@
+import { IRootAction, IRootStore } from 'typings'
+import { request } from 'utils'
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
-import { request } from '../../../utils'
 
 @mAction
 export default class ChatAction {
@@ -31,11 +31,9 @@ export default class ChatAction {
       return
     }
 
-    chatStore.setSending(true)
-    const message = await wsRequest.send(friendId, content, receiverId)
-
     chatStore
-      .addMessage(message)
+      .setSending(true)
+      .addMessage(await wsRequest.send(friendId, content, receiverId))
       .setContent('')
       .setSending(false)
   }

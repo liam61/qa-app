@@ -5,9 +5,8 @@
   "basePath": "app",
   "main": "app/index.tsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config config/webpack.prod.config.js --progress",
     "start": "webpack-dev-server --config config/webpack.dev.config.js --progress",
+    "build": "webpack --config config/webpack.prod.config.js --progress",
     "lint": "tslint --fix --project .",
     "dll": "webpack --config config/webpack.dll.config.js --progress",
     "serve": "nodemon app/serve.js"

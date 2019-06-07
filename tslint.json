@@ -142,7 +142,13 @@
       true,
       {
         "singleline": "never",
-        "multiline": "always",
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          "imports": "always",
+          "exports": "always",
+          "functions": "never"
+        },
         "esSpecCompliant": true
       }
     ],

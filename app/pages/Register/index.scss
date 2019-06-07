@@ -2,3 +2,40 @@ $prefixCls: 'page-register';
 
 .#{$prefixCls} {
 }
+
+.#{$globalPrefixCls}-picker-popup {
+  .am-picker-popup-header {
+    height: 100px;
+    line-height: 100px;
+    padding: 0 30px;
+
+    .am-picker-popup-item {
+      font-size: 30px;
+
+      &.am-picker-popup-header-left {
+        color: $main;
+      }
+    }
+  }
+
+  .am-picker {
+    height: 400px;
+
+    &-col {
+      height: 400px;
+
+      &-indicator {
+        height: 88px;
+        line-height: 88px;
+      }
+
+      &-content {
+        .am-picker-col-item {
+          height: 88px;
+          line-height: 88px;
+          font-size: 30px;
+        }
+      }
+    }
+  }
+}

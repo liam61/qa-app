@@ -11,11 +11,11 @@ import {
   Modal,
   ImagePicker,
 } from 'antd-mobile'
-import { getUid } from '../../../utils'
+import { getUid } from 'utils'
 import { renderSteps } from '../index'
-import ConfirmModal from '../../../components/ConfirmModal'
-import PageHeader from '../../../components/PageHeader'
-import { IRootStore, IRootAction } from '../../../typings'
+import ConfirmModal from 'components/ConfirmModal'
+import PageHeader from 'components/PageHeader'
+import { IRootStore, IRootAction } from 'typings'
 import { IFile } from '../interface'
 
 import './index.scss'

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { TextareaItem } from 'antd-mobile'
-import { IRootStore, IRootAction } from '../../../typings'
-import PageHeader from '../../../components/PageHeader'
-import MessageItem from '../../../components/MessageItem'
+import { IRootStore, IRootAction } from 'typings'
+import PageHeader from 'components/PageHeader'
+import MessageItem from 'components/MessageItem'
+import { IMessage } from 'websocket/interface'
+import { getLocalDate, getDaysOfYear } from 'utils'
 import { IFriend } from '../stores/messageStore'
-import { IMessage } from '../../../websocket/interface'
-import { getLocalDate, getDaysOfYear } from '../../../utils'
 
 import './index.scss'
 
@@ -53,24 +53,21 @@ export default class Chat extends React.Component<IProps, IState> {
 
     const { _id, user2 } = friend
 
+    // TODO: 发送后调整对话框 body 到底部
     action!.sendMessage(_id, user2._id)
   }
 
   handleCntChange = (val: string | undefined) => {
     const { action } = this.props
-    const { changeContent } = action!
 
     // TODO: 监听 enter 直接发送
-    changeContent(val || '')
+    action!.changeContent(val || '')
   }
 
   renderMessages = (messages: IMessage[]) => {
-    const { friend } = this.props
-
     const {
-      user1: { name, avatar },
-      user2: { name: fName, avatar: fAvatar },
-    } = friend // me friend，传进来时已做完判断
+      friend: { user1, user2 },
+    } = this.props // me friend，传进来时已做完判断
 
     preDay = 0
     preDate = new Date(0)
@@ -82,10 +79,12 @@ export default class Chat extends React.Component<IProps, IState> {
       const fromMe = from === meId
       const { /* dayFlag, 5: 9 */ dateFlag } = getDateParamsOfMsg(new Date(createdAt))
 
-      const props = Object.assign(
-        { content, fromMe, date: dateFlag ? getLocalDate(preDate).slice(5) : 'hidden' },
-        fromMe ? { name, avatar } : { name: fName, avatar: fAvatar },
-      )
+      const props = Object.assign({
+        content,
+        fromMe,
+        date: dateFlag ? getLocalDate(preDate).slice(5) : 'hidden',
+        user: fromMe ? user1 : user2,
+      })
 
       return <MessageItem key={_id} {...props} />
     })

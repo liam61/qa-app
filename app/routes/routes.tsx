@@ -1,10 +1,10 @@
 import * as React from 'react'
-import AppPage from '../pages/App'
-import CreatePage from '../pages/Create/Loadable'
-import ExamplePage from '../pages/Example'
-import NoMatchPage from '../pages/404'
-import LoginPage from '../pages/Login'
-import SignupPage from '../pages/Register'
+import AppPage from 'pages/App'
+import CreatePage from 'pages/Create/Loadable'
+import ExamplePage from 'pages/Example'
+import NoMatchPage from 'pages/404'
+import LoginPage from 'pages/Login'
+import SignupPage from 'pages/Register'
 
 export interface IRoute {
   key: string

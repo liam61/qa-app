@@ -1,7 +1,7 @@
 import { mAction } from '../../../mobx/action'
-import { IRootAction, IRootStore } from '../../../typings'
+import { IRootAction, IRootStore } from 'typings'
 import { IFile } from '../interface'
-import { uploadFile } from '../../../utils'
+import { uploadFile } from 'utils'
 
 @mAction
 export default class InfoAction {

@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { TextareaItem, InputItem } from 'antd-mobile'
-import QuestionHeader from '../../components/QuestionHeader'
-import { QUESTION_TYPES } from '../../common/global'
-import { getUid } from '../../utils'
-import { IRootStore, IRootAction } from '../../typings'
+import QuestionHeader from 'components/QuestionHeader'
+import { QUESTION_TYPES } from 'common'
+import { getUid } from 'utils'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
-import { IOption } from '../../pages/Create/interface';
+import { IOption } from 'pages/Create/interface';
 
 @inject(injector)
 @observer

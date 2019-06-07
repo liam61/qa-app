@@ -3,13 +3,13 @@ import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { Button, WhiteSpace, Toast } from 'antd-mobile'
 import qs from 'qs'
-import ConfirmModal from '../../../components/ConfirmModal'
-import InfoModal, { InfoTypes, IInfoProps } from '../../../components/InfoModal'
-import PageHeader from '../../../components/PageHeader';
+import ConfirmModal from 'components/ConfirmModal'
+import InfoModal, { InfoTypes, IInfoProps } from 'components/InfoModal'
+import PageHeader from 'components/PageHeader';
 import { IQstToSubmit, IReply } from '../../Create/interface'
-import { DELAY_TIME, TYPE_OPTIONS } from '../../../common/global'
-import { emptyFn } from '../../../utils'
-import { IRootStore, IRootAction } from '../../../typings'
+import { DELAY_TIME, TYPE_OPTIONS } from 'common'
+import { emptyFn } from 'utils'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 
@@ -120,7 +120,7 @@ class Question extends React.Component<IProps, IState> {
   renderQuestions(qstItems: IQstToSubmit[], editable: boolean) {
     return qstItems.map(question => {
       const { num, type } = question
-      const Element = require(`../../../components/${
+      const Element = require(`components/${
         type === 'Answer' ? type : 'Single'
       }QstTodo`).default
 
@@ -151,7 +151,7 @@ class Question extends React.Component<IProps, IState> {
       <div className={prefixCls}>
         <PageHeader text="问答问题" onCancel={onCancel} />
         <div className="header-content">
-          <div className="title text-ellipsis">{title}</div>
+          <div className="title qa-text-ellipsis">{title}</div>
           <span className="type">
             {TYPE_OPTIONS.find(t => t.key === type)!.value}
           </span>

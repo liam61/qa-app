@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Modal } from 'antd-mobile'
-import { IRootStore, IRootAction } from '../../typings'
-import { IFriend } from '../../pages/Message/stores/messageStore'
-import { getLocalDate } from '../../utils'
+import { IRootStore, IRootAction } from 'typings'
+import { IFriend } from 'pages/Message/stores/messageStore'
+import { getLocalDate } from 'utils'
 
 import './index.scss'
 
@@ -60,22 +60,11 @@ export default class AddFriendModal extends React.Component<IProps, IState> {
         >
           <div className="qa-modal-title">{title}</div>
           <div className="qa-modal-content">
-            {applies.map(apply => (
-              <ApplyItem key={apply._id} apply={apply} onAgree={onAgree} onRefuse={onRefuse} />
-            ))}
-            {/* <div className="add-friend-item qa-border-1px-bottom">
-              <div className="main">
-                <div className="main-avatar">
-                  <img src={avatar} alt="apply-user-avatar" />
-                </div>
-                <div className="main-name">{name}</div>
-                <div className="main-date">{date}</div>
-              </div>
-              <div className="footer">
-                <div className="footer-btn refuse">❌</div>
-                <div className="footer-btn agree">✅</div>
-              </div>
-            </div> */}
+            {applies.length ? (
+              applies.map(apply => <ApplyItem key={apply._id} apply={apply} onAgree={onAgree} onRefuse={onRefuse} />)
+            ) : (
+              <div className="qa-no-more">没有更多好友申请</div>
+            )}
           </div>
         </Modal>
       </div>

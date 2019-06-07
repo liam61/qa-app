@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { IRootStore, IRootAction } from '../../typings'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 

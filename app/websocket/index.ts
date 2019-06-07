@@ -1,4 +1,4 @@
-import { request } from '../utils'
+import { request, getUid } from 'utils'
 import { IMessage, msgType } from './interface'
 
 export default class WsRequest {
@@ -6,8 +6,7 @@ export default class WsRequest {
 
   receiverId = ''
 
-  constructor(url: string, private userId: string, private onMessage: (msg: IMessage) => void) {
-    // this.ws = new WebSocket(`${url}?id=${this.userId}`)
+  constructor(url: string, private userId: string, private onMsgCallback: (msg: IMessage) => void) {
     this.ws = new WebSocket(`${url}/${this.userId}`)
 
     this.initListeners()
@@ -20,10 +19,10 @@ export default class WsRequest {
     }
 
     this.ws.onmessage = event => {
-      console.log(event.data)
+      // console.log(event.data)
       const message = JSON.parse(event.data)
 
-      this.onMessage(message)
+      this.onMsgCallback(message)
     }
 
     this.ws.onclose = _event => {
@@ -39,17 +38,15 @@ export default class WsRequest {
     friendId: string,
     content: string,
     receiverId: string = this.receiverId,
-    type: msgType = 'text',
+    type: msgType = 'text'
   ): Promise<IMessage> {
     const message: IMessage = { from: this.userId, to: receiverId, content, type }
 
     console.log('friendId', friendId)
+    // const { _id } = await request.setPath('messages').post({ data: { friend: friendId, ...message } })
+    await this.ws.send(JSON.stringify({ friend: friendId, ...message }))
 
-    const { _id } = await request.setPath('messages').post({ data: { friend: friendId, ...message } })
-
-    await this.ws.send(JSON.stringify(message))
-
-    return { _id, ...message }
+    return { _id: getUid(), ...message }
   }
 
   close() {

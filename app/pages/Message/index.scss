@@ -6,25 +6,29 @@ $prefixCls: 'page-message';
   z-index: 1;
 
   &-header {
+    display: flex;
+    padding: 10px 0 20px;
+    margin: 0 30px;
+
     .applies {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 30px 10px;
+      flex: 1;
+      margin-right: 20px;
+      padding: 5px 10px;
+      border-radius: 6px;
 
-      &.hidden {
-        display: none;
+      &:active {
+        background: #eee;
       }
 
       &-info {
-        font-size: 24px;
+        font-size: 26px;
         color: $nav;
       }
 
       &-count {
-        // padding: 5px 10px;
-
-        // margin-left: auto;
         padding: 12px 18px 10px;
         line-height: 1;
         font-size: 24px;
@@ -38,14 +42,19 @@ $prefixCls: 'page-message';
     .add {
       width: 60px;
       height: 60px;
-      margin: 10px 30px 20px auto;
       background-image: url(../../assets/images/add.svg);
       background-size: 100%;
       background-repeat: no-repeat;
+      transition: transform 0.6s ease;
+
+      &:active {
+        transform: rotate(360deg);
+      }
     }
   }
 
   &-lists {
     margin-bottom: 15px;
+    padding: 0 30px;
   }
 }

@@ -4,8 +4,8 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { TextareaItem } from 'antd-mobile'
-import { QUESTION_TYPES } from '../../common/global'
-import { IRootStore, IRootAction } from '../../typings'
+import { QUESTION_TYPES } from 'common'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 
@@ -51,7 +51,7 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
           <span
             className={`header-title${
               required ? ' required' : ''
-            } text-ellipsis`}
+            } qa-text-ellipsis`}
           >
             {`${num}. ${title}`}
           </span>

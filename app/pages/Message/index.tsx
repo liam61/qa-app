@@ -1,17 +1,20 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { SearchBar, Toast } from 'antd-mobile'
-import PageModal from '../../components/PageModal'
-import FriendItem from '../../components/FriendItem'
-import InputModal from '../../components/InputModal'
-import AddFriendModal from '../../components/AddFriendModal'
+import PageModal from 'components/PageModal'
+import FriendItem from 'components/FriendItem'
+import InputModal from 'components/InputModal'
+import AddFriendModal from 'components/AddFriendModal'
+import { getLocalDate } from 'utils'
+import { IRootStore, IRootAction } from 'typings'
+import { IError } from 'pages/Login/interface'
 import { IFriend } from './stores/messageStore'
-import { IError } from '../Login/interface'
-import { getLocalDate } from '../../utils'
 import ChatPage from './Chat'
-import { IRootStore, IRootAction } from '../../typings'
 
 import './index.scss'
+import { IUser } from 'pages/User/stores/userStore'
+
+let me: IUser
 
 @inject(injector)
 @observer
@@ -46,7 +49,6 @@ export default class Message extends React.Component<IProps, IState> {
   }
 
   handleFriendChange = (friend: any) => {
-    // console.log('handleFriendChange');
     this.setState({ friend4chat: friend, chatPageModal: true })
   }
 
@@ -57,40 +59,53 @@ export default class Message extends React.Component<IProps, IState> {
   handleAddChange = (val: string) => {
     const { action } = this.props
 
-    action!.searchUserByName(val)
-
-    this.setState({ inputModal: false })
+    action!.applyByAccount(val, me, () => this.setState({ inputModal: false }))
   }
 
-  handleAccountChange = (val: string) => {
-    const { action } = this.props
-
-    action!.validateAccount(val, (errors: IError, validate?: string) => {
-      console.log(errors)
-    })
-  }
+  // handleAccountChange = (val: string) => {
+  //   const { action } = this.props
+  //   action!.validateAccount(val, (errors: IError, validate?: string) => {
+  //     console.log(errors)
+  //   })
+  // }
 
   handleApplyAgree = (id: string) => {
     const { action } = this.props
 
     action!.applyAgreed(id)
+
+    this.setState({ applyModal: false })
   }
 
   handleApplyRefuse = (id: string) => {
     const { action } = this.props
 
     action!.applyRefused(id)
+
+    this.setState({ applyModal: false })
   }
 
   handleAppliesShow = () => {
     this.setState({ applyModal: true })
   }
 
-  renderFriends = (friends: IFriend[]) =>
-    friends.map(friend => {
-      const userId = localStorage.getItem('userId')
+  handleChatPageModalClose = () => {
+    const { action } = this.props
 
-      let { _id, user1, user2, lastedMsg } = friend
+    action!.getFriends()
+
+    this.setState({ chatPageModal: false })
+  }
+
+  renderFriends = (friends: IFriend[]) => {
+    const userId = localStorage.getItem('userId')
+
+    if (!friends.length) {
+      return <div className="qa-no-more">没有更多好友</div>
+    }
+
+    return friends.map(friend => {
+      let { _id, user1, user2, lastMessage } = friend // me friend
 
       if (userId === user2._id) {
         const temp = user1
@@ -98,8 +113,12 @@ export default class Message extends React.Component<IProps, IState> {
         user2 = temp
       }
 
+      if (!me) {
+        me = user1
+      }
+
       const { name, avatar } = user2
-      const { content, createdAt } = lastedMsg
+      const { content, createdAt } = lastMessage
 
       return (
         <FriendItem
@@ -112,12 +131,13 @@ export default class Message extends React.Component<IProps, IState> {
         />
       )
     })
+  }
 
   render() {
     const { prefixCls, action, store } = this.props
     const { chatPageModal, friend4chat, inputModal, applyModal } = this.state
 
-    const { friends, applies, loadingFriends, loadingApplies } = store!
+    const { friends, applies, loadingFriends } = store!
 
     if (!friends) {
       return <h1>Loading...</h1>
@@ -126,9 +146,10 @@ export default class Message extends React.Component<IProps, IState> {
     return (
       <div className={prefixCls}>
         <SearchBar value={store!.search} placeholder="搜索..." maxLength={20} onChange={action!.changeSearch} />
-        <div className={`${prefixCls}-header`}>
+        <div className={`${prefixCls}-header qa-border-1px-bottom`}>
           <div
-            className={`applies qa-border-1px-bottom${loadingApplies || !applies.length ? ' hidden' : ''}`}
+            // className={`applies${loadingApplies || !applies.length ? ' hidden' : ''}`}
+            className="applies"
             onClick={this.handleAppliesShow}
           >
             <span className="applies-info">好友请求</span>
@@ -141,7 +162,7 @@ export default class Message extends React.Component<IProps, IState> {
           {/* NOTE: modal 在 visible 为 false 时，会预加载内部组件，所以会预实例化 ChatPage，
           此时 _id 为空，所以在进入 Message 界面后，“实例化”的 ChatPage 也会发送一条请求为 localhost:4000/v1/messages
         */}
-          <ChatPage friend={friend4chat} onCancel={() => this.handleModalClose('chatPageModal')} />
+          <ChatPage friend={friend4chat} onCancel={this.handleChatPageModalClose} />
         </PageModal>
         <InputModal
           visible={inputModal}

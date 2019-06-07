@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button } from 'antd-mobile'
-import ExampleCom from '../../components/ExampleCom/Loadable'
-import { IRootStore, IRootAction } from '../../typings'
+import ExampleCom from 'components/ExampleCom/Loadable'
+import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
 
-import addIcon from '../../assets/images/radio-add.svg'
+import addIcon from 'assets/images/radio-add.svg'
 
 @inject(injector)
 @observer
