@@ -27,7 +27,7 @@ class Todo extends React.Component<IProps, IState> {
   componentDidMount() {
     const { action, onBadgeChange } = this.props
 
-    action!.getListData(false, onBadgeChange)
+    action!.getListData(false, () => console.log('b'))
   }
 
   handleSearchChange = (val: string) => {

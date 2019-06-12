@@ -6,9 +6,11 @@ import PageHeader from 'components/PageHeader'
 import MessageItem from 'components/MessageItem'
 import { IMessage } from 'websocket/interface'
 import { getLocalDate, getDaysOfYear } from 'utils'
-import { IFriend } from '../stores/messageStore'
 
 import './index.scss'
+import ReactDOM from 'react-dom'
+import { ROOT_USER } from 'common'
+import { IFriend } from '../stores/messageStore'
 
 let preDay = 0
 let preDate = new Date(0)
@@ -39,6 +41,8 @@ export default class Chat extends React.Component<IProps, IState> {
     prefixCls: 'page-message-chat',
   }
 
+  msgBody: any
+
   async componentDidMount() {
     const {
       action,
@@ -46,6 +50,14 @@ export default class Chat extends React.Component<IProps, IState> {
     } = this.props
 
     await action!.getMsgsByFriendId(_id)
+
+    this.msgBody = ReactDOM.findDOMNode(this.msgBody)
+
+    this.msgBody.scrollIntoView({ block: 'end' })
+  }
+
+  componentDidUpdate() {
+    this.msgBody.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }
 
   handleSendMsg = () => {
@@ -53,7 +65,6 @@ export default class Chat extends React.Component<IProps, IState> {
 
     const { _id, user2 } = friend
 
-    // TODO: 发送后调整对话框 body 到底部
     action!.sendMessage(_id, user2._id)
   }
 
@@ -102,8 +113,10 @@ export default class Chat extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text={`与 ${user2.name} 的聊天`} onCancel={onCancel} />
-        <div className={`${prefixCls}-body`}>{loading ? <h1>Loading...</h1> : this.renderMessages(messages)}</div>
+        <PageHeader text={`与 ${user2.name}${user2.name === ROOT_USER ? ' (管理员)' : ''} 的聊天`} onCancel={onCancel} />
+        <div className={`${prefixCls}-body`} ref={(node: React.ReactNode) => (this.msgBody = node)}>
+          {loading ? <h1>Loading...</h1> : this.renderMessages(messages)}
+        </div>
         <div className={`${prefixCls}-footer`}>
           <TextareaItem
             className={`${sending ? 'sending' : ''}`}

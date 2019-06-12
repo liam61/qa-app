@@ -19,7 +19,7 @@ class Register extends React.Component<IProps, IState> {
     prefixCls: 'page-register',
   }
 
-  userInput: React.ReactNode
+  nameInput: React.ReactNode
 
   emailInput: React.ReactNode
 
@@ -32,7 +32,7 @@ class Register extends React.Component<IProps, IState> {
     email: '',
     password: '',
     psdConfirm: '',
-    usernameInfo: noErrors,
+    nameInfo: noErrors,
     emailInfo: noErrors,
     passwordInfo: noErrors,
     psdConfirmInfo: noErrors,
@@ -54,11 +54,8 @@ class Register extends React.Component<IProps, IState> {
   handleUserChange = (val: string) => {
     const { action } = this.props
 
-    console.log('userchange')
-
     action!.validateUser(val, (errors: IError, validate?: string) => {
-      console.log(errors, validate)
-      this.setState({ usernameInfo: errors, validate })
+      this.setState({ nameInfo: errors, validate })
     })
   }
 
@@ -105,8 +102,8 @@ class Register extends React.Component<IProps, IState> {
 
     this.setState({ loading: true })
 
+    // console.log(this.props.messageAction)
     action!.signup({ name: user, email, password, validate, dptId }, (success: boolean) => {
-      console.log(success)
       // TODO: 可以用 infoModal 来提示
       this.setState({ loading: false })
 
@@ -127,7 +124,7 @@ class Register extends React.Component<IProps, IState> {
       email,
       password,
       psdConfirm,
-      usernameInfo,
+      nameInfo,
       emailInfo,
       passwordInfo,
       psdConfirmInfo,
@@ -139,13 +136,11 @@ class Register extends React.Component<IProps, IState> {
 
     let dptData: any
 
-    console.log(loadingDpts, departments.length)
-
     if (!loadingDpts) {
       dptData = departments.map(dpt => ({ label: dpt.name, value: dpt.name }))
     }
 
-    const { hasError: usernameErr } = usernameInfo
+    const { hasError: usernameErr } = nameInfo
     const { hasError: emailErr } = emailInfo
     const { hasError: passwordErr } = passwordInfo
     const { hasError: psdConfirmErr } = psdConfirmInfo
@@ -156,12 +151,12 @@ class Register extends React.Component<IProps, IState> {
         <div className="qa-login-main">
           <InputItem
             className="qa-input-item"
-            ref={(node: React.ReactNode) => (this.userInput = node)}
+            ref={(node: React.ReactNode) => (this.nameInput = node)}
             placeholder="请输入用户名"
             value={user}
             maxLength={12}
             error={usernameErr}
-            onErrorClick={() => this.handleErrorClick('usernameInfo')}
+            onErrorClick={() => this.handleErrorClick('nameInfo')}
             onChange={debounce(this.handleUserChange, (val: string) => this.setState({ user: val }))}
           >
             <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
@@ -175,13 +170,7 @@ class Register extends React.Component<IProps, IState> {
             cols={1}
             disabled={loadingDpts}
           >
-            <InputItem
-              className="qa-input-item"
-              ref={(node: React.ReactNode) => (this.userInput = node)}
-              placeholder="请选择部门"
-              editable={false}
-              value={department}
-            >
+            <InputItem className="qa-input-item" placeholder="请选择部门" editable={false} value={department}>
               <i className="fa fa-building-o fa-2x blue" aria-hidden="true" />
             </InputItem>
           </Picker>
@@ -245,7 +234,7 @@ interface IState extends Partial<injectorReturnType> {
   email: string
   password: string
   psdConfirm: string
-  usernameInfo: IError
+  nameInfo: IError
   emailInfo: IError
   passwordInfo: IError
   psdConfirmInfo: IError
@@ -258,6 +247,7 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
   return {
     store: rootStore.Register.registerStore,
     action: rootAction.Register.registerAction,
+    // messageAction: rootAction.Message.messageAction,
   }
 }
 

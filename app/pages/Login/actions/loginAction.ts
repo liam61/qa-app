@@ -1,6 +1,8 @@
-import { mAction } from '../../../mobx/action'
+import { DELAY_TIME } from 'common'
+import { Toast } from 'antd-mobile'
 import { IRootAction, IRootStore } from 'typings'
 import { request, validator, emptyFn } from 'utils'
+import { mAction } from '../../../mobx/action'
 import { IError } from '../interface'
 
 @mAction
@@ -19,13 +21,15 @@ export default class LoginAction {
   async login(data: { account: string; password: string; validate: string }, callback: (success: boolean) => void) {
     const { loginStore } = this.stores
 
-    const {
-      data: { token, id },
-    } = await request.setPath('users/login').post({ data })
+    const { data: res = {}, type } = await request.setPath('users/login').post({ data })
 
-    localStorage.setItem('token', token)
-    localStorage.setItem('userId', id)
+    if (type === 'success') {
+      const { token, id } = res
 
-    callback(!!token)
+      localStorage.setItem('token', token)
+      localStorage.setItem('userId', id)
+    }
+
+    callback(type === 'success')
   }
 }

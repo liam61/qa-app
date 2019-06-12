@@ -6,13 +6,29 @@ $prefixCls: 'page-app';
   height: 100vh;
 
   .am-tabs {
-    .am-tabs-tab-bar-wrap {
+    height: auto;
+    overflow: inherit;
+
+    &-content-wrap {
+      display: none;
+    }
+
+    &-tab-bar-wrap {
       height: 110px;
 
       .am-tabs-default-bar-tab {
         height: 100%;
         padding-bottom: 4px;
-        color: #999;
+
+        &.am-tabs-default-bar-tab-active {
+          .tab-link {
+            color: #108ee9;
+          }
+        }
+
+        .tab-link {
+          color: #999;
+        }
 
         &:nth-child(3) {
           &::after {
@@ -49,7 +65,7 @@ $prefixCls: 'page-app';
           margin-bottom: 24px;
           border-radius: 50%;
           background: #108ee9;
-          box-shadow: 0 0 0 10px rgba(16, 142, 233, .3);
+          box-shadow: 0 0 0 10px rgba(16, 142, 233, 0.3);
           color: #fff;
           // z-index: 1;
 

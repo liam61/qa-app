@@ -1,7 +1,7 @@
 import { action, observable, computed } from 'mobx'
-import { IFriend } from '../../Message/stores/messageStore'
+import { IDepartment } from '../../Register/stores/registerStore'
 import { mStore } from '../../../mobx/store'
-import { receiversType } from '../interface'
+// import { receiversType } from '../interface'
 
 @mStore
 export default class ExtraStore {
@@ -12,7 +12,11 @@ export default class ExtraStore {
   expire = ''
 
   @observable
-  receivers: receiversType = {}
+  departments: IDepartment[] = []
+
+  @observable
+  receivers: { [key: string]: { [key: string]: any } } = {}
+  // receivers: { [key: string]: boolean } = {}
 
   @observable
   showAuthor = true
@@ -22,9 +26,6 @@ export default class ExtraStore {
 
   @observable
   anonymous = false
-
-  @observable
-  friends: IFriend[] = []
 
   @action
   setType(t: string) {
@@ -41,8 +42,30 @@ export default class ExtraStore {
   }
 
   @action
-  setReceiver(r: receiversType) {
-    this.receivers = r
+  toggleReceiver(dptId: string, userId: string, checked: boolean) {
+    this.receivers[dptId][userId] = checked
+
+    const temp = this.receivers[dptId]
+
+    // 如为 user 确定勾选，则当前 dpt 全部人员 check 为 true 才为 true
+    // 如为 user 取消勾选，则当前 dpt 为 false
+    const dptChecked = checked
+      ? Object.keys(temp).every(key => (key === dptId || key === 'count' ? true : temp[key] === checked))
+      : false
+
+    this.receivers[dptId][dptId] = dptChecked
+    this.receivers[dptId].count += checked ? 1 : -1
+
+    return this
+  }
+
+  @action
+  toggleDepartment(dptId: string, checked: boolean) {
+    const dpt = this.receivers[dptId]
+    const keys = Object.keys(dpt)
+
+    keys.forEach(key => (dpt[key] = checked))
+    this.receivers[dptId].count = checked ? keys.length - 2 : 0 // 除去 dptId 和 count
 
     return this
   }
@@ -69,8 +92,8 @@ export default class ExtraStore {
   }
 
   @action
-  setFriends(fs: IFriend[]) {
-    this.friends = fs
+  setDptsWithUsers(dpts: IDepartment[]) {
+    this.departments = dpts
 
     return this
   }

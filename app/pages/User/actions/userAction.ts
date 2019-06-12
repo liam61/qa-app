@@ -1,7 +1,7 @@
-import { mAction } from '../../../mobx/action'
 import { request, validator, uploadFile } from 'utils'
-import { IError } from '../../Login/interface'
 import { IRootAction, IRootStore } from 'typings'
+import { mAction } from '../../../mobx/action'
+import { IError } from '../../Login/interface'
 
 @mAction
 export default class UserAction {
@@ -23,7 +23,7 @@ export default class UserAction {
     userStore.setLoading(true)
 
     const id = localStorage.getItem('userId')
-    const { data } = await request.setPath('users').get({ uri: id, data: { cancelToken: true } })
+    const { data = {} } = await request.setPath('users').get({ uri: id, data: { cancelToken: true } })
 
     userStore.setUserData(data).setLoading(false)
   }

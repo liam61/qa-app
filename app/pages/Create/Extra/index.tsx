@@ -2,13 +2,12 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { InputItem, Button, Switch, ActionSheet, WhiteSpace } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
-import { renderSteps } from '../index'
 import ConfirmModal from 'components/ConfirmModal'
 import PageHeader from 'components/PageHeader'
-import ReceiversModal from 'components/ReceiversModal'
 import { DELAY_TIME } from 'common'
-import { receiversType } from '../interface'
 import { IRootStore, IRootAction } from 'typings'
+import { receiversType } from '../interface'
+import { renderSteps } from '../index'
 
 import './index.scss'
 
@@ -22,12 +21,11 @@ class Extra extends React.Component<IProps, IState> {
   state = {
     type: { key: '', value: '' },
     time: { key: '', value: '' },
-    receivers: {},
+    // receivers: {},
     showAuthor: true,
     secret: false,
     anonymous: false,
     confirmModal: false,
-    receiversModal: false,
   }
 
   async componentDidMount() {
@@ -41,7 +39,7 @@ class Extra extends React.Component<IProps, IState> {
       }
     })
 
-    action!.getAllUsers()
+    action!.getDepsAndUsers()
   }
 
   showActionSheet = (actionType: string) => {
@@ -68,20 +66,20 @@ class Extra extends React.Component<IProps, IState> {
   }
 
   handleModalShow = (type: string) => {
-    this.setState({ [type]: true }) // tslint:disable-line
+    this.setState({ [type]: true })
   }
 
   handleModalClose = (type: string) => {
-    this.setState({ [type]: false }) // tslint:disable-line
+    this.setState({ [type]: false })
   }
 
   handleSwitchChange = (type: string) => {
-    this.setState({ [type]: !this.state[type] }) // tslint:disable-line
+    this.setState({ [type]: !this.state[type] })
   }
 
   handleFinish = () => {
     const { onOK, action } = this.props
-    const { type, time, receivers, showAuthor, secret, anonymous } = this.state
+    const { type, time, showAuthor, secret, anonymous } = this.state
 
     this.handleModalClose('confirmModal')
     // if (!type.value || !time.value || !receivers) {
@@ -89,22 +87,18 @@ class Extra extends React.Component<IProps, IState> {
     //   return
     // }
 
-    action!.updateExtra(type.key, time.key, receivers, showAuthor, secret, anonymous)
+    action!.updateExtra(type.key, time.key, showAuthor, secret, anonymous)
     onOK()
 
     // this.handleModalClose('confirmModal')
   }
 
-  handleReceiversModalShow = () => {
-    this.setState({ receiversModal: true })
-    const { store } = this.props
-
-    const { friends } = store!
-  }
-
   render() {
-    const { prefixCls, title, onCancel } = this.props
-    const { type, receivers, time, showAuthor, secret, anonymous, confirmModal } = this.state
+    const { prefixCls, title, onCancel, onReceiver, store } = this.props
+    const { type, time, showAuthor, secret, anonymous, confirmModal } = this.state
+
+    const { receivers } = store!
+    const receiversCount = Object.values(receivers).reduce((sum, dpt) => sum + dpt.count, 0)
 
     return (
       <div className={prefixCls}>
@@ -147,10 +141,10 @@ class Extra extends React.Component<IProps, IState> {
             <InputItem
               className="qa-input-item text-right"
               placeholder="请选择"
-              value={receivers.toString()}
+              value={receiversCount ? `已选择 ${receiversCount} 人` : '未选择答题人员'}
               maxLength={20}
               editable={false}
-              onClick={this.handleReceiversModalShow}
+              onClick={onReceiver}
             >
               发送范围
             </InputItem>
@@ -171,13 +165,12 @@ class Extra extends React.Component<IProps, IState> {
           <Button
             type="primary"
             className="qa-btn-bottom"
-            disabled={!type.value || !time.value || !receivers}
+            disabled={!type.value || !time.value || !receiversCount}
             onClick={() => this.handleModalShow('confirmModal')}
           >
             添加完成
           </Button>
         </div>
-        <ReceiversModal />
         <ConfirmModal
           visible={confirmModal}
           onCancel={() => this.handleModalClose('confirmModal')}
@@ -194,6 +187,7 @@ type injectorReturnType = ReturnType<typeof injector>
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   onOK: () => void
+  onReceiver: () => void
   onCancel: () => void
   history: any
 }
@@ -201,12 +195,11 @@ interface IProps extends Partial<injectorReturnType> {
 interface IState extends Partial<injectorReturnType> {
   type: { key: string; value: string }
   time: { key: string; value: string }
-  receivers: receiversType
+  // receivers: receiversType
   showAuthor: boolean
   secret: boolean
   anonymous: boolean
   confirmModal: boolean
-  receiversModal: boolean
 }
 
 function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {

@@ -117,14 +117,12 @@ export default class Message extends React.Component<IProps, IState> {
         me = user1
       }
 
-      const { name, avatar } = user2
       const { content, createdAt } = lastMessage
 
       return (
         <FriendItem
           key={_id}
-          name={name}
-          avatar={avatar}
+          user={user2}
           content={`${content.slice(0, 16)}...`}
           date={getLocalDate(new Date(createdAt || 0)).slice(5)}
           onClick={() => this.handleFriendChange({ _id, user1, user2 })}

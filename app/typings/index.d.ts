@@ -7,6 +7,7 @@ import CreateCreateStore from '../pages/Create/stores/createStore'
 import CreateExtraStore from '../pages/Create/stores/extraStore'
 import CreateInfoStore from '../pages/Create/stores/infoStore'
 import CreateQuestionStore from '../pages/Create/stores/questionStore'
+import CreateReceiverStore from '../pages/Create/stores/receiverStore'
 import ExampleExampleStore from '../pages/Example/stores/exampleStore'
 import LoginLoginStore from '../pages/Login/stores/loginStore'
 import MessageChatStore from '../pages/Message/stores/chatStore'
@@ -25,6 +26,7 @@ import CreateCreateAction from '../pages/Create/actions/createAction'
 import CreateExtraAction from '../pages/Create/actions/extraAction'
 import CreateInfoAction from '../pages/Create/actions/infoAction'
 import CreateQuestionAction from '../pages/Create/actions/questionAction'
+import CreateReceiverAction from '../pages/Create/actions/receiverAction'
 import ExampleExampleAction from '../pages/Example/actions/exampleAction'
 import LoginLoginAction from '../pages/Login/actions/loginAction'
 import MessageChatAction from '../pages/Message/actions/chatAction'
@@ -50,6 +52,7 @@ export interface IRootStore {
     extraStore: CreateExtraStore
     infoStore: CreateInfoStore
     questionStore: CreateQuestionStore
+    receiverStore: CreateReceiverStore
   }
   Example: {
     exampleStore: ExampleExampleStore
@@ -91,6 +94,7 @@ export interface IRootAction {
     extraAction: CreateExtraAction
     infoAction: CreateInfoAction
     questionAction: CreateQuestionAction
+    receiverAction: CreateReceiverAction
   }
   Example: {
     exampleAction: ExampleExampleAction

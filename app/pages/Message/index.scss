@@ -2,8 +2,7 @@ $prefixCls: 'page-message';
 
 .#{$prefixCls} {
   position: relative;
-  height: 100vw;
-  z-index: 1;
+  height: calc(100vh - 114px);
 
   &-header {
     display: flex;

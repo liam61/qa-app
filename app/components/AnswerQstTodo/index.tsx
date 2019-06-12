@@ -44,7 +44,7 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
-        <div className="qa-qst-todo-header">
+        <div className={`${prefixCls}-header`}>
           <span className="header-tag">
             {QUESTION_TYPES.find(t => t.key === type)!.value}
           </span>

@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Tabs, Badge } from 'antd-mobile'
-import TodoPage from '../Todo'
-import PostPage from '../Post'
-import MessagePage from '../Message'
-import UserPage from '../User'
 import { IRootStore, IRootAction } from 'typings'
+import { request } from 'utils'
 
 import './index.scss'
 
 const getHomeTabs = (todos: number, colls: number, msgs: number) => [
   {
+    path: '/todo',
     title: (
       <Badge text={`${todos === 0 ? '' : todos}`}>
         <i className="fa fa-hourglass-half fa-3x" aria-hidden="true" />
@@ -19,6 +17,7 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
     ),
   },
   {
+    path: '/post',
     title: (
       <Badge text={`${colls === 0 ? '' : todos}`}>
         <i className="fa fa-map-o fa-3x" aria-hidden="true" />
@@ -27,14 +26,10 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
   },
   {
     path: '/create?steps=info',
-    title: (
-      <i
-        className="fa fa-pencil-square-o fa-4x tab-create"
-        aria-hidden="true"
-      />
-    ),
+    title: <i className="fa fa-pencil-square-o fa-4x tab-create" aria-hidden="true" />,
   },
   {
+    path: '/message',
     title: (
       <Badge text={`${msgs === 0 ? '' : todos}`}>
         <i className="fa fa-comments-o fa-3x" aria-hidden="true" />
@@ -42,6 +37,7 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
     ),
   },
   {
+    path: '/user',
     title: (
       <Badge dot>
         <i className="fa fa-user-o fa-3x" aria-hidden="true" />
@@ -52,7 +48,7 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
 
 @inject(injector)
 @observer
-export default class App extends React.Component<IProps, IState> {
+class App extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-app',
   }
@@ -62,6 +58,12 @@ export default class App extends React.Component<IProps, IState> {
     todosNum: 0,
     collectionsNum: 0,
     messagesNum: 0,
+  }
+
+  constructor(props: IProps) {
+    super(props)
+
+    request.history = props.history
   }
 
   componentDidMount() {
@@ -78,19 +80,17 @@ export default class App extends React.Component<IProps, IState> {
     }
   }
 
-  handleBadgeChange = (
-    type: 'todosNum' | 'collectionsNum' | 'messagesNum',
-    num: number
-  ) => {
+  handleBadgeChange = (type: 'todosNum' | 'collectionsNum' | 'messagesNum', num: number) => {
     this.setState({ [type]: num })
   }
 
   render() {
-    const { prefixCls } = this.props
+    const { prefixCls, children } = this.props
     const { curTab, todosNum, collectionsNum, messagesNum } = this.state
 
     return (
       <div className={prefixCls}>
+        {children}
         <Tabs
           tabs={getHomeTabs(todosNum, collectionsNum, messagesNum)}
           initialPage={curTab}
@@ -98,7 +98,6 @@ export default class App extends React.Component<IProps, IState> {
           swipeable={false}
           renderTab={tab =>
             tab.path ? (
-              // <Link to={{ pathname: tab.path, state: { curTab } }}>{tab.title}</Link>
               <Link className="tab-link" to={tab.path}>
                 {tab.title}
               </Link>
@@ -108,11 +107,11 @@ export default class App extends React.Component<IProps, IState> {
           }
           onTabClick={this.handleTabClick}
         >
-          <TodoPage onBadgeChange={this.handleBadgeChange} />
-          <PostPage onBadgeChange={this.handleBadgeChange} />
           <div />
-          <MessagePage onBadgeChange={this.handleBadgeChange} />
-          <UserPage />
+          <div />
+          <div />
+          <div />
+          <div />
         </Tabs>
       </div>
     )
@@ -123,7 +122,6 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
-  [k: string]: any
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -133,12 +131,8 @@ interface IState extends Partial<injectorReturnType> {
   messagesNum: number
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }
+
+export default withRouter(App)

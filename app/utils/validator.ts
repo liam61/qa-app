@@ -1,7 +1,7 @@
-import request from './request'
 import { IError } from 'pages/Login/interface'
 import { noErrors } from 'pages/Login/index'
 import { USER_REG, EMAIL_REG, PASSWORD_REG, PHONE_REG } from 'common'
+import request from './request'
 import { emptyFn } from './index'
 
 const MIN_USERNAME_LENGTH = 6
@@ -35,60 +35,87 @@ async function name(value: string, callback: (error: IError, validate?: string) 
   return res
 }
 
-// TODO: 全部改成可 async 版本
-async function email(value: string, callback: (error: IError, validate?: string) => void) {
-  if (!EMAIL_REG.test(value)) {
-    callback({ hasError: true, error: '请输入正确的邮箱！' })
+async function email(
+  value: string,
+  callback: (error: IError, validate?: string) => void
+): Promise<{ error: IError; validate?: string }> {
+  let res: IError
 
-    return
+  if (!EMAIL_REG.test(value)) {
+    res = { hasError: true, error: '请输入正确的邮箱！' }
+    callback(res)
+
+    return { error: res }
   }
 
   const {
     data: { exist, validate },
   } = await request.setPath('users/validate').get({ uri: value })
 
-  callback(exist ? { hasError: true, error: '该邮箱已被注册！' } : noErrors, validate)
+  res = exist ? { hasError: true, error: '该邮箱已被注册！' } : noErrors
+
+  callback(res, validate)
+
+  return { error: res, validate }
 }
 
-async function phone(value: string, callback: (error: IError, validate?: string) => void) {
-  if (value.length < PHONE_LENGTH) {
-    callback({ hasError: true, error: '请输入11位手记号码！' })
+async function phone(
+  value: string,
+  callback: (error: IError, validate?: string) => void
+): Promise<{ error: IError; validate?: string }> {
+  let res: IError
 
-    return
+  if (value.length < PHONE_LENGTH) {
+    res = { hasError: true, error: '请输入11位手记号码！' }
+
+    callback(res)
+
+    return { error: res }
   }
 
   if (!PHONE_REG.test(value)) {
-    callback({ hasError: true, error: '请输入正确的手机号码！' })
+    res = { hasError: true, error: '请输入正确的手机号码！' }
 
-    return
+    callback(res)
+
+    return { error: res }
   }
 
   const {
     data: { exist, validate },
   } = await request.setPath('users/validate').get({ uri: value })
 
-  callback(exist ? { hasError: true, error: '该手机号码已被注册！' } : noErrors, validate)
+  res = exist ? { hasError: true, error: '该手机号码已被注册！' } : noErrors
+
+  callback(res, validate)
+
+  return { error: res, validate }
 }
 
-function password(value: string, callback: (error: IError) => void) {
-  if (value.length < MIN_PASSWORD_LENGTH) {
-    callback({ hasError: true, error: '密码长度至少6位！' })
+function password(value: string, callback: (error: IError) => void): IError {
+  let res: IError
 
-    return
+  if (value.length < MIN_PASSWORD_LENGTH) {
+    res = { hasError: true, error: '密码长度至少6位！' }
+
+    callback(res)
+
+    return res
   }
 
-  callback(
-    PASSWORD_REG.test(value) || value === ''
-      ? noErrors
-      : {
-          hasError: true,
-          error: '至少包含一个字母和一个数字！',
-        }
-  )
+  res = PASSWORD_REG.test(value) || value === '' ? noErrors : { hasError: true, error: '至少包含一个字母和一个数字！' }
+
+  callback(res)
+
+  return res
 }
 
-function psdConfirm(value: string, psd: string, callback: (error: IError) => void) {
-  callback(value === psd ? noErrors : { hasError: true, error: '两次填写的密码不一致！' })
+function psdConfirm(value: string, psd: string, callback: (error: IError) => void): IError {
+  const res = value === psd ? noErrors : { hasError: true, error: '两次填写的密码不一致！' }
+
+  callback(res)
+
+  return res
 }
 
 // 验证账户名，含用户名、邮箱、手机号

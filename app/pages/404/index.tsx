@@ -1,5 +1,11 @@
 import * as React from 'react'
 
-const NoMatch = () => <h1 style={{ textAlign: 'center' }}>404! page not found...</h1>
+import './index.scss'
+
+const NoMatch = () => (
+  <div className="page-404">
+    <h1>404! page not found...</h1>
+  </div>
+)
 
 export default NoMatch

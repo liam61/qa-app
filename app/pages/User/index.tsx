@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { InputItem, WhiteSpace, Toast, Button } from 'antd-mobile'
-import DetailPage from './Detail'
-import SettingPage from './Setting'
 import PageModal from 'components/PageModal'
 import { getRandomImg, increaseCount } from 'utils'
 import { ACCEPT_EXTS, DELAY_TIME } from 'common'
 import { IRootStore, IRootAction } from 'typings'
+import SettingPage from './Setting'
+import DetailPage from './Detail'
 
 import './index.scss'
 
@@ -35,7 +35,12 @@ export default class User extends React.Component<IProps, IState> {
 
     await action!.getUserData()
 
-    const { answer, ask, score, cover } = store!.data
+    const {
+      todos: { length: answer },
+      posts: { length: ask },
+      score,
+      cover,
+    } = store!.data
 
     if (cover) {
       this.curCover = cover
@@ -44,22 +49,13 @@ export default class User extends React.Component<IProps, IState> {
     this.loadNumAnimation({ answer, ask, score })
   }
 
-  loadNumAnimation = (numObj: {
-    answer: number
-    ask: number
-    score: number,
-  }) => {
+  loadNumAnimation = (numObj: { answer: number; ask: number; score: number }) => {
     Object.keys(numObj).forEach(type => {
-      increaseCount(numObj[type], (count, next) =>
-        this.setState({ [`${type}Num`]: count }, next)
-      )
+      increaseCount(numObj[type], (count, next) => this.setState({ [`${type}Num`]: count }, next))
     })
   }
 
-  handleInputClick = (
-    imageKey: string,
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
+  handleInputClick = (imageKey: string, event: any) => {
     // console.log(event.target.nodeName)
     const { nodeName } = event.target
 
@@ -88,9 +84,7 @@ export default class User extends React.Component<IProps, IState> {
     }
 
     action!.uploadFile(files[0], imageKey, (success: boolean) => {
-      success
-        ? Toast.success('上传成功！', DELAY_TIME)
-        : Toast.fail('上传失败！', DELAY_TIME)
+      success ? Toast.success('上传成功！', DELAY_TIME) : Toast.fail('上传失败！', DELAY_TIME)
     })
   }
 
@@ -108,23 +102,17 @@ export default class User extends React.Component<IProps, IState> {
     const { action } = this.props
 
     action!.submitUserData((success: boolean) => {
-      success
-        ? Toast.success('修改成功！', DELAY_TIME)
-        : Toast.fail('修改失败！', DELAY_TIME)
+      success ? Toast.success('修改成功！', DELAY_TIME) : Toast.fail('修改失败！', DELAY_TIME)
     })
   }
 
   render() {
     const { prefixCls, store } = this.props
-    const {
-      askNum,
-      answerNum,
-      scoreNum,
-      detailPageModal,
-      settingPageModal,
-    } = this.state
+    const { askNum, answerNum, scoreNum, detailPageModal, settingPageModal } = this.state
 
     const { data, loading } = store!
+
+    console.log(loading, data);
 
     // TODO: loading 组件
     if (loading) {
@@ -166,7 +154,7 @@ export default class User extends React.Component<IProps, IState> {
           <input
             type="file"
             accept="image/*"
-            ref={(node: any) => (this.imgInput = node)}
+            ref={(node: React.ReactNode) => (this.imgInput = node)}
             onChange={this.handleFileChange}
           />
         </div>
@@ -234,16 +222,10 @@ export default class User extends React.Component<IProps, IState> {
           </InputItem>
         </div>
         <PageModal visible={detailPageModal}>
-          <DetailPage
-            onCancel={() => this.handleModalClose('detailPageModal')}
-            onOK={this.handleSubmit}
-          />
+          <DetailPage onCancel={() => this.handleModalClose('detailPageModal')} onOK={this.handleSubmit} />
         </PageModal>
         <PageModal visible={settingPageModal}>
-          <SettingPage
-            onCancel={() => this.handleModalClose('settingPageModal')}
-            onOK={this.handleSubmit}
-          />
+          <SettingPage onCancel={() => this.handleModalClose('settingPageModal')} onOK={this.handleSubmit} />
         </PageModal>
       </div>
     )
@@ -266,13 +248,7 @@ interface IState extends Partial<injectorReturnType> {
   settingPageModal: boolean
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.User.userStore,
     action: rootAction.User.userAction,

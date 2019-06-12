@@ -6,15 +6,15 @@ import { Button, ActionSheet, Switch, Toast, WhiteSpace } from 'antd-mobile'
 // import { fromJS } from 'immutable'
 import ConfirmModal, { IConfirmProps } from 'components/ConfirmModal'
 import PageHeader from 'components/PageHeader'
-import { renderSteps } from '../index'
 import { IRootStore, IRootAction } from 'typings'
 import { QUESTION_TYPES, DELAY_TIME } from 'common'
-import { IQuestion } from '../interface'
 import { getUid, emptyFn } from 'utils'
 
 import './index.scss'
 
 import addQstIcon from 'assets/images/add-question.png'
+import { IQuestion } from '../interface'
+import { renderSteps } from '../index'
 
 // tslint:disable-next-line: no-empty
 
@@ -27,7 +27,7 @@ import addQstIcon from 'assets/images/add-question.png'
 // }
 
 // type modalType = 'infoModal' | 'confirmModal'
-let timerId: number | undefined
+let timerId: any
 
 @inject(injector)
 @observer
@@ -93,8 +93,7 @@ class Question extends React.Component<IProps, IState> {
         questions.push({
           id: getUid(),
           type: key,
-          Element: require(`components/${key === 'Multiple' || key === 'Vote' ? 'Single' : key}Question`)
-            .default,
+          Element: require(`components/${key === 'Multiple' || key === 'Vote' ? 'Single' : key}Question`).default,
         })
 
         action!.updateQuestions(questions)
@@ -163,7 +162,7 @@ class Question extends React.Component<IProps, IState> {
   }
 
   handleModalClose = (type: string) => {
-    this.setState({ [type]: false }) // tslint:disable-line
+    this.setState({ [type]: false })
   }
 
   removeQstByIdx = (index: number) => {

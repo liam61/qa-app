@@ -2,13 +2,14 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { Steps } from 'antd-mobile'
-import QuestionPage from './Question'
-import InfoPage from './Info'
-import ExtraPage from './Extra'
 import PageModal from 'components/PageModal'
 import InfoModal, { InfoTypes, IInfoProps } from 'components/InfoModal'
 import { emptyFn } from 'utils'
 import { IRootStore, IRootAction } from 'typings'
+import ExtraPage from './Extra'
+import InfoPage from './Info'
+import QuestionPage from './Question'
+import ReceiverPage from './Receiver'
 
 import './index.scss'
 
@@ -47,6 +48,7 @@ class Create extends React.Component<IProps, IState> {
     extraPageModal: false,
     infoModal: false,
     infoProps: infoModalFactory.warning(),
+    receiverPageModal: false,
   }
 
   componentWillUnmount() {
@@ -63,11 +65,11 @@ class Create extends React.Component<IProps, IState> {
   }
 
   handlePageModalShow = (type: string) => {
-    this.setState({ [type]: true }) // tslint:disable-line
+    this.setState({ [type]: true })
   }
 
   handleModalClose = (type: string) => {
-    this.setState({ [type]: false }) // tslint:disable-line
+    this.setState({ [type]: false })
   }
 
   handleFinish = () => {
@@ -87,13 +89,7 @@ class Create extends React.Component<IProps, IState> {
 
   render() {
     const { prefixCls } = this.props
-    const {
-      infoPageModal,
-      qstPageModal,
-      extraPageModal,
-      infoModal,
-      infoProps,
-    } = this.state
+    const { infoPageModal, qstPageModal, extraPageModal, infoModal, infoProps, receiverPageModal } = this.state
 
     return (
       <div className={prefixCls}>
@@ -112,8 +108,12 @@ class Create extends React.Component<IProps, IState> {
         <PageModal visible={extraPageModal}>
           <ExtraPage
             onOK={this.handleFinish}
+            onReceiver={() => this.handlePageModalShow('receiverPageModal')}
             onCancel={() => this.handleModalClose('extraPageModal')}
           />
+        </PageModal>
+        <PageModal visible={receiverPageModal}>
+          <ReceiverPage onCancel={() => this.handleModalClose('receiverPageModal')} />
         </PageModal>
         <InfoModal visible={infoModal} {...infoProps} />
       </div>
@@ -123,17 +123,9 @@ class Create extends React.Component<IProps, IState> {
 
 const { Step } = Steps
 
-export const steps = [
-  {
-    title: '基本信息',
-  },
-  {
-    title: '创建问题',
-  },
-  {
-    title: '其他信息',
-  },
-].map((s, i) => <Step key={i} title={s.title} />)
+export const steps = [{ title: '基本信息' }, { title: '创建问题' }, { title: '其他信息' }].map((s, i) => (
+  <Step key={i} title={s.title} />
+))
 
 export const renderSteps = (num: number) => (
   <Steps current={num} direction="horizontal">
@@ -154,15 +146,10 @@ interface IState extends Partial<injectorReturnType> {
   extraPageModal: boolean
   infoModal: boolean
   infoProps: IInfoProps
+  receiverPageModal: boolean
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Create.createStore,
     action: rootAction.Create.createAction,

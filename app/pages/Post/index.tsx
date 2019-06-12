@@ -27,7 +27,7 @@ class Post extends React.Component<IProps, IState> {
   componentDidMount() {
     const { action, onBadgeChange } = this.props
 
-    action!.getListData(false, onBadgeChange)
+    action!.getListData(false, () => console.log('a'))
   }
 
   handleSearchChange = (val: string) => {

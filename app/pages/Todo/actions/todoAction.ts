@@ -1,22 +1,16 @@
-import { mAction } from '../../../mobx/action'
 import { request } from 'utils'
 import { IRootAction, IRootStore } from 'typings'
+import { mAction } from '../../../mobx/action'
 
 @mAction
 export default class TodoAction {
-  constructor(
-    public stores: IRootStore['Todo'],
-    public actions: IRootAction['Todo']
-  ) {}
+  constructor(public stores: IRootStore['Todo'], public actions: IRootAction['Todo']) {}
 
-  async getListData(
-    refresh = false,
-    callback: (type: string, num: number) => void,
-    index?: number
-  ) {
+  async getListData(refresh = false, callback: (type: string, num: number) => void, index?: number) {
     const { todoStore } = this.stores
 
     if (refresh) {
+      // 清空数据
       todoStore.setListData({ lists: [], total: 0, newer: 0 })
     }
 
@@ -30,11 +24,7 @@ export default class TodoAction {
       .setListData(data)
       .setRefresh(refresh, false)
       .setLoading(false)
-    // if (!todoStore.totalPage) {
-    //   const { dataList, pageSize } = todoStore
-    //   const len = dataList.reduce((sum, list) => sum + list.data.length, 0)
-    //   todoStore.setTotalPage(Math.ceil(len / pageSize))
-    // }
+
     callback('todosNum', todoStore.newer)
   }
 
@@ -44,11 +34,7 @@ export default class TodoAction {
     todoStore
       .setLoading(true)
       .setPageIndex(++index)
-      .addListData(
-        await request
-          .setPath('questions')
-          .get({ query: { page: todoStore.pageIndex } })
-      )
+      .addListData(await request.setPath('questions').get({ query: { page: todoStore.pageIndex } }))
       .setLoading(false)
   }
 }

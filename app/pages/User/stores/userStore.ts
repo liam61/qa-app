@@ -1,4 +1,4 @@
-import { action, observable, computed, toJS, comparer } from 'mobx'
+import { action, observable, toJS, comparer } from 'mobx'
 import { mStore } from '../../../mobx/store'
 
 export interface IUser {
@@ -11,8 +11,8 @@ export interface IUser {
   phone: string
   birthday: string
   gender: string
-  answer: number
-  ask: number
+  todos: any[]
+  posts: any[]
   score: number
 }
 
@@ -26,8 +26,8 @@ const initStore: IUser = {
   phone: '',
   birthday: '',
   gender: '',
-  answer: 0,
-  ask: 0,
+  todos: [],
+  posts: [],
   score: 0,
 }
 
@@ -40,7 +40,7 @@ export default class UserStore {
   dataPre: IUser
 
   @observable
-  loading = false
+  loading = true
 
   @observable
   updating = false

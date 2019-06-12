@@ -42,7 +42,7 @@ export default class ChatAction {
     const { chatStore } = this.stores
 
     chatStore.setLoading(true)
-    const { data } = await request.setPath('messages').get({ query: { friendId } })
+    const { data = [] } = await request.setPath('messages').get({ query: { friendId } })
     chatStore.setMessages(data).setLoading(false)
 
     return data[0] || {}

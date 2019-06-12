@@ -209,8 +209,6 @@ module.exports = ({
       alias: {
         '@': resolve(entryDir),
         mobx: resolve('node_modules/mobx/lib/mobx.es6.js'),
-        // components: resolve(entryDir, 'components'),
-        // pages: resolve(entryDir, 'pages'),
       },
     },
     optimization: {

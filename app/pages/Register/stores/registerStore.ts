@@ -1,4 +1,5 @@
 import { action, observable, computed } from 'mobx'
+import { IUser } from 'pages/User/stores/userStore'
 import { IError } from '../../Login/interface'
 import { mStore } from '../../../mobx/store'
 
@@ -8,6 +9,7 @@ export interface IDepartment {
   _id: string
   name: string
   description: string
+  staff?: Array<{ _id: string; user: IUser }>
 }
 
 @mStore

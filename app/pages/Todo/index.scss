@@ -1,7 +1,6 @@
 $prefixCls: 'page-todo';
 
-.#{$prefixCls},
-.page-post {
+.#{$prefixCls} {
   position: relative;
-  height: 100vw;
+  height: calc(100vh - 114px);
 }

@@ -1,4 +1,4 @@
-import { request, getUid } from 'utils'
+import { getUid } from 'utils'
 import { IMessage, msgType } from './interface'
 
 export default class WsRequest {
@@ -42,7 +42,6 @@ export default class WsRequest {
   ): Promise<IMessage> {
     const message: IMessage = { from: this.userId, to: receiverId, content, type }
 
-    console.log('friendId', friendId)
     // const { _id } = await request.setPath('messages').post({ data: { friend: friendId, ...message } })
     await this.ws.send(JSON.stringify({ friend: friendId, ...message }))
 

@@ -1,7 +1,7 @@
 import { IUser } from 'pages/User/stores/userStore'
 import { Toast } from 'antd-mobile'
 import { IError } from 'pages/Login/interface'
-import { WS_PATH, DELAY_TIME } from 'common'
+import { WS_PATH, DELAY_TIME, ROOT_USER } from 'common'
 import { IRootAction, IRootStore } from 'typings'
 import WsRequest from 'websocket'
 import { IMessage } from 'websocket/interface'
@@ -32,17 +32,29 @@ export default class MessageAction {
     // const { chatAction } = this.actions
 
     messageStore.setLoadFriends(true)
-    const { data } = await request.setPath('friends').get()
+    const { data = [] } = await request.setPath('friends').get()
+
+    if (!data.length) {
+      await this.applyRootUser()
+    }
     messageStore.setFriends(data).setLoadFriends(false)
 
     return data
+  }
+
+  async applyRootUser() {
+    const { hasError } = await validator.account(ROOT_USER)
+
+    if (!hasError) {
+      await request.setPath('friends').post({ data: { account: ROOT_USER } })
+    }
   }
 
   async getApplies() {
     const { messageStore } = this.stores
 
     messageStore.setLoadApplies(true)
-    const { data } = await request.setPath('friends/applies').get()
+    const { data = [] } = await request.setPath('friends/applies').get()
     messageStore.setApplies(data).setLoadApplies(false)
   }
 
@@ -58,7 +70,6 @@ export default class MessageAction {
     const { hasError } = await validator.account(account)
 
     if (!hasError) {
-      console.log('searchUserByName', account)
       const { type } = await request.setPath('friends').post({ data: { account } })
 
       callback()
@@ -78,7 +89,7 @@ export default class MessageAction {
   async applyAgreed(id: string) {
     const { chatAction } = this.actions
 
-    const { data }: any = await request.setPath('friends').patch({ uri: id })
+    const { data = {} } = await request.setPath('friends').patch({ uri: id })
 
     if (data) {
       Toast.success('添加成功！', DELAY_TIME)

@@ -5,10 +5,11 @@ import { InputItem, Button, Toast } from 'antd-mobile'
 import { debounce } from 'utils'
 import lockIcon from 'assets/images/lock.svg'
 // import { IResponse } from '../Register/actions/registerAction'
-import { IError } from './interface'
 import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
+import { DELAY_TIME } from 'common'
+import { IError } from './interface'
 
 export const noErrors: IError = { hasError: false, error: '' }
 
@@ -19,9 +20,9 @@ class Login extends React.Component<IProps, IState> {
     prefixCls: 'page-login',
   }
 
-  accountInput: React.ReactNode
+  accountInput: any
 
-  passwordInput: React.ReactNode
+  passwordInput: any
 
   state = {
     account: '',
@@ -29,6 +30,10 @@ class Login extends React.Component<IProps, IState> {
     accountInfo: noErrors,
     loading: false,
     validate: '',
+  }
+
+  componentDidMount() {
+    this.accountInput.focus()
   }
 
   handleChange = (type: string, val: string) => {
@@ -66,11 +71,14 @@ class Login extends React.Component<IProps, IState> {
     this.setState({ loading: true })
 
     action!.login({ account, password, validate }, (success: boolean) => {
-      console.log(success)
-
       this.setState({ loading: false })
 
-      if (success) {
+      if (!success) {
+        Toast.fail('认证失败，请重新登录！', DELAY_TIME, () => {
+          this.setState({ password: '' })
+          this.passwordInput.focus()
+        })
+      } else {
         history.push('/')
       }
     })
@@ -94,9 +102,7 @@ class Login extends React.Component<IProps, IState> {
             maxLength={20}
             error={accountErr}
             onErrorClick={() => this.handleErrorClick('accountInfo')}
-            onChange={debounce(this.handleAccountChange, (val: string) =>
-              this.setState({ account: val })
-            )}
+            onChange={debounce(this.handleAccountChange, (val: string) => this.setState({ account: val }))}
           >
             <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
           </InputItem>
@@ -113,7 +119,7 @@ class Login extends React.Component<IProps, IState> {
           </InputItem>
         </div>
         <div className="qa-login-footer">
-          <Link to="/register" className="btn-login">
+          <Link to="/signup" className="btn-login">
             注册
             <i className="fa fa-angle-right icon" aria-hidden="true" />
           </Link>
@@ -150,13 +156,7 @@ interface IState extends Partial<injectorReturnType> {
   validate: string | undefined
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Login.loginStore,
     action: rootAction.Login.loginAction,

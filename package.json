@@ -1,6 +1,6 @@
 {
   "name": "qa-app",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "question-answer app",
   "basePath": "app",
   "main": "app/index.tsx",
@@ -9,7 +9,7 @@
     "build": "webpack --config config/webpack.prod.config.js --progress",
     "lint": "tslint --fix --project .",
     "dll": "webpack --config config/webpack.dll.config.js --progress",
-    "serve": "nodemon app/serve.js"
+    "server": "nodemon app/server.js"
   },
   "author": "lawler61",
   "license": "ISC",

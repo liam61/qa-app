@@ -1,6 +1,8 @@
 $prefixCls: 'page-user';
 
 .#{$prefixCls} {
+  height: calc(100vh - 114px);
+
   &-header {
     position: relative;
     padding: 40px 30px;
@@ -124,7 +126,8 @@ $prefixCls: 'page-user';
   }
 }
 
-.#{$globalPrefixCls}, .page-modal {
+.#{$globalPrefixCls},
+.page-modal {
   .user-input {
     height: 90px !important;
     line-height: 90px;

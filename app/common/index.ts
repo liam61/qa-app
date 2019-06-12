@@ -35,6 +35,8 @@ const ACCEPT_EXTS = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
 
 const WS_PATH = 'ws://localhost:4000/ws'
 
+const ROOT_USER = 'lawler'
+
 export {
   PREFIXCLS,
   // TOKEN,
@@ -48,4 +50,5 @@ export {
   PHONE_REG,
   ACCEPT_EXTS,
   WS_PATH,
+  ROOT_USER,
 }

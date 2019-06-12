@@ -135,7 +135,7 @@ export default class QaListView extends React.Component<IProps, IState> {
       <ListView
         className={prefixCls}
         dataSource={dataSource}
-        renderFooter={() => <div className="qa-no-more">{loading ? '加载中...' : '没有更多数据'}</div>}
+        renderFooter={() => <div className="qa-no-more">{loading ? '加载中...' : '没有更多问题'}</div>}
         renderSectionHeader={sectionData => <React.Fragment>{sectionData}</React.Fragment>}
         renderRow={this.renderRow}
         renderSeparator={this.renderSpace}

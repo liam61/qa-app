@@ -1,10 +1,14 @@
 import * as React from 'react'
 import AppPage from 'pages/App'
 import CreatePage from 'pages/Create/Loadable'
-import ExamplePage from 'pages/Example'
+import ExamplePage from 'pages/Example/Loadable'
+import LoginPage from 'pages/Login/Loadable'
+import SignupPage from 'pages/Register/Loadable'
+import TodoPage from 'pages/Todo/Loadable'
+import PostPage from 'pages/Post/Loadable'
+import MessagePage from 'pages/Message/Loadable'
+import UserPage from 'pages/User/Loadable'
 import NoMatchPage from 'pages/404'
-import LoginPage from 'pages/Login'
-import SignupPage from 'pages/Register'
 
 export interface IRoute {
   key: string
@@ -17,39 +21,22 @@ export interface IRoute {
 }
 
 const routes: IRoute[] = [
+  { key: 'login', path: '/login', component: LoginPage },
+  { key: 'signup', path: '/signup', component: SignupPage },
+  { key: 'example', path: '/example', component: ExamplePage },
   {
     key: 'app',
     path: '/',
     component: AppPage,
-    // component: () => <Hello name="lawler" />,
-    // props: { name: 'lawler' },
-    exact: true,
-    // redirect: '/todos',
-    // children: [],
-  },
-  {
-    key: 'create',
-    path: '/create',
-    component: CreatePage,
-  },
-  {
-    key: 'login',
-    path: '/login',
-    component: LoginPage,
-  },
-  {
-    key: 'signup',
-    path: '/signup',
-    component: SignupPage,
-  },
-  {
-    key: 'example',
-    path: '/example',
-    component: ExamplePage,
-  },
-  {
-    key: '404',
-    component: NoMatchPage,
+    children: [
+      { key: 'home', exact: true, path: '/', redirect: '/todo' },
+      { key: 'todo', path: '/todo', component: TodoPage },
+      { key: 'post', path: '/post', component: PostPage },
+      { key: 'create', path: '/create', component: CreatePage },
+      { key: 'message', path: '/message', component: MessagePage },
+      { key: 'user', path: '/user', component: UserPage },
+      { key: '404', component: NoMatchPage },
+    ],
   },
 ]
 

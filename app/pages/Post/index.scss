@@ -1,5 +1,6 @@
 $prefixCls: 'page-post';
 
 .#{$prefixCls} {
-
+  position: relative;
+  height: calc(100vh - 114px);
 }

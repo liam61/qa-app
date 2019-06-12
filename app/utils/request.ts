@@ -1,31 +1,21 @@
-import axios, {
-  AxiosRequestConfig,
-  AxiosInstance,
-  AxiosResponse,
-  Canceler,
-} from 'axios'
+import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse, Canceler } from 'axios'
 import qs from 'qs'
 import { Toast } from 'antd-mobile'
 import { DELAY_TIME } from 'common'
 import { IReqOptions, IResponse } from '../interface'
 
 // examples:
-// const result = await request.setPath('user').get({ uri: 'Dolor' })
-// const result = await request.setPath('user').delete({ uri: 'Dolor' })
-// const result = await request.setPath('user').post({
-//   data: { name: 'lawler', email: 'admin@omyleon.com' },
-// })
-// const result = await request.put({
-//   uri: 'Dolor',
-//   data: { name: 'Bolor' },
-// })
+// 1. get    baseUrl/users/Dolor   await request.setPath('users').get({ uri: 'Dolor' })
+
+// 2. delete baseUrl/users/Dolor   await request.setPath('users').delete({ uri: 'Dolor' })
+
+// 3. post   baseUrl/users         await request.setPath('users').post({ data: { name: 'lawler', email: 'lawler61@163.com' })
+
+// 4. put    baseUrl/users         await request.setPath('users').put({ uri: 'Dolor', data: { name: 'Bolor' } })
 
 const defaultOptions: AxiosRequestConfig = {
-  // baseURL: 'https://mock.omyleon.com/mock/11/api/v1',
-  baseURL:
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:4000/v1'
-      : 'https://mock.omyleon.com/mock/11/api/v1',
+  baseURL: 'http://localhost:4000/v1',
+  // process.env.NODE_ENV === 'development' ? 'http://localhost:4000/v1' : 'https://mock.omyleon.com/mock/11/api/v1',
   timeout: 6000,
   withCredentials: true,
   headers: {
@@ -50,6 +40,9 @@ class Request {
 
   curPath = ''
 
+  history: any
+
+  // constructor(private history: any, options: AxiosRequestConfig) {
   constructor(options: AxiosRequestConfig) {
     this.request = axios.create(options)
 
@@ -57,13 +50,12 @@ class Request {
       this[method] = (params: IReqOptions) => this.getRequest(method, params)
     })
 
-    this.upload = (data: object, callback: (process: any) => void) =>
-      this.getUploader(data, callback)
+    this.upload = (data: object, callback: (process: any) => void) => this.getUploader(data, callback)
 
     this.initInterceptors()
   }
 
-  static getInstance(options: AxiosRequestConfig) {
+  static getInstance(options = defaultOptions) {
     if (!this.instance) {
       this.instance = new Request(options)
     }
@@ -83,9 +75,12 @@ class Request {
 
     this.request.interceptors.response.use(
       (res: AxiosResponse<any>) => {
-        if (res.status === 401) {
-          Toast.fail('认证失败，请登录后再操作', DELAY_TIME)
-          console.log('跳转到 /login')
+        const { data } = res
+
+        if (data.status === 401) {
+          Toast.fail('认证过期，请登录后再操作！', DELAY_TIME)
+
+          this.history.push('/login')
         }
 
         return res
@@ -106,10 +101,7 @@ class Request {
    * @param {Object} [options.data=null] POST/PUT/PATCH 数据
    * @returns {Promise<any>}
    */
-  async getRequest(
-    method: string,
-    options: IReqOptions = { uri: '', query: null, data: {} }
-  ): Promise<any> {
+  async getRequest(method: string, options: IReqOptions = { uri: '', query: null, data: {} }): Promise<any> {
     const { uri, query, data } = options
 
     let url = this.curPath + (uri ? `/${uri}` : '')
@@ -140,10 +132,7 @@ class Request {
     return result
   }
 
-  async getUploader(
-    data: any = {},
-    callback: (process: any) => void
-  ): Promise<any> {
+  async getUploader(data: any = {}, callback: (process: any) => void): Promise<any> {
     let result: any = {}
 
     if (data && data.cancelToken) {
@@ -200,4 +189,4 @@ class Request {
   }
 }
 
-export default Request.getInstance(defaultOptions)
+export default Request.getInstance()

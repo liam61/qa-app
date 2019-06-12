@@ -1,12 +1,8 @@
 import { emptyFn } from './index'
 
-let timerId: number | undefined
+let timerId: any
 
-function debounce(
-  fn: (...rest: any) => void,
-  always: (...rest: any) => void = emptyFn,
-  delay = 500
-) {
+function debounce(fn: (...rest: any) => void, always: (...rest: any) => void = emptyFn, delay = 500) {
   return (...rest: any) => {
     if (timerId) {
       clearTimeout(timerId)
