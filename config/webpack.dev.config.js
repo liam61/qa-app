@@ -5,8 +5,6 @@ const options = require('./options')
 const getBaseConfig = require('./webpack.base.config')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-process.env.NODE_ENV = 'development'
-
 function getDevConfig(opts) {
   return merge(getBaseConfig(opts), {
     devServer: {

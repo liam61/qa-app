@@ -1,6 +1,8 @@
 const http = require('http')
 const fs = require('fs')
 
+const port = 8080
+
 const server = http.createServer((req, res) => {
   const basePath = './dist'
   const filePath = `${basePath}${req.url === '/' ? '/index.html' : req.url}`
@@ -15,4 +17,4 @@ const server = http.createServer((req, res) => {
   })
 })
 
-server.listen(8080, () => console.log('your app is running at http://localhost:8080'))
+server.listen(port, () => console.log(`your app is running at http://localhost:${port} :)`))

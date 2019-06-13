@@ -1,6 +1,10 @@
 const PREFIXCLS = 'qa'
-
-// const TOKEN = 'f3660dec0866f0d5ad60cd5d761649ed12a4dad6b4e33a8cd7277129b41e0098'
+const HOST = process.env.NODE_ENV === 'development' ? 'localhost' : 'omyleon.com'
+// const HOST = 'localhost'
+const SERVER_PORT = 6260
+const API_VERSION = 'v1'
+const API_URL = `http://${HOST}:${SERVER_PORT}/${API_VERSION}`
+// const API_URL = 'https://mock.omyleon.com/mock/11/api/v1'
 
 const QUESTION_TYPES = [
   { key: 'Single', value: '单选题' },
@@ -33,7 +37,7 @@ const PHONE_REG = /^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[35678]\d{2}|4(
 
 const ACCEPT_EXTS = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
 
-const WS_PATH = 'ws://localhost:4000/ws'
+const WS_PATH = `ws://${HOST}:${SERVER_PORT}/ws`
 
 const ROOT_USER = 'lawler'
 
@@ -51,4 +55,5 @@ export {
   ACCEPT_EXTS,
   WS_PATH,
   ROOT_USER,
+  API_URL,
 }

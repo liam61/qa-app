@@ -57,7 +57,7 @@
   },
   "compileOnSave": false,
   "exclude": [
-    "../node_modules",
-    "typings"
+    "node_modules",
+    "app/typings"
   ]
 }

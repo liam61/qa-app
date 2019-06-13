@@ -5,8 +5,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const options = require('./options')
 const getBaseConfig = require('./webpack.base.config')
 
-process.env.NODE_ENV = 'production'
-
 function getProdConfig(opts) {
   return merge(getBaseConfig(opts), {
     plugins: [

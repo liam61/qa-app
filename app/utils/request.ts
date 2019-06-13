@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse, Canceler } from 'axios'
 import qs from 'qs'
 import { Toast } from 'antd-mobile'
-import { DELAY_TIME } from 'common'
+import { DELAY_TIME, API_URL } from 'common'
 import { IReqOptions, IResponse } from '../interface'
 
 // examples:
@@ -14,8 +14,7 @@ import { IReqOptions, IResponse } from '../interface'
 // 4. put    baseUrl/users         await request.setPath('users').put({ uri: 'Dolor', data: { name: 'Bolor' } })
 
 const defaultOptions: AxiosRequestConfig = {
-  baseURL: 'http://localhost:4000/v1',
-  // process.env.NODE_ENV === 'development' ? 'http://localhost:4000/v1' : 'https://mock.omyleon.com/mock/11/api/v1',
+  baseURL: API_URL,
   timeout: 6000,
   withCredentials: true,
   headers: {
