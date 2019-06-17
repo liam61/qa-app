@@ -13,7 +13,7 @@ import './index.scss'
 
 @inject(injector)
 @observer
-class Info extends React.Component<IProps, IState> {
+export default class Info extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-create-info',
   }
@@ -34,12 +34,6 @@ class Info extends React.Component<IProps, IState> {
     }
 
     this.handleAddFile = this.handleAddFile.bind(this)
-  }
-
-  componentWillUnmount() {
-    // console.log('unmount infp')
-    // const { onCancel } = this.props
-    // onCancel()
   }
 
   handleTitleChange = (val: string | undefined = '') => {
@@ -81,13 +75,12 @@ class Info extends React.Component<IProps, IState> {
   }
 
   onEnterQstPage = () => {
-    const { onOK, history, action } = this.props
+    const { onOK, action } = this.props
     const { title, content, files } = this.state
 
     action!.updateInfo(title, content, files)
     this.handleModalClose('confirmModal')
 
-    history.push('/create?steps=question')
     onOK()
   }
 
@@ -105,7 +98,7 @@ class Info extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text="创建问题" onCancel={onCancel} />
+        <PageHeader text="基本信息" onCancel={onCancel} />
         {renderSteps(0)}
         <div className={`${prefixCls}-main`}>
           <div className="content-title">
@@ -186,7 +179,6 @@ interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   onOK: () => void
   onCancel: () => void
-  history: { push: (path: string) => void }
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -205,5 +197,3 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
     action: rootAction.Create.infoAction,
   }
 }
-
-export default withRouter(Info)

@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse, Canceler } from 'axios'
 import qs from 'qs'
+import { createBrowserHistory } from 'history'
 import { Toast } from 'antd-mobile'
 import { DELAY_TIME, API_URL } from 'common'
 import { IReqOptions, IResponse } from '../interface'
@@ -39,10 +40,8 @@ class Request {
 
   curPath = ''
 
-  history: any
-
-  // constructor(private history: any, options: AxiosRequestConfig) {
-  constructor(options: AxiosRequestConfig) {
+  constructor(public history: any, options: AxiosRequestConfig) {
+    // constructor(options: AxiosRequestConfig) {
     this.request = axios.create(options)
 
     this.methods.forEach(method => {
@@ -54,9 +53,9 @@ class Request {
     this.initInterceptors()
   }
 
-  static getInstance(options = defaultOptions) {
+  static getInstance(history = createBrowserHistory(), options = defaultOptions) {
     if (!this.instance) {
-      this.instance = new Request(options)
+      this.instance = new Request(history, options)
     }
     return this.instance
   }

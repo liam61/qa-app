@@ -23,7 +23,9 @@ export default class UserAction {
     userStore.setLoading(true)
 
     const id = localStorage.getItem('userId')
-    const { data = {} } = await request.setPath('users').get({ uri: id, data: { cancelToken: true } })
+    const { data = { todos: [], posts: [] } } = await request
+      .setPath('users')
+      .get({ uri: id, data: { cancelToken: true } })
 
     userStore.setUserData(data).setLoading(false)
   }

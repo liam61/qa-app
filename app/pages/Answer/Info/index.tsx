@@ -3,14 +3,16 @@ import { inject, observer } from 'mobx-react'
 import { Button, Toast, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
 import { increaseCount } from 'utils'
 import { IRootStore, IRootAction } from 'typings'
-import { IFile } from '../../Create/interface'
 import { TIME_OPTIONS, TYPE_OPTIONS } from 'common'
 
 import './index.scss'
+import PageHeader from 'components/PageHeader'
+import { withRouter } from 'react-router'
+import { IFile } from '../../Create/interface'
 
 @inject(injector)
 @observer
-export default class Info extends React.Component<IProps, IState> {
+class Info extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-answer-info',
   }
@@ -25,27 +27,27 @@ export default class Info extends React.Component<IProps, IState> {
   componentDidMount() {
     const { read, unread } = this.props
 
-    increaseCount(read, (count, next) =>
-      this.setState({ readNum: count }, next)
-    )
-    increaseCount(unread, (count, next) =>
-      this.setState({ unreadNum: count }, next)
-    )
+    increaseCount(read, (count, next) => this.setState({ readNum: count }, next))
+    increaseCount(unread, (count, next) => this.setState({ unreadNum: count }, next))
   }
 
   handleModalClose = (type: string) => {
-    this.setState({ [type]: false }) // tslint:disable-line
+    this.setState({ [type]: false })
   }
 
-  handleImgClick = (
-    index: number | undefined = 0,
-    files: IFile[] | undefined = []
-  ) => {
+  handleImgClick = (index: number | undefined = 0, files: IFile[] | undefined = []) => {
     console.log(index, files)
     this.setState({
       imgUrl: files[index].url,
       imgModal: true,
     })
+  }
+
+  onBack = () => {
+    const { onCancel, history } = this.props
+
+    history.goBack()
+    onCancel()
   }
 
   render() {
@@ -66,12 +68,11 @@ export default class Info extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
+        <PageHeader text="问题详情" onCancel={this.onBack} />
         <div className={`${prefixCls}-header qa-border-1px-bottom`}>
           <div className="header-content">
             <div className="title qa-text-ellipsis">{title}</div>
-            <span className="type">
-              {TYPE_OPTIONS.find(t => t.key === type)!.value}
-            </span>
+            <span className="type">{TYPE_OPTIONS.find(t => t.key === type)!.value}</span>
           </div>
           <div className="header-info">
             <img
@@ -82,9 +83,7 @@ export default class Info extends React.Component<IProps, IState> {
               }
               alt="user-avatar"
             />
-            <span className="info-name qa-border-1px-right">
-              {showAuthor ? author : '匿名'}
-            </span>
+            <span className="info-name qa-border-1px-right">{showAuthor ? author : '匿名'}</span>
             <span className="info-date qa-border-1px-right">{date}</span>
             <span className="info-expire">
               期限：
@@ -152,6 +151,8 @@ interface IProps extends Partial<injectorReturnType> {
   unread: number
   showAuthor: boolean
   onOK: () => void
+  onCancel: () => void
+  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -161,12 +162,8 @@ interface IState extends Partial<injectorReturnType> {
   unreadNum: number
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }
+
+export default withRouter(Info)

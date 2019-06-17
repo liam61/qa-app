@@ -13,7 +13,7 @@ import './index.scss'
 
 @inject(injector)
 @observer
-class Extra extends React.Component<IProps, IState> {
+export default class Extra extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-create-extra',
   }
@@ -29,17 +29,9 @@ class Extra extends React.Component<IProps, IState> {
   }
 
   async componentDidMount() {
-    const { history, onCancel, action } = this.props
+    const { action } = this.props
 
-    history.listen((params: any, type: string) => {
-      const { pathname, search } = params
-
-      if (pathname === '/create' && search === '?steps=question' && type === 'POP') {
-        onCancel()
-      }
-    })
-
-    action!.getDepsAndUsers()
+    await action!.getDepsAndUsers()
   }
 
   showActionSheet = (actionType: string) => {
@@ -88,8 +80,8 @@ class Extra extends React.Component<IProps, IState> {
     // }
 
     action!.updateExtra(type.key, time.key, showAuthor, secret, anonymous)
-    onOK()
 
+    onOK()
     // this.handleModalClose('confirmModal')
   }
 
@@ -102,7 +94,7 @@ class Extra extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text="创建问题" onCancel={onCancel} />
+        <PageHeader text="其他信息" onCancel={onCancel} />
         {renderSteps(2)}
         <WhiteSpace size="lg" />
         <div className="page-create-header qa-border-1px-bottom">
@@ -189,7 +181,6 @@ interface IProps extends Partial<injectorReturnType> {
   onOK: () => void
   onReceiver: () => void
   onCancel: () => void
-  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -209,5 +200,3 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
     title: rootStore.Create.infoStore.title,
   }
 }
-
-export default withRouter(Extra)

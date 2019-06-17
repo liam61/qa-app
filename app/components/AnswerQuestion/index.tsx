@@ -27,11 +27,11 @@ export default class AnswerQuestion extends React.Component<IProps, IState> {
     this.setState({ hidden: !hidden })
   }
 
-  handleRequiredChange = val => {
+  handleRequiredChange = (val: boolean) => {
     this.setState({ required: val })
   }
 
-  handleTitleChange = val => {
+  handleTitleChange = (val: string) => {
     this.setState({ title: val })
   }
 
@@ -59,10 +59,7 @@ export default class AnswerQuestion extends React.Component<IProps, IState> {
           onRequiredChange={this.handleRequiredChange}
           onRemove={onRemove}
         />
-        <div
-          className={`${prefixCls}-content`}
-          style={{ display: hidden ? 'none' : 'block' }}
-        >
+        <div className="qa-question-content" style={{ display: hidden ? 'none' : 'block' }}>
           <div className="content-title">
             <div className="content-text">题目</div>
             <InputItem
@@ -97,12 +94,6 @@ interface IState extends Partial<injectorReturnType> {
   hidden: boolean
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

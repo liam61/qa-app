@@ -146,6 +146,7 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
+  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {

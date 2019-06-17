@@ -2,10 +2,10 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { SearchBar } from 'antd-mobile'
-import AnswerPage from '../Answer'
 import PageModal from 'components/PageModal'
 import ListView from 'components/QaListView'
 import { IRootStore, IRootAction } from 'typings'
+import AnswerPage from '../Answer'
 import { IData } from './stores/todoStore'
 
 import './index.scss'
@@ -44,7 +44,8 @@ class Todo extends React.Component<IProps, IState> {
 
   handleListItemClick = (id: string, info: IData, cover: string) => {
     const { history } = this.props
-    history.push(`/?steps=todo&id=${id}`)
+
+    history.push(`/todo?detail=${id}`)
 
     this.setState({
       answerPageKey: id,
@@ -81,12 +82,7 @@ class Todo extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <SearchBar
-          value={search}
-          placeholder="搜索..."
-          maxLength={20}
-          onChange={this.handleSearchChange}
-        />
+        <SearchBar value={search} placeholder="搜索..." maxLength={20} onChange={this.handleSearchChange} />
         <ListView
           dataList={dataList}
           loading={loading}
@@ -114,7 +110,7 @@ type injectorReturnType = ReturnType<typeof injector>
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   onBadgeChange: (type: string, num: number) => void
-  [k: string]: any
+  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {

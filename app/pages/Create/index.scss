@@ -17,9 +17,8 @@ $prefixCls: 'page-create';
       color: #000;
     }
 
-
     .am-switch-checkbox {
-      &:checked+.checkbox {
+      &:checked + .checkbox {
         background: #4dd865 !important;
       }
     }
@@ -33,43 +32,40 @@ $prefixCls: 'page-create';
   }
 }
 
-.page-modal {
-  .am-steps {
-    padding: 30px 80px 15px;
-    @include border-mixin(0, bottom);
-    background: #fff;
+.#{$globalPrefixCls}-steps {
+  padding: 25px 80px 15px;
+  @include border-mixin(0, bottom);
+  background: #fff;
 
-    &-item {
-      &-tail {
-        width: 98%;
-        top: 20px;
-        margin-left: 60px;
+  .am-steps-item {
+    &-tail {
+      width: 98%;
+      top: 20px;
+      margin-left: 60px;
 
-        &::after {
-          left: 0;
-        }
-      }
-
-      &-icon {
-        width: 40px;
-        height: 40px;
-
-        .am-steps-icon {
-          top: 8px;
-          font-size: 24px;
-
-          .am-icon {
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-
-      &-title {
-        font-size: 24px;
-        color: $title;
+      &::after {
+        left: 0;
       }
     }
 
+    &-icon {
+      width: 40px;
+      height: 40px;
+
+      .am-steps-icon {
+        top: 8px;
+        font-size: 24px;
+
+        .am-icon {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    &-title {
+      font-size: 24px;
+      color: $title;
+    }
   }
 }

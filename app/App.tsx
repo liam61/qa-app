@@ -11,7 +11,6 @@ import 'assets/css/font-awesome.min.css'
 
 configure({ enforceActions: 'observed' }) // 不允许在动作外部修改状态
 
-console.log(routes)
 @provider
 class App extends React.Component {
   render() {

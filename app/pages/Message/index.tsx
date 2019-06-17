@@ -13,12 +13,13 @@ import ChatPage from './Chat'
 
 import './index.scss'
 import { IUser } from 'pages/User/stores/userStore'
+import { withRouter } from 'react-router'
 
 let me: IUser
 
 @inject(injector)
 @observer
-export default class Message extends React.Component<IProps, IState> {
+class Message extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-message',
   }
@@ -49,6 +50,10 @@ export default class Message extends React.Component<IProps, IState> {
   }
 
   handleFriendChange = (friend: any) => {
+    const { history } = this.props
+
+    history.push(`/message?friend=${friend._id}`)
+
     this.setState({ friend4chat: friend, chatPageModal: true })
   }
 
@@ -90,10 +95,11 @@ export default class Message extends React.Component<IProps, IState> {
   }
 
   handleChatPageModalClose = () => {
-    const { action } = this.props
+    const { action, history } = this.props
 
     action!.getFriends()
 
+    history.goBack()
     this.setState({ chatPageModal: false })
   }
 
@@ -164,7 +170,6 @@ export default class Message extends React.Component<IProps, IState> {
         </PageModal>
         <InputModal
           visible={inputModal}
-          // onChange={}
           onOK={this.handleAddChange}
           onCancel={() => this.handleModalClose('inputModal')}
           title="添加好友"
@@ -187,6 +192,7 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
+  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -204,3 +210,5 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
     action: rootAction.Message.messageAction,
   }
 }
+
+export default withRouter(Message)

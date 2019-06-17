@@ -1,9 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import { withRouter } from 'react-router-dom'
 import { Button, ActionSheet, Switch, Toast, WhiteSpace } from 'antd-mobile'
-// import { fromJS } from 'immutable'
 import ConfirmModal, { IConfirmProps } from 'components/ConfirmModal'
 import PageHeader from 'components/PageHeader'
 import { IRootStore, IRootAction } from 'typings'
@@ -11,27 +9,17 @@ import { QUESTION_TYPES, DELAY_TIME } from 'common'
 import { getUid, emptyFn } from 'utils'
 
 import './index.scss'
+import 'components/SingleQuestion/index.scss' // in case singleQuestion is not chosen
 
 import addQstIcon from 'assets/images/add-question.png'
 import { IQuestion } from '../interface'
 import { renderSteps } from '../index'
 
-// tslint:disable-next-line: no-empty
-
-// const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent)
-// let wrapProps
-// if (isIPhone) {
-//   wrapProps = {
-//     onTouchStart: e => e.preventDefault(),
-//   };
-// }
-
-// type modalType = 'infoModal' | 'confirmModal'
 let timerId: any
 
 @inject(injector)
 @observer
-class Question extends React.Component<IProps, IState> {
+export default class Question extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-create-question',
   }
@@ -42,29 +30,18 @@ class Question extends React.Component<IProps, IState> {
     const { store } = props
 
     this.state = {
-      questions: store!.cached
-        ? // ? fromJS(store!.questions).toJS() // 深拷贝
-          toJS(store!.questions)
-        : ([] as IQuestion[]),
+      questions: store!.cached ? toJS(store!.questions) : ([] as IQuestion[]),
       confirmModal: false,
       confirmProps: { title: '', onOK: emptyFn },
     }
   }
 
   componentDidMount() {
-    const { store, history, onCancel } = this.props
+    const { store } = this.props
 
     if (store!.cached) {
       this.handleQstsCached(true) // 数据恢复完后开启缓存（此时只是设置了 setInterval）
     }
-
-    history.listen((params: object, type: string) => {
-      const { pathname, search } = params
-
-      if (pathname === '/create' && search === '?steps=info' && type === 'POP') {
-        onCancel()
-      }
-    })
   }
 
   componentWillUnmount() {
@@ -103,12 +80,13 @@ class Question extends React.Component<IProps, IState> {
   }
 
   onEnterExtraPage = () => {
-    const { action, onOK, history } = this.props
+    const { action, onOK } = this.props
     const { questions } = this.state
     let qstArr: IQuestion[] = []
+
     const flag = questions.some((qst, index) => {
       // console.log(this[`question${index}`])
-      const extraProps = this[`question${index}`].wrappedInstance.getQuestion() // NOTE: 为啥要用 wrappedInstance
+      const extraProps = this[`question${index}`].wrappedInstance.getQuestion()
       const { title, options } = extraProps
 
       qstArr.push(Object.assign({}, qst, extraProps))
@@ -126,7 +104,7 @@ class Question extends React.Component<IProps, IState> {
 
     clearInterval(timerId)
     action!.updateQuestions(qstArr)
-    history.push('/create?steps=extra')
+
     onOK()
   }
 
@@ -141,7 +119,7 @@ class Question extends React.Component<IProps, IState> {
     if (store!.cached) {
       timerId = setInterval(() => {
         const qsts = questions.map((qst, index) => {
-          const extraProps = this[`question${index}`].wrappedInstance.getQuestion() // NOTE: 为啥要用 wrappedInstance
+          const extraProps = this[`question${index}`].wrappedInstance.getQuestion()
 
           return Object.assign({}, qst, extraProps)
         })
@@ -155,10 +133,7 @@ class Question extends React.Component<IProps, IState> {
 
   handleConfirmModalShow = (props: IConfirmProps) => {
     // ev.preventDefault(); // 修复 Android 上点击穿透
-    this.setState({
-      confirmModal: true,
-      confirmProps: props,
-    })
+    this.setState({ confirmModal: true, confirmProps: props })
   }
 
   handleModalClose = (type: string) => {
@@ -177,6 +152,7 @@ class Question extends React.Component<IProps, IState> {
   renderQsts = (questions: IQuestion[], cached: boolean) =>
     questions.map((qst, index) => {
       const { id, Element, ...restProps } = qst
+
       const props = Object.assign({
         num: index + 1,
         cached,
@@ -243,12 +219,7 @@ class Question extends React.Component<IProps, IState> {
           type="primary"
           className="qa-btn-bottom"
           disabled={length === 0}
-          onClick={() =>
-            this.handleConfirmModalShow({
-              title: '你确定完成题目创建吗？',
-              onOK: this.onEnterExtraPage,
-            })
-          }
+          onClick={() => this.handleConfirmModalShow({ title: '你确定完成题目创建吗？', onOK: this.onEnterExtraPage })}
         >
           添加完成
           <i className="fa fa-angle-right btn-bottom-icon" aria-hidden="true" />
@@ -265,10 +236,6 @@ interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   onOK: () => void
   onCancel: () => void
-  history: {
-    push: (path: string) => void
-    listen: (cb: (params: object, type: string) => void) => void
-  }
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -284,5 +251,3 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
     title: rootStore.Create.infoStore.title,
   }
 }
-
-export default withRouter(Question)

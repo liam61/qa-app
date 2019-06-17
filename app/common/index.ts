@@ -43,7 +43,6 @@ const ROOT_USER = 'lawler'
 
 export {
   PREFIXCLS,
-  // TOKEN,
   QUESTION_TYPES,
   TYPE_OPTIONS,
   TIME_OPTIONS,

@@ -2,11 +2,10 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 // import { Button, Toast } from 'antd-mobile'
-import qs from 'qs'
-import InfoPage from './Info'
-import QuestionPage from './Question'
 import PageModal from 'components/PageModal'
 import { IRootStore, IRootAction } from 'typings'
+import InfoPage from './Info'
+import QuestionPage from './Question'
 import { IData } from '../Todo/stores/todoStore'
 
 import './index.scss'
@@ -23,17 +22,9 @@ class Answer extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    const { action, id, history, onCancel, poster } = this.props
+    const { action, id, poster } = this.props
 
     action!.getQstDetail(id, poster)
-
-    history.listen((params: object, type: string) => {
-      const { pathname, search } = params
-
-      if (pathname === '/' && search === '' && type === 'POP') {
-        onCancel()
-      }
-    })
   }
 
   handleModalShow = (type: string) => {
@@ -45,19 +36,17 @@ class Answer extends React.Component<IProps, IState> {
   }
 
   onEnterQstPage = () => {
-    const { history, id } = this.props
-    history.push(`/?steps=questions&id=${id}`)
     this.handleModalShow('qstPageModal')
   }
 
   render() {
-    const { prefixCls, info, poster } = this.props
+    const { prefixCls, info, poster, onCancel } = this.props
     const { qstPageModal } = this.state
     const { _id: id, title, type } = info
 
     return (
       <div className={prefixCls}>
-        <InfoPage onOK={this.onEnterQstPage} {...info} />
+        <InfoPage onOK={this.onEnterQstPage} {...info} onCancel={onCancel} />
         <PageModal visible={qstPageModal}>
           <QuestionPage
             id={id}

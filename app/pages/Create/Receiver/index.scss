@@ -1,70 +1,72 @@
 $prefixCls: 'page-create-receiver';
 
 .#{$prefixCls} {
-  .department-item {
-    .item-img-check {
-      width: 50px;
-      height: 50px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 45px;
-      background-image: url(../../../assets/images/radio-uncheck.svg);
+  &-main {
+    padding-bottom: 60px;
 
-      &.checked {
-        background-image: url(../../../assets/images/radio-check.svg);
-      }
-    }
+    .department-item {
+      .item-img-check {
+        width: 50px;
+        height: 50px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 45px;
+        background-image: url(../../../assets/images/radio-uncheck.svg);
 
-    .item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 30px;
-      color: $title;
-      padding: 20px;
-      font-weight: bold;
-    }
-
-    .item-body {
-      .receiver-item {
-        display: flex;
-        padding: 2px 20px;
-        background: #fff;
-        border-radius: 6px;
-
-        &-avatar {
-          margin-right: 15px;
-          padding-top: 5px;
-
-          img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-          }
+        &.checked {
+          background-image: url(../../../assets/images/radio-check.svg);
         }
+      }
 
-        &-main {
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 30px;
+        color: $title;
+        padding: 20px;
+        font-weight: bold;
+      }
+
+      .item-body {
+        .receiver-item {
           display: flex;
-          flex-direction: column;
-          justify-content: center;
-          flex: 1;
+          padding: 2px 20px;
+          background: #fff;
+          border-radius: 6px;
 
-          .header {
+          &-avatar {
+            margin-right: 15px;
+            padding-top: 5px;
+
+            img {
+              width: 70px;
+              height: 70px;
+              border-radius: 50%;
+            }
+          }
+
+          &-main {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
 
-            &-name {
-              font-size: 34px;
-              color: $title;
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              &-name {
+                font-size: 34px;
+                color: $title;
+              }
+
+              &-info {
+                font-size: 24px;
+                color: $main;
+              }
             }
-
-            &-info {
-              font-size: 24px;
-              color: $main;
-            }
-
-
           }
         }
       }

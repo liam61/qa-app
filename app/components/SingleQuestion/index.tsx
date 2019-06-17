@@ -7,10 +7,10 @@ import { TextareaItem, InputItem, Toast } from 'antd-mobile'
 import QuestionHeader from 'components/QuestionHeader'
 import { IRootStore, IRootAction } from 'typings'
 import { DELAY_TIME, QUESTION_TYPES } from 'common'
-import { IOption } from 'pages/Create/interface';
+import { IOption } from 'pages/Create/interface'
 import { getUid } from 'utils'
 
-import './index.scss'
+// import './index.scss'
 
 @inject(injector)
 @observer
@@ -22,16 +22,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props)
 
-    const defaultOpts = [
-      {
-        id: getUid(),
-        value: '',
-      },
-      {
-        id: getUid(),
-        value: '',
-      },
-    ]
+    const defaultOpts = [{ id: getUid(), value: '' }, { id: getUid(), value: '' }]
 
     const { required = false, title = '', options = defaultOpts } = props
 
@@ -49,12 +40,14 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
   handleContentChange = (val: string, index: number) => {
     const { options } = this.state
     options[index].value = val
+
     this.setState({ options })
   }
 
   handleRemoveOption = (index: number) => {
     const { options } = this.state
     options.splice(index, 1)
+
     this.setState({ options })
   }
 
@@ -64,31 +57,27 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
       Toast.fail('选项过多不能添加！', DELAY_TIME)
       return
     }
-    options.push({
-      id: getUid(),
-      value: '',
-    })
+    options.push({ id: getUid(), value: '' })
+
     this.setState({ options })
   }
 
   handleToggle = () => {
     const { hidden } = this.state
+
     this.setState({ hidden: !hidden })
   }
 
   getQuestion = () => {
     const { title, required, options } = this.state
 
-    return {
-      title,
-      required,
-      options: options.filter(option => !!option.value),
-    }
+    return { title, required, options: options.filter(option => !!option.value) }
   }
 
   renderOptions = (options: IOption[]) =>
     options.map((option, index) => {
       const { id, value } = option
+
       return (
         <div className="option-wrapper qa-border-1px-top" key={id}>
           <i
@@ -101,7 +90,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
             value={value}
             autoHeight
             count={30}
-            onChange={val => this.handleContentChange(val, index)}
+            onChange={val => this.handleContentChange(val || '', index)}
           />
         </div>
       )
@@ -141,10 +130,7 @@ export default class SingleQuestion extends React.Component<IProps, IState> {
             <div className="content-text">选项</div>
             {this.renderOptions(options)}
             <div className="option-wrapper add qa-border-1px-top" onClick={this.handleAddOption}>
-              <i
-                className="fa fa-plus-circle fa-3x option-add"
-                aria-hidden="true"
-              />
+              <i className="fa fa-plus-circle fa-3x option-add" aria-hidden="true" />
               <TextareaItem value="添加选项" editable={false} />
             </div>
           </div>
@@ -174,12 +160,6 @@ interface IState extends Partial<injectorReturnType> {
   hidden: boolean
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

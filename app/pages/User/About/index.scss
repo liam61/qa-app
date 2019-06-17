@@ -1,0 +1,40 @@
+$prefixCls: 'page-user-about';
+
+.#{$prefixCls} {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &-body {
+    flex: 1;
+    padding: 30px 35px 1px;
+
+    .body-list {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #fff;
+
+      &.resume {
+        display: none;
+      }
+
+      &-header {
+        padding-bottom: 10px;
+        font-size: 30px;
+        color: $title;
+      }
+
+      &-main {
+        li {
+          padding-bottom: 10px;
+          font-size: 26px;
+          color: $nav;
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

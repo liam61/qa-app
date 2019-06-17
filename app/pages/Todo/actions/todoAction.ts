@@ -16,7 +16,7 @@ export default class TodoAction {
 
     todoStore.setLoading(true).setRefresh(refresh, true)
 
-    const { data /* , type */ } = await request.setPath('questions').get({
+    const { data = { lists: [], total: 0, newer: 0 } /* , type */ } = await request.setPath('questions').get({
       query: { page: index || todoStore.pageIndex },
     })
 

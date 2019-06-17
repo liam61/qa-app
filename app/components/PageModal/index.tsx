@@ -14,14 +14,7 @@ export default class PageModal extends React.Component<IProps, {}> {
   }
 
   render() {
-    const {
-      prefixCls,
-      visible,
-      onCancel,
-      onOK,
-      children,
-      transitionName = 'qa-slide-left',
-    } = this.props
+    const { prefixCls, visible, children, transitionName = 'qa-slide-left' } = this.props
 
     return (
       <div className={prefixCls}>
@@ -44,16 +37,8 @@ interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   visible: boolean
   transitionName?: string
-  onCancel?: () => void
-  onOK?: () => void
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

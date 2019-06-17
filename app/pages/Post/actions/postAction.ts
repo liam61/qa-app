@@ -1,19 +1,12 @@
-import { mAction } from '../../../mobx/action'
 import { request } from 'utils'
 import { IRootAction, IRootStore } from 'typings'
+import { mAction } from '../../../mobx/action'
 
 @mAction
 export default class PostAction {
-  constructor(
-    public stores: IRootStore['Post'],
-    public actions: IRootAction['Post']
-  ) {}
+  constructor(public stores: IRootStore['Post'], public actions: IRootAction['Post']) {}
 
-  async getListData(
-    refresh = false,
-    callback: (type: string, num: number) => void,
-    index?: number
-  ) {
+  async getListData(refresh = false, callback: (type: string, num: number) => void, index?: number) {
     const { postStore } = this.stores
 
     if (refresh) {
@@ -23,7 +16,7 @@ export default class PostAction {
     postStore.setLoading(true).setRefresh(refresh, true)
 
     const id = localStorage.getItem('userId')
-    const { data /* , type */ } = await request.setPath('questions').get({
+    const { data = { lists: [], total: 0, newer: 0 } /* , type */ } = await request.setPath('questions').get({
       uri: id,
       query: { page: index || postStore.pageIndex },
     })
@@ -46,11 +39,7 @@ export default class PostAction {
     postStore
       .setLoading(true)
       .setPageIndex(++index)
-      .addListData(
-        await request
-          .setPath('questions')
-          .get({ query: { page: postStore.pageIndex } })
-      )
+      .addListData(await request.setPath('questions').get({ query: { page: postStore.pageIndex } }))
       .setLoading(false)
   }
 }

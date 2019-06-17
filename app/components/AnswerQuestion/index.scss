@@ -1,25 +1,25 @@
 $prefixCls: 'component-answer';
 
 .#{$prefixCls} {
-  position: relative;
-  color: #bfbfbf;
+  // position: relative;
+  // color: #bfbfbf;
 
-  &-content {
-    padding: 20px 30px 0;
-    background: #fff;
+  // &-content {
+  //   padding: 20px 30px 0;
+  //   background: #fff;
 
-    .content-text {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $nav;
-    }
+  //   .content-text {
+  //     font-size: 30px;
+  //     margin-bottom: 20px;
+  //     color: $nav;
+  //   }
 
-    .content-title {
-      padding-bottom: 50px;
+  //   .content-title {
+  //     padding-bottom: 50px;
 
-      .#{$globalPrefixCls}-input-item {
-        @include border-mixin(2px);
-      }
-    }
-  }
+  //     .#{$globalPrefixCls}-input-item {
+  //       @include border-mixin(2px);
+  //     }
+  //   }
+  // }
 }

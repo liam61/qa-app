@@ -15,6 +15,7 @@ import MessageMessageStore from '../pages/Message/stores/messageStore'
 import PostPostStore from '../pages/Post/stores/postStore'
 import RegisterRegisterStore from '../pages/Register/stores/registerStore'
 import TodoTodoStore from '../pages/Todo/stores/todoStore'
+import UserAboutStore from '../pages/User/stores/aboutStore'
 import UserDetailStore from '../pages/User/stores/detailStore'
 import UserSettingStore from '../pages/User/stores/settingStore'
 import UserUserStore from '../pages/User/stores/userStore'
@@ -34,6 +35,7 @@ import MessageMessageAction from '../pages/Message/actions/messageAction'
 import PostPostAction from '../pages/Post/actions/postAction'
 import RegisterRegisterAction from '../pages/Register/actions/registerAction'
 import TodoTodoAction from '../pages/Todo/actions/todoAction'
+import UserAboutAction from '../pages/User/actions/aboutAction'
 import UserDetailAction from '../pages/User/actions/detailAction'
 import UserSettingAction from '../pages/User/actions/settingAction'
 import UserUserAction from '../pages/User/actions/userAction'
@@ -74,6 +76,7 @@ export interface IRootStore {
     todoStore: TodoTodoStore
   }
   User: {
+    aboutStore: UserAboutStore
     detailStore: UserDetailStore
     settingStore: UserSettingStore
     userStore: UserUserStore
@@ -116,6 +119,7 @@ export interface IRootAction {
     todoAction: TodoTodoAction
   }
   User: {
+    aboutAction: UserAboutAction
     detailAction: UserDetailAction
     settingAction: UserSettingAction
     userAction: UserUserAction

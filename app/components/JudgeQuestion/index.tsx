@@ -7,7 +7,7 @@ import { getUid } from 'utils'
 import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
-import { IOption } from 'pages/Create/interface';
+import { IOption } from 'pages/Create/interface'
 
 @inject(injector)
 @observer
@@ -19,16 +19,7 @@ export default class JudgeQuestion extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props)
 
-    const defaultOpts = [
-      {
-        id: getUid(),
-        value: '',
-      },
-      {
-        id: getUid(),
-        value: '',
-      },
-    ]
+    const defaultOpts = [{ id: getUid(), value: '' }, { id: getUid(), value: '' }]
 
     const { required = false, title = '', options = defaultOpts } = props
 
@@ -40,56 +31,51 @@ export default class JudgeQuestion extends React.Component<IProps, IState> {
     this.setState({ hidden: !hidden })
   }
 
-  handleRequiredChange = val => {
+  handleRequiredChange = (val: boolean) => {
     this.setState({ required: val })
   }
 
-  handleTitleChange = val => {
+  handleTitleChange = (val: string) => {
     this.setState({ title: val })
   }
 
-  handleContentChange = (val, index: number) => {
+  handleContentChange = (val: string, index: number) => {
     const { options } = this.state
     options[index].value = val
+
     this.setState({ options })
   }
 
   getQuestion = () => {
     const { title, required, options } = this.state
 
-    return {
-      title,
-      required,
-      options,
-    }
+    return { title, required, options }
   }
 
   renderOptions = (options: IOption[]) =>
     options.map((option, index) => {
       const { id, value } = option
+
       return (
-        <div className="option-wrapper" key={id}>
-          <i
-            className="fa fa-question-circle-o fa-3x option-warn"
-            aria-hidden="true"
-          />
+        <div className="option-wrapper qa-border-1px-top" key={id}>
+          <i className="fa fa-question-circle-o fa-3x option-warn" aria-hidden="true" />
           <TextareaItem
             placeholder="输入选项内容"
             value={value}
             autoHeight
             count={50}
-            onChange={val => this.handleContentChange(val, index)}
+            onChange={val => this.handleContentChange(val || '', index)}
           />
         </div>
       )
     })
 
   render() {
-    const { num, onRemove, type } = this.props
+    const { prefixCls, num, onRemove, type } = this.props
     const { required, title, hidden, options } = this.state
 
     return (
-      <div className="qa-question">
+      <div className={`${prefixCls} qa-question`}>
         <QuestionHeader
           num={num}
           type={QUESTION_TYPES.find(t => t.key === type)!.value}
@@ -99,13 +85,11 @@ export default class JudgeQuestion extends React.Component<IProps, IState> {
           onRequiredChange={this.handleRequiredChange}
           onRemove={onRemove}
         />
-        <div
-          className="qa-question-content"
-          style={{ display: hidden ? 'none' : 'block' }}
-        >
+        <div className="qa-question-content" style={{ display: hidden ? 'none' : 'block' }}>
           <div className="content-title">
             <div className="content-text">题目</div>
             <InputItem
+              className="qa-input-item"
               placeholder="请输入题目"
               value={title}
               maxLength={30}
@@ -142,12 +126,6 @@ interface IState extends Partial<injectorReturnType> {
   options: IOption[]
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

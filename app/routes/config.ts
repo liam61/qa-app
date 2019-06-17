@@ -20,19 +20,19 @@ export interface IRoute {
   children?: IRoute[]
 }
 
-const routes: IRoute[] = [
-  { key: 'login', path: '/login', component: LoginPage },
+const config: IRoute[] = [
+  { key: 'login', exact: true, path: '/login', component: LoginPage },
   { key: 'signup', path: '/signup', component: SignupPage },
+  { key: 'create', path: '/create', component: CreatePage },
   { key: 'example', path: '/example', component: ExamplePage },
   {
     key: 'app',
     path: '/',
     component: AppPage,
     children: [
-      { key: 'home', exact: true, path: '/', redirect: '/todo' },
+      { key: 'home', path: '/', exact: true, redirect: '/todo' },
       { key: 'todo', path: '/todo', component: TodoPage },
       { key: 'post', path: '/post', component: PostPage },
-      { key: 'create', path: '/create', component: CreatePage },
       { key: 'message', path: '/message', component: MessagePage },
       { key: 'user', path: '/user', component: UserPage },
       { key: '404', component: NoMatchPage },
@@ -40,4 +40,4 @@ const routes: IRoute[] = [
   },
 ]
 
-export default routes
+export default config

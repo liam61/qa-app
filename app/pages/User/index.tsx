@@ -7,6 +7,7 @@ import { ACCEPT_EXTS, DELAY_TIME } from 'common'
 import { IRootStore, IRootAction } from 'typings'
 import SettingPage from './Setting'
 import DetailPage from './Detail'
+import AboutPage from './About'
 
 import './index.scss'
 
@@ -24,6 +25,7 @@ export default class User extends React.Component<IProps, IState> {
     imageKey: '',
     detailPageModal: false,
     settingPageModal: false,
+    aboutPageModal: false,
   }
 
   curCover = getRandomImg() // cover 只能获取一次，不然在 render 时就会发生闪动
@@ -94,6 +96,10 @@ export default class User extends React.Component<IProps, IState> {
     this.setState({ detailPageModal: true })
   }
 
+  handleModalShow = (type: string) => {
+    this.setState({ [type]: true })
+  }
+
   handleModalClose = (type: string) => {
     this.setState({ [type]: false })
   }
@@ -108,11 +114,9 @@ export default class User extends React.Component<IProps, IState> {
 
   render() {
     const { prefixCls, store } = this.props
-    const { askNum, answerNum, scoreNum, detailPageModal, settingPageModal } = this.state
+    const { askNum, answerNum, scoreNum, detailPageModal, settingPageModal, aboutPageModal } = this.state
 
     const { data, loading } = store!
-
-    console.log(loading, data);
 
     // TODO: loading 组件
     if (loading) {
@@ -207,7 +211,7 @@ export default class User extends React.Component<IProps, IState> {
             value="设置"
             editable={false}
             extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
-            onClick={() => this.setState({ settingPageModal: true })}
+            onClick={() => this.handleModalShow('settingPageModal')}
           >
             <i className="fa fa-cog" aria-hidden="true" />
           </InputItem>
@@ -216,7 +220,7 @@ export default class User extends React.Component<IProps, IState> {
             value="关于我"
             editable={false}
             extra={<i className="fa fa-angle-right fa-3x" aria-hidden="true" />}
-            onClick={() => console.log('item click')}
+            onClick={() => this.handleModalShow('aboutPageModal')}
           >
             <i className="fa fa-smile-o blue" aria-hidden="true" />
           </InputItem>
@@ -226,6 +230,9 @@ export default class User extends React.Component<IProps, IState> {
         </PageModal>
         <PageModal visible={settingPageModal}>
           <SettingPage onCancel={() => this.handleModalClose('settingPageModal')} onOK={this.handleSubmit} />
+        </PageModal>
+        <PageModal visible={aboutPageModal}>
+          <AboutPage onCancel={() => this.handleModalClose('aboutPageModal')} />
         </PageModal>
       </div>
     )
@@ -246,6 +253,7 @@ interface IState extends Partial<injectorReturnType> {
   imageKey: string
   detailPageModal: boolean
   settingPageModal: boolean
+  aboutPageModal: boolean
 }
 
 function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {

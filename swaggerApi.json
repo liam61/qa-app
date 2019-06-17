@@ -51,158 +51,182 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "lists": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "title": {
-                              "type": "string"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "content": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "lists": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "title": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "string"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "url": {
+                                        "type": "string",
+                                        "mock": {
+                                          "mock": "@url"
+                                        }
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "string"
+                                      },
+                                      "cover": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "url",
+                                      "name",
+                                      "size",
+                                      "cover"
+                                    ]
                                   },
-                                  "url": {
-                                    "type": "string",
-                                    "mock": {
-                                      "mock": "@url"
-                                    }
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "size": {
-                                    "type": "string"
-                                  },
-                                  "cover": {
-                                    "type": "boolean"
+                                  "minItems": 1,
+                                  "maxItems": 5
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "notice",
+                                    "exam",
+                                    "vote",
+                                    "collect"
+                                  ]
+                                },
+                                "date": {
+                                  "type": "string",
+                                  "mock": {
+                                    "mock": "@date"
                                   }
                                 },
-                                "required": [
-                                  "id",
-                                  "url",
-                                  "name",
-                                  "size",
-                                  "cover"
-                                ]
+                                "showAuthor": {
+                                  "type": "boolean"
+                                },
+                                " secret": {
+                                  "type": "boolean"
+                                },
+                                "anonymous": {
+                                  "type": "boolean"
+                                },
+                                "author": {
+                                  "type": "string"
+                                },
+                                "avatar": {
+                                  "type": "string",
+                                  "mock": {
+                                    "mock": "@url"
+                                  }
+                                },
+                                "expire": {
+                                  "type": "string",
+                                  "enum": [
+                                    "permanent",
+                                    "day",
+                                    "week",
+                                    "month"
+                                  ]
+                                },
+                                "read": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 30
+                                },
+                                "unread": {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 30
+                                }
                               },
-                              "minItems": 1,
-                              "maxItems": 5
-                            },
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "notice",
-                                "exam",
-                                "vote",
-                                "collect"
+                              "required": [
+                                "title",
+                                "id",
+                                "content",
+                                "files",
+                                "type",
+                                "date",
+                                "showAuthor",
+                                " secret",
+                                "anonymous",
+                                "author",
+                                "avatar",
+                                "expire",
+                                "read",
+                                "unread"
                               ]
                             },
-                            "date": {
-                              "type": "string",
-                              "mock": {
-                                "mock": "@date"
-                              }
-                            },
-                            "showAuthor": {
-                              "type": "boolean"
-                            },
-                            " secret": {
-                              "type": "boolean"
-                            },
-                            "anonymous": {
-                              "type": "boolean"
-                            },
-                            "author": {
-                              "type": "string"
-                            },
-                            "avatar": {
-                              "type": "string",
-                              "mock": {
-                                "mock": "@url"
-                              }
-                            },
-                            "expire": {
-                              "type": "string",
-                              "enum": [
-                                "permanent",
-                                "day",
-                                "week",
-                                "month"
-                              ]
-                            },
-                            "read": {
-                              "type": "integer",
-                              "minimum": 1,
-                              "maximum": 30
-                            },
-                            "unread": {
-                              "type": "integer",
-                              "minimum": 1,
-                              "maximum": 30
-                            }
+                            "minItems": 1,
+                            "maxItems": 4
                           },
-                          "required": [
-                            "title",
-                            "id",
-                            "content",
-                            "files",
-                            "type",
-                            "date",
-                            "showAuthor",
-                            " secret",
-                            "anonymous",
-                            "author",
-                            "avatar",
-                            "expire",
-                            "read",
-                            "unread"
-                          ]
+                          "section": {
+                            "type": "string",
+                            "mock": {
+                              "mock": "@date"
+                            },
+                            "maxLength": 7
+                          }
                         },
-                        "minItems": 1,
-                        "maxItems": 4
+                        "required": [
+                          "data",
+                          "section"
+                        ]
                       },
-                      "section": {
-                        "type": "string",
-                        "mock": {
-                          "mock": "@date"
-                        },
-                        "maxLength": 7
-                      }
+                      "minItems": 2,
+                      "maxItems": 5
                     },
-                    "required": [
-                      "data",
-                      "section"
-                    ]
+                    "total": {
+                      "type": "integer",
+                      "minimum": 6,
+                      "maximum": 15
+                    },
+                    "todos": {
+                      "type": "integer"
+                    }
                   },
-                  "minItems": 2,
-                  "maxItems": 5
-                },
-                "total": {
-                  "type": "integer",
-                  "minimum": 6,
-                  "maximum": 15
+                  "required": [
+                    "lists",
+                    "total",
+                    "todos"
+                  ]
                 }
               },
               "required": [
-                "lists",
-                "total"
+                "type",
+                "message",
+                "data"
               ]
             }
           }
@@ -212,7 +236,7 @@
         "tags": [
           "公共分类"
         ],
-        "summary": "上传问题",
+        "summary": "创建问题",
         "description": "",
         "consumes": [
           "application/json"
@@ -354,29 +378,10 @@
                   "maxItems": 6
                 },
                 "receivers": {
-                  "type": "object",
-                  "properties": {
-                    "department": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 2,
-                      "maxItems": 4
-                    },
-                    "account": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 2,
-                      "maxItems": 4
-                    }
-                  },
-                  "required": [
-                    "field_4",
-                    "field_5"
-                  ]
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               },
               "required": [
@@ -469,128 +474,146 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "questions": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "title": {
-                        "type": "string"
-                      },
-                      "num": {
-                        "type": "integer",
-                        "minimum": 1,
-                        "maximum": 20
-                      },
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "Single",
-                          "Multiple",
-                          "Answer",
-                          "Judge",
-                          "Vote"
-                        ]
-                      },
-                      "options": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "value"
-                          ]
-                        },
-                        "minItems": 0,
-                        "maxItems": 5
-                      },
-                      "required": {
-                        "type": "boolean"
-                      },
-                      "replies": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "questions": {
+                      "type": "array",
+                      "items": {
                         "type": "object",
                         "properties": {
-                          "lawler": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "num": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 20
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "Single",
+                              "Multiple",
+                              "Answer",
+                              "Judge",
+                              "Vote"
+                            ]
+                          },
+                          "options": {
                             "type": "array",
                             "items": {
                               "type": "object",
                               "properties": {
-                                "num": {
-                                  "type": "integer",
-                                  "minimum": 1,
-                                  "maximum": 20
+                                "id": {
+                                  "type": "string"
                                 },
-                                "reply": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "string"
-                                  }
+                                "value": {
+                                  "type": "string"
                                 }
                               },
                               "required": [
-                                "num",
-                                "reply"
+                                "id",
+                                "value"
                               ]
                             },
-                            "description": "userid"
+                            "minItems": 0,
+                            "maxItems": 5
+                          },
+                          "required": {
+                            "type": "boolean"
+                          },
+                          "replies": {
+                            "type": "object",
+                            "properties": {
+                              "lawler": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "num": {
+                                      "type": "integer",
+                                      "minimum": 1,
+                                      "maximum": 20
+                                    },
+                                    "reply": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "num",
+                                    "reply"
+                                  ]
+                                },
+                                "description": "userid"
+                              }
+                            },
+                            "required": [
+                              "lawler"
+                            ]
                           }
                         },
                         "required": [
-                          "lawler"
+                          "title",
+                          "num",
+                          "type",
+                          "options",
+                          "required",
+                          "replies"
                         ]
-                      }
-                    },
-                    "required": [
-                      "title",
-                      "num",
-                      "type",
-                      "options",
-                      "required",
-                      "replies"
-                    ]
-                  },
-                  "minItems": 3,
-                  "maxItems": 6
-                },
-                "receivers": {
-                  "type": "object",
-                  "properties": {
-                    "department": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
                       },
-                      "minItems": 2,
-                      "maxItems": 4
+                      "minItems": 3,
+                      "maxItems": 6
                     },
-                    "account": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
+                    "receivers": {
+                      "type": "object",
+                      "properties": {
+                        "department": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 2,
+                          "maxItems": 4
+                        },
+                        "account": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "minItems": 2,
+                          "maxItems": 4
+                        }
                       },
-                      "minItems": 2,
-                      "maxItems": 4
+                      "required": [
+                        "field_4",
+                        "field_5"
+                      ]
                     }
-                  },
-                  "required": [
-                    "field_4",
-                    "field_5"
-                  ]
+                  }
                 }
               },
               "required": [
                 "questions",
                 "receivers",
                 "department",
-                "account"
+                "account",
+                "type",
+                "message",
+                "data"
               ]
             }
           }
@@ -625,9 +648,6 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "string"
-                      },
                       "replies": {
                         "type": "array",
                         "items": {
@@ -636,7 +656,6 @@
                       }
                     },
                     "required": [
-                      "id",
                       "replies"
                     ]
                   }
@@ -719,13 +738,17 @@
                 },
                 "validate": {
                   "type": "string"
+                },
+                "dptId": {
+                  "type": "string"
                 }
               },
               "required": [
                 "name",
                 "email",
                 "password",
-                "validate"
+                "validate",
+                "dptId"
               ]
             }
           }
@@ -938,60 +961,75 @@
               "type": "object",
               "title": "empty object",
               "properties": {
-                "username": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string",
-                  "mock": {
-                    "mock": "@email"
-                  }
-                },
-                "phone": {
-                  "type": "string"
-                },
-                "gender": {
+                "type": {
                   "type": "string",
                   "enum": [
-                    "male",
-                    "female"
+                    "success",
+                    "fail"
                   ]
                 },
-                "birthday": {
-                  "type": "string",
-                  "mock": {
-                    "mock": "@date"
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "@email"
+                      }
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "gender": {
+                      "type": "string",
+                      "enum": [
+                        "male",
+                        "female"
+                      ]
+                    },
+                    "birthday": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "@date"
+                      }
+                    },
+                    "avatar": {
+                      "type": "string",
+                      "enum": [
+                        "https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg"
+                      ],
+                      "mock": {
+                        "mock": "@url"
+                      }
+                    },
+                    "profile": {
+                      "type": "string",
+                      "minLength": 10,
+                      "maxLength": 26
+                    },
+                    "answer": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 20
+                    },
+                    "ask": {
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 20
+                    },
+                    "score": {
+                      "type": "integer",
+                      "description": "积分",
+                      "minimum": 10,
+                      "maximum": 20
+                    }
                   }
-                },
-                "avatar": {
-                  "type": "string",
-                  "enum": [
-                    "https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg"
-                  ],
-                  "mock": {
-                    "mock": "@url"
-                  }
-                },
-                "profile": {
-                  "type": "string",
-                  "minLength": 10,
-                  "maxLength": 26
-                },
-                "answer": {
-                  "type": "integer",
-                  "minimum": 10,
-                  "maximum": 20
-                },
-                "ask": {
-                  "type": "integer",
-                  "minimum": 10,
-                  "maximum": 20
-                },
-                "score": {
-                  "type": "integer",
-                  "description": "积分",
-                  "minimum": 10,
-                  "maximum": 20
                 }
               },
               "required": [
@@ -1004,7 +1042,10 @@
                 "avatar",
                 "ask",
                 "answer",
-                "score"
+                "score",
+                "data",
+                "message",
+                "type"
               ]
             }
           }
@@ -1139,6 +1180,360 @@
             "name": "key",
             "in": "formData",
             "required": false,
+            "description": "cover，avatar 等",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "mock": {
+                        "mock": "@url"
+                      }
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/friends": {
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "获取好友列表",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "lists": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "lists"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "申请好友",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "account": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "account"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/questions/applies": {
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "获取好友请求",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/friends{id}": {
+      "patch": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "同意添加",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "applicant": {
+                  "type": "string",
+                  "description": "user2 id"
+                }
+              },
+              "required": [
+                "applicant"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "拒绝添加",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "user2 id"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/messages": {
+      "get": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "聊天记录",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
             "description": "",
             "type": "string"
           }
@@ -1163,19 +1558,101 @@
                 "data": {
                   "type": "object",
                   "properties": {
-                    "id": {
+                    "status": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "id"
+                    "status"
                   ]
                 }
               },
               "required": [
                 "type",
-                "data",
-                "message"
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "提交聊天",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "friend": {
+                  "type": "string",
+                  "description": "friend model id"
+                },
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "friend",
+                "from",
+                "to",
+                "content",
+                "type"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
               ]
             }
           }

@@ -44,7 +44,7 @@ class Post extends React.Component<IProps, IState> {
 
   handleListItemClick = (id: string, info: IData, cover: string) => {
     const { history } = this.props
-    history.push(`/?steps=post&id=${id}`)
+    history.push(`/post?detail=${id}`)
 
     this.setState({
       answerPageKey: id,
@@ -119,7 +119,7 @@ type injectorReturnType = ReturnType<typeof injector>
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
   onBadgeChange: (type: string, num: number) => void
-  [k: string]: any
+  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {

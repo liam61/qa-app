@@ -3,11 +3,11 @@ import { inject, observer } from 'mobx-react'
 import { Link, withRouter } from 'react-router-dom'
 import { Tabs, Badge } from 'antd-mobile'
 import { IRootStore, IRootAction } from 'typings'
-import { request } from 'utils'
 
 import './index.scss'
+import { request } from 'utils'
 
-const getHomeTabs = (todos: number, colls: number, msgs: number) => [
+const getHomeTabs = (todos: number, posts: number, msgs: number) => [
   {
     path: '/todo',
     title: (
@@ -19,13 +19,13 @@ const getHomeTabs = (todos: number, colls: number, msgs: number) => [
   {
     path: '/post',
     title: (
-      <Badge text={`${colls === 0 ? '' : todos}`}>
+      <Badge text={`${posts === 0 ? '' : todos}`}>
         <i className="fa fa-map-o fa-3x" aria-hidden="true" />
       </Badge>
     ),
   },
   {
-    path: '/create?steps=info',
+    path: '/create?step=info',
     title: <i className="fa fa-pencil-square-o fa-4x tab-create" aria-hidden="true" />,
   },
   {
@@ -53,58 +53,52 @@ class App extends React.Component<IProps, IState> {
     prefixCls: 'page-app',
   }
 
-  state = {
-    curTab: 0,
-    todosNum: 0,
-    collectionsNum: 0,
-    messagesNum: 0,
-  }
-
   constructor(props: IProps) {
     super(props)
 
     request.history = props.history
-  }
 
-  componentDidMount() {
-    // const { history } = this.props
-    // history.listen((params, action) => {})
+    const {
+      location: { pathname },
+    } = props.history
+
+    this.state = {
+      curTab: ['/todo', '/post', '/create', '/message', '/user'].indexOf(pathname) || 0,
+      todoNum: 0,
+      postNum: 0,
+      messageNum: 0,
+    }
   }
 
   handleTabClick = (tab: any, index: number) => {
     // const { action } = this.props
     // if (!tab.path) { action!.appAction.changeTab(index) }
-
     if (!tab.path) {
       this.setState({ curTab: index })
     }
   }
 
-  handleBadgeChange = (type: 'todosNum' | 'collectionsNum' | 'messagesNum', num: number) => {
+  handleBadgeChange = (type: 'todoNum' | 'postNum' | 'messageNum', num: number) => {
     this.setState({ [type]: num })
   }
 
   render() {
     const { prefixCls, children } = this.props
-    const { curTab, todosNum, collectionsNum, messagesNum } = this.state
+    const { curTab, todoNum, postNum, messageNum } = this.state
 
     return (
       <div className={prefixCls}>
         {children}
         <Tabs
-          tabs={getHomeTabs(todosNum, collectionsNum, messagesNum)}
+          tabs={getHomeTabs(todoNum, postNum, messageNum)}
           initialPage={curTab}
           tabBarPosition="bottom"
           swipeable={false}
-          renderTab={tab =>
-            tab.path ? (
-              <Link className="tab-link" to={tab.path}>
-                {tab.title}
-              </Link>
-            ) : (
-              <React.Fragment>{tab.title}</React.Fragment>
-            )
-          }
+          renderTab={tab => (
+            <Link className="tab-link" to={tab.path}>
+              {tab.title}
+            </Link>
+          )}
           onTabClick={this.handleTabClick}
         >
           <div />
@@ -122,13 +116,14 @@ type injectorReturnType = ReturnType<typeof injector>
 
 interface IProps extends Partial<injectorReturnType> {
   prefixCls?: string
+  history: any
 }
 
 interface IState extends Partial<injectorReturnType> {
   curTab: number
-  todosNum: number
-  collectionsNum: number
-  messagesNum: number
+  todoNum: number
+  postNum: number
+  messageNum: number
 }
 
 function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
