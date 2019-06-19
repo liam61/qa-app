@@ -1,7 +1,6 @@
 import { IUser } from 'pages/User/stores/userStore'
 import { Toast } from 'antd-mobile'
-import { IError } from 'pages/Login/interface'
-import { WS_PATH, DELAY_TIME, ROOT_USER } from 'common'
+import { WS_URL, DELAY_TIME, ROOT_USER } from 'common'
 import { IRootAction, IRootStore } from 'typings'
 import WsRequest from 'websocket'
 import { IMessage } from 'websocket/interface'
@@ -18,7 +17,7 @@ export default class MessageAction {
 
     const id = localStorage.getItem('userId') || ''
 
-    messageStore.setWsRequest(new WsRequest(WS_PATH, id, (msg: IMessage) => chatStore.addMessage(msg)))
+    messageStore.setWsRequest(new WsRequest(WS_URL, id, (msg: IMessage) => chatStore.addMessage(msg)))
   }
 
   changeSearch(search: string | undefined) {
@@ -29,26 +28,20 @@ export default class MessageAction {
 
   async getFriends(): Promise<IFriend[]> {
     const { messageStore } = this.stores
-    // const { chatAction } = this.actions
 
     messageStore.setLoadFriends(true)
     const { data = [] } = await request.setPath('friends').get()
-
-    if (!data.length) {
-      await this.applyRootUser()
-    }
     messageStore.setFriends(data).setLoadFriends(false)
 
     return data
   }
 
-  async applyRootUser() {
-    const { hasError } = await validator.account(ROOT_USER)
-
-    if (!hasError) {
-      await request.setPath('friends').post({ data: { account: ROOT_USER } })
-    }
-  }
+  // async applyRootUser() {
+  //   const { hasError } = await validator.account(ROOT_USER)
+  //   if (!hasError) {
+  //     await request.setPath('friends').post({ data: { account: ROOT_USER } })
+  //   }
+  // }
 
   async getApplies() {
     const { messageStore } = this.stores

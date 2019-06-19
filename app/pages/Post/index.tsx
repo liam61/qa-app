@@ -2,13 +2,14 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { SearchBar } from 'antd-mobile'
-import AnswerPage from '../Answer'
 import PageModal from 'components/PageModal'
 import ListView from 'components/QaListView'
 import { IRootStore, IRootAction } from 'typings'
 import { IData } from '../Todo/stores/todoStore'
 
 import './index.scss'
+import { emptyFn } from 'utils'
+import AnswerPage from '../Answer'
 
 @inject(injector)
 @observer
@@ -24,10 +25,10 @@ class Post extends React.Component<IProps, IState> {
     answerPageInfo: {} as IData,
   }
 
-  componentDidMount() {
-    const { action, onBadgeChange } = this.props
+  async componentDidMount() {
+    const { action, onBadgeChange = emptyFn } = this.props
 
-    action!.getListData(false, () => console.log('a'))
+    await action!.getListData(false, onBadgeChange)
   }
 
   handleSearchChange = (val: string) => {
@@ -75,23 +76,13 @@ class Post extends React.Component<IProps, IState> {
 
   render() {
     const { prefixCls, store } = this.props
-    const {
-      search,
-      answerPageModal,
-      answerPageKey,
-      answerPageInfo,
-    } = this.state
+    const { search, answerPageModal, answerPageKey, answerPageInfo } = this.state
 
     const { dataList, loading, refreshing, pageSize } = store!
 
     return (
       <div className={prefixCls}>
-        <SearchBar
-          value={search}
-          placeholder="搜索..."
-          maxLength={20}
-          onChange={this.handleSearchChange}
-        />
+        <SearchBar value={search} placeholder="搜索..." maxLength={20} onChange={this.handleSearchChange} />
         <ListView
           dataList={dataList}
           loading={loading}
@@ -129,13 +120,7 @@ interface IState extends Partial<injectorReturnType> {
   answerPageInfo: IData
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {
     store: rootStore.Post.postStore,
     action: rootAction.Post.postAction,

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
-import { Steps } from 'antd-mobile'
+import { Steps, Toast } from 'antd-mobile'
 import PageModal from 'components/PageModal'
 import InfoModal, { InfoTypes, IInfoProps } from 'components/InfoModal'
 import { emptyFn } from 'utils'
@@ -12,6 +12,7 @@ import QuestionPage from './Question'
 import ReceiverPage from './Receiver'
 
 import './index.scss'
+import { DELAY_TIME } from 'common'
 
 // TODO: modalProps 的工厂
 const infoModalFactory = {
@@ -47,7 +48,15 @@ class Create extends React.Component<IProps, IState> {
 
     const { history } = props
 
-    history.replace('/create?step=info')
+    const id = localStorage.getItem('userId') || ''
+
+    if (!id) {
+      Toast.fail('认证过期，请登录后再操作！', DELAY_TIME)
+
+      history.push('/login')
+    } else {
+      history.replace('/create?step=info')
+    }
 
     this.state = {
       // infoPageModal: true,

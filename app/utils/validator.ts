@@ -103,7 +103,7 @@ function password(value: string, callback: (error: IError) => void): IError {
     return res
   }
 
-  res = PASSWORD_REG.test(value) || value === '' ? noErrors : { hasError: true, error: '至少包含一个字母和一个数字！' }
+  res = PASSWORD_REG.test(value) || value === '' ? noErrors : { hasError: true, error: '至少包含一个字母和一个数字、禁止非法字符！' }
 
   callback(res)
 

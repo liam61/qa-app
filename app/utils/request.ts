@@ -181,7 +181,7 @@ class Request {
   replace(...params: string[]) {
     let count = 0
     // questions/{id}/details/{ab}/c
-    this.curPath = this.curPath.replace(/\{.*?\}/g, match => params[count++])
+    this.curPath = this.curPath.replace(/\{.*?\}/g, _match => params[count++])
 
     return this
   }

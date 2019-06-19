@@ -1,10 +1,11 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 const PREFIXCLS = 'qa'
-const HOST = process.env.NODE_ENV === 'development' ? 'localhost' : 'omyleon.com'
-// const HOST = 'localhost'
-const SERVER_PORT = 6260
+const SERVER_HOST = isDev ? 'localhost:6260' : 'qaapi.omyleon.com' // nginx
 const API_VERSION = 'v1'
-const API_URL = `http://${HOST}:${SERVER_PORT}/${API_VERSION}`
-// const API_URL = 'https://mock.omyleon.com/mock/11/api/v1'
+const API_URL = `http${isDev ? '' : 's'}://${SERVER_HOST}/${API_VERSION}`
+// const API_URL = 'https://mock.omyleon.com/mock/29/api/v1'
+const WS_URL = `ws${isDev ? '' : 's'}://${SERVER_HOST}/ws`
 
 const QUESTION_TYPES = [
   { key: 'Single', value: '单选题' },
@@ -37,8 +38,6 @@ const PHONE_REG = /^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[35678]\d{2}|4(
 
 const ACCEPT_EXTS = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif']
 
-const WS_PATH = `ws://${HOST}:${SERVER_PORT}/ws`
-
 const ROOT_USER = 'lawler'
 
 export {
@@ -52,7 +51,7 @@ export {
   PASSWORD_REG,
   PHONE_REG,
   ACCEPT_EXTS,
-  WS_PATH,
+  WS_URL,
   ROOT_USER,
   API_URL,
 }

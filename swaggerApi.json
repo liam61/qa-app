@@ -16,6 +16,77 @@
     "http"
   ],
   "paths": {
+    "/departments": {
+      "post": {
+        "tags": [
+          "公共分类"
+        ],
+        "summary": "创建部门",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "empty object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "fail"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "message",
+                "data"
+              ]
+            }
+          }
+        }
+      }
+    },
     "/questions": {
       "get": {
         "tags": [

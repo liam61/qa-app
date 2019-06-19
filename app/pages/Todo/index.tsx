@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
-import { SearchBar } from 'antd-mobile'
+import { SearchBar, Toast } from 'antd-mobile'
 import PageModal from 'components/PageModal'
 import ListView from 'components/QaListView'
 import { IRootStore, IRootAction } from 'typings'
@@ -9,6 +9,8 @@ import AnswerPage from '../Answer'
 import { IData } from './stores/todoStore'
 
 import './index.scss'
+import { DELAY_TIME } from 'common'
+import { emptyFn } from 'utils'
 
 @inject(injector)
 @observer
@@ -17,6 +19,18 @@ class Todo extends React.Component<IProps, IState> {
     prefixCls: 'page-todo',
   }
 
+  // constructor(props: IProps) {
+  //   super(props)
+
+  //   const { history } = props
+  //   const id = localStorage.getItem('userId') || ''
+
+  //   if (!id) {
+  //     Toast.fail('认证过期，请登录后再操作！', DELAY_TIME)
+  //     history.push('/login')
+  //   }
+  // }
+
   state = {
     search: '',
     answerPageModal: false,
@@ -24,10 +38,10 @@ class Todo extends React.Component<IProps, IState> {
     answerPageInfo: {} as IData,
   }
 
-  componentDidMount() {
-    const { action, onBadgeChange } = this.props
+  async componentDidMount() {
+    const { action, onBadgeChange = emptyFn } = this.props
 
-    action!.getListData(false, () => console.log('b'))
+    await action!.getListData(false, onBadgeChange)
   }
 
   handleSearchChange = (val: string) => {

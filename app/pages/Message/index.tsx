@@ -7,7 +7,6 @@ import InputModal from 'components/InputModal'
 import AddFriendModal from 'components/AddFriendModal'
 import { getLocalDate } from 'utils'
 import { IRootStore, IRootAction } from 'typings'
-import { IError } from 'pages/Login/interface'
 import { IFriend } from './stores/messageStore'
 import ChatPage from './Chat'
 
@@ -26,7 +25,6 @@ class Message extends React.Component<IProps, IState> {
 
   state = {
     chatPageModal: false,
-    applies: [],
     friend4chat: {} as IFriend,
     inputModal: false,
     applyModal: false,
@@ -151,11 +149,7 @@ class Message extends React.Component<IProps, IState> {
       <div className={prefixCls}>
         <SearchBar value={store!.search} placeholder="搜索..." maxLength={20} onChange={action!.changeSearch} />
         <div className={`${prefixCls}-header qa-border-1px-bottom`}>
-          <div
-            // className={`applies${loadingApplies || !applies.length ? ' hidden' : ''}`}
-            className="applies"
-            onClick={this.handleAppliesShow}
-          >
+          <div className="applies" onClick={this.handleAppliesShow}>
             <span className="applies-info">好友请求</span>
             <span className="applies-count">{applies.length}</span>
           </div>
@@ -196,12 +190,10 @@ interface IProps extends Partial<injectorReturnType> {
 }
 
 interface IState extends Partial<injectorReturnType> {
-  applies: IFriend[]
   chatPageModal: boolean
   friend4chat: IFriend
   inputModal: boolean
   applyModal: boolean
-  // [key: string]: any
 }
 
 function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
