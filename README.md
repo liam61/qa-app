@@ -10,9 +10,9 @@ H5 项目，毕业设计
 
 1. [线上地址，去看看 -> https://qa.omyleon.com](https://qa.omyleon.com)
 
-2. [问答系统服务端 -> https://github.com/lawler61/qa-app-server](https://github.com/lawler61/qa-app-server)
+2. [问答系统 服务端 -> https://github.com/lawler61/qa-app-server](https://github.com/lawler61/qa-app-server)
 
-3. [前端脚手架地址 -> https://github.com/lawler61/init-react-project](https://github.com/lawler61/init-react-project)
+3. [前端脚手架地址 -> https://github.com/lawler61/react-lighter](https://github.com/lawler61/react-lighter)
 
 ## 功能
 
@@ -26,9 +26,21 @@ H5 项目，毕业设计
 
 5. 聊天：用户之间添加好友，进行简单聊天
 
+## 运行
+
+```bash
+yarn or npm i
+
+yarn dll
+
+yarn start // for dev
+
+yarn build && yarn server // for prod
+```
+
 ## 目录结构
 
-.
+```markdown
 ├── app // 项目主目录
 │   ├── components // 可重用组件
 │   ├── index.tsx
@@ -50,49 +62,38 @@ H5 项目，毕业设计
 │   ├── tools // 脚手架
 │   ├── utils
 │   └── websocket
-├── config // webpack 配置
-
-## 运行
-
-```bash
-yarn or npm i
-
-yarn dll
-
-yarn start // for dev
-
-yarn build && yarn server // for prod
+└── config // webpack 配置
 ```
 
 ## 项目部分截图
 
 1. signup 界面
 
-![signup 界面](./images/2.signup.png)
+<img src="./images/2.signup.png" width="40%" alt="signup 界面">
 
 2. todo 界面
 
-![todo 界面](./images/3.todo.png)
+<img src="./images/3.todo.png" width="40%" alt="todo 界面">
 
 3. create 界面1
 
-![create 界面1](./images/5.create.png)
+<img src="./images/5.create.png" width="40%" alt="create 界面1">
 
 4. create 界面2
 
-![create 界面2](./images/6.create2.png)
+<img src="./images/6.create2.png" width="40%" alt="create 界面2">
 
 5. answer 界面
 
-![answer 界面](./images/7.answer.png)
+<img src="./images/7.answer.png" width="40%" alt="answer 界面">
 
 6. chat 界面
 
-![chat 界面](./images/8.chat.png)
+<img src="./images/8.chat.png" width="40%" alt="chat 界面">
 
 7. user 界面
 
-![user 界面](./images/9.user.png)
+<img src="./images/9.user.png" width="40%" alt="user 界面">
 
 ## 感谢
 
