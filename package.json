@@ -12,7 +12,7 @@
     "server": "hs dist"
   },
   "author": "lawler61",
-  "license": "ISC",
+  "license": "MIT",
   "pre-commit": [
     "lint"
   ],

@@ -29,7 +29,7 @@ export default class About extends React.Component<IProps, IState> {
             <div className="body-list-header qa-border-1px-bottom">简历</div>
             <ul className="body-list-main">
               <li>
-                <a href="http://localhost:6260/v1/uploads/Resume.pdf" download>
+                <a href="" download>
                   个人简历
                 </a>
               </li>

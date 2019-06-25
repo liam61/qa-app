@@ -12,31 +12,7 @@ H5 项目，毕业设计
 
 2. [问答系统 服务端 -> https://github.com/lawler61/qa-app-server](https://github.com/lawler61/qa-app-server)
 
-3. [前端脚手架地址 -> https://github.com/lawler61/react-lighter](https://github.com/lawler61/react-lighter)
-
-## 功能
-
-1. 用户：登录、注册、修改基本信息、修改密码、上传头像
-
-2. 创建问题：包括问题基本信息、具体问题、指定人员
-
-3. 完成问题：被指定用户在规定时间内完成问题，并提交
-
-4. 收集问题：被指定用户都作答完成后，问题作者可对问题进行收集和分析
-
-5. 聊天：用户之间添加好友，进行简单聊天
-
-## 运行
-
-```bash
-yarn or npm i
-
-yarn dll
-
-yarn start // for dev
-
-yarn build && yarn server // for prod
-```
+3. [react 脚手架地址 -> https://github.com/lawler61/react-lighter](https://github.com/lawler61/react-lighter)
 
 ## 目录结构
 
@@ -65,35 +41,59 @@ yarn build && yarn server // for prod
 └── config // webpack 配置
 ```
 
+## 功能
+
+1. 用户：登录、注册、修改基本信息、修改密码、上传头像
+
+2. 创建问题：包括问题基本信息、具体问题、指定人员
+
+3. 完成问题：被指定用户在规定时间内完成问题，并提交
+
+4. 收集问题：被指定用户都作答完成后，问题作者可对问题进行收集和分析
+
+5. 聊天：用户之间添加好友，进行简单聊天
+
+## 运行
+
+```bash
+yarn or npm i
+
+yarn dll
+
+yarn start // for dev
+
+yarn build && yarn server // for prod
+```
+
 ## 项目部分截图
 
 1. signup 界面
 
-<img src="./images/2.signup.png" width="40%" alt="signup 界面">
+<img src="./images/2.signup.png" width="40%" alt="signup 界面" />
 
 2. todo 界面
 
-<img src="./images/3.todo.png" width="40%" alt="todo 界面">
+<img src="./images/3.todo.png" width="40%" alt="todo 界面" />
 
 3. create 界面1
 
-<img src="./images/5.create.png" width="40%" alt="create 界面1">
+<img src="./images/5.create.png" width="40%" alt="create 界面1" />
 
 4. create 界面2
 
-<img src="./images/6.create2.png" width="40%" alt="create 界面2">
+<img src="./images/6.create2.png" width="40%" alt="create 界面2" />
 
 5. answer 界面
 
-<img src="./images/7.answer.png" width="40%" alt="answer 界面">
+<img src="./images/7.answer.png" width="40%" alt="answer 界面" />
 
 6. chat 界面
 
-<img src="./images/8.chat.png" width="40%" alt="chat 界面">
+<img src="./images/8.chat.png" width="40%" alt="chat 界面" />
 
 7. user 界面
 
-<img src="./images/9.user.png" width="40%" alt="user 界面">
+<img src="./images/9.user.png" width="40%" alt="user 界面" />
 
 ## 感谢
 

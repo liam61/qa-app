@@ -5,14 +5,7 @@ import { Toast } from 'antd-mobile'
 import { DELAY_TIME, API_URL } from 'common'
 import { IReqOptions, IResponse } from '../interface'
 
-// examples:
-// 1. get    baseUrl/users/Dolor   await request.setPath('users').get({ uri: 'Dolor' })
-
-// 2. delete baseUrl/users/Dolor   await request.setPath('users').delete({ uri: 'Dolor' })
-
-// 3. post   baseUrl/users         await request.setPath('users').post({ data: { name: 'lawler', email: 'lawler61@163.com' })
-
-// 4. put    baseUrl/users         await request.setPath('users').put({ uri: 'Dolor', data: { name: 'Bolor' } })
+// NOTE: examples: https://github.com/lawler61/react-lighter#%E5%85%ADaxios-%E5%B0%81%E8%A3%85
 
 const defaultOptions: AxiosRequestConfig = {
   baseURL: API_URL,
@@ -26,7 +19,7 @@ const defaultOptions: AxiosRequestConfig = {
 const { CancelToken } = axios
 
 class Request {
-  [x: string]: any
+  [key: string]: any
 
   static instance: Request
 
@@ -90,13 +83,13 @@ class Request {
   }
 
   /**
-   *
+   * 请求的通用方法
    *
    * @param {string} method
-   * @param {string} [options={ uri: '', query: null, data: null }]
+   * @param {string} [options={ uri: '', query: null, data: {} }]
    * @param {string} [options.uri=''] 资源唯一标示，一般是 ID
    * @param {Object} [options.query=null] GET 参数
-   * @param {Object} [options.data=null] POST/PUT/PATCH 数据
+   * @param {Object} [options.data={}] POST/PUT/PATCH 数据
    * @returns {Promise<any>}
    */
   async getRequest(method: string, options: IReqOptions = { uri: '', query: null, data: {} }): Promise<any> {
