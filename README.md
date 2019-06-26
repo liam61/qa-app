@@ -65,6 +65,13 @@ yarn start // for dev
 yarn build && yarn server // for prod
 ```
 
+## 在线测试账号
+
+用户名 | 密码
+---- | ---
+jeffery | 11111q
+testuser | 11111q
+
 ## 项目部分截图
 
 1. signup 界面

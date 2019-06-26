@@ -1,6 +1,6 @@
 import { IUser } from 'pages/User/stores/userStore'
 import { Toast } from 'antd-mobile'
-import { WS_URL, DELAY_TIME, ROOT_USER } from 'common'
+import { WS_URL, DELAY_TIME } from 'common'
 import { IRootAction, IRootStore } from 'typings'
 import WsRequest from 'websocket'
 import { IMessage } from 'websocket/interface'
