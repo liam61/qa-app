@@ -71,6 +71,7 @@ yarn build && yarn server // for prod
 ---- | ---
 jeffery | 11111q
 testuser | 11111q
+lawler（管理员） | 11111w
 
 ## 项目部分截图
 

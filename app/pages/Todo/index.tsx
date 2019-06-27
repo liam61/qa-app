@@ -88,7 +88,7 @@ class Todo extends React.Component<IProps, IState> {
     action!.getListData(true, onBadgeChange, 1)
   }
 
-  handleBack = () => {
+  onBack = () => {
     const { action, onBadgeChange = emptyFn } = this.props
 
     action!.getListData(true, onBadgeChange, 1)
@@ -114,7 +114,7 @@ class Todo extends React.Component<IProps, IState> {
           pageSize={pageSize}
         />
         <PageModal visible={answerPageModal}>
-          <AnswerPage id={answerPageKey} info={answerPageInfo} poster={false} onCancel={this.handleBack} />
+          <AnswerPage id={answerPageKey} info={answerPageInfo} poster={false} onCancel={this.onBack} />
         </PageModal>
       </div>
     )

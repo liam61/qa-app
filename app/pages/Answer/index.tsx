@@ -40,16 +40,12 @@ class Answer extends React.Component<IProps, IState> {
     this.handleModalShow('qstPageModal')
   }
 
-  onBack = (_refresh: boolean) => {
-    // const { action, id, poster, todoAction, postAction, onCancel } = this.props
+  onBack = (refresh: boolean) => {
     const { onCancel } = this.props
 
-    // if (refresh) {
-    //   poster ? postAction!.getListData(true, emptyFn) : todoAction!.getListData(true, emptyFn)
-    //   action!.getQstDetail(id, poster)
-    // }
-
-    this.handleModalClose('qstPageModal')
+    if (refresh) {
+      this.handleModalClose('qstPageModal')
+    }
 
     onCancel()
   }

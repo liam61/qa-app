@@ -127,7 +127,7 @@ export default class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text="问答问题" onCancel={() => onCancel(false)} />
+        <PageHeader text={`${poster ? '查看结果' : '问答问题'}`} onCancel={() => onCancel(false)} />
         <div className="header-content">
           <div className="title qa-text-ellipsis">{title}</div>
           <span className="type">{TYPE_OPTIONS.find(t => t.key === type)!.value}</span>
