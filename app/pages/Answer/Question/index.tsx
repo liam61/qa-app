@@ -132,7 +132,9 @@ export default class Question extends React.Component<IProps, IState> {
           <div className="title qa-text-ellipsis">{title}</div>
           <span className="type">{TYPE_OPTIONS.find(t => t.key === type)!.value}</span>
         </div>
-        <div className="question-wrapper">{this.renderQuestions(qstItems, editable, poster)}</div>
+        <div className={`${editable ? 'question-wrapper' : 'wrapper'}`}>
+          {this.renderQuestions(qstItems, editable, poster)}
+        </div>
         <Button
           type="primary"
           className={`qa-btn-bottom${editable ? '' : ' qa-hidden'}`}
