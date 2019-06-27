@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { InputItem, Button, Switch, ActionSheet, WhiteSpace } from 'antd-mobile'
-import { withRouter } from 'react-router-dom'
 import ConfirmModal from 'components/ConfirmModal'
 import PageHeader from 'components/PageHeader'
 import { DELAY_TIME } from 'common'
 import { IRootStore, IRootAction } from 'typings'
-import { receiversType } from '../interface'
 import { renderSteps } from '../index'
 
 import './index.scss'
@@ -186,7 +184,6 @@ interface IProps extends Partial<injectorReturnType> {
 interface IState extends Partial<injectorReturnType> {
   type: { key: string; value: string }
   time: { key: string; value: string }
-  // receivers: receiversType
   showAuthor: boolean
   secret: boolean
   anonymous: boolean

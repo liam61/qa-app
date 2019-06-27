@@ -1,5 +1,4 @@
-// import SingleQuestion from 'components/SingleQuestion'
-// import AnswerQuestion from 'components/AnswerQuestion'
+import { IUser } from 'pages/User/stores/userStore'
 
 interface IQuestion {
   id: string
@@ -17,14 +16,20 @@ interface IReply {
   replies: string[]
 }
 
+interface IReplyTodo {
+  _id: string
+  user: IUser
+  value: string[]
+}
+
 interface IQstToSubmit {
-  readonly _id: string
+  _id?: string
   num: number
   type: string
   title?: string
   options?: IOption[]
   required?: boolean
-  replies?: { [key: string]: string[] }
+  replies?: Array<{ userId: string; value: string[] }>
 }
 
 interface IOption {
@@ -40,6 +45,6 @@ interface IFile {
   cover?: boolean
 }
 
-type receiversType = { [key in 'department' | 'account']?: string[] }
+type receiversType = Array<{ user: string }>
 
-export { IQuestion, IQstToSubmit, IReply, IOption, IFile, receiversType }
+export { IQuestion, IQstToSubmit, IReply, IReplyTodo, IOption, IFile, receiversType }

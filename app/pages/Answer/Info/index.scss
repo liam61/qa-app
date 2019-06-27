@@ -1,6 +1,7 @@
 $prefixCls: 'page-answer-info';
 
 .#{$prefixCls} {
+  height: 100vh;
   background: #fff;
 
   &-header {

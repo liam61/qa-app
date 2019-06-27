@@ -63,6 +63,7 @@ class Info extends React.Component<IProps, IState> {
       showAuthor,
       expire,
       onOK,
+      poster,
     } = this.props
     const { imgUrl, imgModal, readNum, unreadNum } = this.state
 
@@ -116,9 +117,8 @@ class Info extends React.Component<IProps, IState> {
         </div>
         <Button className="finish-question" onClick={onOK}>
           <i className="fa fa-paint-brush" aria-hidden="true" />
-          <span>完成问题</span>
+          <span>{`${poster ? '查看结果' : '完成问题'}`}</span>
         </Button>
-        <WhiteSpace size="lg" />
         <Modal
           visible={imgModal}
           transparent
@@ -153,6 +153,7 @@ interface IProps extends Partial<injectorReturnType> {
   onOK: () => void
   onCancel: () => void
   history: any
+  poster: boolean
 }
 
 interface IState extends Partial<injectorReturnType> {

@@ -52,6 +52,33 @@ $prefixCls: 'component-single-qst-todo';
 .#{$prefixCls} {
   background: #fff;
 
+  &-options-wrapper {
+    display: flex;
+
+    .#{$prefixCls}-user {
+      width: 150px;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .name {
+        font-size: 26px;
+        color: $nav;
+      }
+    }
+
+    .option-item {
+      padding-left: 0 !important;
+    }
+  }
+
   .option-item {
     display: flex;
     align-items: center;

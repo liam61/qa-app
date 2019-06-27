@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
 import { Button, WhiteSpace, Toast } from 'antd-mobile'
 import ConfirmModal from 'components/ConfirmModal'
 import InfoModal, { InfoTypes, IInfoProps } from 'components/InfoModal'
@@ -13,7 +12,7 @@ import { IQstToSubmit, IReply } from '../../Create/interface'
 import './index.scss'
 
 const infoModalFactory = {
-  warning: (callback= emptyFn): IInfoProps => ({
+  warning: (callback = emptyFn): IInfoProps => ({
     type: 'warning',
     title: '暂无消息',
     content: '',
@@ -22,7 +21,7 @@ const infoModalFactory = {
   success: (callback = emptyFn): IInfoProps => ({
     type: 'success',
     title: '提交成功',
-    content: '可在「待完成」界面中查看！',
+    content: '可在「todo」界面中查看！',
     onClose: callback,
   }),
   fail: (callback = emptyFn): IInfoProps => ({
@@ -35,7 +34,7 @@ const infoModalFactory = {
 
 @inject(injector)
 @observer
-class Question extends React.Component<IProps, IState> {
+export default class Question extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'page-answer-question',
   }
@@ -47,7 +46,7 @@ class Question extends React.Component<IProps, IState> {
   }
 
   handleFinishReply = () => {
-    const { action, data, history } = this.props
+    const { action, data, onCancel } = this.props
     const replyArr: IReply[] = []
 
     const { qstItems, _id: detailId } = data!
@@ -56,7 +55,7 @@ class Question extends React.Component<IProps, IState> {
 
     const flag = qstItems.every(qst => {
       const { _id: id, num, required } = qst
-      const replies = this[`question${num}`].wrappedInstance.getReply()
+      const replies = this[`qstItem${num}`].wrappedInstance.getReply()
 
       if (required && !replies.length) {
         Toast.fail('有必填项未完成！', DELAY_TIME)
@@ -64,7 +63,7 @@ class Question extends React.Component<IProps, IState> {
       }
 
       if (replies.length) {
-        replyArr.push({ replies, id })
+        replyArr.push({ replies, id: id || '' })
       }
 
       return true
@@ -77,8 +76,7 @@ class Question extends React.Component<IProps, IState> {
             this.handleModalClose('infoModal')
 
             if (type === 'success') {
-              // history.goBack()
-              history.push('/todo')
+              onCancel(true)
             }
           })
         )
@@ -98,21 +96,27 @@ class Question extends React.Component<IProps, IState> {
     this.setState({ infoModal: true, infoProps })
   }
 
-  renderQuestions = (qstItems: IQstToSubmit[], editable: boolean) =>
+  renderQuestions = (qstItems: IQstToSubmit[], editable: boolean, poster: boolean) =>
     qstItems.map(question => {
-      const { num, type } = question
+      const { num, type, replies = [] } = question
       const Element = require(`components/${type === 'Answer' ? type : 'Single'}QstTodo`).default
 
       return (
         <React.Fragment key={num}>
-          <Element editable={editable} ref={(node: React.ReactNode) => (this[`question${num}`] = node)} {...question} />
+          <Element
+            ref={(node: React.ReactNode) => (this[`qstItem${num}`] = node)}
+            editable={editable}
+            {...question}
+            replies={replies}
+            poster={poster}
+          />
           <WhiteSpace size="lg" />
         </React.Fragment>
       )
     })
 
   render() {
-    const { prefixCls, data, title, type, editable, onCancel } = this.props
+    const { prefixCls, data, title, type, editable, poster, onCancel } = this.props
     const { confirmModal, infoModal, infoProps } = this.state
 
     const { qstItems } = data!
@@ -123,12 +127,12 @@ class Question extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text="问答问题" onCancel={onCancel} />
+        <PageHeader text="问答问题" onCancel={() => onCancel(false)} />
         <div className="header-content">
           <div className="title qa-text-ellipsis">{title}</div>
           <span className="type">{TYPE_OPTIONS.find(t => t.key === type)!.value}</span>
         </div>
-        <div className="question-wrapper">{this.renderQuestions(qstItems, editable)}</div>
+        <div className="question-wrapper">{this.renderQuestions(qstItems, editable, poster)}</div>
         <Button
           type="primary"
           className={`qa-btn-bottom${editable ? '' : ' qa-hidden'}`}
@@ -156,8 +160,8 @@ interface IProps extends Partial<injectorReturnType> {
   title: string
   type: string
   editable: boolean
-  onCancel: () => void
-  history: any
+  poster: boolean
+  onCancel: (refresh: boolean) => void
 }
 
 interface IState extends Partial<injectorReturnType> {
@@ -173,5 +177,3 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
     data: rootStore.Answer.answerStore.data,
   }
 }
-
-export default withRouter(Question)

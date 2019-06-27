@@ -9,6 +9,7 @@ import QuestionPage from './Question'
 import { IData } from '../Todo/stores/todoStore'
 
 import './index.scss'
+import { emptyFn } from 'utils'
 
 @inject(injector)
 @observer
@@ -39,21 +40,36 @@ class Answer extends React.Component<IProps, IState> {
     this.handleModalShow('qstPageModal')
   }
 
+  onBack = (_refresh: boolean) => {
+    // const { action, id, poster, todoAction, postAction, onCancel } = this.props
+    const { onCancel } = this.props
+
+    // if (refresh) {
+    //   poster ? postAction!.getListData(true, emptyFn) : todoAction!.getListData(true, emptyFn)
+    //   action!.getQstDetail(id, poster)
+    // }
+
+    this.handleModalClose('qstPageModal')
+
+    onCancel()
+  }
+
   render() {
     const { prefixCls, info, poster, onCancel } = this.props
     const { qstPageModal } = this.state
-    const { _id: id, title, type } = info
+    const { _id: id, title, type, status } = info
 
     return (
       <div className={prefixCls}>
-        <InfoPage onOK={this.onEnterQstPage} {...info} onCancel={onCancel} />
+        <InfoPage onOK={this.onEnterQstPage} {...info} onCancel={onCancel} poster={poster} />
         <PageModal visible={qstPageModal}>
           <QuestionPage
             id={id}
             title={title}
             type={type}
-            editable={!poster}
-            onCancel={() => this.handleModalClose('qstPageModal')}
+            editable={!poster && status !== 'completed' && status !== 'expired'}
+            poster={poster}
+            onCancel={this.onBack}
           />
         </PageModal>
       </div>
@@ -81,6 +97,8 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
   return {
     store: rootStore.Answer.answerStore,
     action: rootAction.Answer.answerAction,
+    todoAction: rootAction.Todo.todoAction,
+    postAction: rootAction.Post.postAction,
   }
 }
 

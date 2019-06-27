@@ -1,7 +1,6 @@
 import { IRootAction, IRootStore } from 'typings'
 import { request } from 'utils'
 import { mAction } from '../../../mobx/action'
-// import { receiversType } from '../interface'
 // import { IFriend } from 'pages/Message/stores/messageStore'
 
 @mAction

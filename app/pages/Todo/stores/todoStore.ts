@@ -16,7 +16,7 @@ export interface IData {
   user: { name: string; avatar: string }
   read: number
   unread: number
-  status: 'unread' | 'unfilled' | 'completed' | 'expired'
+  status: 'post' | 'unread' | 'unfilled' | 'completed' | 'expired'
 }
 
 export interface IList {

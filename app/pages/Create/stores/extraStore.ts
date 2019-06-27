@@ -1,7 +1,6 @@
 import { action, observable, computed } from 'mobx'
 import { IDepartment } from '../../Register/stores/registerStore'
 import { mStore } from '../../../mobx/store'
-// import { receiversType } from '../interface'
 
 @mStore
 export default class ExtraStore {

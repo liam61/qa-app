@@ -69,9 +69,16 @@ class Post extends React.Component<IProps, IState> {
   }
 
   handleRefresh = () => {
-    const { action, onBadgeChange } = this.props
+    const { action, onBadgeChange = emptyFn } = this.props
 
     action!.getListData(true, onBadgeChange, 1)
+  }
+
+  handleBack = () => {
+    const { action, onBadgeChange = emptyFn } = this.props
+
+    action!.getListData(true, onBadgeChange, 1)
+    this.handleModalClose('answerPageModal')
   }
 
   render() {
@@ -93,12 +100,7 @@ class Post extends React.Component<IProps, IState> {
           pageSize={pageSize}
         />
         <PageModal visible={answerPageModal}>
-          <AnswerPage
-            id={answerPageKey}
-            info={answerPageInfo}
-            poster
-            onCancel={() => this.handleModalClose('answerPageModal')}
-          />
+          <AnswerPage id={answerPageKey} info={answerPageInfo} poster onCancel={this.handleBack} />
         </PageModal>
       </div>
     )

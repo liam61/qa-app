@@ -25,7 +25,7 @@ const infoModalFactory = {
   success: (callback = emptyFn): IInfoProps => ({
     type: 'success',
     title: '创建成功',
-    content: '可在「已创建」界面中查看！',
+    content: '可在「post」界面中查看！',
     onClose: callback,
   }),
   fail: (callback = emptyFn): IInfoProps => ({

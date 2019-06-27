@@ -8,6 +8,7 @@ import { QUESTION_TYPES } from 'common'
 import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
+import { IReplyTodo } from 'pages/Create/interface'
 
 @inject(injector)
 @observer
@@ -20,8 +21,8 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
     value: '',
   }
 
-  handleChange = val => {
-    this.setState({ value: val })
+  handleChange = (val: string | undefined) => {
+    this.setState({ value: val || '' })
   }
 
   getReply = () => {
@@ -31,43 +32,48 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
   }
 
   render() {
-    const {
-      prefixCls,
-      num,
-      required,
-      title,
-      editable,
-      reply,
-      type,
-    } = this.props
+    const { prefixCls, num, required, title, editable, replies, type, poster } = this.props
+
     const { value } = this.state
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
         <div className={`${prefixCls}-header`}>
-          <span className="header-tag">
-            {QUESTION_TYPES.find(t => t.key === type)!.value}
+          <span className="header-tag">{QUESTION_TYPES.find(t => t.key === type)!.value}</span>
+          <span className={`header-title${required ? ' required' : ''} qa-text-ellipsis`}>
+            {`${num + 1}. ${title}`}
           </span>
-          <span
-            className={`header-title${
-              required ? ' required' : ''
-            } qa-text-ellipsis`}
-          >
-            {`${num}. ${title}`}
-          </span>
-          {editable ? null : (
-            <span className="header-disabled">(不可编辑)</span>
-          )}
+          {editable ? null : <span className="header-disabled">(不可编辑)</span>}
         </div>
         <div className={`${prefixCls}-content`}>
-          <TextareaItem
-            placeholder={editable ? '请输入内容（不超过100字）' : ''}
-            value={editable ? value : reply}
-            autoHeight
-            count={100}
-            editable={editable}
-            onChange={this.handleChange}
-          />
+          {poster ? (
+            replies.map(r => {
+              const {
+                _id,
+                user: { avatar, name },
+                value: rs,
+              } = r
+
+              return (
+                <div key={_id} className={`${prefixCls}-options-wrapper qa-border-1px-top`}>
+                  <div className={`${prefixCls}-user`}>
+                    <img src={avatar} alt="" />
+                    <div className="name">{name}</div>
+                  </div>
+                  <div className={`${prefixCls}-text`}>{rs[0]}</div>
+                </div>
+              )
+            })
+          ) : (
+            <TextareaItem
+              placeholder={editable ? '请输入内容（不超过100字）' : ''}
+              value={editable ? value : replies[0].value[0]}
+              autoHeight
+              count={100}
+              editable={editable}
+              onChange={this.handleChange}
+            />
+          )}
         </div>
       </div>
     )
@@ -84,19 +90,14 @@ interface IProps extends Partial<injectorReturnType> {
   options: object[]
   type: string
   editable: boolean
-  reply?: string
+  replies: IReplyTodo[]
+  poster: boolean
 }
 
 interface IState extends Partial<injectorReturnType> {
   value: string
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

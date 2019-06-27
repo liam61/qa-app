@@ -1,15 +1,11 @@
-import { mAction } from '../../../mobx/action'
-// import { fromJS, is } from 'immutable'
-import { IQuestion, IQstToSubmit } from '../interface'
 import { IRootAction, IRootStore } from 'typings'
 import { getUid } from 'utils'
+import { mAction } from '../../../mobx/action'
+import { IQuestion, IQstToSubmit } from '../interface'
 
 @mAction
 export default class QuestionAction {
-  constructor(
-    public stores: IRootStore['Create'],
-    public actions: IRootAction['Create']
-  ) {}
+  constructor(public stores: IRootStore['Create'], public actions: IRootAction['Create']) {}
 
   addQuestion(type: string, Element: React.ReactNode) {
     const { questionStore } = this.stores
@@ -58,8 +54,6 @@ export default class QuestionAction {
 
   updateQuestions(questions: IQuestion[]) {
     const { questionStore } = this.stores
-    // const curQsts = questionStore.questions
-
     // if (!is(fromJS(curQsts), fromJS(questions))) {}
     questionStore.setQst(questions)
   }

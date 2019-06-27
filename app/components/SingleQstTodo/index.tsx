@@ -6,7 +6,8 @@ import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 import { QUESTION_TYPES } from 'common'
 import { IRootStore, IRootAction } from 'typings'
-import { IOption } from 'pages/Create/interface';
+import { IOption } from 'pages/Create/interface'
+import { IReplyTodo } from 'pages/Create/interface'
 
 import './index.scss'
 
@@ -14,13 +15,7 @@ const getLabel = (index: number, checked: boolean, type: string) => {
   const Label = styled.div`
     &:before { content: '${String.fromCharCode(65 + index)}'; }
   `
-  return (
-    <Label
-      className={`option-item-icon${
-        checked ? ' checked' : ''
-      } ${type.toLowerCase()}`}
-    />
-  )
+  return <Label className={`option-item-icon${checked ? ' checked' : ''} ${type.toLowerCase()}`} />
 }
 
 @inject(injector)
@@ -28,7 +23,6 @@ const getLabel = (index: number, checked: boolean, type: string) => {
 export default class SingleQstTodo extends React.Component<IProps, IState> {
   static defaultProps = {
     prefixCls: 'component-single-qst-todo',
-    reply: ['asdf'],
   }
 
   state = {
@@ -56,53 +50,61 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
   getReply = () => this.state.checkedArr
 
   render() {
-    const {
-      prefixCls,
-      num,
-      required,
-      title,
-      options,
-      editable,
-      reply,
-      type,
-    } = this.props
+    const { prefixCls, num, required, title, options, editable, replies, type, poster } = this.props
     const { checkedArr } = this.state
 
     return (
       <div className={`${prefixCls} qa-border-1px-bottom`}>
         <div className="qa-qst-todo-header">
-          <span className="header-tag">
-            {QUESTION_TYPES.find(t => t.key === type)!.value}
-          </span>
+          <span className="header-tag">{QUESTION_TYPES.find(t => t.key === type)!.value}</span>
           <span className={`header-title${required ? ' required' : ''} qa-text-ellipsis`}>
-            {`${num}. ${title}`}
+            {`${num + 1}. ${title}`}
           </span>
-          {editable ? null : (
-            <span className="header-disabled">(不可编辑)</span>
-          )}
+          {editable ? null : <span className="header-disabled">(不可编辑)</span>}
         </div>
-        <div className={`${prefixCls}-options`}>
-          {options.map((option, index: number) => {
-            const { id, value } = option
+        {poster ? (
+          replies.map(r => {
+            const {
+              _id,
+              user: { avatar, name },
+              value: rs,
+            } = r
 
             return (
-              <div
-                key={id}
-                className="option-item"
-                onClick={() => this.handleChange(value)}
-              >
-                {getLabel(
-                  index,
-                  editable
-                    ? checkedArr.includes(value)
-                    : reply!.includes(value),
-                  type
-                )}
-                <div className="option-item-text">{value}</div>
+              <div key={_id} className={`${prefixCls}-options-wrapper qa-border-1px-top`}>
+                <div className={`${prefixCls}-user`}>
+                  <img src={avatar} alt="" />
+                  <div className="name">{name}</div>
+                </div>
+                <div className={`${prefixCls}-options`}>
+                  {options.map((option, i) => {
+                    const { id, value } = option
+
+                    return (
+                      <div key={id} className="option-item">
+                        {getLabel(i, rs.includes(value), type)}
+                        <div className="option-item-text">{value}</div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             )
-          })}
-        </div>
+          })
+        ) : (
+          <div className={`${prefixCls}-options`}>
+            {options.map((option, i) => {
+              const { id, value } = option
+
+              return (
+                <div key={id} className="option-item" onClick={() => this.handleChange(value)}>
+                  {getLabel(i, editable ? checkedArr.includes(value) : replies[0].value.includes(value), type)}
+                  <div className="option-item-text">{value}</div>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
@@ -118,19 +120,14 @@ interface IProps extends Partial<injectorReturnType> {
   options: IOption[]
   type: string
   editable: boolean
-  reply?: string[]
+  replies: IReplyTodo[]
+  poster: boolean
 }
 
 interface IState extends Partial<injectorReturnType> {
   checkedArr: string[]
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }
