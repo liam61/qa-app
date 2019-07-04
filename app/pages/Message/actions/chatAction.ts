@@ -19,7 +19,7 @@ export default class ChatAction {
    * @param {string} receiverId
    * @memberof ChatAction
    */
-  async sendMessage(friendId: string, receiverId: string) {
+  async sendMessage(friendId: string, receiverId: string, callback: () => void) {
     const {
       messageStore: { wsRequest },
       chatStore,
@@ -36,6 +36,8 @@ export default class ChatAction {
       .addMessage(await wsRequest.send(friendId, content, receiverId))
       .setContent('')
       .setSending(false)
+
+    callback()
   }
 
   async getMsgsByFriendId(friendId: string) {

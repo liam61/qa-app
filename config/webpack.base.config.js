@@ -49,7 +49,7 @@ module.exports = ({
             removeAttributeQuotes: true,
             collapseWhitespace: true,
           },
-      favicon: resolve(entryDir, 'assets/images/favicon-l.ico'),
+      favicon: resolve(entryDir, 'assets/images/favicon.ico'),
     }),
     new webpack.BannerPlugin(`created by ${author}`),
     new webpack.DllReferencePlugin({

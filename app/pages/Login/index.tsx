@@ -4,7 +4,6 @@ import { Link, withRouter } from 'react-router-dom'
 import { InputItem, Button, Toast } from 'antd-mobile'
 import { debounce } from 'utils'
 import lockIcon from 'assets/images/lock.svg'
-// import { IResponse } from '../Register/actions/registerAction'
 import { IRootStore, IRootAction } from 'typings'
 
 import './index.scss'
@@ -12,6 +11,8 @@ import { DELAY_TIME } from 'common'
 import { IError } from './interface'
 
 export const noErrors: IError = { hasError: false, error: '' }
+
+const ENTER_KEY = 13
 
 @inject(injector)
 @observer
@@ -34,6 +35,14 @@ class Login extends React.Component<IProps, IState> {
 
   componentDidMount() {
     this.accountInput.focus()
+  }
+
+  handleKeyDown = (ev: any) => {
+    if (ev.keyCode !== ENTER_KEY) {
+      return
+    }
+
+    this.handleSubmit()
   }
 
   handleChange = (type: string, val: string) => {
@@ -60,10 +69,10 @@ class Login extends React.Component<IProps, IState> {
 
   handleSubmit = () => {
     const { action, history } = this.props
-    const { account, password, validate } = this.state
+    const { account, password, validate, accountInfo } = this.state
 
-    if (!account || !password) {
-      Toast.fail('请输入登录信息！')
+    if (!account || !password || accountInfo.hasError) {
+      Toast.fail('请填写正确的登录信息！')
 
       return
     }
@@ -103,6 +112,7 @@ class Login extends React.Component<IProps, IState> {
             error={accountErr}
             onErrorClick={() => this.handleErrorClick('accountInfo')}
             onChange={debounce(this.handleAccountChange, (val: string) => this.setState({ account: val }))}
+            onKeyDown={this.handleKeyDown}
           >
             <i className="fa fa-user-o fa-2x warning" aria-hidden="true" />
           </InputItem>
@@ -114,6 +124,7 @@ class Login extends React.Component<IProps, IState> {
             value={password}
             maxLength={20}
             onChange={this.handlePasswordChange}
+            onKeyDown={this.handleKeyDown}
           >
             <img src={lockIcon} className="password-icon" alt="password-icon" />
           </InputItem>

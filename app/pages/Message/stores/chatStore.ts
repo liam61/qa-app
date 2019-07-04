@@ -46,7 +46,6 @@ export default class ChatStore {
 
   @action
   addMessage(m: IMessage) {
-    console.log(m);
     this.messages.push(m)
 
     return this

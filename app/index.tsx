@@ -3,12 +3,9 @@ import { render } from 'react-dom'
 import fscreen from 'fscreen'
 import AppHot from './App'
 
-if (
-  fscreen.fullscreenEnabled &&
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-) {
+if (fscreen.fullscreenEnabled && /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
   fscreen.addEventListener('fullscreenchange', handler, false)
-  fscreen.requestFullscreen(document.documentElement)
+  // fscreen.requestFullscreen(document.documentElement) // open this comment if needed
 }
 
 function handler() {

@@ -1,6 +1,6 @@
 {
   "name": "qa-app",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "question-answer app",
   "basePath": "app",
   "main": "app/index.tsx",

@@ -44,10 +44,10 @@ class Answer extends React.Component<IProps, IState> {
     const { onCancel } = this.props
 
     if (refresh) {
-      this.handleModalClose('qstPageModal')
+      onCancel()
     }
 
-    onCancel()
+    this.handleModalClose('qstPageModal')
   }
 
   render() {

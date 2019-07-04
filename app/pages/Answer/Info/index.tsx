@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Button, Toast, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
+import { Button, WhiteSpace, Modal, ImagePicker } from 'antd-mobile'
 import { increaseCount } from 'utils'
 import { IRootStore, IRootAction } from 'typings'
 import { TIME_OPTIONS, TYPE_OPTIONS } from 'common'

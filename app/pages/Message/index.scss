@@ -3,6 +3,7 @@ $prefixCls: 'page-message';
 .#{$prefixCls} {
   position: relative;
   height: calc(100vh - 114px);
+  overflow-y: scroll;
 
   &-header {
     display: flex;
@@ -53,7 +54,7 @@ $prefixCls: 'page-message';
   }
 
   &-lists {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     padding: 0 30px;
   }
 }

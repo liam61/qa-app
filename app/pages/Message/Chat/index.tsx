@@ -5,7 +5,7 @@ import { IRootStore, IRootAction } from 'typings'
 import PageHeader from 'components/PageHeader'
 import MessageItem from 'components/MessageItem'
 import { IMessage } from 'websocket/interface'
-import { getLocalDate, getDaysOfYear } from 'utils'
+import { getLocalDate, getDaysOfYear, emptyFn } from 'utils'
 
 import './index.scss'
 import ReactDOM from 'react-dom'
@@ -14,6 +14,8 @@ import { IFriend } from '../stores/messageStore'
 
 let preDay = 0
 let preDate = new Date(0)
+
+const ENTER_KEY = 13
 
 function getDateParamsOfMsg(curDate: Date) {
   const curDay = getDaysOfYear(curDate)
@@ -43,6 +45,8 @@ export default class Chat extends React.Component<IProps, IState> {
 
   msgBody: any
 
+  textarea: React.ReactNode
+
   async componentDidMount() {
     const {
       action,
@@ -56,23 +60,45 @@ export default class Chat extends React.Component<IProps, IState> {
     this.msgBody.scrollIntoView({ block: 'end' })
   }
 
-  componentDidUpdate() {
-    this.msgBody.scrollIntoView({ behavior: 'smooth', block: 'end' })
-  }
+  // componentDidUpdate() {}
 
   handleSendMsg = () => {
-    const { action, friend } = this.props
-
+    const { action, friend, store } = this.props
     const { _id, user2 } = friend
 
-    action!.sendMessage(_id, user2._id)
+    if (!store!.content) {
+      return
+    }
+
+    action!.sendMessage(_id, user2._id, () => {
+      this.textarea.focus()
+      this.msgBody.scrollIntoView({ block: 'end' })
+    })
   }
 
   handleCntChange = (val: string | undefined) => {
     const { action } = this.props
 
-    // TODO: 监听 enter 直接发送
+    if (val === '\n') {
+      return
+    }
+
     action!.changeContent(val || '')
+  }
+
+  handleKeyDown = (ev: any) => {
+    if (ev.keyCode !== ENTER_KEY) {
+      return
+    }
+
+    this.handleSendMsg()
+  }
+
+  onBack = () => {
+    const { onCancel, action } = this.props
+
+    action!.changeContent('')
+    onCancel()
   }
 
   renderMessages = (messages: IMessage[]) => {
@@ -104,7 +130,6 @@ export default class Chat extends React.Component<IProps, IState> {
   render() {
     const {
       prefixCls,
-      onCancel,
       store,
       friend: { user2 },
     } = this.props
@@ -113,12 +138,16 @@ export default class Chat extends React.Component<IProps, IState> {
 
     return (
       <div className={prefixCls}>
-        <PageHeader text={`与 ${user2.name}${user2.name === ROOT_USER ? ' (管理员)' : ''} 的聊天`} onCancel={onCancel} />
+        <PageHeader
+          text={`与 ${user2.name}${user2.name === ROOT_USER ? ' (管理员)' : ''} 的聊天`}
+          onCancel={this.onBack}
+        />
         <div className={`${prefixCls}-body`} ref={(node: React.ReactNode) => (this.msgBody = node)}>
           {loading ? <h1>Loading...</h1> : this.renderMessages(messages)}
         </div>
         <div className={`${prefixCls}-footer`}>
           <TextareaItem
+            ref={(node: React.ReactNode) => (this.textarea = node)}
             className={`${sending ? 'sending' : ''}`}
             placeholder="请填写内容"
             value={content}
@@ -127,6 +156,7 @@ export default class Chat extends React.Component<IProps, IState> {
             onChange={this.handleCntChange}
             error
             onErrorClick={this.handleSendMsg}
+            onKeyDown={this.handleKeyDown}
           />
         </div>
       </div>
