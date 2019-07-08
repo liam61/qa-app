@@ -15,25 +15,10 @@ export default class ListViewItem extends React.Component<IProps, IState> {
   coverByRandom = getRandomImg()
 
   render() {
-    const {
-      prefixCls,
-      title,
-      content,
-      cover,
-      author,
-      avatar,
-      date,
-      type,
-      expire,
-      onClick,
-      status,
-    } = this.props
+    const { prefixCls, title, content, cover, author, avatar, date, type, expire, onClick, status } = this.props
 
     return (
-      <div
-        className={prefixCls}
-        onClick={() => onClick(cover || this.coverByRandom)}
-      >
+      <div className={prefixCls} onClick={() => onClick(cover || this.coverByRandom)}>
         <div className={`${prefixCls}-cover`}>
           <img src={cover || this.coverByRandom} alt="item-cover" />
         </div>
@@ -73,12 +58,6 @@ interface IProps extends Partial<injectorReturnType> {
 
 interface IState extends Partial<injectorReturnType> {}
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

@@ -13,10 +13,7 @@ export default class WsRequest {
   }
 
   initListeners() {
-    this.ws.onopen = _event => {
-      console.log('client connect')
-      // this.ws.send('this is from client')
-    }
+    this.ws.onopen = _event => console.log('client connect')
 
     this.ws.onmessage = event => {
       // console.log(event.data)
@@ -25,13 +22,9 @@ export default class WsRequest {
       this.onMsgCallback(message)
     }
 
-    this.ws.onclose = _event => {
-      console.log('client disconnect')
-    }
+    this.ws.onclose = _event => console.log('client disconnect')
 
-    this.ws.onerror = event => {
-      console.log('client error', event)
-    }
+    this.ws.onerror = event => console.log('client error', event)
   }
 
   async send(

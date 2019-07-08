@@ -13,24 +13,14 @@ export default class QuestionHeader extends React.Component<IProps, {}> {
   }
 
   render() {
-    const {
-      hidden,
-      num,
-      onToggle,
-      type,
-      required,
-      onRequiredChange,
-      onRemove,
-    } = this.props
+    const { hidden, num, onToggle, type, required, onRequiredChange, onRemove } = this.props
     return (
       <React.Fragment>
         {/* <WhiteSpace size='lg' /> */}
         <div className="qa-question-header qa-border-1px-bottom">
           <div className="header-title">
             <i
-              className={`fa fa-caret-${
-                hidden ? 'down' : 'right'
-              } fa-3x header-title-toggle`}
+              className={`fa fa-caret-${hidden ? 'down' : 'right'} fa-3x header-title-toggle`}
               aria-hidden="true"
               onClick={onToggle}
             />
@@ -48,11 +38,7 @@ export default class QuestionHeader extends React.Component<IProps, {}> {
           </div>
           <Switch checked={required} onChange={onRequiredChange} />
           <span className="header-required">必答</span>
-          <i
-            className="fa fa-trash-o fa-3x header-remove"
-            aria-hidden="true"
-            onClick={onRemove}
-          />
+          <i className="fa fa-trash-o fa-3x header-remove" aria-hidden="true" onClick={onRemove} />
         </div>
       </React.Fragment>
     )
@@ -72,12 +58,6 @@ interface IProps extends Partial<injectorReturnType> {
   onRemove: () => void
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

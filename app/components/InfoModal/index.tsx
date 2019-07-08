@@ -14,8 +14,7 @@ export default class InfoModal extends React.Component<IProps, {}> {
     prefixCls: 'component-info-modal',
   }
 
-  getIconByType = (type: InfoTypes) =>
-    require(`assets/images/${type}.svg`)
+  getIconByType = (type: InfoTypes) => require(`assets/images/${type}.svg`)
 
   render() {
     const { prefixCls, visible, onClose, title, type, content } = this.props
@@ -65,12 +64,6 @@ export interface IInfoProps {
   onClose: () => void
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

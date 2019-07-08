@@ -5,7 +5,7 @@ import { Toast } from 'antd-mobile'
 import { DELAY_TIME, API_URL } from 'common'
 import { IReqOptions, IResponse } from '../interface'
 
-// NOTE: examples: https://github.com/lawler61/react-lighter#%E5%85%ADaxios-%E5%B0%81%E8%A3%85
+// NOTE: examples: see https://github.com/lawler61/react-lighter#%E5%85%ADaxios-%E5%B0%81%E8%A3%85
 
 const defaultOptions: AxiosRequestConfig = {
   baseURL: API_URL,
@@ -34,7 +34,6 @@ class Request {
   curPath = ''
 
   constructor(public history: any, options: AxiosRequestConfig) {
-    // constructor(options: AxiosRequestConfig) {
     this.request = axios.create(options)
 
     this.methods.forEach(method => {
@@ -139,7 +138,6 @@ class Request {
         onUploadProgress: (progressEvent: any) => {
           const { loaded, total } = progressEvent
 
-          // callback(((loaded * 100) / total).toFixed(2))
           callback(`${Math.round((loaded * 10000) / total) / 100}%`)
         },
       })
@@ -173,7 +171,6 @@ class Request {
    */
   replace(...params: string[]) {
     let count = 0
-    // questions/{id}/details/{ab}/c
     this.curPath = this.curPath.replace(/\{.*?\}/g, _match => params[count++])
 
     return this

@@ -51,4 +51,13 @@ export default class QuestionStore {
 
     return this
   }
+
+  @action
+  initStore() {
+    this.questions = []
+    this.finished = false
+    this.cached = false
+
+    return this
+  }
 }

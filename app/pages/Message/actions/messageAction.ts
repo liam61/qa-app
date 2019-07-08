@@ -36,13 +36,6 @@ export default class MessageAction {
     return data
   }
 
-  // async applyRootUser() {
-  //   const { hasError } = await validator.account(ROOT_USER)
-  //   if (!hasError) {
-  //     await request.setPath('friends').post({ data: { account: ROOT_USER } })
-  //   }
-  // }
-
   async getApplies() {
     const { messageStore } = this.stores
 
@@ -52,7 +45,6 @@ export default class MessageAction {
   }
 
   async applyByAccount(account: string, me: IUser, callback: () => void) {
-    console.log(me)
     const { name, email, phone } = me
 
     if ([name, email, phone].includes(account)) {

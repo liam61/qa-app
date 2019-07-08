@@ -14,6 +14,15 @@ export default class CreateAction {
       data: Object.assign(infoAction.getInfo(), questionAction.getQuestions(), extraAction.getExtra()),
     })
 
+    this.initStore()
     callback(type)
+  }
+
+  initStore() {
+    const { infoStore, questionStore, extraStore } = this.stores
+
+    infoStore.initStore()
+    questionStore.initStore()
+    extraStore.initStore()
   }
 }

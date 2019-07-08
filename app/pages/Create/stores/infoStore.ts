@@ -40,4 +40,13 @@ export default class InfoStore {
 
     return this
   }
+
+  @action
+  initStore() {
+    this.title = ''
+    this.content = ''
+    this.files = []
+
+    return this
+  }
 }

@@ -49,6 +49,36 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
 
   getReply = () => this.state.checkedArr
 
+  renderPosterOpts = (prefixCls: string, options: IOption[], replies: IReplyTodo[], type: string) =>
+    replies.map(r => {
+      const {
+        _id,
+        user: { avatar, name },
+        value: rs,
+      } = r
+
+      return (
+        <div key={_id} className={`${prefixCls}-options-wrapper qa-border-1px-top`}>
+          <div className={`${prefixCls}-user`}>
+            <img src={avatar} alt="user-avatar" />
+            <span className="name">{name}</span>
+          </div>
+          <div className={`${prefixCls}-options`}>
+            {options.map((option, i) => {
+              const { id, value } = option
+
+              return rs.includes(value) ? (
+                <div key={id} className="option-item">
+                  {getLabel(i, true, type)}
+                  <div className="option-item-text">{value}</div>
+                </div>
+              ) : null
+            })}
+          </div>
+        </div>
+      )
+    })
+
   render() {
     const { prefixCls, num, required, title, options, editable, replies, type, poster } = this.props
     const { checkedArr } = this.state
@@ -57,40 +87,25 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
       <div className={`${prefixCls} qa-border-1px-bottom`}>
         <div className="qa-qst-todo-header">
           <span className="header-tag">{QUESTION_TYPES.find(t => t.key === type)!.value}</span>
-          <span className={`header-title${required ? ' required' : ''} qa-text-ellipsis`}>
-            {`${num + 1}. ${title}`}
-          </span>
-          {editable ? null : <span className="header-disabled">(不可编辑)</span>}
+          <span className={`header-title${required ? ' required' : ''}`}>{`${num + 1}. ${title}`}</span>
+          {editable ? null : <span className="header-disabled">(只读)</span>}
         </div>
         {poster ? (
-          replies.map(r => {
-            const {
-              _id,
-              user: { avatar, name },
-              value: rs,
-            } = r
+          <React.Fragment>
+            <div className={`${prefixCls}-options qa-border-1px-top`}>
+              {options.map((option, i) => {
+                const { id, value } = option
 
-            return (
-              <div key={_id} className={`${prefixCls}-options-wrapper qa-border-1px-top`}>
-                <div className={`${prefixCls}-user`}>
-                  <img src={avatar} alt="" />
-                  <div className="name">{name}</div>
-                </div>
-                <div className={`${prefixCls}-options`}>
-                  {options.map((option, i) => {
-                    const { id, value } = option
-
-                    return (
-                      <div key={id} className="option-item">
-                        {getLabel(i, rs.includes(value), type)}
-                        <div className="option-item-text">{value}</div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })
+                return (
+                  <div key={id} className="option-item">
+                    {getLabel(i, false, type)}
+                    <div className="option-item-text">{value}</div>
+                  </div>
+                )
+              })}
+            </div>
+            {this.renderPosterOpts(prefixCls || '', options, replies, type)}
+          </React.Fragment>
         ) : (
           <div className={`${prefixCls}-options`}>
             {options.map((option, i) => {

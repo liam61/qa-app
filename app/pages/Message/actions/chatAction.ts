@@ -1,5 +1,5 @@
 import { IRootAction, IRootStore } from 'typings'
-import { request } from 'utils'
+import { request, emptyFn } from 'utils'
 import { mAction } from '../../../mobx/action'
 
 @mAction
@@ -19,7 +19,7 @@ export default class ChatAction {
    * @param {string} receiverId
    * @memberof ChatAction
    */
-  async sendMessage(friendId: string, receiverId: string, callback: () => void) {
+  async sendMessage(friendId: string, receiverId: string, callback: () => void = emptyFn) {
     const {
       messageStore: { wsRequest },
       chatStore,

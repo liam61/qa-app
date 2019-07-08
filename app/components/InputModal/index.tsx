@@ -17,11 +17,6 @@ export default class InputModal extends React.Component<IProps, IState> {
 
   input: any
 
-  // constructor(props: IProps) {
-  //   super(props)
-  //   console.log(props.defaultValue)
-  // }
-
   componentWillReceiveProps(nextProps: IProps) {
     const { defaultValue } = nextProps
     const { value } = this.state

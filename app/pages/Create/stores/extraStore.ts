@@ -96,4 +96,17 @@ export default class ExtraStore {
 
     return this
   }
+
+  @action
+  initStore() {
+    this.type = ''
+    this.expire = ''
+    this.departments = []
+    this.receivers = {}
+    this.showAuthor = true
+    this.anonymous = false
+    this.secret = false
+
+    return this
+  }
 }

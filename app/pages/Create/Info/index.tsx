@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
 import { InputItem, TextareaItem, Button, Modal, ImagePicker } from 'antd-mobile'
 import { getUid } from 'utils'
 import ConfirmModal from 'components/ConfirmModal'
@@ -52,6 +51,10 @@ export default class Info extends React.Component<IProps, IState> {
   handleAddImageClick = (e: any) => {
     e.preventDefault()
     this.input.click()
+  }
+
+  handleImgRemove = (files: IFile[], _type: string, _i: number) => {
+    this.setState({ files })
   }
 
   async handleAddFile(e: any) {
@@ -129,6 +132,7 @@ export default class Info extends React.Component<IProps, IState> {
               className="qa-image-picker"
               files={files}
               length="5"
+              onChange={this.handleImgRemove}
               onImageClick={this.handleImgClick}
               onAddImageClick={this.handleAddImageClick}
               // multiple

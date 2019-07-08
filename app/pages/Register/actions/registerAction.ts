@@ -28,8 +28,6 @@ export default class RegisterAction {
   }
 
   async signup(data: any, callback: (success: boolean) => void) {
-    // const { type } = await request.setPath('register').post({ data })
-    // const { name, password, validate } = data
     const { type } = await request.setPath('users/signup').post({ data })
 
     callback(type === 'success')

@@ -248,7 +248,6 @@ function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction
   return {
     store: rootStore.Register.registerStore,
     action: rootAction.Register.registerAction,
-    // messageAction: rootAction.Message.messageAction,
   }
 }
 

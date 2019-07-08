@@ -35,17 +35,6 @@ function parseDataToListView(dataList: IList[]) {
   return { dataSource, sectionIDs, rowIDs }
 }
 
-// function getSectionsOfDate(dataList: IList[]) {
-//   return dataList.reduce((res, data) => {
-//     const [year, month] = data.date.split('-')
-//     if (!res[`${year}${month}`]) {
-//       res[`${year}${month}`] = 0
-//     }
-//     res[`${year}${month}`] += 1
-//     return res
-//   }, {})
-// }
-
 @inject(injector)
 @observer
 export default class QaListView extends React.Component<IProps, IState> {

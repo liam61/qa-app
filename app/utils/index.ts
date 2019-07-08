@@ -78,7 +78,6 @@ async function uploadFile(file: any, key: string) {
 
 function getLocalDate(date: Date) {
   return date.toLocaleString('zh', { hour12: false }).replace(/\//g, '-')
-  // return date.toLocaleString().replace(/\//g, '-')
 }
 
 function getDaysOfYear(date: Date) {

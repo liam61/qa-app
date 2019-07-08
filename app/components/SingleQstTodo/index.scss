@@ -3,9 +3,9 @@ $prefixCls: 'component-single-qst-todo';
 .#{$globalPrefixCls}-qst-todo {
   &-header {
     display: flex;
-    height: 88px;
+    // height: 88px;
     align-items: center;
-    padding: 0 30px;
+    padding: 15px 30px;
 
     .header-tag {
       padding: 4px 10px;
@@ -54,10 +54,11 @@ $prefixCls: 'component-single-qst-todo';
 
   &-options-wrapper {
     display: flex;
+    align-items: center;
 
     .#{$prefixCls}-user {
       width: 150px;
-      padding: 10px 0;
+      padding: 6px 0;
       display: flex;
       flex-direction: column;
       justify-content: center;

@@ -25,10 +25,7 @@ export default class ConfirmModal extends React.Component<IProps, {}> {
           // animationType='fade'
           maskTransitionName="am-fade"
           transitionName="am-zoom"
-          footer={[
-            { text: '取消', onPress: onCancel },
-            { text: '确定', onPress: onOK },
-          ]}
+          footer={[{ text: '取消', onPress: onCancel }, { text: '确定', onPress: onOK }]}
         >
           <div className="qa-modal-title">{title}</div>
         </Modal>
@@ -52,12 +49,6 @@ export interface IConfirmProps {
   onOK: () => void
 }
 
-function injector({
-  rootStore,
-  rootAction,
-}: {
-  rootStore: IRootStore
-  rootAction: IRootAction,
-}) {
+function injector({ rootStore, rootAction }: { rootStore: IRootStore; rootAction: IRootAction }) {
   return {}
 }

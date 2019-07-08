@@ -40,10 +40,8 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
       <div className={`${prefixCls} qa-border-1px-bottom`}>
         <div className={`${prefixCls}-header`}>
           <span className="header-tag">{QUESTION_TYPES.find(t => t.key === type)!.value}</span>
-          <span className={`header-title${required ? ' required' : ''} qa-text-ellipsis`}>
-            {`${num + 1}. ${title}`}
-          </span>
-          {editable ? null : <span className="header-disabled">(不可编辑)</span>}
+          <span className={`header-title${required ? ' required' : ''}`}>{`${num + 1}. ${title}`}</span>
+          {editable ? null : <span className="header-disabled">(只读)</span>}
         </div>
         <div className={`${prefixCls}-content`}>
           {poster ? (
