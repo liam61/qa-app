@@ -85,7 +85,7 @@ class Info extends React.Component<IProps, IState> {
               alt="user-avatar"
             />
             <span className="info-name qa-border-1px-right">{showAuthor ? author : '匿名'}</span>
-            <span className="info-date qa-border-1px-right">{date}</span>
+            <span className="info-date qa-border-1px-right">{(new Date(date)).toLocaleString().replace(/\//g, '-').slice(5, 13)}</span>
             <span className="info-expire">
               期限：
               {TIME_OPTIONS.find(t => t.key === expire)!.value}

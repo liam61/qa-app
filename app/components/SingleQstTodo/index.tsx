@@ -113,7 +113,7 @@ export default class SingleQstTodo extends React.Component<IProps, IState> {
 
               return (
                 <div key={id} className="option-item" onClick={() => this.handleChange(value)}>
-                  {getLabel(i, editable ? checkedArr.includes(value) : replies[0].value.includes(value), type)}
+                  {getLabel(i, editable ? checkedArr.includes(value) : (replies[0] ? replies[0].value : []).includes(value), type)}
                   <div className="option-item-text">{value}</div>
                 </div>
               )

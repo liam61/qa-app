@@ -65,7 +65,7 @@ export default class AnswerQstTodo extends React.Component<IProps, IState> {
           ) : (
             <TextareaItem
               placeholder={editable ? '请输入内容（不超过100字）' : ''}
-              value={editable ? value : replies[0].value[0]}
+              value={editable ? value : (replies[0] ? replies[0].value[0] : '')}
               autoHeight
               count={100}
               editable={editable}

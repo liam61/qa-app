@@ -76,7 +76,9 @@ async function uploadFile(file: any, key: string) {
   return await request.upload(data, (process: any) => console.log(process))
 }
 
-function getLocalDate(date: Date) {
+function getLocalDate(date: Date | any) {
+  // tslint:disable-next-line: curly
+  if (Object.prototype.toString.call(date).slice(8, -1) !== 'Date') date = new Date(date);
   return date.toLocaleString('zh', { hour12: false }).replace(/\//g, '-')
 }
 

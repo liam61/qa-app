@@ -99,7 +99,7 @@ export default class Question extends React.Component<IProps, IState> {
   renderQuestions = (qstItems: IQstToSubmit[], editable: boolean, poster: boolean) =>
     qstItems.map(question => {
       const { num, type, replies = [] } = question
-      const Element = require(`components/${type === 'Answer' ? type : 'Single'}QstTodo`).default
+      const Element = require(`components/${type !== 'Answer' ? 'Single' : type}QstTodo`).default
 
       return (
         <React.Fragment key={num}>

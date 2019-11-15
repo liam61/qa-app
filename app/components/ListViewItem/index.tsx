@@ -31,7 +31,7 @@ export default class ListViewItem extends React.Component<IProps, IState> {
           <div className="body-info">
             <img src={avatar} alt="author-avatar" />
             <span className="info-name qa-border-1px-right">{author}</span>
-            <span className="info-date">{date}</span>
+            <span className="info-date">{(new Date(date)).toLocaleString().replace(/\//g, '-').slice(5, 13)}</span>
             {/* <span className="info-expire">期限：{expire}</span> */}
           </div>
         </div>

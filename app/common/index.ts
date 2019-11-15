@@ -1,7 +1,7 @@
 const isDev = process.env.NODE_ENV === 'development'
 
 const PREFIXCLS = 'qa'
-const SERVER_HOST = isDev ? 'localhost:6260' : 'qaapi.omyleon.com' // nginx
+const SERVER_HOST = isDev ? 'localhost:6260' : 'qa-api.omyleon.com' // nginx
 const API_VERSION = 'v1'
 const API_URL = `http${isDev ? '' : 's'}://${SERVER_HOST}/${API_VERSION}`
 // const API_URL = 'https://mock.omyleon.com/mock/29/api/v1'

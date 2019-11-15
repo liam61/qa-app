@@ -23,7 +23,7 @@ const ApplyItem = ({ apply, onAgree, onRefuse }: IApplyItem) => {
           <img src={avatar} alt="apply-user-avatar" />
         </div>
         <div className="main-name">{name}</div>
-        <div className="main-date">{getLocalDate(new Date(createdAt)).slice(5)}</div>
+        <div className="main-date">{getLocalDate(createdAt).slice(5)}</div>
       </div>
       <div className="footer">
         <div className="footer-btn refuse" onClick={() => onRefuse(_id)}>

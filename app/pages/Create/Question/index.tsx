@@ -70,7 +70,7 @@ export default class Question extends React.Component<IProps, IState> {
         questions.push({
           id: getUid(),
           type: key,
-          Element: require(`components/${key === 'Multiple' || key === 'Vote' ? 'Single' : key}Question`).default,
+          Element: require(`components/${key !== 'Answer' ? 'Single' : key}Question`).default,
         })
 
         action!.updateQuestions(questions)
